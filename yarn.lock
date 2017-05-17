@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@angular/animations@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.1.2.tgz#3371596e736b7d240e200477d0dd8c5929352124"
+
 "@angular/cli@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.0.3.tgz#73a4b43f2ea8e720f52f1041e5e833cae1fb291f"
@@ -93,6 +97,10 @@
 "@angular/http@^4.0.0":
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.1.2.tgz#fc378c3330c0410e1fb8aac2546329a6887776e4"
+
+"@angular/material@^2.0.0-beta.5":
+  version "2.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.5.tgz#712141ebfa77e3ace3ec8e32b5953b355e773965"
 
 "@angular/platform-browser-dynamic@^4.0.0":
   version "4.1.2"
