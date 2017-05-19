@@ -1,4 +1,4 @@
-<md-tab-group (selectChange)="positionChange($event)">
+<md-tab-group (selectChange)="positionChange($event)" [selectedIndex]="position">
   <md-tab label="Skilltrees">
     <md-card>
       <app-skilltree-selecttion></app-skilltree-selecttion>

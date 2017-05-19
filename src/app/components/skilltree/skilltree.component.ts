@@ -21,6 +21,9 @@ export class SkilltreeComponent implements OnInit {
   ngOnInit() {
     this.selection.selectedSkilltree.subscribe(value => {
       this.selectedSkilltree = value;
-    })
+    });
+    this.selection.selectedMobType.subscribe(value => {
+      this.position = 0;
+    });
   }
 }
