@@ -1,0 +1,13 @@
+<md-tab-group (selectChange)="positionChange($event)">
+  <md-tab label="Skilltrees">
+    <md-card>
+      <app-skilltree-selecttion></app-skilltree-selecttion>
+    </md-card>
+  </md-tab>
+  <md-tab label="Skilltree Properties" [disabled]="selectedSkilltree == null">
+    <md-card>
+      <app-skilltree-properties *ngIf="selectedSkilltree != null"></app-skilltree-properties>
+    </md-card>
+  </md-tab>
+  <md-tab label="Skills" [disabled]="selectedSkilltree == null">Content 2</md-tab>
+</md-tab-group>

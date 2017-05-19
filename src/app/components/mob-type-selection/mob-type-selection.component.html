@@ -1,8 +1,8 @@
 <div class="mob-type-select">
   <ul>
-    <li *ngFor="let type of MobTypes">
+    <li *ngFor="let type of getData()">
       <a (click)="selectMobtype(type)">
-        <img [ngClass]="{selected: selected == type}" [src]="'assets/img/mobheads/' +  type + '.png'">
+        <img [ngClass]="{selected: selected == type}" [src]="'assets/img/mobheads/' +  type.name + '.png'">
       </a>
     </li>
   </ul>

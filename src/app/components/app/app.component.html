@@ -4,15 +4,10 @@
       <app-mob-type-selection></app-mob-type-selection>
     </nav>
 
-    <!--
-    <md-tabs class="child scroll">
-        <md-tab name="skilltree" :active="true">{{ $t('message.skilltree') }}</md-tab>
-        <md-tab name="skill">{{ $t('message.skill') }}</md-tab>
-        <md-tab name="levelrule" :disabled="skill == null">{{ $t('message.level_rule') }}</md-tab>
-        <skilltree-select slot="skilltree"></skilltree-select>
-        <skill-select slot="skill"></skill-select>
-        <upgrade-select slot="levelrule"></upgrade-select>
-    </md-tabs>
-    -->
+    <app-skilltree class="wants-to-grow"></app-skilltree>
+
+    <span class="bottom-right-action" *ngIf="fabVisible">
+      <button md-fab (click)="fabClicked()"><md-icon>add</md-icon></button>
+    </span>
   </section>
 </main>

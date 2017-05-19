@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { MobTypes } from "../../data/MobTypes";
+import { DataService } from "../../services/data.service";
+import { MobType } from "../../models/MobType";
+import { SelectionService } from "../../services/selection.service";
 
 @Component({
   selector: 'app-mob-type-selection',
@@ -8,17 +10,23 @@ import { MobTypes } from "../../data/MobTypes";
 })
 export class MobTypeSelectionComponent implements OnInit {
 
-  MobTypes = MobTypes;
-  selected: string = MobTypes[0];
+  selected: MobType = null;
 
-  constructor() {
+  constructor(private selection: SelectionService,
+              private data: DataService) {
+    this.selection.selectedMobType.subscribe(value => {
+      this.selected = value;
+    });
   }
 
   ngOnInit() {
   }
 
-  selectMobtype(type) {
-    console.log("select: " + type);
-    this.selected = type;
+  getData() {
+    return this.data.types;
+  }
+
+  selectMobtype(type: MobType) {
+    this.selection.selectMobType(type);
   }
 }
