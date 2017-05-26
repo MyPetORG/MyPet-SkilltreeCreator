@@ -13,7 +13,12 @@ import { SkilltreeSelecttionComponent } from "./components/skilltree-selecttion/
 import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/skilltree-add-dialog.component";
 import { SkilltreePropertiesComponent } from "./components/skilltree-properties/skilltree-properties.component";
 import { SkilltreeComponent } from "./components/skilltree/skilltree.component";
-import { SelectionService } from "./services/selection.service";
+import { SkillEditorComponent } from "./components/skill-editor/skill-editor.component";
+import { SkillEditorSkillSelectionComponent } from "./components/skill-editor-skill-selection/skill-editor-skill-selection.component";
+import { StateService } from "./services/state.service";
+import { FireSkillComponent } from "./components/skills/fire-skill/fire-skill.component";
+import { TreeModule } from "angular-tree-component";
+import { SkillEditorUpgradeSelectionComponent } from "./components/skill-editor-upgrade-selection/skill-editor-upgrade-selection.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +28,10 @@ import { SelectionService } from "./services/selection.service";
     SkilltreeAddDialogComponent,
     SkilltreePropertiesComponent,
     SkilltreeComponent,
+    SkillEditorComponent,
+    SkillEditorSkillSelectionComponent,
+    FireSkillComponent,
+    SkillEditorUpgradeSelectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,12 +40,13 @@ import { SelectionService } from "./services/selection.service";
     FlexLayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
+    TreeModule,
   ],
   entryComponents: [
     SkilltreeAddDialogComponent
   ],
   providers: [
-    SelectionService,
+    StateService,
     DataService,
   ],
   bootstrap: [AppComponent]

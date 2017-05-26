@@ -5,7 +5,7 @@ export class Skilltree {
   displayName: string;
   description: string[] = [];
   permission: string;
-  skills: Skill[];
+  skills: Skill[] = [];
 
 
   constructor(name: string, displayName: string, description: string[], permission: string) {

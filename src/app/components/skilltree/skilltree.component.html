@@ -9,5 +9,7 @@
       <app-skilltree-properties *ngIf="selectedSkilltree != null"></app-skilltree-properties>
     </md-card>
   </md-tab>
-  <md-tab label="Skills" [disabled]="selectedSkilltree == null">Content 2</md-tab>
+  <md-tab label="Skills" [disabled]="selectedSkilltree == null">
+    <app-skill-editor *ngIf="selectedSkilltree != null"></app-skill-editor>
+  </md-tab>
 </md-tab-group>

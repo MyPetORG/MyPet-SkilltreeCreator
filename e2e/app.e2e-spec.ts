@@ -1,13 +1,13 @@
 import { SkilltreeCreatorPage } from "./app.po";
 
-describe('selectedSkilltree-creator App', () => {
+describe('skilltree-creator App', () => {
   let page: SkilltreeCreatorPage;
 
   beforeEach(() => {
     page = new SkilltreeCreatorPage();
   });
 
-  it('should display selectedSkilltree saying app works', () => {
+  it('should display skilltree saying app works', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('app works!');
   });

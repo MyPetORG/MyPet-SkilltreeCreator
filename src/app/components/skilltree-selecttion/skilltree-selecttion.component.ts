@@ -3,7 +3,7 @@ import { MobType } from "../../models/MobType";
 import { MdDialog } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
-import { SelectionService } from "../../services/selection.service";
+import { StateService } from "../../services/state.service";
 
 @Component({
   selector: 'app-skilltree-selecttion',
@@ -14,7 +14,7 @@ export class SkilltreeSelecttionComponent implements OnInit {
   selected: MobType = null;
   selectedSkilltree: Skilltree;
 
-  constructor(private selection: SelectionService,
+  constructor(private selection: StateService,
               private dialog: MdDialog) {
   }
 
@@ -29,16 +29,16 @@ export class SkilltreeSelecttionComponent implements OnInit {
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    console.log("selectedSkilltree click");
+    console.log("skilltree click");
 
     this.selection.selectSkilltree(skilltree);
   }
 
   ngOnInit() {
-    this.selection.selectedMobType.subscribe(value => {
+    this.selection.mobType.subscribe(value => {
       this.selected = value;
     });
-    this.selection.selectedSkilltree.subscribe(value => {
+    this.selection.skilltree.subscribe(value => {
       this.selectedSkilltree = value;
     });
   }

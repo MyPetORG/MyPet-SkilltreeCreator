@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Skilltree } from "../../models/Skilltree";
-import { SelectionService } from "../../services/selection.service";
+import { StateService } from "../../services/state.service";
 
 @Component({
   selector: 'app-skilltree-properties',
@@ -11,11 +11,11 @@ export class SkilltreePropertiesComponent implements OnInit {
 
   skilltree: Skilltree = null;
 
-  constructor(private selection: SelectionService) {
+  constructor(private selection: StateService) {
   }
 
   ngOnInit() {
-    this.selection.selectedSkilltree.subscribe(value => {
+    this.selection.skilltree.subscribe(value => {
       this.skilltree = value;
     });
   }
