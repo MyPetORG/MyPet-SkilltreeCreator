@@ -2,7 +2,7 @@
   <button md-raised-button (click)="addSkilltree()">Add Skilltree</button>
 </md-card>
 
-<md-card>
+<md-card class="no-padding">
   <md-nav-list dense>
     <md-list-item *ngFor="let skilltree of data.skilltrees" (click)="selectSkilltree(skilltree)"
                   [ngClass]="{selected: selectedSkilltree == skilltree}">

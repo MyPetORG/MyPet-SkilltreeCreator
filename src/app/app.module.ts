@@ -8,7 +8,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DataService } from "./services/data.service";
 import { MaterialModule } from "@angular/material";
-import { SkilltreeSelecttionComponent } from "./components/skilltree-selecttion/skilltree-selecttion.component";
+import { SkilltreeListComponent } from "./components/skilltree-list/skilltree-list.component";
 import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/skilltree-add-dialog.component";
 import { SkilltreePropertiesComponent } from "./components/skilltree-properties/skilltree-properties.component";
 import { SkilltreeComponent } from "./components/skilltree/skilltree.component";
@@ -23,7 +23,7 @@ import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialo
 @NgModule({
   declarations: [
     AppComponent,
-    SkilltreeSelecttionComponent,
+    SkilltreeListComponent,
     SkilltreeAddDialogComponent,
     SkilltreePropertiesComponent,
     SkilltreeComponent,

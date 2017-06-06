@@ -1,7 +1,7 @@
 <md-tab-group (selectChange)="positionChange($event)" [selectedIndex]="position">
   <md-tab label="Skilltrees">
     <md-card>
-      <app-skilltree-selecttion></app-skilltree-selecttion>
+      <app-skilltree-list></app-skilltree-list>
     </md-card>
   </md-tab>
   <md-tab label="Skilltree Properties" [disabled]="selectedSkilltree == null">

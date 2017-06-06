@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SkilltreeSelecttionComponent } from "./skilltree-selecttion.component";
+import { SkilltreeListComponent } from "./skilltree-list.component";
 
-describe('SkilltreeSelecttionComponent', () => {
-  let component: SkilltreeSelecttionComponent;
-  let fixture: ComponentFixture<SkilltreeSelecttionComponent>;
+describe('SkilltreeListComponent', () => {
+  let component: SkilltreeListComponent;
+  let fixture: ComponentFixture<SkilltreeListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SkilltreeSelecttionComponent]
+      declarations: [SkilltreeListComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SkilltreeSelecttionComponent);
+    fixture = TestBed.createComponent(SkilltreeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

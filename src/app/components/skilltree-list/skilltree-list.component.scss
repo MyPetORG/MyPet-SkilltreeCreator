@@ -9,3 +9,7 @@ md-card.small {
 md-list-item.selected {
   background-color: #C8E6C9;;
 }
+
+.no-padding, md-nav-list {
+  padding: 0 !important;
+}

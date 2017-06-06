@@ -6,11 +6,11 @@ import { StateService } from "../../services/state.service";
 import { DataService } from "../../services/data.service";
 
 @Component({
-  selector: 'app-skilltree-selecttion',
-  templateUrl: './skilltree-selecttion.component.html',
-  styleUrls: ['./skilltree-selecttion.component.scss']
+  selector: 'app-skilltree-list',
+  templateUrl: './skilltree-list.component.html',
+  styleUrls: ['./skilltree-list.component.scss']
 })
-export class SkilltreeSelecttionComponent implements OnInit {
+export class SkilltreeListComponent implements OnInit {
   selectedSkilltree: Skilltree;
 
   constructor(private data: DataService,
