@@ -22,8 +22,5 @@ export class SkilltreeComponent implements OnInit {
     this.selection.skilltree.subscribe(value => {
       this.selectedSkilltree = value;
     });
-    this.selection.mobType.subscribe(value => {
-      this.position = 0;
-    });
   }
 }

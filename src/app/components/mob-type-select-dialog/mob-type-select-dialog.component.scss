@@ -1,11 +1,14 @@
 .mob-type-select {
-  background-color: #C8E6C9;
-  overflow-x: hidden;
+  max-height: 400px;
+  overflow-y: scroll;
 
   ul {
-    padding-left: 10px;
-    padding-top: 5px;
     list-style: none;
+    padding: 0;
+
+    li {
+      display: inline;
+    }
   }
 
   a {
@@ -20,7 +23,7 @@
   img {
     opacity: 0.4;
     filter: alpha(opacity=40);
-    max-height: 36px;
+    max-height: 32px;
     cursor: pointer;
 
     &.selected {

@@ -1,5 +1,4 @@
 export const MobTypes = [
-  'All',
   'Bat',
   'Blaze',
   'CaveSpider',

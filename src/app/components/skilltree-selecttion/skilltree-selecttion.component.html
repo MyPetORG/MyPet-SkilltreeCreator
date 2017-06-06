@@ -1,10 +1,10 @@
 <md-card class="small">
-  <button md-button (click)="addSkilltree()">Add Skilltree</button>
+  <button md-raised-button (click)="addSkilltree()">Add Skilltree</button>
 </md-card>
 
 <md-card>
   <md-nav-list dense>
-    <md-list-item *ngFor="let skilltree of selected.skilltrees" (click)="selectSkilltree(skilltree)"
+    <md-list-item *ngFor="let skilltree of data.skilltrees" (click)="selectSkilltree(skilltree)"
                   [ngClass]="{selected: selectedSkilltree == skilltree}">
       <img md-list-avatar src="assets/img/mobheads/All.png">
 

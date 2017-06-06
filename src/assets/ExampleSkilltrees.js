@@ -9,6 +9,10 @@ const ride = {
   "RequiredLevel": 0,
   "Permission": "RideA",
   "Inherits": "mini-ride",
+  "MobTypes": [
+    "Wolf",
+    "Pig"
+  ],
   "Slot": 0,
   "Skills": {
     "Ride": {
@@ -48,6 +52,10 @@ const beacon = {
   "RequiredLevel": 0,
   "Permission": "BeaconA",
   "Inherits": "mini-ride",
+  "MobTypes": [
+    "*",
+    "-Pig"
+  ],
   "Slot": 1,
   "Skills": {
     "Beacon": {

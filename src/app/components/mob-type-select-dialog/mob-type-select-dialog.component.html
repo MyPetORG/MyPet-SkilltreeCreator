@@ -1,0 +1,21 @@
+<h1 md-dialog-title>Select Mob Types:</h1>
+<div class="mob-type-select">
+  <ul>
+    <li *ngFor="let type of types">
+      <a (click)="type.selected = !type.selected">
+        <img [ngClass]="{selected: type.selected}" [src]="'assets/img/mobheads/' +  type.name + '.png'">
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div md-dialog-actions>
+  <button md-raised-button (click)="selectAll()">Select All</button>
+  <button md-raised-button (click)="selectNone()">Unselect All</button>
+</div>
+
+<div md-dialog-actions>
+  <button md-raised-button (click)="done()">Done</button>
+</div>
+
+

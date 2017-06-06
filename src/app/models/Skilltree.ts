@@ -6,6 +6,7 @@ export class Skilltree {
   description: string[] = [];
   permission: string;
   skills: Skill[] = [];
+  mobtypes = [];
 
 
   constructor(name: string, displayName: string, description: string[], permission: string) {

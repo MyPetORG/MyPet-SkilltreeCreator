@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { MobTypeSelectionComponent } from "./mob-type-selection.component";
+import { MobTypeSelectDialogComponent } from "./mob-type-select-dialog.component";
 
-describe('MobTypeSelectionComponent', () => {
-  let component: MobTypeSelectionComponent;
-  let fixture: ComponentFixture<MobTypeSelectionComponent>;
+describe('MobTypeSelectDialogComponent', () => {
+  let component: MobTypeSelectDialogComponent;
+  let fixture: ComponentFixture<MobTypeSelectDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MobTypeSelectionComponent]
+      declarations: [MobTypeSelectDialogComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MobTypeSelectionComponent);
+    fixture = TestBed.createComponent(MobTypeSelectDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

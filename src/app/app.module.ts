@@ -4,7 +4,6 @@ import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
 import { AppComponent } from "./components/app/app.component";
-import { MobTypeSelectionComponent } from "./components/mob-type-selection/mob-type-selection.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DataService } from "./services/data.service";
@@ -19,11 +18,11 @@ import { StateService } from "./services/state.service";
 import { FireSkillComponent } from "./components/skills/fire-skill/fire-skill.component";
 import { TreeModule } from "angular-tree-component";
 import { SkillEditorUpgradeSelectionComponent } from "./components/skill-editor-upgrade-selection/skill-editor-upgrade-selection.component";
+import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MobTypeSelectionComponent,
     SkilltreeSelecttionComponent,
     SkilltreeAddDialogComponent,
     SkilltreePropertiesComponent,
@@ -32,6 +31,7 @@ import { SkillEditorUpgradeSelectionComponent } from "./components/skill-editor-
     SkillEditorSkillSelectionComponent,
     FireSkillComponent,
     SkillEditorUpgradeSelectionComponent,
+    MobTypeSelectDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +43,8 @@ import { SkillEditorUpgradeSelectionComponent } from "./components/skill-editor-
     TreeModule,
   ],
   entryComponents: [
-    SkilltreeAddDialogComponent
+    SkilltreeAddDialogComponent,
+    MobTypeSelectDialogComponent,
   ],
   providers: [
     StateService,
