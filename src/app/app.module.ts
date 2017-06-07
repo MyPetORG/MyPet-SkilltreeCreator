@@ -29,6 +29,7 @@ import { StompSkillComponent } from "./components/skills/stomp-skill/stomp-skill
 import { ThornsSkillComponent } from "./components/skills/thorns-skill/thorns-skill.component";
 import { WitherSkillComponent } from "./components/skills/wither-skill/wither-skill.component";
 import { SprintSkillComponent } from "./components/skills/sprint-skill/sprint-skill.component";
+import { BeaconSkillComponent } from "./components/skills/beacon-skill/beacon-skill.component";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { SprintSkillComponent } from "./components/skills/sprint-skill/sprint-sk
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
     McChatPipe,
+    BeaconSkillComponent,
     KnockbackSkillComponent,
     LightningSkillComponent,
     PoisonSkillComponent,

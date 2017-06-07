@@ -1,0 +1,168 @@
+<md-toolbar class="spacer-t-1em spacer-b-1em">
+  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</md-toolbar>
+
+<div *ngIf="skill">
+  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+    <md-input-container>
+      <input mdInput placeholder="Buff Range" [(ngModel)]="upgrade.range" type="number">
+      <span mdSuffix>meters</span>
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder="Buff Duration" [(ngModel)]="upgrade.duration" type="number">
+      <span mdSuffix>sec</span>
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder="Buff Count" [(ngModel)]="upgrade.count" type="number">
+      <span mdSuffix>buffs</span>
+    </md-input-container>
+
+    <md-list dense>
+      <h3 md-subheader>Buffs</h3>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/absorption.png">
+        <span md-line>
+          <md-checkbox
+            [indeterminate]="upgrade.buffs.Absorption.active == null"
+            [(ngModel)]="upgrade.buffs.Absorption.active">
+            Absorbtion
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Absorption.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/fireresistance.png">
+        <span md-line>
+          <md-checkbox
+            [indeterminate]="upgrade.buffs.FireResistance.active == null"
+            [(ngModel)]="upgrade.buffs.FireResistance.active">
+            Fire Resistance
+          </md-checkbox>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/haste.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="upgrade.buffs.Haste.active == null" [(ngModel)]="upgrade.buffs.Haste.active">
+            Haste
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Haste.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/healthboost_2.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.HealthBoost.active">
+            Health Boost
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.HealthBoost.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/jumpboost.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.JumpBoost.active">
+            Jump Boost
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.JumpBoost.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/luck.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Luck.active">
+            Luck
+          </md-checkbox>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/nightvision.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.NightVision.active">
+            Night Vision
+          </md-checkbox>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/resistance.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Resistance.active">
+            Resistance
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Resistance.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/speed.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Speed.active">
+            Speed
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Speed.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/strength.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Strength.active">
+            Strength
+          </md-checkbox>
+          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Strength.level">
+            <md-option value="1">I</md-option>
+            <md-option value="2">II</md-option>
+            <md-option value="3">III</md-option>
+            <md-option value="4">IV</md-option>
+            <md-option value="5">V</md-option>
+          </md-select>
+        </span>
+      </md-list-item>
+      <md-list-item>
+        <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/waterbreathing.png">
+        <span md-line>
+          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.WaterBreathing.active">
+            Water Breathing
+          </md-checkbox>
+        </span>
+      </md-list-item>
+    </md-list>
+  </md-expansion-panel>
+</div>
