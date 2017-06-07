@@ -30,6 +30,15 @@ import { ThornsSkillComponent } from "./components/skills/thorns-skill/thorns-sk
 import { WitherSkillComponent } from "./components/skills/wither-skill/wither-skill.component";
 import { SprintSkillComponent } from "./components/skills/sprint-skill/sprint-skill.component";
 import { BeaconSkillComponent } from "./components/skills/beacon-skill/beacon-skill.component";
+import { ControlSkillComponent } from "./components/skills/control-skill/control-skill.component";
+import { BackpackSkillComponent } from "./components/skills/backpack-skill/backpack-skill.component";
+import { BehaviorSkillComponent } from "./components/skills/behavior-skill/behavior-skill.component";
+import { DamageSkillComponent } from "./components/skills/damage-skill/damage-skill.component";
+import { HealSkillComponent } from "./components/skills/heal-skill/heal-skill.component";
+import { HealthBoostSkillComponent } from "./components/skills/health-boost-skill/health-boost-skill.component";
+import { PickupSkillComponent } from "./components/skills/pickup-skill/pickup-skill.component";
+import { RangedSkillComponent } from "./components/skills/ranged-skill/ranged-skill.component";
+import { ShieldSkillComponent } from "./components/skills/shield-skill/shield-skill.component";
 
 @NgModule({
   declarations: [
@@ -39,21 +48,31 @@ import { BeaconSkillComponent } from "./components/skills/beacon-skill/beacon-sk
     SkilltreePropertiesComponent,
     SkilltreeComponent,
     SkillEditorComponent,
-    FireSkillComponent,
     SkillEditorUpgradeComponent,
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
     McChatPipe,
+
+    BackpackSkillComponent,
     BeaconSkillComponent,
+    BehaviorSkillComponent,
+    ControlSkillComponent,
+    DamageSkillComponent,
+    FireSkillComponent,
+    HealSkillComponent,
+    HealthBoostSkillComponent,
     KnockbackSkillComponent,
     LightningSkillComponent,
+    PickupSkillComponent,
     PoisonSkillComponent,
+    RangedSkillComponent,
     RideSkillComponent,
+    ShieldSkillComponent,
     SlowSkillComponent,
+    SprintSkillComponent,
     StompSkillComponent,
     ThornsSkillComponent,
     WitherSkillComponent,
-    SprintSkillComponent,
   ],
   imports: [
     BrowserModule,

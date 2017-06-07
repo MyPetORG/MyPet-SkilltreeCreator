@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { Fire } from "../../../models/skills/Fire";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../models/LevelRule";
+import { Fire } from "../../../models/skills/Fire";
 
 @Component({
   selector: 'app-fire-skill',

@@ -4,38 +4,38 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../models/LevelRule";
-import { Beacon } from "../../../models/skills/Beacon";
+import { Heal } from "app/models/skills/Heal";
 
 @Component({
-  selector: 'app-beacon-skill',
-  templateUrl: './beacon-skill.component.html',
-  styleUrls: ['./beacon-skill.component.scss']
+  selector: 'app-heal-skill',
+  templateUrl: './heal-skill.component.html',
+  styleUrls: ['./heal-skill.component.scss']
 })
-export class BeaconSkillComponent implements OnInit {
+export class HealSkillComponent implements OnInit {
 
   LevelRule = LevelRule;
-  skill: Skill<Beacon> = null;
+  skill: Skill<Heal> = null;
 
   constructor(private state: StateService,
               private dialog: MdDialog) {
   }
 
   ngOnInit() {
-    this.state.skill.subscribe((skill: Skill<Beacon>) => {
+    this.state.skill.subscribe((skill: Skill<Heal>) => {
       this.skill = skill;
     })
   }
 
   addUpgrade() {
     if (this.skill) {
+      console.log("clicked FAB");
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let beacon = new Beacon();
-          beacon.rule = result;
-          this.skill.upgrades.push(beacon);
+          let heal = new Heal();
+          heal.rule = result;
+          this.skill.upgrades.push(heal);
         }
-        console.log(this.skill)
       });
     }
   }

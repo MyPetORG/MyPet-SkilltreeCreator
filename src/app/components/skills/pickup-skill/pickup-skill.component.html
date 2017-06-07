@@ -1,0 +1,15 @@
+<md-toolbar class="spacer-t-1em spacer-b-1em">
+  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</md-toolbar>
+
+<div *ngIf="skill">
+  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+    <md-input-container>
+      <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="number">
+      <span mdSuffix>meters</span>
+    </md-input-container>
+
+    <md-checkbox [(ngModel)]="upgrade.exp">Can pick up exp?</md-checkbox>
+  </md-expansion-panel>
+</div>
