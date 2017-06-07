@@ -2,23 +2,18 @@
   <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
 </md-toolbar>
 
-<md-card>
-  <tree-root #tree [nodes]="nodes" [options]="options">
-
-    <ng-template #treeNodeTemplate let-node="node" let-index="index">
-      <md-input-container *ngIf="node.data.type == 'chance'" class="bla">
-        <span mdPrefix *ngIf="node.data.skillData >= 0">+</span>
-        <input mdInput [placeholder]="node.data.name" [(ngModel)]="node.data.skillData" type="number">
-        <span mdSuffix>%</span>
-
-      </md-input-container>
-      <md-input-container *ngIf="node.data.type == 'duration'" class="bla">
-        <span mdPrefix *ngIf="node.data.skillData >= 0">+</span>
-        <input mdInput [placeholder]="node.data.name" [(ngModel)]="node.data.skillData" type="number">
-        <span mdSuffix>sec</span>
-      </md-input-container>
-
-      <span *ngIf="!node.data.type">{{ node.data.name }}</span>
-    </ng-template>
-  </tree-root>
-</md-card>
+<div *ngIf="skill">
+  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+    <md-input-container>
+      <span mdPrefix *ngIf="upgrade.chance >= 0">+</span>
+      <input mdInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="number">
+      <span mdSuffix>%</span>
+    </md-input-container>
+    <md-input-container>
+      <span mdPrefix *ngIf="upgrade.duration >= 0">+</span>
+      <input mdInput placeholder="Duration" [(ngModel)]="upgrade.duration" type="number">
+      <span mdSuffix>sec</span>
+    </md-input-container>
+  </md-expansion-panel>
+</div>

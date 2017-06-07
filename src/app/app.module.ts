@@ -15,11 +15,11 @@ import { SkilltreeComponent } from "./components/skilltree/skilltree.component";
 import { SkillEditorComponent } from "./components/skill-editor/skill-editor.component";
 import { StateService } from "./services/state.service";
 import { FireSkillComponent } from "./components/skills/fire-skill/fire-skill.component";
-import { TreeModule } from "angular-tree-component";
 import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/skill-editor-upgrade.component";
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
+import { MdExpansionModule } from "./components/expansion/index";
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { McChatPipe } from "./pipes/mc-chat.pipe";
     FlexLayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
-    TreeModule,
+    MdExpansionModule,
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

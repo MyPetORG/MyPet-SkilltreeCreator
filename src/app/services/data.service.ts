@@ -24,7 +24,7 @@ export class DataService {
     this.skilltrees.push(new Skilltree("Test", "testtt4", [], ""));
     this.skilltrees.push(new Skilltree("Test", "testtt5", [], ""));
 
-    let fire = new Skill();
+    let fire = new Skill<Fire>();
     st.skills["Fire"] = fire;
 
     let uuid = UUID.UUID();
