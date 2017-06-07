@@ -19,6 +19,7 @@ import { TreeModule } from "angular-tree-component";
 import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/skill-editor-upgrade.component";
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
+import { McChatPipe } from "./pipes/mc-chat.pipe";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgra
     SkillEditorUpgradeComponent,
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
+    McChatPipe,
   ],
   imports: [
     BrowserModule,

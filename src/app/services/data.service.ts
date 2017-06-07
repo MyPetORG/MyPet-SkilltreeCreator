@@ -19,7 +19,7 @@ export class DataService {
     let st = new Skilltree("Test", "testtt1", [], "");
 
     this.skilltrees.push(st);
-    this.skilltrees.push(new Skilltree("Test", "testtt2", [], ""));
+    this.skilltrees.push(new Skilltree("Test", "testtt2", ["What is up?", "<red>Nothing!!!!"], ""));
     this.skilltrees.push(new Skilltree("Test", "testtt3", [], ""));
     this.skilltrees.push(new Skilltree("Test", "testtt4", [], ""));
     this.skilltrees.push(new Skilltree("Test", "testtt5", [], ""));

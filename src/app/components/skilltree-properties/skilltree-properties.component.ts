@@ -12,6 +12,7 @@ import { MdDialog } from "@angular/material";
 export class SkilltreePropertiesComponent implements OnInit {
 
   skilltree: Skilltree = null;
+  description: string = "";
 
   constructor(private selection: StateService,
               private dialog: MdDialog) {
@@ -20,7 +21,13 @@ export class SkilltreePropertiesComponent implements OnInit {
   ngOnInit() {
     this.selection.skilltree.subscribe(value => {
       this.skilltree = value;
+      this.description = this.skilltree.description.join("\n");
     });
+
+  }
+
+  parseTextArea() {
+    this.skilltree.description = this.description.split("\n");
   }
 
   selectMobType() {

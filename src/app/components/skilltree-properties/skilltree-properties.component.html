@@ -1,4 +1,4 @@
-<md-card>
+<md-card fxLayout="column">
   <md-input-container>
     <input mdInput placeholder="Name" [(ngModel)]="skilltree.name">
   </md-input-container>
@@ -9,7 +9,17 @@
     <input mdInput placeholder="Permission" [(ngModel)]="skilltree.permission">
     <span mdPrefix>MyPet.skilltree.</span>
   </md-input-container>
+</md-card>
 
+<md-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
+  <md-input-container fxFlex="100">
+    <textarea mdInput placeholder="Description" [(ngModel)]="description" (ngModelChange)="parseTextArea()"></textarea>
+  </md-input-container>
+  <div class="codebox">
+    <ul>
+      <li *ngFor="let line of skilltree.description" [innerHTML]="line | mcChat"></li>
+    </ul>
+  </div>
 </md-card>
 
 <md-card>
