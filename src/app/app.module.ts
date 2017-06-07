@@ -20,6 +20,15 @@ import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialo
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
 import { MdExpansionModule } from "./components/expansion/index";
+import { KnockbackSkillComponent } from "./components/skills/knockback-skill/knockback-skill.component";
+import { LightningSkillComponent } from "./components/skills/lightning-skill/lightning-skill.component";
+import { PoisonSkillComponent } from "./components/skills/poison-skill/poison-skill.component";
+import { RideSkillComponent } from "./components/skills/ride-skill/ride-skill.component";
+import { SlowSkillComponent } from "./components/skills/slow-skill/slow-skill.component";
+import { StompSkillComponent } from "./components/skills/stomp-skill/stomp-skill.component";
+import { ThornsSkillComponent } from "./components/skills/thorns-skill/thorns-skill.component";
+import { WitherSkillComponent } from "./components/skills/wither-skill/wither-skill.component";
+import { SprintSkillComponent } from "./components/skills/sprint-skill/sprint-skill.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +43,15 @@ import { MdExpansionModule } from "./components/expansion/index";
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
     McChatPipe,
+    KnockbackSkillComponent,
+    LightningSkillComponent,
+    PoisonSkillComponent,
+    RideSkillComponent,
+    SlowSkillComponent,
+    StompSkillComponent,
+    ThornsSkillComponent,
+    WitherSkillComponent,
+    SprintSkillComponent,
   ],
   imports: [
     BrowserModule,

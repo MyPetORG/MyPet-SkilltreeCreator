@@ -1,27 +1,28 @@
 import { Component, OnInit } from "@angular/core";
-import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
+import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { Fire } from "../../../models/skills/Fire";
-import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../models/LevelRule";
+import { Skill } from "../../../models/Skill";
+import { Ride } from "../../../models/skills/Ride";
 
 @Component({
-  selector: 'app-fire-skill',
-  templateUrl: './fire-skill.component.html',
-  styleUrls: ['./fire-skill.component.scss']
+  selector: 'app-ride-skill',
+  templateUrl: './ride-skill.component.html',
+  styleUrls: ['./ride-skill.component.scss']
 })
-export class FireSkillComponent implements OnInit {
+export class RideSkillComponent implements OnInit {
 
   LevelRule = LevelRule;
-  skill: Skill<Fire> = null;
+  skill: Skill<Ride> = null;
 
   constructor(private state: StateService,
               private dialog: MdDialog) {
   }
 
   ngOnInit() {
-    this.state.skill.subscribe((skill: Skill<Fire>) => {
+    this.state.skill.subscribe((skill: Skill<Ride>) => {
+      console.log(skill);
       this.skill = skill;
     })
   }
@@ -32,9 +33,9 @@ export class FireSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let fire = new Fire();
-          fire.rule = result;
-          this.skill.upgrades.push(fire);
+          let ride = new Ride();
+          ride.rule = result;
+          this.skill.upgrades.push(ride);
         }
       });
     }

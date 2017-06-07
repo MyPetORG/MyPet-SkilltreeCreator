@@ -6,13 +6,12 @@
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
     <md-input-container>
-      <input mdInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="number">
-      <span mdSuffix>%</span>
+      <input mdInput placeholder="Speed" [(ngModel)]="upgrade.speed" type="number">
     </md-input-container>
-
     <md-input-container>
-      <input mdInput placeholder="Duration" [(ngModel)]="upgrade.duration" type="number">
-      <span mdSuffix>sec</span>
+      <input mdInput placeholder="Jump Height" [(ngModel)]="upgrade.jumpHeight" type="number">
+      <span mdSuffix>Blocks</span>
     </md-input-container>
+    <md-checkbox [(ngModel)]="upgrade.canFly">Can Fly?</md-checkbox>
   </md-expansion-panel>
 </div>
