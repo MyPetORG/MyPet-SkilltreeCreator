@@ -4,6 +4,7 @@ import { Skilltree } from "../models/Skilltree";
 import { Skill } from "../models/Skill";
 import { Fire } from "../models/skills/Fire";
 import { UUID } from "angular2-uuid";
+import { LevelRule } from "../models/LevelRule";
 
 @Injectable()
 export class DataService {
@@ -28,6 +29,12 @@ export class DataService {
 
     let uuid = UUID.UUID();
 
-    fire.upgrades.push(new Fire())
+    let upgrade = new Fire();
+
+    upgrade.rule = new LevelRule;
+    upgrade.rule.every = 2;
+    fire.upgrades.push(upgrade);
+
+    console.log(st);
   }
 }

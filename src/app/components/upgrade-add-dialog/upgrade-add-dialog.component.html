@@ -1,0 +1,31 @@
+<h1 md-dialog-title>Add Upgrade</h1>
+<div md-dialog-content fxLayout="column">
+  <md-radio-group [(ngModel)]="type">
+    <md-radio-button value="1">Fixed</md-radio-button>
+    <md-radio-button value="2">Dynamic</md-radio-button>
+  </md-radio-group>
+
+  <md-input-container *ngIf="type == 1">
+    <input mdInput placeholder="Level(s)" [(ngModel)]="level">
+  </md-input-container>
+
+  <md-input-container *ngIf="type == 2">
+    <span mdPrefix>Every&nbsp;</span>
+    <input mdInput placeholder="(Required)" [(ngModel)]="every" type="number">
+    <span mdSuffix="">&nbsp;Level</span>
+  </md-input-container>
+
+  <md-input-container *ngIf="type == 2">
+    <span mdPrefix>Start from level&nbsp;</span>
+    <input mdInput placeholder="(Optional)" [(ngModel)]="minimum" type="number">
+  </md-input-container>
+
+  <md-input-container *ngIf="type == 2">
+    <span mdPrefix>Until level&nbsp;</span>
+    <input mdInput placeholder="(Optional)" [(ngModel)]="limit" type="number">
+  </md-input-container>
+
+</div>
+<div md-dialog-actions>
+  <button md-raised-button (click)="done()">Add</button>
+</div>

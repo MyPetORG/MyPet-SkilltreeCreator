@@ -1,11 +1,9 @@
-import { Skill } from "./Skill";
-
 export class Skilltree {
   name: string;
   displayName: string;
   description: string[] = [];
   permission: string;
-  skills: Skill[] = [];
+  skills = {};
   mobtypes = [];
 
 

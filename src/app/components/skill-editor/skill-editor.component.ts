@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Skills } from "../../data/Skills";
+import { Skilltree } from "../../models/Skilltree";
+import { StateService } from "app/services/state.service";
 
 @Component({
   selector: 'app-skill-editor',
@@ -7,10 +10,24 @@ import { Component, OnInit } from "@angular/core";
 })
 export class SkillEditorComponent implements OnInit {
 
-  constructor() {
+  skills = Skills;
+  selectedSkill = this.skills[0];
+  skilltree: Skilltree = null;
+
+  constructor(private selection: StateService) {
   }
 
   ngOnInit() {
+    this.selection.skilltree.subscribe(value => {
+      this.skilltree = value;
+      this.change();
+    });
   }
 
+  change() {
+    let skill = this.skilltree.skills[this.selectedSkill.name];
+    if (skill) {
+      this.selection.selectSkill(skill);
+    }
+  }
 }

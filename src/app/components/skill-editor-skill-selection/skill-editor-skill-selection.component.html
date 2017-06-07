@@ -1,8 +1,0 @@
-<md-card>
-  <md-chip-list>
-    <md-chip *ngFor="let skill of skills" (click)="selectSkill(skill)" [selected]="selectedSkill == skill"
-             [disabled]="skill.name != 'Fire'">
-      <img [src]="'assets/img/skills/' +  skill.icon" class="mdl-chip__skill"> {{ skill.name }}
-    </md-chip>
-  </md-chip-list>
-</md-card>

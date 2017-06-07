@@ -13,12 +13,12 @@ import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/s
 import { SkilltreePropertiesComponent } from "./components/skilltree-properties/skilltree-properties.component";
 import { SkilltreeComponent } from "./components/skilltree/skilltree.component";
 import { SkillEditorComponent } from "./components/skill-editor/skill-editor.component";
-import { SkillEditorSkillSelectionComponent } from "./components/skill-editor-skill-selection/skill-editor-skill-selection.component";
 import { StateService } from "./services/state.service";
 import { FireSkillComponent } from "./components/skills/fire-skill/fire-skill.component";
 import { TreeModule } from "angular-tree-component";
-import { SkillEditorUpgradeSelectionComponent } from "./components/skill-editor-upgrade-selection/skill-editor-upgrade-selection.component";
+import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/skill-editor-upgrade.component";
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
+import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 
 @NgModule({
   declarations: [
@@ -28,10 +28,10 @@ import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialo
     SkilltreePropertiesComponent,
     SkilltreeComponent,
     SkillEditorComponent,
-    SkillEditorSkillSelectionComponent,
     FireSkillComponent,
-    SkillEditorUpgradeSelectionComponent,
+    SkillEditorUpgradeComponent,
     MobTypeSelectDialogComponent,
+    UpgradeAddDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +45,7 @@ import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialo
   entryComponents: [
     SkilltreeAddDialogComponent,
     MobTypeSelectDialogComponent,
+    UpgradeAddDialogComponent,
   ],
   providers: [
     StateService,

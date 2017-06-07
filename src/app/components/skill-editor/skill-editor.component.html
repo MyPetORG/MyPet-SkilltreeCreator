@@ -1,5 +1,9 @@
-<div class="vbox">
-  <app-skill-editor-skill-selection></app-skill-editor-skill-selection>
+<md-card>
+  <md-select placeholder="Select Skill" [(ngModel)]="selectedSkill" (change)="change()">
+    <md-option *ngFor="let skill of skills" [value]="skill">
+      <img [src]="'assets/img/skills/' +  skill.icon" class="mdl-chip__skill"> {{ skill.name }}
+    </md-option>
+  </md-select>
+</md-card>
 
-  <app-skill-editor-upgrade-selection></app-skill-editor-upgrade-selection>
-</div>
+<app-skill-editor-upgrade [skill]="selectedSkill.name"></app-skill-editor-upgrade>

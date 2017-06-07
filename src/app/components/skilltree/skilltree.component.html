@@ -10,6 +10,8 @@
     </md-card>
   </md-tab>
   <md-tab label="Skills" [disabled]="selectedSkilltree == null">
-    <app-skill-editor *ngIf="selectedSkilltree != null"></app-skill-editor>
+    <md-card>
+      <app-skill-editor *ngIf="selectedSkilltree != null"></app-skill-editor>
+    </md-card>
   </md-tab>
 </md-tab-group>
