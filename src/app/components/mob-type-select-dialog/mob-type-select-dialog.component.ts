@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { MdDialogRef } from "@angular/material";
+import { Component, Inject, OnInit } from "@angular/core";
+import { MD_DIALOG_DATA, MdDialogRef } from "@angular/material";
 import { DataService } from "../../services/data.service";
+import { Skilltree } from "../../models/Skilltree";
 
 @Component({
   selector: 'app-mob-type-select-dialog',
@@ -11,14 +12,15 @@ export class MobTypeSelectDialogComponent implements OnInit {
   types = [];
 
   constructor(public dialogRef: MdDialogRef<MobTypeSelectDialogComponent>,
-              private data: DataService) {
+              private data: DataService,
+              @Inject(MD_DIALOG_DATA) private skilltree: Skilltree) {
   }
 
   ngOnInit(): void {
     this.data.types.forEach(name => {
       this.types.push({
         name,
-        selected: true
+        selected: this.skilltree.mobtypes.indexOf(name) >= 0
       });
     });
   }

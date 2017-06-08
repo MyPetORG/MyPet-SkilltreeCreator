@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Skilltree } from "../../models/Skilltree";
 import { StateService } from "../../services/state.service";
 import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
-import { MdDialog } from "@angular/material";
+import { MdDialog, MdDialogConfig } from "@angular/material";
 
 @Component({
   selector: 'app-skilltree-properties',
@@ -23,7 +23,6 @@ export class SkilltreePropertiesComponent implements OnInit {
       this.skilltree = value;
       this.description = this.skilltree.description.join("\n");
     });
-
   }
 
   parseTextArea() {
@@ -31,14 +30,14 @@ export class SkilltreePropertiesComponent implements OnInit {
   }
 
   selectMobType() {
-    console.log("clicked FAB");
-    let dialogRef = this.dialog.open(MobTypeSelectDialogComponent);
+    let conf = new MdDialogConfig();
+    conf.data = this.skilltree;
+    let dialogRef = this.dialog.open(MobTypeSelectDialogComponent, conf);
     dialogRef.afterClosed().subscribe(result => {
       this.skilltree.mobtypes = [];
       result.forEach(type => {
         this.skilltree.mobtypes.push(type.name);
-      })
-      console.log(this.skilltree)
+      });
     });
   }
 
