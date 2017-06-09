@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { StateService } from "../../../services/state.service";
 import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { LevelRule } from "../../../models/LevelRule";
+import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
 import { Lightning } from "../../../models/skills/Lightning";
 

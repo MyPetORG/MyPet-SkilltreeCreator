@@ -19,7 +19,7 @@ import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/s
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
-import { MdExpansionModule } from "./components/expansion/index";
+import { MdExpansionModule } from "./components/elements/expansion/index";
 import { KnockbackSkillComponent } from "./components/skills/knockback-skill/knockback-skill.component";
 import { LightningSkillComponent } from "./components/skills/lightning-skill/lightning-skill.component";
 import { PoisonSkillComponent } from "./components/skills/poison-skill/poison-skill.component";
@@ -39,6 +39,7 @@ import { HealthBoostSkillComponent } from "./components/skills/health-boost-skil
 import { PickupSkillComponent } from "./components/skills/pickup-skill/pickup-skill.component";
 import { RangedSkillComponent } from "./components/skills/ranged-skill/ranged-skill.component";
 import { ShieldSkillComponent } from "./components/skills/shield-skill/shield-skill.component";
+import { SkilltreeLoaderService } from "./services/skilltree-loader.service";
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { ShieldSkillComponent } from "./components/skills/shield-skill/shield-sk
   providers: [
     StateService,
     DataService,
+    SkilltreeLoaderService,
   ],
   bootstrap: [AppComponent]
 })

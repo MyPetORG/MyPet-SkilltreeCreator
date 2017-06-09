@@ -3,7 +3,7 @@ import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
-import { LevelRule } from "../../../models/LevelRule";
+import { LevelRule } from "../../../util/helpers";
 import { Damage } from "app/models/skills/Damage";
 
 @Component({

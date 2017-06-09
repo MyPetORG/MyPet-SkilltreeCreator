@@ -4,7 +4,7 @@ import { Knockback } from "../../../models/skills/Knockback";
 import { StateService } from "../../../services/state.service";
 import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { LevelRule } from "../../../models/LevelRule";
+import { LevelRule } from "../../../util/helpers";
 
 @Component({
   selector: 'app-knockback-skill',

@@ -5,7 +5,7 @@ export class Beacon extends Upgrade {
   duration: number = 0;
   count: number = 0;
 
-  buffs = {
+  buffs? = {
     Absorption: {
       active: null,
       level: 1
