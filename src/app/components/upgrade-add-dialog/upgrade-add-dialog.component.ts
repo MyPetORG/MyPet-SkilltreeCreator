@@ -19,7 +19,7 @@ export class UpgradeAddDialogComponent {
   }
 
   done() {
-    let rule: LevelRule = {};
+    let rule: LevelRule = {exact: []};
 
     if (this.type == 1) {
       let levels = this.level.split(",");
