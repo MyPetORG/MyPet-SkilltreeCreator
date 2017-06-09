@@ -132,14 +132,14 @@ export class SkilltreeLoader {
 
   static SkillLoader = {
     Backpack(data: any): Backpack {
-      let backpack = new Backpack;
+      let backpack: Backpack = {};
       backpack.rows = data.rows || 0;
       backpack.drop = data.drop || null;
       return backpack;
     },
 
     Beacon(data: any): Beacon {
-      let beacon = new Beacon();
+      let beacon: Beacon = {};
       beacon.range = data.Range || 0;
       beacon.duration = data.Duration || 0;
       beacon.count = data.Count || 0;
@@ -197,7 +197,7 @@ export class SkilltreeLoader {
     },
 
     Behavior(data: any): Behavior {
-      let behavior = new Behavior;
+      let behavior: Behavior = {};
       behavior.aggro = data.Aggro || null;
       behavior.duel = data.Duel || null;
       behavior.farm = data.Farm || null;
@@ -207,66 +207,66 @@ export class SkilltreeLoader {
     },
 
     Control(data: any): Control {
-      let control = new Control;
+      let control: Control = {};
       control.active = data.Active || null;
       return control;
     },
 
     Damage(data: any): Damage {
-      let damage = new Damage;
+      let damage: Damage = {};
       damage.damage = data.Damage || 0;
       return damage;
     },
 
     Fire(data: any): Fire {
-      let fire = new Fire;
+      let fire: Fire = {};
       fire.chance = data.Chance || 0;
       fire.duration = data.Duration || 0;
       return fire;
     },
 
     Heal(data: any): Heal {
-      let heal = new Heal;
+      let heal: Heal = {};
       heal.timer = data.Timer || 0;
       heal.health = data.Health || 0;
       return heal;
     },
 
     HealthBoost(data: any): HealthBoost {
-      let healthBoost = new HealthBoost;
+      let healthBoost: HealthBoost = {};
       healthBoost.health = data.Health || 0;
       return healthBoost;
     },
 
     Knockback(data: any): Knockback {
-      let knockback = new Knockback;
+      let knockback: Knockback = {};
       knockback.chance = data.Chance || 0;
       return knockback;
     },
 
     Lightning(data: any): Lightning {
-      let lightning = new Lightning;
+      let lightning: Lightning = {};
       lightning.chance = data.Chance || 0;
       lightning.damage = data.Damage || 0;
       return lightning;
     },
 
     Pickup(data: any): Pickup {
-      let pickup = new Pickup;
+      let pickup: Pickup = {};
       pickup.range = data.Range || 0;
       pickup.exp = data.EXP || null;
       return pickup;
     },
 
     Poison(data: any): Poison {
-      let poison = new Poison;
+      let poison: Poison = {};
       poison.chance = data.Chance || 0;
       poison.duration = data.Duration || 0;
       return poison;
     },
 
     Ranged(data: any): Ranged {
-      let ranged = new Ranged;
+      let ranged: Ranged = {};
       ranged.damage = data.Damage || 0;
       ranged.rate = data.Rate || 0;
       ranged.projectile = data.Projectile || "Arrow";
@@ -274,7 +274,7 @@ export class SkilltreeLoader {
     },
 
     Ride(data: any): Ride {
-      let ride = new Ride;
+      let ride: Ride = {};
       ride.speed = data.Speed || 0;
       ride.jumpHeight = data.JumpHeight || 0;
       ride.canFly = data.CanFly || null;
@@ -282,41 +282,41 @@ export class SkilltreeLoader {
     },
 
     Shield(data: any): Shield {
-      let shield = new Shield;
+      let shield: Shield = {};
       shield.chance = data.Chance || 0;
       shield.redirect = data.Redirect || 0;
       return shield;
     },
 
     Slow(data: any): Slow {
-      let slow = new Slow;
+      let slow: Slow = {};
       slow.chance = data.Chance || 0;
       slow.duration = data.Duration || 0;
       return slow;
     },
 
     Sprint(data: any): Sprint {
-      let sprint = new Sprint;
+      let sprint: Sprint = {};
       sprint.active = data.Active || 0;
       return sprint;
     },
 
     Stomp(data: any): Stomp {
-      let slow = new Stomp;
+      let slow: Stomp = {};
       slow.chance = data.Chance || 0;
       slow.damage = data.Damage || 0;
       return slow;
     },
 
     Thorns(data: any): Thorns {
-      let slow = new Thorns;
+      let slow: Thorns = {};
       slow.chance = data.Chance || 0;
       slow.reflection = data.Reflection || 0;
       return slow;
     },
 
     Wither(data: any): Wither {
-      let slow = new Wither;
+      let slow: Wither = {};
       slow.chance = data.Chance || 0;
       slow.duration = data.Duration || 0;
       return slow;

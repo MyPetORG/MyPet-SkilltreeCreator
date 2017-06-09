@@ -32,7 +32,7 @@ export class HealthBoostSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let healthBoost = new HealthBoost();
+          let healthBoost: HealthBoost = {rule: result};
           healthBoost.rule = result;
           this.skill.upgrades.push(healthBoost);
         }

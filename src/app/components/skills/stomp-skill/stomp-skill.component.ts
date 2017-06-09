@@ -33,7 +33,7 @@ export class StompSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow = new Stomp();
+          let slow: Stomp = {rule: result};
           slow.rule = result;
           this.skill.upgrades.push(slow);
         }

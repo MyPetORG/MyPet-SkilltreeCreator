@@ -33,7 +33,7 @@ export class LightningSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let lightning = new Lightning();
+          let lightning: Lightning = {rule: result};
           lightning.rule = result;
           this.skill.upgrades.push(lightning);
         }

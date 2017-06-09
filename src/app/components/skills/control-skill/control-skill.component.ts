@@ -32,7 +32,7 @@ export class ControlSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let control = new Control();
+          let control: Control = {rule: result};
           control.rule = result;
           this.skill.upgrades.push(control);
         }

@@ -32,7 +32,7 @@ export class RangedSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ranged = new Ranged();
+          let ranged: Ranged = {rule: result};
           ranged.rule = result;
           this.skill.upgrades.push(ranged);
         }

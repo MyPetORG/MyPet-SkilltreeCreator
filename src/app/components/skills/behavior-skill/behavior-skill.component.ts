@@ -32,7 +32,7 @@ export class BehaviorSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let behavior = new Behavior();
+          let behavior: Behavior = {rule: result};
           behavior.rule = result;
           this.skill.upgrades.push(behavior);
         }

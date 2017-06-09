@@ -33,7 +33,7 @@ export class SlowSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow = new Slow();
+          let slow: Slow = {rule: result};
           slow.rule = result;
           this.skill.upgrades.push(slow);
         }

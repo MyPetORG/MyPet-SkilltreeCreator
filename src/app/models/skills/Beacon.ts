@@ -1,10 +1,11 @@
 import { Upgrade } from "../Upgrade";
 
-export class Beacon extends Upgrade {
-  range: number = 0;
-  duration: number = 0;
-  count: number = 0;
-
+export interface Beacon extends Upgrade {
+  range?: number;
+  duration?: number;
+  count?: number;
+  buffs?: object
+  /*
   buffs? = {
     Absorption: {
       active: null,
@@ -51,4 +52,5 @@ export class Beacon extends Upgrade {
       level: 1
     },
   }
+   */
 }

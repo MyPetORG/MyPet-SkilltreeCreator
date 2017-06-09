@@ -33,7 +33,7 @@ export class PoisonSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let poison = new Poison();
+          let poison: Poison = {rule: result};
           poison.rule = result;
           this.skill.upgrades.push(poison);
         }

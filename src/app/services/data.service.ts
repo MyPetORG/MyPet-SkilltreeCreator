@@ -37,10 +37,7 @@ export class DataService {
 
     let uuid = UUID.UUID();
 
-    let upgrade = new Fire();
-
-    upgrade.rule = {};
-    upgrade.rule.every = 2;
+    let upgrade = {rule: {every: 2}};
     fire.upgrades.push(upgrade);
 
     console.log(st1);

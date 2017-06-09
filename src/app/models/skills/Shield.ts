@@ -1,6 +1,6 @@
 import { Upgrade } from "../Upgrade";
 
-export class Shield extends Upgrade {
-  chance: number = 0;
-  redirect: number = 0;
+export interface Shield extends Upgrade {
+  chance?: number;
+  redirect?: number;
 }

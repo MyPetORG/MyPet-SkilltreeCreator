@@ -33,7 +33,7 @@ export class KnockbackSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let knockback = new Knockback();
+          let knockback: Knockback = {rule: result};
           knockback.rule = result;
           this.skill.upgrades.push(knockback);
         }

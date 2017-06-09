@@ -31,8 +31,7 @@ export class BeaconSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let beacon = new Beacon();
-          beacon.rule = result;
+          let beacon: Beacon = {rule: result};
           this.skill.upgrades.push(beacon);
         }
         console.log(this.skill)

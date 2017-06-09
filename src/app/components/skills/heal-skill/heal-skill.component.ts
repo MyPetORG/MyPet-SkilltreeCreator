@@ -32,7 +32,7 @@ export class HealSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let heal = new Heal();
+          let heal: Heal = {rule: result};
           heal.rule = result;
           this.skill.upgrades.push(heal);
         }

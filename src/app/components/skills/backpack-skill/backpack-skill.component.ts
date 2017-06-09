@@ -32,8 +32,7 @@ export class BackpackSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let backpack = new Backpack();
-          backpack.rule = result;
+          let backpack: Backpack = {rule: result};
           this.skill.upgrades.push(backpack);
         }
       });

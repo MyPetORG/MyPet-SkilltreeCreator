@@ -1,9 +1,9 @@
 import { Upgrade } from "../Upgrade";
 
-export class Behavior extends Upgrade {
-  friend: boolean | null = null;
-  aggro: boolean | null = null;
-  farm: boolean | null = null;
-  raid: boolean | null = null;
-  duel: boolean | null = null;
+export interface Behavior extends Upgrade {
+  friend?: boolean | null;
+  aggro?: boolean | null;
+  farm?: boolean | null;
+  raid?: boolean | null;
+  duel?: boolean | null;
 }

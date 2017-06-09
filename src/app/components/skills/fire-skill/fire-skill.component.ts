@@ -32,7 +32,7 @@ export class FireSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let fire = new Fire();
+          let fire: Fire = {rule: result};
           fire.rule = result;
           this.skill.upgrades.push(fire);
         }

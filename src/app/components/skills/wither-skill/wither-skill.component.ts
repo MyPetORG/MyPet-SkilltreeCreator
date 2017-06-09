@@ -33,7 +33,7 @@ export class WitherSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow = new Wither();
+          let slow: Wither = {rule: result};
           slow.rule = result;
           this.skill.upgrades.push(slow);
         }

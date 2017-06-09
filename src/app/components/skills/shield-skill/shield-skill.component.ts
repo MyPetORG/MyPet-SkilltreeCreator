@@ -32,7 +32,7 @@ export class ShieldSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let shield = new Shield();
+          let shield: Shield = {rule: result};
           shield.rule = result;
           this.skill.upgrades.push(shield);
         }

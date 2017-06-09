@@ -33,7 +33,7 @@ export class SprintSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ride = new Sprint();
+          let ride: Sprint = {rule: result};
           ride.rule = result;
           this.skill.upgrades.push(ride);
         }

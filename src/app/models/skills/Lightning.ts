@@ -1,6 +1,6 @@
 import { Upgrade } from "../Upgrade";
 
-export class Lightning extends Upgrade {
-  chance: number = 0;
-  damage: number = 0;
+export interface Lightning extends Upgrade {
+  chance?: number;
+  damage?: number;
 }

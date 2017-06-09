@@ -32,7 +32,7 @@ export class PickupSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let pickup = new Pickup();
+          let pickup: Pickup = {rule: result};
           pickup.rule = result;
           this.skill.upgrades.push(pickup);
         }

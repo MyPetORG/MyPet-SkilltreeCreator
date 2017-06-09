@@ -33,7 +33,7 @@ export class RideSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ride = new Ride();
+          let ride: Ride = {rule: result};
           ride.rule = result;
           this.skill.upgrades.push(ride);
         }

@@ -30,11 +30,9 @@ export class SkillEditorComponent implements OnInit {
     if (skill) {
       this.selection.selectSkill(skill);
     } else {
-      if (this.selectedSkill.clazz) {
-        let newSkill = new Skill();
-        this.skilltree.skills[this.selectedSkill.name] = newSkill;
-        this.selection.selectSkill(newSkill);
-      }
+      let newSkill = new Skill();
+      this.skilltree.skills[this.selectedSkill.name] = newSkill;
+      this.selection.selectSkill(newSkill);
     }
   }
 }

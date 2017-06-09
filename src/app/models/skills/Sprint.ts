@@ -1,5 +1,5 @@
 import { Upgrade } from "../Upgrade";
 
-export class Sprint extends Upgrade {
-  active: boolean | null = null;
+export interface Sprint extends Upgrade {
+  active?: boolean | null;
 }

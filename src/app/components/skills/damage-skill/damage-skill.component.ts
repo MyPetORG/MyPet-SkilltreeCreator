@@ -32,7 +32,7 @@ export class DamageSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let damage = new Damage();
+          let damage: Damage = {rule: result};
           damage.rule = result;
           this.skill.upgrades.push(damage);
         }

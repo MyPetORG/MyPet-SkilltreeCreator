@@ -33,7 +33,7 @@ export class ThornsSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow = new Thorns();
+          let slow: Thorns = {rule: result};
           slow.rule = result;
           this.skill.upgrades.push(slow);
         }

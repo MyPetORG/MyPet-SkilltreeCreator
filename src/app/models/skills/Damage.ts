@@ -1,5 +1,5 @@
 import { Upgrade } from "../Upgrade";
 
-export class Damage extends Upgrade {
-  damage: number = 0;
+export interface Damage extends Upgrade {
+  damage?: number;
 }
