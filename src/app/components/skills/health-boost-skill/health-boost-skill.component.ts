@@ -28,7 +28,6 @@ export class HealthBoostSkillComponent implements OnInit {
 
   addUpgrade() {
     if (this.skill) {
-      console.log("clicked FAB");
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {

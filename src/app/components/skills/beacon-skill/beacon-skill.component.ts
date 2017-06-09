@@ -34,7 +34,6 @@ export class BeaconSkillComponent implements OnInit {
           let beacon: Beacon = {rule: result};
           this.skill.upgrades.push(beacon);
         }
-        console.log(this.skill)
       });
     }
   }

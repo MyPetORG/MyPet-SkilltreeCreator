@@ -28,7 +28,6 @@ export class DataService {
     this.skilltrees.push(st4);
 
     loader.loadSkilltree(RideSkilltree).then(skilltree => {
-      console.log(skilltree);
       this.skilltrees.push(skilltree);
     });
 
@@ -39,7 +38,5 @@ export class DataService {
 
     let upgrade = {rule: {every: 2}};
     fire.upgrades.push(upgrade);
-
-    console.log(st1);
   }
 }

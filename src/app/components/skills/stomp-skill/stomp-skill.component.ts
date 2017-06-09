@@ -22,14 +22,12 @@ export class StompSkillComponent implements OnInit {
 
   ngOnInit() {
     this.state.skill.subscribe((skill: Skill<Stomp>) => {
-      console.log(skill);
       this.skill = skill;
     })
   }
 
   addUpgrade() {
     if (this.skill) {
-      console.log("clicked FAB");
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {

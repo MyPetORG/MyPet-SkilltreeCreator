@@ -13,13 +13,12 @@ import { DataService } from "../../services/data.service";
 export class SkilltreeListComponent implements OnInit {
   selectedSkilltree: Skilltree;
 
-  constructor(private data: DataService,
+  constructor(public data: DataService,
               private selection: StateService,
               private dialog: MdDialog) {
   }
 
   addSkilltree() {
-    console.log("clicked FAB");
     let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -29,8 +28,6 @@ export class SkilltreeListComponent implements OnInit {
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    console.log("skilltree click");
-
     this.selection.selectSkilltree(skilltree);
   }
 

@@ -20,6 +20,5 @@ export class StateService {
 
   public selectSkill(skill: Skill<Upgrade>) {
     this._skill.next(skill);
-    console.log("selected NEW")
   }
 }
