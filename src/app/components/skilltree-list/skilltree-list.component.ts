@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { MdDialog } from "@angular/material";
+import { MdDialog, MdSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
 import { StateService } from "../../services/state.service";
@@ -16,7 +16,8 @@ export class SkilltreeListComponent implements OnInit {
 
   constructor(public data: DataService,
               private selection: StateService,
-              private dialog: MdDialog) {
+              private dialog: MdDialog,
+              public snackBar: MdSnackBar) {
   }
 
   addSkilltree() {
@@ -24,6 +25,9 @@ export class SkilltreeListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.data.skilltrees.push({name: result, displayName: result, skills: {}, mobtypes: []})
+        this.snackBar.open(result + " was added successfully.", "Skilltree", {
+          duration: 2000,
+        });
       }
     });
   }

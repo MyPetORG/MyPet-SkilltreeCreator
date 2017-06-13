@@ -3,7 +3,8 @@
   <ul>
     <li *ngFor="let type of types">
       <a (click)="type.selected = !type.selected">
-        <img [ngClass]="{selected: type.selected}" [src]="'assets/img/mobheads/' +  type.name + '.png'">
+        <img [ngClass]="{selected: type.selected}" [src]="'assets/img/mobheads/' +  type.name + '.png'"
+             [mdTooltip]="type.name">
       </a>
     </li>
   </ul>
