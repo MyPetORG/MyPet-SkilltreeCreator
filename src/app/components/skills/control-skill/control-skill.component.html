@@ -5,6 +5,19 @@
 <div *ngIf="skill">
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
-    <md-checkbox [(ngModel)]="upgrade.active">Active?</md-checkbox>
+    <div>
+      <md-button-toggle-group [value]="upgrade.active">
+        <md-button-toggle [value]="true" mdTooltip="Activate">
+          <md-icon>check_box</md-icon>
+        </md-button-toggle>
+        <md-button-toggle [value]="null" mdTooltip="Don't change">
+          <md-icon>indeterminate_check_box</md-icon>
+        </md-button-toggle>
+        <md-button-toggle [value]="false" mdTooltip="Deactivate">
+          <md-icon>check_box_outline_blank</md-icon>
+        </md-button-toggle>
+      </md-button-toggle-group>
+      <span>Active?</span>
+    </div>
   </md-expansion-panel>
 </div>

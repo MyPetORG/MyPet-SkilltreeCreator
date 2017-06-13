@@ -25,11 +25,20 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/absorption.png">
         <span md-line>
-          <md-checkbox
-            [indeterminate]="upgrade.buffs.Absorption.active == null"
-            [(ngModel)]="upgrade.buffs.Absorption.active">
-            Absorbtion
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.Absorbtion.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Absorbtion</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Absorption.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -42,19 +51,39 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/fireresistance.png">
         <span md-line>
-          <md-checkbox
-            [indeterminate]="upgrade.buffs.FireResistance.active == null"
-            [(ngModel)]="upgrade.buffs.FireResistance.active">
-            Fire Resistance
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.FireResistance.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Fire Resistance</span>
+          </div>
         </span>
       </md-list-item>
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/haste.png">
         <span md-line>
-          <md-checkbox [indeterminate]="upgrade.buffs.Haste.active == null" [(ngModel)]="upgrade.buffs.Haste.active">
-            Haste
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.Haste.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Haste</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Haste.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -67,9 +96,20 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/healthboost_2.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.HealthBoost.active">
-            Health Boost
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.HealthBoost.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Health Boost</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.HealthBoost.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -82,9 +122,20 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/jumpboost.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.JumpBoost.active">
-            Jump Boost
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.JumpBoost.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Jump Boost</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.JumpBoost.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -97,25 +148,58 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/luck.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Luck.active">
-            Luck
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.Luck.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Luck</span>
+          </div>
         </span>
       </md-list-item>
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/nightvision.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.NightVision.active">
-            Night Vision
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.NightVision.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Night Vision</span>
+          </div>
         </span>
       </md-list-item>
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/resistance.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Resistance.active">
-            Resistance
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.Resistance.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Resistance</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Resistance.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -128,9 +212,20 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/speed.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Speed.active">
-            Speed
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.Speed.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Speed</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Speed.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -143,9 +238,20 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/strength.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.Strength.active">
-            Strength
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.Strength.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Strength</span>
+          </div>
           <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Strength.level">
             <md-option value="1">I</md-option>
             <md-option value="2">II</md-option>
@@ -158,9 +264,20 @@
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/waterbreathing.png">
         <span md-line>
-          <md-checkbox [indeterminate]="true" [(ngModel)]="upgrade.buffs.WaterBreathing.active">
-            Water Breathing
-          </md-checkbox>
+          <div>
+            <md-button-toggle-group [value]="upgrade.buffs.WaterBreathing.active">
+              <md-button-toggle [value]="true" mdTooltip="Activate">
+                <md-icon>check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="null" mdTooltip="Don't change">
+                <md-icon>indeterminate_check_box</md-icon>
+              </md-button-toggle>
+              <md-button-toggle [value]="false" mdTooltip="Deactivate">
+                <md-icon>check_box_outline_blank</md-icon>
+              </md-button-toggle>
+            </md-button-toggle-group>
+            <span>Water Breathing</span>
+          </div>
         </span>
       </md-list-item>
     </md-list>

@@ -12,6 +12,19 @@
       <input mdInput placeholder="Jump Height" [(ngModel)]="upgrade.jumpHeight" type="number">
       <span mdSuffix>Blocks</span>
     </md-input-container>
-    <md-checkbox [(ngModel)]="upgrade.canFly">Can Fly?</md-checkbox>
+    <div>
+      <md-button-toggle-group [value]="upgrade.canFly">
+        <md-button-toggle [value]="true" mdTooltip="Activate">
+          <md-icon>check_box</md-icon>
+        </md-button-toggle>
+        <md-button-toggle [value]="null" mdTooltip="Don't change">
+          <md-icon>indeterminate_check_box</md-icon>
+        </md-button-toggle>
+        <md-button-toggle [value]="false" mdTooltip="Deactivate">
+          <md-icon>check_box_outline_blank</md-icon>
+        </md-button-toggle>
+      </md-button-toggle-group>
+      <span>Can Fly?</span>
+    </div>
   </md-expansion-panel>
 </div>

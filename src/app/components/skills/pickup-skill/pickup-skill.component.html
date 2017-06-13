@@ -9,7 +9,19 @@
       <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="number">
       <span mdSuffix>meters</span>
     </md-input-container>
-
-    <md-checkbox [(ngModel)]="upgrade.exp">Can pick up exp?</md-checkbox>
+    <div>
+      <md-button-toggle-group [value]="upgrade.exp">
+        <md-button-toggle [value]="true" mdTooltip="Activate">
+          <md-icon>check_box</md-icon>
+        </md-button-toggle>
+        <md-button-toggle [value]="null" mdTooltip="Don't change">
+          <md-icon>indeterminate_check_box</md-icon>
+        </md-button-toggle>
+        <md-button-toggle [value]="false" mdTooltip="Deactivate">
+          <md-icon>check_box_outline_blank</md-icon>
+        </md-button-toggle>
+      </md-button-toggle-group>
+      <span>Can pick up exp?</span>
+    </div>
   </md-expansion-panel>
 </div>
