@@ -1,17 +1,36 @@
-<md-tab-group (selectChange)="positionChange($event)" [selectedIndex]="position">
-  <md-tab label="Skilltrees">
-    <md-card>
-      <app-skilltree-list (switch)="position=2"></app-skilltree-list>
-    </md-card>
-  </md-tab>
-  <md-tab label="Skilltree Properties" [disabled]="selectedSkilltree == null">
-    <md-card>
-      <app-skilltree-properties *ngIf="selectedSkilltree != null"></app-skilltree-properties>
-    </md-card>
-  </md-tab>
-  <md-tab label="Skills" [disabled]="selectedSkilltree == null">
-    <md-card>
-      <app-skill-editor *ngIf="selectedSkilltree != null"></app-skill-editor>
-    </md-card>
-  </md-tab>
-</md-tab-group>
+<md-sidenav-container class="example-container">
+  <md-sidenav #sidenav class="example-sidenav" fxLayout="column" fxLayoutAlign="start center">
+    <button md-icon-button>
+      <md-icon>save</md-icon>
+    </button>
+    <button md-icon-button>
+      <md-icon>input</md-icon>
+    </button>
+    <button md-icon-button>
+      <md-icon>cloud upload</md-icon>
+    </button>
+    <button md-icon-button>
+      <md-icon>info_outline</md-icon>
+    </button>
+  </md-sidenav>
+  <button md-button (click)="sidenav.open()">
+    <md-icon>menu</md-icon>
+  </button>
+  <md-tab-group (selectChange)="positionChange($event)" [selectedIndex]="position">
+    <md-tab label="Skilltrees">
+      <md-card>
+        <app-skilltree-list (switch)="position=2"></app-skilltree-list>
+      </md-card>
+    </md-tab>
+    <md-tab label="Skilltree Properties" [disabled]="selectedSkilltree == null">
+      <md-card>
+        <app-skilltree-properties *ngIf="selectedSkilltree != null"></app-skilltree-properties>
+      </md-card>
+    </md-tab>
+    <md-tab label="Skills" [disabled]="selectedSkilltree == null">
+      <md-card>
+        <app-skill-editor *ngIf="selectedSkilltree != null"></app-skill-editor>
+      </md-card>
+    </md-tab>
+  </md-tab-group>
+</md-sidenav-container>
