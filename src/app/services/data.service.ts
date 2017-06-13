@@ -17,10 +17,16 @@ export class DataService {
       this.types.push(value)
     });
 
-    let st1: Skilltree = {name: "Test1", displayName: "testtt1", description: ["a", "<red>b"], permission: ""};
-    let st2: Skilltree = {name: "Test2", displayName: "testtt2", description: [], permission: ""};
-    let st3: Skilltree = {name: "Test3", displayName: "testtt3", description: [], permission: ""};
-    let st4: Skilltree = {name: "Test4", displayName: "testtt4", description: [], permission: ""};
+    let st1: Skilltree = {
+      name: "Test1",
+      displayName: "testtt1",
+      description: ["a", "<red>b"],
+      skills: {},
+      mobtypes: []
+    };
+    let st2: Skilltree = {name: "Test2", displayName: "testtt2", skills: {}, mobtypes: []};
+    let st3: Skilltree = {name: "Test3", displayName: "testtt3", skills: {}, mobtypes: []};
+    let st4: Skilltree = {name: "Test4", displayName: "testtt4", skills: {}, mobtypes: []};
 
     this.skilltrees.push(st1);
     this.skilltrees.push(st2);

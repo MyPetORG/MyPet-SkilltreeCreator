@@ -31,7 +31,7 @@ export class SkilltreeLoader {
     if ((!data.Name && !data.name) || !(data.Name != "" || data.name != "")) {
       return null;
     }
-    let skilltree: Skilltree = {name: data.Name || data.Name};
+    let skilltree: Skilltree = {name: data.Name || data.Name, skills: {}, mobtypes: []};
     skilltree.permission = data.permission || data.Permission || "";
     skilltree.displayName = data.displayname || data.Displayname || data.displayName || data.DisplayName || skilltree.name;
     skilltree.description = data.description || data.Description || [];

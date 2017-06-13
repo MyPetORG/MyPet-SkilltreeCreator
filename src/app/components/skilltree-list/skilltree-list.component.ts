@@ -23,7 +23,7 @@ export class SkilltreeListComponent implements OnInit {
     let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.data.skilltrees.push({name: result, displayName: result, description: [], permission: result})
+        this.data.skilltrees.push({name: result, displayName: result, skills: {}, mobtypes: []})
       }
     });
   }

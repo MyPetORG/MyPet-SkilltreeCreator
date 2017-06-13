@@ -21,6 +21,9 @@ export class SkilltreePropertiesComponent implements OnInit {
   ngOnInit() {
     this.selection.skilltree.subscribe(value => {
       this.skilltree = value;
+      if (!this.skilltree.description) {
+        this.skilltree.description = [];
+      }
       this.description = this.skilltree.description.join("\n");
     });
   }
