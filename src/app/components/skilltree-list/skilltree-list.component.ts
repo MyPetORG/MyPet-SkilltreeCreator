@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { MdDialog } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
@@ -12,6 +12,7 @@ import { DataService } from "../../services/data.service";
 })
 export class SkilltreeListComponent implements OnInit {
   selectedSkilltree: Skilltree;
+  @Output() switch = new EventEmitter();
 
   constructor(public data: DataService,
               private selection: StateService,
@@ -28,7 +29,13 @@ export class SkilltreeListComponent implements OnInit {
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    this.selection.selectSkilltree(skilltree);
+    if (this.selectedSkilltree != skilltree) {
+      this.selection.selectSkilltree(skilltree);
+    }
+  }
+
+  switchToSkills() {
+    this.switch.emit();
   }
 
   ngOnInit() {

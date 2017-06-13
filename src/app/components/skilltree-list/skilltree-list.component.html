@@ -5,6 +5,7 @@
 <md-card class="no-padding">
   <md-nav-list dense>
     <md-list-item *ngFor="let skilltree of data.skilltrees" (click)="selectSkilltree(skilltree)"
+                  (dblclick)="switchToSkills()"
                   [ngClass]="{selected: selectedSkilltree == skilltree}">
       <img md-list-avatar src="assets/img/mobheads/All.png">
 
