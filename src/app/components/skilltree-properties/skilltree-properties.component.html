@@ -6,7 +6,8 @@
     <input mdInput placeholder="Display Name" [(ngModel)]="skilltree.displayName">
   </md-input-container>
   <md-input-container>
-    <input mdInput placeholder="Permission" [(ngModel)]="skilltree.permission">
+    <input mdInput [placeholder]="skilltree.permission ? 'Permission' : skilltree.name"
+           [(ngModel)]="skilltree.permission">
     <span mdPrefix>MyPet.skilltree.</span>
   </md-input-container>
 </md-card>
