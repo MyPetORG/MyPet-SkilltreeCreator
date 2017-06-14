@@ -2,12 +2,32 @@
   <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
 </md-toolbar>
 
+<md-popover #chancePopover="mdPopover" x-position="after" y-position="below"
+            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
+  <md-card>
+    <md-card-content>
+      <p>The chance the pet will knock back his target on hit.<br>
+        Format: [+-=][number]<br>
+        Examples:<br>
+        +2<br>
+        -3<br>
+        =6
+      </p>
+    </md-card-content>
+  </md-card>
+</md-popover>
+
 <div *ngIf="skill">
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
-    <md-input-container>
-      <input mdInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
-      <span mdSuffix>%</span>
-    </md-input-container>
+    <div>
+      <md-input-container>
+        <input mdInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <span mdSuffix>%</span>
+      </md-input-container>
+      <button md-icon-button [mdPopoverTriggerFor]="chancePopover">
+        <md-icon>info_outline</md-icon>
+      </button>
+    </div>
   </md-expansion-panel>
 </div>

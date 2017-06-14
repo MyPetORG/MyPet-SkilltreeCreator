@@ -1,0 +1,28 @@
+@import '~@angular/material/_theming';
+
+@mixin md-popover-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .md-popover-content {
+    background: mat-color($background, 'card');
+  }
+
+  [md-popover-item] {
+    background: transparent;
+    color: mat-color($foreground, 'text');
+
+    &[disabled] {
+      color: mat-color($foreground, 'disabled');
+    }
+
+    md-icon {
+      color: mat-color($foreground, 'icon');
+      vertical-align: middle;
+    }
+
+    &:hover:not([disabled]), &:focus:not([disabled]) {
+      background: mat-color($background, 'hover');
+    }
+  }
+}

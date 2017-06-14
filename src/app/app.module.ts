@@ -20,6 +20,7 @@ import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialo
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
 import { MdExpansionModule } from "./components/elements/expansion/index";
+import { MdPopoverModule } from "./components/elements/popover/index";
 import { KnockbackSkillComponent } from "./components/skills/knockback-skill/knockback-skill.component";
 import { LightningSkillComponent } from "./components/skills/lightning-skill/lightning-skill.component";
 import { PoisonSkillComponent } from "./components/skills/poison-skill/poison-skill.component";
@@ -83,6 +84,7 @@ import { SkilltreeLoaderService } from "./services/skilltree-loader.service";
     BrowserAnimationsModule,
     MaterialModule,
     MdExpansionModule,
+    MdPopoverModule,
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

@@ -2,6 +2,49 @@
   <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
 </md-toolbar>
 
+<md-popover #durationPopover="mdPopover" x-position="after" y-position="below"
+            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
+  <md-card>
+    <md-card-content>
+      <p>The duration the beacon buffs will last.<br>
+        Format: [+-=][number]<br>
+        Examples:<br>
+        +5<br>
+        -13<br>
+        =1
+      </p>
+    </md-card-content>
+  </md-card>
+</md-popover>
+<md-popover #rangePopover="mdPopover" x-position="after" y-position="below"
+            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
+  <md-card>
+    <md-card-content>
+      <p>The range the beacon buffs will be distributed.<br>
+        Format: [+-=][number]<br>
+        Examples:<br>
+        +5<br>
+        -13<br>
+        =1
+      </p>
+    </md-card-content>
+  </md-card>
+</md-popover>
+<md-popover #countPopover="mdPopover" x-position="after" y-position="below"
+            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
+  <md-card>
+    <md-card-content>
+      <p>The amount of buffs the owner of the pet can select at once.<br>
+        Format: [+-=][number]<br>
+        Examples:<br>
+        +5<br>
+        -13<br>
+        =1
+      </p>
+    </md-card-content>
+  </md-card>
+</md-popover>
+
 <div *ngIf="skill">
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
@@ -11,6 +54,9 @@
                pattern="[+-=][0-9]+(\.[0-9]+)?">
         <span mdSuffix>meters</span>
       </md-input-container>
+      <button md-icon-button [mdPopoverTriggerFor]="rangePopover">
+        <md-icon>info_outline</md-icon>
+      </button>
     </div>
     <div>
       <md-input-container>
@@ -18,6 +64,9 @@
                pattern="[+-=][0-9]+(\.[0-9]+)?">
         <span mdSuffix>sec</span>
       </md-input-container>
+      <button md-icon-button [mdPopoverTriggerFor]="durationPopover">
+        <md-icon>info_outline</md-icon>
+      </button>
     </div>
     <div>
       <md-input-container>
@@ -25,6 +74,9 @@
                pattern="[+-=][0-9]+(\.[0-9]+)?">
         <span mdSuffix>buffs</span>
       </md-input-container>
+      <button md-icon-button [mdPopoverTriggerFor]="countPopover">
+        <md-icon>info_outline</md-icon>
+      </button>
     </div>
     <md-list dense>
       <h3 md-subheader>Buffs</h3>

@@ -19,9 +19,8 @@ $mat-expansion-panel-header-height-expanded: 64px;
     outline: none;
   }
 
-  &.mat-expanded:focus,
-  &.mat-expanded:hover {
-    background: inherit;
+  &.mat-expanded {
+    background: rgba(0, 0, 0, 0.04);
   }
 }
 
