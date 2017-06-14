@@ -42,6 +42,8 @@ import { RangedSkillComponent } from "./components/skills/ranged-skill/ranged-sk
 import { ShieldSkillComponent } from "./components/skills/shield-skill/shield-skill.component";
 import { SkilltreeLoaderService } from "./services/skilltree-loader.service";
 
+import "hammerjs";
+
 @NgModule({
   declarations: [
     AppComponent,
