@@ -6,11 +6,12 @@
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
     <md-input-container>
-      <input mdInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="number">
+      <input mdInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
       <span mdSuffix>%</span>
     </md-input-container>
     <md-input-container>
-      <input mdInput placeholder="Reflection" [(ngModel)]="upgrade.reflection" type="number">
+      <input mdInput placeholder="Reflection" [(ngModel)]="upgrade.reflection" type="text"
+             pattern="[+-=][0-9]+(\.[0-9]+)?">
       <span mdSuffix>%</span>
     </md-input-container>
   </md-expansion-panel>

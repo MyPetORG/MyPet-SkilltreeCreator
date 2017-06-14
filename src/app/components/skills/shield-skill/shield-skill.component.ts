@@ -5,6 +5,7 @@ import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
 import { Shield } from "../../../models/skills/Shield";
+import { RideDefault } from "../../../models/skills/Ride";
 
 @Component({
   selector: 'app-shield-skill',
@@ -31,8 +32,7 @@ export class ShieldSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let shield: Shield = {rule: result};
-          shield.rule = result;
+          let shield: Shield = Object.assign({rule: result}, RideDefault);
           this.skill.upgrades.push(shield);
         }
       });

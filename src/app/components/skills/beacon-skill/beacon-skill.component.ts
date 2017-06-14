@@ -4,7 +4,7 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
-import { Beacon } from "../../../models/skills/Beacon";
+import { Beacon, BeaconDefault } from "../../../models/skills/Beacon";
 
 @Component({
   selector: 'app-beacon-skill',
@@ -23,6 +23,7 @@ export class BeaconSkillComponent implements OnInit {
   ngOnInit() {
     this.state.skill.subscribe((skill: Skill<Beacon>) => {
       this.skill = skill;
+      console.log(this.skill)
     })
   }
 
@@ -31,7 +32,7 @@ export class BeaconSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let beacon: Beacon = {rule: result};
+          let beacon: Beacon = Object.assign({rule: result}, BeaconDefault);
           this.skill.upgrades.push(beacon);
         }
       });

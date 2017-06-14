@@ -30,7 +30,11 @@ export const RideSkilltree = {
     "Beacon": {
       "Upgrades": {
         "1": {
-
+          "Buffs": {
+            "Absorption": {
+              "active": true
+            }
+          }
         },
         "%3<20": {}
       }

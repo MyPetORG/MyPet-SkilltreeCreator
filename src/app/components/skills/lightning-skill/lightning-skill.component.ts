@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Lightning } from "../../../models/skills/Lightning";
+import { Lightning, LightningDefault } from "../../../models/skills/Lightning";
 
 @Component({
   selector: 'app-lightning-skill',
@@ -31,8 +31,7 @@ export class LightningSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let lightning: Lightning = {rule: result};
-          lightning.rule = result;
+          let lightning: Lightning = Object.assign({rule: result}, LightningDefault);
           this.skill.upgrades.push(lightning);
         }
       });

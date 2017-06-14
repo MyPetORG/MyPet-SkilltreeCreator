@@ -3,7 +3,7 @@ import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
-import { Backpack } from "app/models/skills/Backpack";
+import { Backpack, BackpackDefault } from "app/models/skills/Backpack";
 import { LevelRule } from "../../../util/helpers";
 
 @Component({
@@ -31,7 +31,7 @@ export class BackpackSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let backpack: Backpack = {rule: result};
+          let backpack: Backpack = Object.assign({rule: result}, BackpackDefault);
           this.skill.upgrades.push(backpack);
         }
       });

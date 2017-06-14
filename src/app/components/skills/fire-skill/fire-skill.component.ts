@@ -4,7 +4,7 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
-import { Fire } from "../../../models/skills/Fire";
+import { Fire, FireDefault } from "../../../models/skills/Fire";
 
 @Component({
   selector: 'app-fire-skill',
@@ -31,8 +31,7 @@ export class FireSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let fire: Fire = {rule: result};
-          fire.rule = result;
+          let fire: Fire = Object.assign({rule: result}, FireDefault);
           this.skill.upgrades.push(fire);
         }
       });

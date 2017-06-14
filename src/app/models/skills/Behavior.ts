@@ -7,3 +7,11 @@ export interface Behavior extends Upgrade {
   raid?: boolean | null;
   duel?: boolean | null;
 }
+
+export const BehaviorDefault = {
+  friend: null,
+  aggro: null,
+  farm: null,
+  raid: null,
+  duel: null
+} as Behavior;

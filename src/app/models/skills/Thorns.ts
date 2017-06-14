@@ -1,6 +1,11 @@
 import { Upgrade } from "../Upgrade";
 
 export interface Thorns extends Upgrade {
-  chance?: number;
-  reflection?: number;
+  chance?: string;
+  reflection?: string;
 }
+
+export const ThornsDefault = {
+  chance: "+0",
+  reflection: "+0"
+} as Thorns;

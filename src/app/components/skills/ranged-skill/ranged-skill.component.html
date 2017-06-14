@@ -6,12 +6,12 @@
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
     <md-input-container>
-      <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="number">
+      <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
       <span mdSuffix>meters</span>
     </md-input-container>
 
     <md-input-container>
-      <input mdInput placeholder="Rate of fire" [(ngModel)]="upgrade.rate" type="number">
+      <input mdInput placeholder="Rate of fire" [(ngModel)]="upgrade.rate" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
       <span mdSuffix> x 50ms delay = shots/second</span>
     </md-input-container>
 

@@ -4,7 +4,7 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
-import { Pickup } from "app/models/skills/Pickup";
+import { Pickup, PickupDefault } from "app/models/skills/Pickup";
 
 @Component({
   selector: 'app-pickup-skill',
@@ -31,8 +31,7 @@ export class PickupSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let pickup: Pickup = {rule: result};
-          pickup.rule = result;
+          let pickup: Pickup = Object.assign({rule: result}, PickupDefault);
           this.skill.upgrades.push(pickup);
         }
       });

@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Thorns } from "../../../models/skills/Thorns";
+import { Thorns, ThornsDefault } from "../../../models/skills/Thorns";
 
 @Component({
   selector: 'app-thorns-skill',
@@ -31,8 +31,7 @@ export class ThornsSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Thorns = {rule: result};
-          slow.rule = result;
+          let slow: Thorns = Object.assign({rule: result}, ThornsDefault);
           this.skill.upgrades.push(slow);
         }
       });

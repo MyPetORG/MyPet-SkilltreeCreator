@@ -4,7 +4,7 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
-import { Behavior } from "../../../models/skills/Behavior";
+import { Behavior, BehaviorDefault } from "../../../models/skills/Behavior";
 
 @Component({
   selector: 'app-behavior-skill',
@@ -31,8 +31,7 @@ export class BehaviorSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let behavior: Behavior = {rule: result};
-          behavior.rule = result;
+          let behavior: Behavior = Object.assign({rule: result}, BehaviorDefault);
           this.skill.upgrades.push(behavior);
         }
       });

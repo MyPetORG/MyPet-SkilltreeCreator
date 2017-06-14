@@ -4,7 +4,7 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
-import { Heal } from "app/models/skills/Heal";
+import { Heal, HealDefault } from "app/models/skills/Heal";
 
 @Component({
   selector: 'app-heal-skill',
@@ -31,8 +31,7 @@ export class HealSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let heal: Heal = {rule: result};
-          heal.rule = result;
+          let heal: Heal = Object.assign({rule: result}, HealDefault);
           this.skill.upgrades.push(heal);
         }
       });

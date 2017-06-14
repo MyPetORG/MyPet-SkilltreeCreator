@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Wither } from "../../../models/skills/Wither";
+import { Wither, WitherDefault } from "../../../models/skills/Wither";
 
 @Component({
   selector: 'app-wither-skill',
@@ -31,8 +31,7 @@ export class WitherSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Wither = {rule: result};
-          slow.rule = result;
+          let slow: Wither = Object.assign({rule: result}, WitherDefault);
           this.skill.upgrades.push(slow);
         }
       });

@@ -5,28 +5,34 @@
 <div *ngIf="skill">
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
-    <md-input-container>
-      <input mdInput placeholder="Buff Range" [(ngModel)]="upgrade.range" type="number">
-      <span mdSuffix>meters</span>
-    </md-input-container>
-
-    <md-input-container>
-      <input mdInput placeholder="Buff Duration" [(ngModel)]="upgrade.duration" type="number">
-      <span mdSuffix>sec</span>
-    </md-input-container>
-
-    <md-input-container>
-      <input mdInput placeholder="Buff Count" [(ngModel)]="upgrade.count" type="number">
-      <span mdSuffix>buffs</span>
-    </md-input-container>
-
+    <div>
+      <md-input-container>
+        <input mdInput placeholder="Buff Range" [(ngModel)]="upgrade.range" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <span mdSuffix>meters</span>
+      </md-input-container>
+    </div>
+    <div>
+      <md-input-container>
+        <input mdInput placeholder="Buff Duration" [(ngModel)]="upgrade.duration" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <span mdSuffix>sec</span>
+      </md-input-container>
+    </div>
+    <div>
+      <md-input-container>
+        <input mdInput placeholder="Buff Count" [(ngModel)]="upgrade.count" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <span mdSuffix>buffs</span>
+      </md-input-container>
+    </div>
     <md-list dense>
       <h3 md-subheader>Buffs</h3>
       <md-list-item>
         <img md-list-avatar class="skill-icon" src="assets/img/skills/beacon/absorption.png">
         <span md-line>
           <div>
-            <md-button-toggle-group [value]="upgrade.buffs.Absorbtion.active">
+            <md-button-toggle-group [value]="upgrade.buffs.Absorption.active">
               <md-button-toggle [value]="true" mdTooltip="Activate">
                 <md-icon>check_box</md-icon>
               </md-button-toggle>
@@ -38,14 +44,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Absorbtion</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Absorption.level"
+                       [disabled]="!upgrade.buffs.Absorption.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Absorption.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>
@@ -83,14 +90,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Haste</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Haste.level"
+                       [disabled]="!upgrade.buffs.Haste.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Haste.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>
@@ -109,14 +117,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Health Boost</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.HealthBoost.level"
+                       [disabled]="!upgrade.buffs.HealthBoost.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.HealthBoost.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>
@@ -135,14 +144,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Jump Boost</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.JumpBoost.level"
+                       [disabled]="!upgrade.buffs.JumpBoost.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.JumpBoost.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>
@@ -199,14 +209,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Resistance</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Resistance.level"
+                       [disabled]="!upgrade.buffs.Resistance.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Resistance.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>
@@ -225,14 +236,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Speed</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Speed.level"
+                       [disabled]="!upgrade.buffs.Speed.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Speed.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>
@@ -251,14 +263,15 @@
               </md-button-toggle>
             </md-button-toggle-group>
             <span>Strength</span>
+            <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Strength.level"
+                       [disabled]="!upgrade.buffs.Strength.active">
+              <md-option value="1">I</md-option>
+              <md-option value="2">II</md-option>
+              <md-option value="3">III</md-option>
+              <md-option value="4">IV</md-option>
+              <md-option value="5">V</md-option>
+            </md-select>
           </div>
-          <md-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Strength.level">
-            <md-option value="1">I</md-option>
-            <md-option value="2">II</md-option>
-            <md-option value="3">III</md-option>
-            <md-option value="4">IV</md-option>
-            <md-option value="5">V</md-option>
-          </md-select>
         </span>
       </md-list-item>
       <md-list-item>

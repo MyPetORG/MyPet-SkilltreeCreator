@@ -6,7 +6,7 @@
   <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
     <md-input-container>
-      <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="number">
+      <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
       <span mdSuffix>meters</span>
     </md-input-container>
     <div>

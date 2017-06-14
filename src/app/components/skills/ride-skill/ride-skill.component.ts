@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Ride } from "../../../models/skills/Ride";
+import { Ride, RideDefault } from "../../../models/skills/Ride";
 
 @Component({
   selector: 'app-ride-skill',
@@ -31,8 +31,7 @@ export class RideSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ride: Ride = {rule: result};
-          ride.rule = result;
+          let ride: Ride = Object.assign({rule: result}, RideDefault);
           this.skill.upgrades.push(ride);
         }
       });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Skill } from "../../../models/Skill";
-import { Knockback } from "../../../models/skills/Knockback";
+import { Knockback, KnockbackDefault } from "../../../models/skills/Knockback";
 import { StateService } from "../../../services/state.service";
 import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
@@ -31,8 +31,7 @@ export class KnockbackSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let knockback: Knockback = {rule: result};
-          knockback.rule = result;
+          let knockback: Knockback = Object.assign({rule: result}, KnockbackDefault);
           this.skill.upgrades.push(knockback);
         }
       });

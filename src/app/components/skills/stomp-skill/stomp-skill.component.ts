@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Stomp } from "../../../models/skills/Stomp";
+import { Stomp, StompDefault } from "../../../models/skills/Stomp";
 
 @Component({
   selector: 'app-stomp-skill',
@@ -31,8 +31,7 @@ export class StompSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Stomp = {rule: result};
-          slow.rule = result;
+          let slow: Stomp = Object.assign({rule: result}, StompDefault);
           this.skill.upgrades.push(slow);
         }
       });

@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Sprint } from "../../../models/skills/Sprint";
+import { Sprint, SprintDefault } from "../../../models/skills/Sprint";
 
 @Component({
   selector: 'app-sprint-skill',
@@ -31,8 +31,7 @@ export class SprintSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ride: Sprint = {rule: result};
-          ride.rule = result;
+          let ride: Sprint = Object.assign({rule: result}, SprintDefault);
           this.skill.upgrades.push(ride);
         }
       });

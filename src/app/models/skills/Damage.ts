@@ -1,5 +1,9 @@
 import { Upgrade } from "../Upgrade";
 
 export interface Damage extends Upgrade {
-  damage?: number;
+  damage?: string;
 }
+
+export const DamageDefault = {
+  damage: "+0"
+} as Damage;

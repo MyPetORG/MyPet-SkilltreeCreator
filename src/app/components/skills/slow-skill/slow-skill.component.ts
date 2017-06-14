@@ -4,7 +4,7 @@ import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
-import { Slow } from "../../../models/skills/Slow";
+import { Slow, SlowDefault } from "../../../models/skills/Slow";
 
 @Component({
   selector: 'app-slow-skill',
@@ -31,8 +31,7 @@ export class SlowSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Slow = {rule: result};
-          slow.rule = result;
+          let slow: Slow = Object.assign({rule: result}, SlowDefault);
           this.skill.upgrades.push(slow);
         }
       });

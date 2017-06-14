@@ -4,7 +4,7 @@ import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
-import { HealthBoost } from "app/models/skills/HealthBoost";
+import { HealthBoost, HealthBoostDefault } from "app/models/skills/HealthBoost";
 
 @Component({
   selector: 'app-health-boost-skill',
@@ -31,8 +31,7 @@ export class HealthBoostSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let healthBoost: HealthBoost = {rule: result};
-          healthBoost.rule = result;
+          let healthBoost: HealthBoost = Object.assign({rule: result}, HealthBoostDefault);
           this.skill.upgrades.push(healthBoost);
         }
       });

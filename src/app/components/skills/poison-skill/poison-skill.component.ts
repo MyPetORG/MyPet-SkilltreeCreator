@@ -3,7 +3,7 @@ import { StateService } from "../../../services/state.service";
 import { MdDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
-import { Poison } from "../../../models/skills/Poison";
+import { Poison, PoisonDefault } from "../../../models/skills/Poison";
 import { Skill } from "../../../models/Skill";
 
 @Component({
@@ -31,8 +31,7 @@ export class PoisonSkillComponent implements OnInit {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let poison: Poison = {rule: result};
-          poison.rule = result;
+          let poison: Poison = Object.assign({rule: result}, PoisonDefault);
           this.skill.upgrades.push(poison);
         }
       });
