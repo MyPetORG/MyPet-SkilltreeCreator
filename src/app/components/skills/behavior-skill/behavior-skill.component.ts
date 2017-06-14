@@ -1,29 +1,36 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
 import { Behavior, BehaviorDefault } from "../../../models/skills/Behavior";
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-behavior-skill',
   templateUrl: './behavior-skill.component.html',
   styleUrls: ['./behavior-skill.component.scss']
 })
-export class BehaviorSkillComponent implements OnInit {
+export class BehaviorSkillComponent implements OnInit, OnDestroy {
 
   LevelRule = LevelRule;
   skill: Skill<Behavior> = null;
+
+  sub: ISubscription;
 
   constructor(private state: StateService,
               private dialog: MdDialog) {
   }
 
   ngOnInit() {
-    this.state.skill.subscribe((skill: Skill<Behavior>) => {
+    this.sub = this.state.skill.subscribe((skill: Skill<Behavior>) => {
       this.skill = skill;
     })
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   addUpgrade() {

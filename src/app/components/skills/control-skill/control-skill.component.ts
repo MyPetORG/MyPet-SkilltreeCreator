@@ -1,29 +1,36 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
 import { Control, ControlDefault } from "../../../models/skills/Control";
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-control-skill',
   templateUrl: './control-skill.component.html',
   styleUrls: ['./control-skill.component.scss']
 })
-export class ControlSkillComponent implements OnInit {
+export class ControlSkillComponent implements OnInit, OnDestroy {
 
   LevelRule = LevelRule;
   skill: Skill<Control> = null;
+
+  sub: ISubscription;
 
   constructor(private state: StateService,
               private dialog: MdDialog) {
   }
 
   ngOnInit() {
-    this.state.skill.subscribe((skill: Skill<Control>) => {
+    this.sub = this.state.skill.subscribe((skill: Skill<Control>) => {
       this.skill = skill;
     })
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   addUpgrade() {
