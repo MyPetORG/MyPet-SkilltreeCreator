@@ -43,6 +43,7 @@ import { ShieldSkillComponent } from "./components/skills/shield-skill/shield-sk
 import { SkilltreeLoaderService } from "./services/skilltree-loader.service";
 
 import "hammerjs";
+import { ContextMenuModule } from "ngx-contextmenu";
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import "hammerjs";
     MaterialModule,
     MdExpansionModule,
     MdPopoverModule,
+    ContextMenuModule,
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

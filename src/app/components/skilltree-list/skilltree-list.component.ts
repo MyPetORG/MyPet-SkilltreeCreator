@@ -24,7 +24,7 @@ export class SkilltreeListComponent implements OnInit {
     let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.data.skilltrees.push({name: result, displayName: result, skills: {}, mobtypes: []})
+        this.data.skilltrees.push({name: result, displayName: result, skills: {}, mobtypes: []});
         this.snackBar.open(result + " was added successfully.", "Skilltree", {
           duration: 2000,
         });
@@ -45,6 +45,27 @@ export class SkilltreeListComponent implements OnInit {
   ngOnInit() {
     this.selection.skilltree.subscribe(value => {
       this.selectedSkilltree = value;
+    });
+  }
+
+  deleteSkilltree(skilltree: Skilltree) {
+    this.data.skilltrees.splice(this.data.skilltrees.indexOf(skilltree), 1);
+    this.snackBar.open(skilltree.displayName + " was deletec successfully.", "Skilltree", {
+      duration: 2000,
+    });
+  }
+
+  copySkilltree(skilltree: Skilltree) {
+    let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let copy: Skilltree = JSON.parse(JSON.stringify(skilltree));
+        copy.name = result;
+        this.data.skilltrees.push(copy);
+        this.snackBar.open(skilltree.displayName + " was copied successfully to " + result + ".", "Skilltree", {
+          duration: 2000,
+        });
+      }
     });
   }
 }
