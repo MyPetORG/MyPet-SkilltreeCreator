@@ -59,15 +59,13 @@ export class SkilltreeLoader {
     let skills = {};
     Skills.forEach(skillInfo => {
       if (data[skillInfo.name]) {
-        let upgrades = [];
+        let skill: Skill<any> = {upgrades: []};
         Object.keys(data[skillInfo.name].upgrades || data[skillInfo.name].Upgrades).forEach(key => {
           let rule = SkilltreeLoader.loadLevelRule(key);
           let upgrade = SkilltreeLoader.SkillLoader[skillInfo.name](data[skillInfo.name].Upgrades[key]);
           upgrade.rule = rule;
-          upgrades.push(upgrade);
+          skill.upgrades.push(upgrade);
         });
-        let skill = new Skill();
-        skill.upgrades = upgrades;
         if (skill) {
           skills[skillInfo.name] = skill;
         }

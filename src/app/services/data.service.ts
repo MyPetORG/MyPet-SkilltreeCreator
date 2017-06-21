@@ -36,7 +36,7 @@ export class ExampleDataService {
       this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(skilltree));
     });
 
-    let fire = new Skill<Fire>();
+    let fire: Skill<Fire> = {upgrades: []};
     st1.skills = {Fire: fire};
 
     let uuid = UUID.UUID();

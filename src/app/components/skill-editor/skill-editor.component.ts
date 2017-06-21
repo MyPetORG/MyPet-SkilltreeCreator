@@ -37,7 +37,7 @@ export class SkillEditorComponent implements OnInit, OnDestroy {
     if (skill) {
       this.selection.selectSkill(skill);
     } else {
-      let newSkill = new Skill();
+      let newSkill: Skill<any> = {upgrades: []};
       this.skilltree.skills[this.selectedSkill.name] = newSkill;
       this.selection.selectSkill(newSkill);
     }
