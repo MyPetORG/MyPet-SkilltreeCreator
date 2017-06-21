@@ -4,5 +4,5 @@
   <md-input-container>
     <input mdInput placeholder="Skilltree Name" [(ngModel)]="name">
   </md-input-container>
-  <button md-button (click)="done()" [disabled]="name == ''">Add</button>
+  <button md-button (click)="done()" [disabled]="name.trim() == ''">Add</button>
 </div>

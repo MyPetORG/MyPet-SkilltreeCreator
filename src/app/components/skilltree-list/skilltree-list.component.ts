@@ -3,8 +3,11 @@ import { MdDialog, MdSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
 import { StateService } from "../../services/state.service";
-import { DataService } from "../../services/data.service";
 import { ISubscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Observable";
+import { Store } from "@ngrx/store";
+import * as Reducers from "../../reducers/index";
+import * as SkilltreeActions from "../../actions/skilltree";
 
 @Component({
   selector: 'app-skilltree-list',
@@ -12,22 +15,30 @@ import { ISubscription } from "rxjs/Subscription";
   styleUrls: ['./skilltree-list.component.scss']
 })
 export class SkilltreeListComponent implements OnInit, OnDestroy {
+  skilltrees$: Observable<Skilltree[]>;
+
   selectedSkilltree: Skilltree;
   @Output() switch = new EventEmitter();
 
   sub: ISubscription;
 
-  constructor(public data: DataService,
-              private selection: StateService,
+  constructor(private selection: StateService,
               private dialog: MdDialog,
-              public snackBar: MdSnackBar) {
+              public snackBar: MdSnackBar,
+              private store: Store<Reducers.State>) {
+    this.skilltrees$ = this.store.select(Reducers.getSkilltrees);
   }
 
   addSkilltree() {
     let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.data.skilltrees.push({name: result, displayName: result, skills: {}, mobtypes: []});
+        this.store.dispatch(new SkilltreeActions.AddSkilltreeAction({
+          name: result,
+          displayName: result,
+          skills: {},
+          mobtypes: []
+        }));
         this.snackBar.open(result + " was added successfully.", "Skilltree", {
           duration: 2000,
         });
@@ -56,7 +67,7 @@ export class SkilltreeListComponent implements OnInit, OnDestroy {
   }
 
   deleteSkilltree(skilltree: Skilltree) {
-    this.data.skilltrees.splice(this.data.skilltrees.indexOf(skilltree), 1);
+    this.store.dispatch(new SkilltreeActions.RemoveSkilltreeAction(skilltree));
     this.snackBar.open(skilltree.displayName + " was deletec successfully.", "Skilltree", {
       duration: 2000,
     });
@@ -68,7 +79,7 @@ export class SkilltreeListComponent implements OnInit, OnDestroy {
       if (result) {
         let copy: Skilltree = JSON.parse(JSON.stringify(skilltree));
         copy.name = result;
-        this.data.skilltrees.push(copy);
+        this.store.dispatch(new SkilltreeActions.CopySkilltreeAction(copy));
         this.snackBar.open(skilltree.displayName + " was copied successfully to " + result + ".", "Skilltree", {
           duration: 2000,
         });

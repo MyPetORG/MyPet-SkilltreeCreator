@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { ExampleDataService } from "../../services/data.service";
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,7 @@ import { Component } from "@angular/core";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(exampleData: ExampleDataService) {
+    exampleData.load();
+  }
 }

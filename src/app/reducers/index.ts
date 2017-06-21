@@ -15,6 +15,7 @@ import { ActionReducer, combineReducers } from "@ngrx/store";
  * notation packages up all of the exports into a single object.
  */
 import * as fromLayout from "./layout";
+import * as fromSkilltree from "./skilltree";
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -22,6 +23,7 @@ import * as fromLayout from "./layout";
  */
 export interface State {
   layout: fromLayout.State;
+  skilltree: fromSkilltree.State;
 }
 
 /**
@@ -33,6 +35,7 @@ export interface State {
  */
 const reducers = {
   layout: fromLayout.reducer,
+  skilltree: fromSkilltree.reducer,
 };
 
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
@@ -40,6 +43,13 @@ const productionReducer: ActionReducer<State> = combineReducers(reducers);
 export function reducer(state: any, action: any) {
   return productionReducer(state, action);
 }
+
+/**
+ * Skilltree Reducers
+ */
+export const getSkilltreeState = (state: State) => state.skilltree;
+
+export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.getSkilltrees);
 
 /**
  * Layout Reducers

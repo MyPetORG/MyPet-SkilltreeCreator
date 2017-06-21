@@ -14,7 +14,7 @@
 
 <md-card class="no-padding">
   <md-nav-list dense>
-    <md-list-item *ngFor="let skilltree of data.skilltrees" (click)="selectSkilltree(skilltree)"
+    <md-list-item *ngFor="let skilltree of skilltrees$ | async" (click)="selectSkilltree(skilltree)"
                   (dblclick)="switchToSkills()"
                   [ngClass]="{selected: selectedSkilltree == skilltree}"
                   [contextMenu]="skilltreeMenu" [contextMenuSubject]="skilltree">

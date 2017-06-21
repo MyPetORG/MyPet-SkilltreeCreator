@@ -1,22 +1,21 @@
 import { Injectable } from "@angular/core";
-import { MobTypes } from "../data/MobTypes";
 import { Skilltree } from "../models/Skilltree";
 import { Skill } from "../models/Skill";
 import { Fire } from "../models/skills/Fire";
 import { UUID } from "angular2-uuid";
 import { SkilltreeLoaderService } from "./skilltree-loader.service";
 import { RideSkilltree } from "../data/ExampleSkilltrees";
+import { Store } from "@ngrx/store";
+import * as Reducers from "../reducers/index";
+import * as SkilltreeActions from "../actions/skilltree";
 
 @Injectable()
-export class DataService {
-  types = [];
-  skilltrees: Skilltree[] = [];
+export class ExampleDataService {
+  constructor(private loader: SkilltreeLoaderService,
+              private store: Store<Reducers.State>) {
+  }
 
-  constructor(loader: SkilltreeLoaderService) {
-    MobTypes.forEach(value => {
-      this.types.push(value)
-    });
-
+  load() {
     let st1: Skilltree = {
       name: "Test1",
       displayName: "testtt1",
@@ -28,13 +27,13 @@ export class DataService {
     let st3: Skilltree = {name: "Test3", displayName: "testtt3", skills: {}, mobtypes: []};
     let st4: Skilltree = {name: "Test4", displayName: "testtt4", skills: {}, mobtypes: []};
 
-    this.skilltrees.push(st1);
-    this.skilltrees.push(st2);
-    this.skilltrees.push(st3);
-    this.skilltrees.push(st4);
+    this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st1));
+    this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st2));
+    this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st3));
+    this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st4));
 
-    loader.loadSkilltree(RideSkilltree).then(skilltree => {
-      this.skilltrees.push(skilltree);
+    this.loader.loadSkilltree(RideSkilltree).then(skilltree => {
+      this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(skilltree));
     });
 
     let fire = new Skill<Fire>();

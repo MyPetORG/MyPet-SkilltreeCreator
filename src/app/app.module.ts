@@ -6,7 +6,7 @@ import { HttpModule } from "@angular/http";
 import { AppComponent } from "./components/app/app.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { DataService } from "./services/data.service";
+import { ExampleDataService } from "./services/data.service";
 import { MaterialModule } from "@angular/material";
 import { SkilltreeListComponent } from "./components/skilltree-list/skilltree-list.component";
 import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/skilltree-add-dialog.component";
@@ -102,7 +102,7 @@ import { reducer } from "./reducers/index";
   ],
   providers: [
     StateService,
-    DataService,
+    ExampleDataService,
     SkilltreeLoaderService,
   ],
   bootstrap: [AppComponent]
