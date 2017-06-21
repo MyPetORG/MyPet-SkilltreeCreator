@@ -26,7 +26,7 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
       const skilltree = action.payload;
 
       return Object.assign({}, state, {
-        skilltrees: state.skilltrees.filter(st => st.name !== skilltree.name)
+        skilltrees: state.skilltrees.filter(st => st.id !== skilltree.id)
       });
     }
 

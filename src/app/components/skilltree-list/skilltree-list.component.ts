@@ -34,8 +34,8 @@ export class SkilltreeListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.store.dispatch(new SkilltreeActions.AddSkilltreeAction({
+          id: result,
           name: result,
-          displayName: result,
           skills: {},
           mobtypes: []
         }));
@@ -68,7 +68,7 @@ export class SkilltreeListComponent implements OnInit, OnDestroy {
 
   deleteSkilltree(skilltree: Skilltree) {
     this.store.dispatch(new SkilltreeActions.RemoveSkilltreeAction(skilltree));
-    this.snackBar.open(skilltree.displayName + " was deletec successfully.", "Skilltree", {
+    this.snackBar.open(skilltree.name + " was deletec successfully.", "Skilltree", {
       duration: 2000,
     });
   }
@@ -78,9 +78,9 @@ export class SkilltreeListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         let copy: Skilltree = JSON.parse(JSON.stringify(skilltree));
-        copy.name = result;
+        copy.id = result;
         this.store.dispatch(new SkilltreeActions.CopySkilltreeAction(copy));
-        this.snackBar.open(skilltree.displayName + " was copied successfully to " + result + ".", "Skilltree", {
+        this.snackBar.open(skilltree.name + " was copied successfully to " + result + ".", "Skilltree", {
           duration: 2000,
         });
       }

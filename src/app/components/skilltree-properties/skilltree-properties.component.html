@@ -1,12 +1,12 @@
 <md-card fxLayout="column">
   <md-input-container>
-    <input mdInput placeholder="Name" [(ngModel)]="skilltree.name">
+    <input mdInput placeholder="ID" [(ngModel)]="skilltree.id">
   </md-input-container>
   <md-input-container>
-    <input mdInput placeholder="Display Name" [(ngModel)]="skilltree.displayName">
+    <input mdInput placeholder="Display Name" [(ngModel)]="skilltree.name">
   </md-input-container>
   <md-input-container>
-    <input mdInput [placeholder]="skilltree.permission ? 'Permission' : skilltree.name"
+    <input mdInput [placeholder]="skilltree.permission ? 'Permission' : skilltree.id"
            [(ngModel)]="skilltree.permission">
     <span mdPrefix>MyPet.skilltree.</span>
   </md-input-container>

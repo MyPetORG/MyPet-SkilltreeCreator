@@ -1,6 +1,6 @@
 export interface Skilltree {
-  name: string;
-  displayName?: string;
+  id: string;
+  name?: string;
   description?: string[];
   permission?: string;
   skills: {};

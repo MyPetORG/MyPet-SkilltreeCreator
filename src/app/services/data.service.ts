@@ -17,15 +17,15 @@ export class ExampleDataService {
 
   load() {
     let st1: Skilltree = {
-      name: "Test1",
-      displayName: "testtt1",
+      id: "Test1",
+      name: "testtt1",
       description: ["a", "<red>b"],
       skills: {},
       mobtypes: []
     };
-    let st2: Skilltree = {name: "Test2", displayName: "testtt2", skills: {}, mobtypes: []};
-    let st3: Skilltree = {name: "Test3", displayName: "testtt3", skills: {}, mobtypes: []};
-    let st4: Skilltree = {name: "Test4", displayName: "testtt4", skills: {}, mobtypes: []};
+    let st2: Skilltree = {id: "Test2", name: "testtt2", skills: {}, mobtypes: []};
+    let st3: Skilltree = {id: "Test3", name: "testtt3", skills: {}, mobtypes: []};
+    let st4: Skilltree = {id: "Test4", name: "testtt4", skills: {}, mobtypes: []};
 
     this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st1));
     this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st2));

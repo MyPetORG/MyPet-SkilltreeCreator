@@ -1,6 +1,6 @@
 export const RideSkilltree = {
-  "Name": "ride",
-  "DisplayName": "Ride",
+  "ID": "ride",
+  "Name": "Ride",
   "Description": [
     "Ride your pet"
   ],
@@ -43,8 +43,8 @@ export const RideSkilltree = {
 };
 
 export const BeaconSkilltree = {
-  "Name": "beacon",
-  "DisplayName": "Beacon",
+  "ID": "beacon",
+  "Name": "Beacon",
   "Description": [
     "Beacon Beacon Beacon"
   ],
