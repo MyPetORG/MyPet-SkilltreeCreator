@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
 import { AppComponent } from "./components/app/app.component";
@@ -87,6 +87,7 @@ import { KeysPipe } from "./pipes/keys.pipe";
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     FlexLayoutModule,
     BrowserAnimationsModule,

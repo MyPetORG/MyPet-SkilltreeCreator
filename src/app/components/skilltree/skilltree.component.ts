@@ -1,49 +1,37 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Skilltree } from "../../models/Skilltree";
-import { StateService } from "../../services/state.service";
+import { Component } from "@angular/core";
 import { ISubscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
-import * as reducers from "../../reducers/index";
-import * as layout from "../../actions/layout";
+import * as Reducers from "../../reducers/index";
+import * as LayoutActions from "../../actions/layout";
+import { Skilltree } from "../../models/Skilltree";
 
 @Component({
   selector: 'app-skilltree',
   templateUrl: './skilltree.component.html',
   styleUrls: ['./skilltree.component.scss']
 })
-export class SkilltreeComponent implements OnInit, OnDestroy {
+export class SkilltreeComponent {
   showSidenav$: Observable<boolean>;
+  selectedSkilltree$: Observable<Skilltree>;
 
   position: number = 0;
-  selectedSkilltree: Skilltree = null;
-
   sub: ISubscription;
 
-  constructor(private selection: StateService,
-              private store: Store<reducers.State>) {
-    this.showSidenav$ = this.store.select(reducers.getShowSidenav);
+  constructor(private store: Store<Reducers.State>) {
+    this.showSidenav$ = this.store.select(Reducers.getShowSidenav);
+    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
   }
 
   positionChange($event) {
     this.position = $event.index;
   }
 
-  ngOnInit() {
-    this.sub = this.selection.skilltree.subscribe(value => {
-      this.selectedSkilltree = value;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
   openSidenav() {
-    this.store.dispatch(new layout.OpenSidenavAction());
+    this.store.dispatch(new LayoutActions.OpenSidenavAction());
   }
 
   closeSidenav() {
-    this.store.dispatch(new layout.CloseSidenavAction());
+    this.store.dispatch(new LayoutActions.CloseSidenavAction());
   }
 }

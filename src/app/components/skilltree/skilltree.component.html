@@ -26,14 +26,15 @@
         <app-skilltree-list (switch)="position=2"></app-skilltree-list>
       </md-card>
     </md-tab>
-    <md-tab label="Skilltree Properties" [disabled]="selectedSkilltree == null">
+    <md-tab label="Skilltree Properties" [disabled]="(selectedSkilltree$ | async) == null">
       <md-card>
-        <app-skilltree-properties *ngIf="selectedSkilltree != null"></app-skilltree-properties>
+        <app-skilltree-properties [skilltree]="selectedSkilltree$ | async"
+                                  *ngIf="(selectedSkilltree$ | async) != null"></app-skilltree-properties>
       </md-card>
     </md-tab>
-    <md-tab label="Skills" [disabled]="selectedSkilltree == null">
+    <md-tab label="Skills" [disabled]="(selectedSkilltree$ | async) == null">
       <md-card>
-        <app-skill-editor *ngIf="selectedSkilltree != null"></app-skill-editor>
+        <app-skill-editor *ngIf="(selectedSkilltree$ | async) != null"></app-skill-editor>
       </md-card>
     </md-tab>
   </md-tab-group>

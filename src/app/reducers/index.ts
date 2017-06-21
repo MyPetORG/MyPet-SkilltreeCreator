@@ -50,6 +50,8 @@ export function reducer(state: any, action: any) {
 export const getSkilltreeState = (state: State) => state.skilltree;
 
 export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.getSkilltrees);
+export const getSelectedSkilltree = createSelector(getSkilltreeState, fromSkilltree.getSelectedSkilltree);
+export const getSelectedSkilltreeId = createSelector(getSkilltreeState, fromSkilltree.getSelectedSkilltreeId);
 
 /**
  * Layout Reducers

@@ -1,39 +1,28 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Skills } from "../../data/Skills";
 import { Skilltree } from "../../models/Skilltree";
-import { StateService } from "app/services/state.service";
-import { Skill } from "../../models/Skill";
-import { ISubscription } from "rxjs/Subscription";
+import * as Reducers from "../../reducers/index";
+import { Observable } from "rxjs/Observable";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-skill-editor',
   templateUrl: './skill-editor.component.html',
   styleUrls: ['./skill-editor.component.scss']
 })
-export class SkillEditorComponent implements OnInit, OnDestroy {
+export class SkillEditorComponent {
 
   skills = Skills;
   selectedSkill = this.skills[0];
-  skilltree: Skilltree = null;
+  selectedSkilltree$: Observable<Skilltree>;
 
-  sub: ISubscription;
-
-  constructor(private selection: StateService) {
+  constructor(private store: Store<Reducers.State>) {
+    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
   }
 
-  ngOnInit() {
-    this.sub = this.selection.skilltree.subscribe(value => {
-      this.skilltree = value;
-      this.change();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
-  change() {
-    let skill = this.skilltree.skills[this.selectedSkill.name];
+  switchSkill(skilltree) {
+    let skill = skilltree.skills[this.selectedSkill.name];
+    /*
     if (skill) {
       this.selection.selectSkill(skill);
     } else {
@@ -41,5 +30,6 @@ export class SkillEditorComponent implements OnInit, OnDestroy {
       this.skilltree.skills[this.selectedSkill.name] = newSkill;
       this.selection.selectSkill(newSkill);
     }
+     */
   }
 }

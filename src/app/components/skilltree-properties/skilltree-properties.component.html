@@ -1,24 +1,24 @@
 <md-card fxLayout="column">
   <md-input-container>
-    <input mdInput placeholder="ID" [(ngModel)]="skilltree.id">
+    <input mdInput placeholder="ID" [formControl]="id" (blur)="update('id',id)">
   </md-input-container>
   <md-input-container>
-    <input mdInput placeholder="Display Name" [(ngModel)]="skilltree.name">
+    <input mdInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
   </md-input-container>
   <md-input-container>
-    <input mdInput [placeholder]="skilltree.permission ? 'Permission' : skilltree.id"
-           [(ngModel)]="skilltree.permission">
+    <input mdInput placeholder="Permission" [formControl]="permission" (blur)="update('permission',permission)">
     <span mdPrefix>MyPet.skilltree.</span>
   </md-input-container>
 </md-card>
 
 <md-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
   <md-input-container fxFlex="100">
-    <textarea mdInput placeholder="Description" [(ngModel)]="description" (ngModelChange)="parseTextArea()"></textarea>
+    <textarea mdInput placeholder="Description" (keyup)="parseTextArea()" [formControl]="description"
+              (blur)="updateDescription()"></textarea>
   </md-input-container>
   <div class="codebox">
     <ul>
-      <li *ngFor="let line of skilltree.description" [innerHTML]="line | mcChat"></li>
+      <li *ngFor="let line of _description" [innerHTML]="line | mcChat"></li>
     </ul>
   </div>
 </md-card>

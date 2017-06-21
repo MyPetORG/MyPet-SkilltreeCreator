@@ -6,8 +6,11 @@ export const LOAD_SKILLTREE = '[Skilltree] Load';
 export const COPY_SKILLTREE = '[Skilltree] Copy';
 export const REMOVE_SKILLTREE = '[Skilltree] Remove';
 
+export const SELECT_SKILLTREE = '[Skilltree] Select';
+export const UPDATE_SKILLTREE_INFO = '[Skilltree] Update Info';
+
 /**
- * Add Book to Collection Actions
+ * Add Skilltree Actions
  */
 export class AddSkilltreeAction implements Action {
   readonly type = ADD_SKILLTREE;
@@ -17,7 +20,7 @@ export class AddSkilltreeAction implements Action {
 }
 
 /**
- * Load Collection Actions
+ * Load Skilltree Actions
  */
 export class LoadSkilltreeAction implements Action {
   readonly type = LOAD_SKILLTREE;
@@ -27,7 +30,7 @@ export class LoadSkilltreeAction implements Action {
 }
 
 /**
- * Copy Collection Actions
+ * Copy Skilltree Actions
  */
 export class CopySkilltreeAction implements Action {
   readonly type = COPY_SKILLTREE;
@@ -37,7 +40,7 @@ export class CopySkilltreeAction implements Action {
 }
 
 /**
- * Remove Book from Collection Actions
+ * Remove Skilltree Actions
  */
 export class RemoveSkilltreeAction implements Action {
   readonly type = REMOVE_SKILLTREE;
@@ -46,8 +49,30 @@ export class RemoveSkilltreeAction implements Action {
   }
 }
 
+/**
+ * Remove Book from Collection Actions
+ */
+export class SelectSkilltreeAction implements Action {
+  readonly type = SELECT_SKILLTREE;
+
+  constructor(public payload: Skilltree) {
+  }
+}
+
+/**
+ * Remove Book from Collection Actions
+ */
+export class UpdateSkilltreeInfoAction implements Action {
+  readonly type = UPDATE_SKILLTREE_INFO;
+
+  constructor(public skilltree: Skilltree, public oldId: string) {
+  }
+}
+
 export type Actions
   = AddSkilltreeAction
   | LoadSkilltreeAction
   | CopySkilltreeAction
   | RemoveSkilltreeAction
+  | SelectSkilltreeAction
+  | UpdateSkilltreeInfoAction

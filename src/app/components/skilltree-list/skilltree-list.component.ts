@@ -1,9 +1,7 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { MdDialog, MdSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
-import { StateService } from "../../services/state.service";
-import { ISubscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../reducers/index";
@@ -14,19 +12,24 @@ import * as SkilltreeActions from "../../actions/skilltree";
   templateUrl: './skilltree-list.component.html',
   styleUrls: ['./skilltree-list.component.scss']
 })
-export class SkilltreeListComponent implements OnInit, OnDestroy {
-  skilltrees$: Observable<Skilltree[]>;
+export class SkilltreeListComponent {
+  skilltrees$: Observable<{ [id: string]: Skilltree }>;
+  selectedSkilltreeId$: Observable<string | null>;
+  skilltrees: Skilltree[] = [];
 
-  selectedSkilltree: Skilltree;
   @Output() switch = new EventEmitter();
 
-  sub: ISubscription;
-
-  constructor(private selection: StateService,
-              private dialog: MdDialog,
+  constructor(private dialog: MdDialog,
               public snackBar: MdSnackBar,
               private store: Store<Reducers.State>) {
     this.skilltrees$ = this.store.select(Reducers.getSkilltrees);
+    this.selectedSkilltreeId$ = this.store.select(Reducers.getSelectedSkilltreeId);
+    this.skilltrees$.subscribe(skilltrees => {
+      this.skilltrees = [];
+      Object.keys(skilltrees).forEach(id => {
+        this.skilltrees.push(skilltrees[id]);
+      })
+    })
   }
 
   addSkilltree() {
@@ -47,23 +50,11 @@ export class SkilltreeListComponent implements OnInit, OnDestroy {
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    if (this.selectedSkilltree != skilltree) {
-      this.selection.selectSkilltree(skilltree);
-    }
+    this.store.dispatch(new SkilltreeActions.SelectSkilltreeAction(skilltree));
   }
 
   switchToSkills() {
     this.switch.emit();
-  }
-
-  ngOnInit() {
-    this.sub = this.selection.skilltree.subscribe(value => {
-      this.selectedSkilltree = value;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 
   deleteSkilltree(skilltree: Skilltree) {

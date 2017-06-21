@@ -1,5 +1,5 @@
-<md-card>
-  <md-select placeholder="Select Skill" [(ngModel)]="selectedSkill" (change)="change()">
+<md-card *ngIf="selectedSkilltree$ | async as skilltree">
+  <md-select placeholder="Select Skill" [(ngModel)]="selectedSkill" (change)="switchSkill(skilltree)">
     <md-option *ngFor="let skill of skills" [value]="skill">
       <img [src]="'assets/img/skills/' +  skill.icon" class="mdl-chip__skill"> {{ skill.name }}
     </md-option>
