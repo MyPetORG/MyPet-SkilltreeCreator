@@ -44,6 +44,9 @@ import { SkilltreeLoaderService } from "./services/skilltree-loader.service";
 
 import "hammerjs";
 import { ContextMenuModule } from "ngx-contextmenu";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { StoreModule } from "@ngrx/store";
+import { reducer } from "./reducers/index";
 
 @NgModule({
   declarations: [
@@ -89,6 +92,8 @@ import { ContextMenuModule } from "ngx-contextmenu";
     MdExpansionModule,
     MdPopoverModule,
     ContextMenuModule,
+    StoreModule.provideStore(reducer),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

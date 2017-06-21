@@ -1,5 +1,9 @@
-<md-sidenav-container class="example-container">
-  <md-sidenav #sidenav class="example-sidenav" fxLayout="column" fxLayoutAlign="start center">
+<md-sidenav-container class="example-container" (backdropClick)="closeSidenav()">
+  <md-sidenav #sidenav class="example-sidenav"
+              fxLayout="column"
+              fxLayoutAlign="start center"
+              [opened]="showSidenav$ | async"
+              [disableClose]="true">
     <button md-icon-button>
       <md-icon>save</md-icon>
     </button>
@@ -13,7 +17,7 @@
       <md-icon>info_outline</md-icon>
     </button>
   </md-sidenav>
-  <button md-button (click)="sidenav.open()">
+  <button md-button (click)="openSidenav()">
     <md-icon>menu</md-icon>
   </button>
   <md-tab-group (selectChange)="positionChange($event)" [selectedIndex]="position">
