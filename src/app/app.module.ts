@@ -47,6 +47,7 @@ import { ContextMenuModule } from "ngx-contextmenu";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from "@ngrx/store";
 import { reducer } from "./reducers/index";
+import { KeysPipe } from "./pipes/keys.pipe";
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { reducer } from "./reducers/index";
     StompSkillComponent,
     ThornsSkillComponent,
     WitherSkillComponent,
+    KeysPipe,
   ],
   imports: [
     BrowserModule,
