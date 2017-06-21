@@ -44,10 +44,12 @@ export class SkilltreePropertiesComponent implements OnInit, OnDestroy {
     conf.data = this.skilltree;
     let dialogRef = this.dialog.open(MobTypeSelectDialogComponent, conf);
     dialogRef.afterClosed().subscribe(result => {
-      this.skilltree.mobtypes = [];
-      result.forEach(type => {
-        this.skilltree.mobtypes.push(type.name);
-      });
+      if (result) {
+        this.skilltree.mobtypes = [];
+        result.forEach(type => {
+          this.skilltree.mobtypes.push(type.name);
+        });
+      }
     });
   }
 
