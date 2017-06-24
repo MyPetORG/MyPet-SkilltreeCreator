@@ -23,6 +23,16 @@
   <button md-button (click)="back()" *ngIf="selectedSkilltree$ | async">
     <md-icon>arrow_back</md-icon>
   </button>
+  <span mdTooltip="This features has not yet been implemented.">
+    <button md-button disabled>
+      <md-icon>undo</md-icon>
+    </button>
+  </span>
+  <span mdTooltip="This features has not yet been implemented.">
+    <button md-button disabled>
+      <md-icon>redo</md-icon>
+    </button>
+  </span>
   <md-card>
     <router-outlet></router-outlet>
   </md-card>
