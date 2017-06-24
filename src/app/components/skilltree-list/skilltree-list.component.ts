@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component } from "@angular/core";
 import { MdDialog, MdSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
@@ -6,6 +6,8 @@ import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../reducers/index";
 import * as SkilltreeActions from "../../actions/skilltree";
+import { Router } from "@angular/router";
+import * as LayoutActions from "../../actions/layout";
 
 @Component({
   selector: 'app-skilltree-list',
@@ -17,11 +19,10 @@ export class SkilltreeListComponent {
   selectedSkilltreeId$: Observable<string | null>;
   skilltrees: Skilltree[] = [];
 
-  @Output() switch = new EventEmitter();
-
   constructor(private dialog: MdDialog,
               public snackBar: MdSnackBar,
-              private store: Store<Reducers.State>) {
+              private store: Store<Reducers.State>,
+              private router: Router) {
     this.skilltrees$ = this.store.select(Reducers.getSkilltrees);
     this.selectedSkilltreeId$ = this.store.select(Reducers.getSelectedSkilltreeId);
     this.skilltrees$.subscribe(skilltrees => {
@@ -29,7 +30,8 @@ export class SkilltreeListComponent {
       Object.keys(skilltrees).forEach(id => {
         this.skilltrees.push(skilltrees[id]);
       })
-    })
+    });
+    this.store.dispatch(new SkilltreeActions.SelectSkilltreeAction(null));
   }
 
   addSkilltree() {
@@ -50,11 +52,15 @@ export class SkilltreeListComponent {
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    this.store.dispatch(new SkilltreeActions.SelectSkilltreeAction(skilltree));
+    this.router.navigate(["/" + skilltree.id]).then(() => {
+      this.store.dispatch(new LayoutActions.SwitchTabAction(0));
+    });
   }
 
-  switchToSkills() {
-    this.switch.emit();
+  editSkills(skilltree: Skilltree) {
+    this.router.navigate(["/" + skilltree.id]).then(() => {
+      this.store.dispatch(new LayoutActions.SwitchTabAction(1));
+    });
   }
 
   deleteSkilltree(skilltree: Skilltree) {

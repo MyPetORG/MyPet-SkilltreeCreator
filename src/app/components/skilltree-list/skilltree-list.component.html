@@ -3,6 +3,13 @@
 </md-toolbar>
 
 <context-menu #skilltreeMenu>
+  <ng-template contextMenuItem (execute)="selectSkilltree($event.item)">
+    Edit Skilltree Properties
+  </ng-template>
+  <ng-template contextMenuItem (execute)="editSkills($event.item)">
+    Edit Skill Upgrades
+  </ng-template>
+  <ng-template contextMenuItem divider="true"></ng-template>
   <ng-template contextMenuItem (execute)="copySkilltree($event.item)">
     Copy Skilltree
   </ng-template>
@@ -15,8 +22,6 @@
 <md-card class="no-padding">
   <md-nav-list dense>
     <md-list-item *ngFor="let skilltree of skilltrees" (click)="selectSkilltree(skilltree)"
-                  (dblclick)="switchToSkills()"
-                  [ngClass]="{selected: skilltree.id == selectedSkilltree$ | async}"
                   [contextMenu]="skilltreeMenu" [contextMenuSubject]="skilltree">
 
       <img md-list-avatar src="assets/img/mobheads/All.png">
@@ -25,6 +30,10 @@
       <p md-line>
         <span>{{skilltree.id}}</span>
       </p>
+      <span style="flex: 1 1 auto;"></span>
+      <button md-icon-button (click)="editSkills(skilltree)">
+        <md-icon>create</md-icon>
+      </button>
     </md-list-item>
   </md-nav-list>
 </md-card>

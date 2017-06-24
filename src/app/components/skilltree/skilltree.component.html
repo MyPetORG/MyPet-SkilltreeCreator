@@ -17,25 +17,13 @@
       <md-icon>info_outline</md-icon>
     </button>
   </md-sidenav>
-  <button md-button (click)="openSidenav()">
+  <button md-button (click)="openSidenav()" *ngIf="(selectedSkilltree$ | async) == null">
     <md-icon>menu</md-icon>
   </button>
-  <md-tab-group (selectChange)="positionChange($event)" [selectedIndex]="position">
-    <md-tab label="Skilltrees">
-      <md-card>
-        <app-skilltree-list (switch)="position=2"></app-skilltree-list>
-      </md-card>
-    </md-tab>
-    <md-tab label="Skilltree Properties" [disabled]="(selectedSkilltree$ | async) == null">
-      <md-card>
-        <app-skilltree-properties [skilltree]="selectedSkilltree$ | async"
-                                  *ngIf="(selectedSkilltree$ | async) != null"></app-skilltree-properties>
-      </md-card>
-    </md-tab>
-    <md-tab label="Skills" [disabled]="(selectedSkilltree$ | async) == null">
-      <md-card>
-        <app-skill-editor *ngIf="(selectedSkilltree$ | async) != null"></app-skill-editor>
-      </md-card>
-    </md-tab>
-  </md-tab-group>
+  <button md-button (click)="back()" *ngIf="selectedSkilltree$ | async">
+    <md-icon>arrow_back</md-icon>
+  </button>
+  <md-card>
+    <router-outlet></router-outlet>
+  </md-card>
 </md-sidenav-container>

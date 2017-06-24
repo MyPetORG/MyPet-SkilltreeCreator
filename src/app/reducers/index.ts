@@ -1,19 +1,6 @@
 import { createSelector } from "reselect";
-/**
- * combineReducers is another useful metareducer that takes a map of reducer
- * functions and creates a new reducer that gathers the values
- * of each reducer and stores them using the reducer's key. Think of it
- * almost like a database, where every reducer is a table in the db.
- *
- * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
- */
+import * as fromRouter from "@ngrx/router-store";
 import { ActionReducer, combineReducers } from "@ngrx/store";
-/**
- * Every reducer module's default export is the reducer function itself. In
- * addition, each module should export a type or interface that describes
- * the state of the reducer plus any selector functions. The `* as`
- * notation packages up all of the exports into a single object.
- */
 import * as fromLayout from "./layout";
 import * as fromSkilltree from "./skilltree";
 
@@ -24,6 +11,7 @@ import * as fromSkilltree from "./skilltree";
 export interface State {
   layout: fromLayout.State;
   skilltree: fromSkilltree.State;
+  router: fromRouter.RouterState;
 }
 
 /**
@@ -36,6 +24,7 @@ export interface State {
 const reducers = {
   layout: fromLayout.reducer,
   skilltree: fromSkilltree.reducer,
+  router: fromRouter.routerReducer,
 };
 
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
@@ -59,3 +48,4 @@ export const getSelectedSkilltreeId = createSelector(getSkilltreeState, fromSkil
 export const getLayoutState = (state: State) => state.layout;
 
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
+export const getTab = createSelector(getLayoutState, fromLayout.getTab);

@@ -48,6 +48,11 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from "@ngrx/store";
 import { reducer } from "./reducers/index";
 import { KeysPipe } from "./pipes/keys.pipe";
+import { SkilltreeExistsGuard } from "./guards/skilltree-exists.guard";
+import { routes } from "./app.routing";
+import { RouterModule } from "@angular/router";
+import { RouterStoreModule } from "@ngrx/router-store";
+import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
 
 @NgModule({
   declarations: [
@@ -83,6 +88,7 @@ import { KeysPipe } from "./pipes/keys.pipe";
     ThornsSkillComponent,
     WitherSkillComponent,
     KeysPipe,
+    SkilltreeEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +101,9 @@ import { KeysPipe } from "./pipes/keys.pipe";
     MdExpansionModule,
     MdPopoverModule,
     ContextMenuModule,
+    RouterModule.forRoot(routes, {useHash: true}),
     StoreModule.provideStore(reducer),
+    RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
   ],
   entryComponents: [
@@ -107,6 +115,7 @@ import { KeysPipe } from "./pipes/keys.pipe";
     StateService,
     ExampleDataService,
     SkilltreeLoaderService,
+    SkilltreeExistsGuard,
   ],
   bootstrap: [AppComponent]
 })

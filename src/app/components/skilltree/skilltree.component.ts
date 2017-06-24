@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
-import { ISubscription } from "rxjs/Subscription";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../reducers/index";
 import * as LayoutActions from "../../actions/layout";
-import { Skilltree } from "../../models/Skilltree";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-skilltree',
@@ -13,18 +12,16 @@ import { Skilltree } from "../../models/Skilltree";
 })
 export class SkilltreeComponent {
   showSidenav$: Observable<boolean>;
-  selectedSkilltree$: Observable<Skilltree>;
+  selectedSkilltree$: Observable<string | null>;
 
-  position: number = 0;
-  sub: ISubscription;
-
-  constructor(private store: Store<Reducers.State>) {
+  constructor(private store: Store<Reducers.State>,
+              private router: Router) {
     this.showSidenav$ = this.store.select(Reducers.getShowSidenav);
-    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
+    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
   }
 
-  positionChange($event) {
-    this.position = $event.index;
+  back() {
+    this.router.navigate(["/"]);
   }
 
   openSidenav() {

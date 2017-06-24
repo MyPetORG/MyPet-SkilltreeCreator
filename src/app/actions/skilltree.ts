@@ -55,7 +55,7 @@ export class RemoveSkilltreeAction implements Action {
 export class SelectSkilltreeAction implements Action {
   readonly type = SELECT_SKILLTREE;
 
-  constructor(public payload: Skilltree) {
+  constructor(public payload: string) {
   }
 }
 

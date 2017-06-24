@@ -1,0 +1,12 @@
+<nav md-tab-nav-bar>
+  <a md-tab-link [active]="(tab$ | async) == 0" (click)="switchTab(0)">
+    Skill Editor
+  </a>
+  <a md-tab-link [active]="(tab$ | async) == 1" (click)="switchTab(1)">
+    Skilltree Properties
+  </a>
+</nav>
+
+<app-skill-editor *ngIf="(tab$ | async) == 0"></app-skill-editor>
+<app-skilltree-properties *ngIf="(tab$ | async) == 1"></app-skilltree-properties>
+

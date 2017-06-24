@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { Skilltree } from "../../models/Skilltree";
 import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
 import { MdDialog, MdDialogConfig } from "@angular/material";
@@ -7,30 +7,19 @@ import "rxjs/add/operator/distinctUntilChanged";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../reducers/index";
 import * as SkilltreeActions from "../../actions/skilltree";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-skilltree-properties',
   templateUrl: './skilltree-properties.component.html',
-  styleUrls: ['./skilltree-properties.component.scss']
+  styleUrls: ['./skilltree-properties.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkilltreePropertiesComponent {
-
-  _skilltree: Skilltree;
-
-  @Input("skilltree") set skilltree(skilltree: Skilltree) {
-    this._skilltree = skilltree;
-    this.id.setValue(skilltree.id);
-    this.name.setValue(skilltree.name);
-    this.permission.setValue(skilltree.permission);
-    if (skilltree.description) {
-      this.description.setValue(skilltree.description.join("\n"));
-      this._description = skilltree.description;
-    }
-  }
-
-  get skilltree(): Skilltree {
-    return this._skilltree;
-  }
+export class SkilltreePropertiesComponent implements OnDestroy {
+  skilltree$: Observable<Skilltree>;
+  skilltreeSubscription: Subscription;
+  skilltree: Skilltree;
 
   id = new FormControl();
   name = new FormControl();
@@ -40,6 +29,21 @@ export class SkilltreePropertiesComponent {
 
   constructor(private dialog: MdDialog,
               private store: Store<Reducers.State>) {
+    this.skilltree$ = store.select(Reducers.getSelectedSkilltree);
+    this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
+      this.skilltree = skilltree;
+      this.id.setValue(skilltree.id);
+      this.name.setValue(skilltree.name);
+      this.permission.setValue(skilltree.permission);
+      if (skilltree.description) {
+        this.description.setValue(skilltree.description.join("\n"));
+        this._description = skilltree.description;
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.skilltreeSubscription.unsubscribe();
   }
 
   parseTextArea() {

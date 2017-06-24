@@ -177,8 +177,6 @@ export class SkilltreeLoader {
         setDefault(beacon.buffs.WaterBreathing, "level", data.Buffs.WaterBreathing ? data.Buffs.WaterBreathing.level : false);
       }
 
-      console.log(beacon);
-
       return beacon;
     },
 

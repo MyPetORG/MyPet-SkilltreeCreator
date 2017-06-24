@@ -39,10 +39,10 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
     }
 
     case skilltree.SELECT_SKILLTREE: {
-      const skilltree = action.payload;
+      const skilltreeId = action.payload;
 
       return Object.assign({}, state, {
-        selectedSkilltree: skilltree.id
+        selectedSkilltree: skilltreeId
       });
     }
 
