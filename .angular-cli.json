@@ -54,6 +54,22 @@
   "defaults": {
     "styleExt": "scss",
     "component": {
+      "spec": false
+    },
+    "guard": {
+      "spec": false
+    },
+    "interface": {
+      "spec": false
+    },
+    "module": {
+      "spec": false
+    },
+    "pipe": {
+      "spec": false
+    },
+    "service": {
+      "spec": false
     }
   }
 }
