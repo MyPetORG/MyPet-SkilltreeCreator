@@ -12,6 +12,6 @@ export class DamageDefault implements Damage {
 
 export function DamageLoader(data: any): Damage {
   let damage: Damage = Object.assign({}, new DamageDefault);
-  setDefault(damage, "damage", data.damage || data.Damage);
+  setDefault(damage, "damage", data.getProp("damage"));
   return damage;
 }

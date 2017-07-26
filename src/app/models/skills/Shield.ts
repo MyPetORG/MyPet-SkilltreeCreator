@@ -14,7 +14,7 @@ export class ShieldDefault implements Shield {
 
 export function ShieldLoader(data: any): Shield {
   let shield: Shield = Object.assign({}, new ShieldDefault);
-  setDefault(shield, "chance", data.chance || data.Chance);
-  setDefault(shield, "redirect", data.redirect || data.Redirect);
+  setDefault(shield, "chance", data.getProp("chance"));
+  setDefault(shield, "redirect", data.getProp("redirect"));
   return shield;
 }

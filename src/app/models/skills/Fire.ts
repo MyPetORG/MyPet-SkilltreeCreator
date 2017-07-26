@@ -14,7 +14,7 @@ export class FireDefault implements Fire {
 
 export function FireLoader(data: any): Fire {
   let fire: Fire = Object.assign({}, new FireDefault);
-  setDefault(fire, "chance", data.chance || data.Chance);
-  setDefault(fire, "duration", data.duration || data.Duration);
+  setDefault(fire, "chance", data.getProp("chance"));
+  setDefault(fire, "duration", data.getProp("duration"));
   return fire;
 }

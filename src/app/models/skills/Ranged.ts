@@ -16,8 +16,8 @@ export class RangedDefault implements Ranged {
 
 export function RangedLoader(data: any): Ranged {
   let ranged: Ranged = Object.assign({}, new RangedDefault);
-  setDefault(ranged, "damage", data.damage || data.Damage);
-  setDefault(ranged, "rate", data.rate || data.Rate);
-  setDefault(ranged, "projectile", data.projectile || data.Projectile);
+  setDefault(ranged, "damage", data.getProp("damage"));
+  setDefault(ranged, "rate", data.getProp("rate"));
+  setDefault(ranged, "projectile", data.getProp("projectile"));
   return ranged;
 }

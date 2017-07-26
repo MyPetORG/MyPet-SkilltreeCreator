@@ -14,7 +14,7 @@ export class PickupDefault implements Pickup {
 
 export function PickupLoader(data: any): Pickup {
   let pickup: Pickup = Object.assign({}, new PickupDefault);
-  setDefault(pickup, "range", data.Range);
-  setDefault(pickup, "exp", data.exp || data.Exp || data.EXP);
+  setDefault(pickup, "range", data.getProp("range"));
+  setDefault(pickup, "exp", data.getProp("exp"));
   return pickup;
 }

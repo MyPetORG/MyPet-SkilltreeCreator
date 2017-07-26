@@ -12,6 +12,6 @@ export class ControlDefault implements Control {
 
 export function ControlLoader(data: any): Control {
   let control: Control = Object.assign({}, new ControlDefault);
-  setDefault(control, "active", data.active || data.Active);
+  setDefault(control, "active", data.getProp("active"));
   return control;
 }

@@ -16,8 +16,8 @@ export class RideDefault implements Ride {
 
 export function RideLoader(data: any): Ride {
   let ride: Ride = Object.assign({}, new RideDefault);
-  setDefault(ride, "speed", data.speed || data.Speed);
-  setDefault(ride, "jumpHeight", data.jumpheight || data.Jumpheight || data.jumpHeight || data.JumpHeight);
-  setDefault(ride, "canFly", data.canfly || data.Canfly || data.canFly || data.CanFly);
+  setDefault(ride, "speed", data.getProp("speed"));
+  setDefault(ride, "jumpHeight", data.getProp("jumpheight"));
+  setDefault(ride, "canFly", data.getProp("canfly"));
   return ride;
 }

@@ -14,7 +14,7 @@ export class WitherDefault implements Wither {
 
 export function WitherLoader(data: any): Wither {
   let slow: Wither = Object.assign({}, new WitherDefault);
-  setDefault(slow, "chance", data.chance || data.Chance);
-  setDefault(slow, "duration", data.duration || data.Duration);
+  setDefault(slow, "chance", data.getProp("chance"));
+  setDefault(slow, "duration", data.getProp("duration"));
   return slow;
 }

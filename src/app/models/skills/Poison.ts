@@ -14,7 +14,7 @@ export class PoisonDefault implements Poison {
 
 export function PoisonLoader(data: any): Poison {
   let poison: Poison = Object.assign({}, new PoisonDefault);
-  setDefault(poison, "chance", data.chance || data.Chance);
-  setDefault(poison, "duration", data.duration || data.Duration);
+  setDefault(poison, "chance", data.getProp("chance"));
+  setDefault(poison, "duration", data.getProp("duration"));
   return poison;
 }

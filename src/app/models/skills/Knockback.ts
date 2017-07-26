@@ -12,6 +12,6 @@ export class KnockbackDefault implements Knockback {
 
 export function KnockbackLoader(data: any): Knockback {
   let knockback: Knockback = Object.assign({}, new KnockbackDefault);
-  setDefault(knockback, "chance", data.chance || data.Chance);
+  setDefault(knockback, "chance", data.getProp("chance"));
   return knockback;
 }

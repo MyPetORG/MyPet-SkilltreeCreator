@@ -14,7 +14,7 @@ export class ThornsDefault implements Thorns {
 
 export function ThornsLoader(data: any): Thorns {
   let slow: Thorns = Object.assign({}, new ThornsDefault);
-  setDefault(slow, "chance", data.chance || data.Chance);
-  setDefault(slow, "reflection", data.reflection || data.Reflection);
+  setDefault(slow, "chance", data.getProp("chance"));
+  setDefault(slow, "reflection", data.getProp("reflection"));
   return slow;
 }

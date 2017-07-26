@@ -21,10 +21,10 @@ export class BehaviorDefault implements Behavior {
 
 export function BehaviorLoader(data: any): Behavior {
   let behavior: Behavior = Object.assign({}, new BehaviorDefault);
-  setDefault(behavior, "aggro", data.aggro || data.Aggro);
-  setDefault(behavior, "duel", data.duel || data.Duel);
-  setDefault(behavior, "farm", data.farm || data.Farm);
-  setDefault(behavior, "friend", data.friend || data.Friend);
-  setDefault(behavior, "raid", data.raid || data.Raid);
+  setDefault(behavior, "aggro", data.getProp("aggro"));
+  setDefault(behavior, "duel", data.getProp("duel"));
+  setDefault(behavior, "farm", data.getProp("farm"));
+  setDefault(behavior, "friend", data.getProp("friend"));
+  setDefault(behavior, "raid", data.getProp("raid"));
   return behavior;
 }

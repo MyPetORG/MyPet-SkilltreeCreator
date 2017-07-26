@@ -14,7 +14,7 @@ export class SlowDefault implements Slow {
 
 export function SlowLoader(data: any): Slow {
   let slow: Slow = Object.assign({}, new SlowDefault);
-  setDefault(slow, "chance", data.chance || data.Chance);
-  setDefault(slow, "duration", data.duration || data.Duration);
+  setDefault(slow, "chance", data.getProp("chance"));
+  setDefault(slow, "duration", data.getProp("duration"));
   return slow;
 }

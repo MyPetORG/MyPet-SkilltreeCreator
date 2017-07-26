@@ -14,7 +14,7 @@ export class LightningDefault implements Lightning {
 
 export function LightningLoader(data: any): Lightning {
   let lightning: Lightning = Object.assign({}, new LightningDefault);
-  setDefault(lightning, "chance", data.chance || data.Chance);
-  setDefault(lightning, "damage", data.damage || data.Damage);
+  setDefault(lightning, "chance", data.getProp("chance"));
+  setDefault(lightning, "damage", data.getProp("damage"));
   return lightning;
 }

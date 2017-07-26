@@ -26,18 +26,19 @@ import { Upgrade } from "../models/Upgrade";
 
 export class SkilltreeLoader {
   static loadSkilltree(data: any): { skilltree: Skilltree, upgrades: Upgrade[] } {
-    if ((!data.Name && !data.name) || !(data.Name != "" || data.name != "")) {
+    let name = data.getProp("name");
+    if (!name || name == "") {
       return null;
     }
-    let skilltree: Skilltree = {id: data.ID || data.Id || data.id, skills: {}, mobtypes: []};
-    skilltree.permission = data.permission || data.Permission || "";
-    skilltree.name = data.name || data.Name || skilltree.id;
-    skilltree.description = data.description || data.Description || [];
+    let skilltree: Skilltree = {id: data.getProp("id"), skills: {}, mobtypes: []};
+    skilltree.permission = data.getProp("permission") || "";
+    skilltree.name = data.getProp("name") || skilltree.id;
+    skilltree.description = data.getProp("description") || [];
 
 
-    let skillData = SkilltreeLoader.loadSkills(data.skills || data.Skills);
+    let skillData = SkilltreeLoader.loadSkills(data.getProp("skills"));
     skilltree.skills = skillData.skills;
-    skilltree.mobtypes = SkilltreeLoader.loadMobTypes(data.mobtypes || data.mobTypes || data.Mobtypes || data.MobTypes);
+    skilltree.mobtypes = SkilltreeLoader.loadMobTypes(data.getProp("mobtypes"));
 
     return {skilltree, upgrades: skillData.upgrades};
   }
@@ -60,9 +61,9 @@ export class SkilltreeLoader {
     Skills.forEach(skillInfo => {
       if (data[skillInfo.name]) {
         skills[skillInfo.name] = [];
-        Object.keys(data[skillInfo.name].upgrades || data[skillInfo.name].Upgrades).forEach(key => {
+        Object.keys(data[skillInfo.name].getProp("upgrades")).forEach(key => {
           let rule = SkilltreeLoader.loadLevelRule(key);
-          let upgrade = SkilltreeLoader.SkillLoader[skillInfo.name]((data[skillInfo.name].upgrades || data[skillInfo.name].Upgrades)[key]);
+          let upgrade = SkilltreeLoader.SkillLoader[skillInfo.name](data[skillInfo.name].getProp("upgrades")[key]);
           upgrade.rule = rule;
           skills[skillInfo.name].push(upgrade.id);
           upgrades.push(upgrade)

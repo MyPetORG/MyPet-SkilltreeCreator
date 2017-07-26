@@ -12,6 +12,6 @@ export class SprintDefault implements Sprint {
 
 export function SprintLoader(data: any): Sprint {
   let sprint: Sprint = Object.assign({}, new SprintDefault);
-  setDefault(sprint, "active", data.active || data.Active);
+  setDefault(sprint, "active", data.getProp("active"));
   return sprint;
 }

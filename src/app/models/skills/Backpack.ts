@@ -14,8 +14,8 @@ export class BackpackDefault implements Backpack {
 
 export function BackpackLoader(data: any): Backpack {
   let backpack: Backpack = Object.assign({}, new BackpackDefault);
-  setDefault(backpack, "rows", data.rows || data.Rows);
-  setDefault(backpack, "drop", data.drop || data.Drop);
+  setDefault(backpack, "rows", data.getProp("rows"));
+  setDefault(backpack, "drop", data.getProp("drop"));
 
   return backpack;
 }

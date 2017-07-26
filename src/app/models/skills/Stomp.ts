@@ -14,7 +14,7 @@ export class StompDefault implements Stomp {
 
 export function StompLoader(data: any): Stomp {
   let slow: Stomp = Object.assign({}, new StompDefault);
-  setDefault(slow, "chance", data.chance || data.Chance);
-  setDefault(slow, "damage", data.damage || data.Damage);
+  setDefault(slow, "chance", data.getProp("chance"));
+  setDefault(slow, "damage", data.getProp("damage"));
   return slow;
 }

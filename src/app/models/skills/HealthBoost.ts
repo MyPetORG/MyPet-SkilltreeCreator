@@ -12,6 +12,6 @@ export class HealthBoostDefault implements HealthBoost {
 
 export function HealthBoostLoader(data: any): HealthBoost {
   let healthBoost: HealthBoost = Object.assign({}, new HealthBoostDefault);
-  setDefault(healthBoost, "health", data.health || data.Health);
+  setDefault(healthBoost, "health", data.getProp("health"));
   return healthBoost;
 }
