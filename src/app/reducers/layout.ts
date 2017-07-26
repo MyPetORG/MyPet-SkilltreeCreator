@@ -1,14 +1,17 @@
 import * as layout from "../actions/layout";
+import { SkillInfo, Skills } from "../data/Skills";
 
 
 export interface State {
   showSidenav: boolean;
   tab: number;
+  skill: SkillInfo;
 }
 
 const initialState: State = {
   showSidenav: false,
   tab: 0,
+  skill: Skills[0]
 };
 
 export function reducer(state = initialState, action: layout.Actions): State {
@@ -25,7 +28,12 @@ export function reducer(state = initialState, action: layout.Actions): State {
 
     case layout.SWITCH_TAB:
       return Object.assign({}, state, {
-        tab: action.tab
+        tab: action.payload
+      });
+
+    case layout.SELECT_SKILL:
+      return Object.assign({}, state, {
+        skill: action.payload
       });
 
     default:
@@ -35,3 +43,4 @@ export function reducer(state = initialState, action: layout.Actions): State {
 
 export const getShowSidenav = (state: State) => state.showSidenav;
 export const getTab = (state: State) => state.tab;
+export const getSelectedSkill = (state: State) => state.skill;

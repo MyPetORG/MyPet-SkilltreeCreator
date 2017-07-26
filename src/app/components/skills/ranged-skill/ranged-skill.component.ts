@@ -38,7 +38,7 @@ export class RangedSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ranged: Ranged = Object.assign({rule: result}, RangedDefault);
+          let ranged: Ranged = Object.assign({rule: result}, new RangedDefault);
           this.skill.upgrades.push(ranged);
         }
       });

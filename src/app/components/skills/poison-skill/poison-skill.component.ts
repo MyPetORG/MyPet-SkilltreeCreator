@@ -38,7 +38,7 @@ export class PoisonSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let poison: Poison = Object.assign({rule: result}, PoisonDefault);
+          let poison: Poison = Object.assign({rule: result}, new PoisonDefault);
           this.skill.upgrades.push(poison);
         }
       });

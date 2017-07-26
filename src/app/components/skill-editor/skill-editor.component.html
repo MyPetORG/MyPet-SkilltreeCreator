@@ -1,9 +1,9 @@
-<md-card *ngIf="selectedSkilltree$ | async as skilltree">
-  <md-select placeholder="Select Skill" [(ngModel)]="selectedSkill" (change)="switchSkill(skilltree)">
+<md-card *ngIf="(selectedSkilltree$ | async) as skilltree">
+  <md-select placeholder="Select Skill" [(ngModel)]="selectedSkill" (change)="switchSkill($event)">
     <md-option *ngFor="let skill of skills" [value]="skill">
       <img [src]="'assets/img/skills/' +  skill.icon" class="mdl-chip__skill"> {{ skill.name }}
     </md-option>
   </md-select>
 </md-card>
 
-<app-skill-editor-upgrade [skill]="selectedSkill.name"></app-skill-editor-upgrade>
+<app-skill-editor-upgrade></app-skill-editor-upgrade>

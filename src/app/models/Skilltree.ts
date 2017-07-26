@@ -3,6 +3,6 @@ export interface Skilltree {
   name?: string;
   description?: string[];
   permission?: string;
-  skills: {};
+  skills: { [name: string]: number[] };
   mobtypes: string[];
 }

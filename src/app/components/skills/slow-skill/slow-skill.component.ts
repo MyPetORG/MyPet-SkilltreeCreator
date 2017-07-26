@@ -38,7 +38,7 @@ export class SlowSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Slow = Object.assign({rule: result}, SlowDefault);
+          let slow: Slow = Object.assign({rule: result}, new SlowDefault);
           this.skill.upgrades.push(slow);
         }
       });

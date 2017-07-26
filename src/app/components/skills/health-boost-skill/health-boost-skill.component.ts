@@ -38,7 +38,7 @@ export class HealthBoostSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let healthBoost: HealthBoost = Object.assign({rule: result}, HealthBoostDefault);
+          let healthBoost: HealthBoost = Object.assign({rule: result}, new HealthBoostDefault);
           this.skill.upgrades.push(healthBoost);
         }
       });

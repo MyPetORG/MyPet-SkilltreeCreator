@@ -38,7 +38,7 @@ export class PickupSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let pickup: Pickup = Object.assign({rule: result}, PickupDefault);
+          let pickup: Pickup = Object.assign({rule: result}, new PickupDefault);
           this.skill.upgrades.push(pickup);
         }
       });

@@ -38,7 +38,7 @@ export class KnockbackSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let knockback: Knockback = Object.assign({rule: result}, KnockbackDefault);
+          let knockback: Knockback = Object.assign({rule: result}, new KnockbackDefault);
           this.skill.upgrades.push(knockback);
         }
       });

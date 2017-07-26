@@ -38,7 +38,7 @@ export class SprintSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ride: Sprint = Object.assign({rule: result}, SprintDefault);
+          let ride: Sprint = Object.assign({rule: result}, new SprintDefault);
           this.skill.upgrades.push(ride);
         }
       });

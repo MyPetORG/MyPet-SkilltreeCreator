@@ -1,11 +1,20 @@
-import { Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { setDefault } from "../../util/helpers";
 
 export interface Shield extends Upgrade {
   chance?: string;
   redirect?: string;
 }
 
-export const ShieldDefault = {
-  chance: "+0",
-  redirect: "+0"
-} as Shield;
+export class ShieldDefault implements Shield {
+  id = getNewUpgradeID();
+  chance: "+0";
+  redirect: "+0";
+}
+
+export function ShieldLoader(data: any): Shield {
+  let shield: Shield = Object.assign({}, new ShieldDefault);
+  setDefault(shield, "chance", data.chance || data.Chance);
+  setDefault(shield, "redirect", data.redirect || data.Redirect);
+  return shield;
+}

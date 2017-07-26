@@ -1,28 +1,30 @@
-<md-toolbar class="spacer-t-1em spacer-b-1em">
-  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</md-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <md-toolbar class="spacer-t-1em spacer-b-1em">
+    <button md-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </md-toolbar>
 
-<md-popover #rowsPopover="mdPopover" x-position="after" y-position="below"
-            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
-  <md-card>
-    <md-card-content>
-      <p>The number of rows the inventory will have.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +2<br>
-        -3<br>
-        =6
-      </p>
-    </md-card-content>
-  </md-card>
-</md-popover>
+  <md-popover #rowsPopover="mdPopover" x-position="after" y-position="below"
+              [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
+    <md-card>
+      <md-card-content>
+        <p>The number of rows the inventory will have.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +2<br>
+          -3<br>
+          =6
+        </p>
+      </md-card-content>
+    </md-card>
+  </md-popover>
 
-<div *ngIf="skill">
-  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <!--
+  <md-expansion-panel *ngFor="let upgrade of skilltree.skills.Backpack?.upgrades">
     <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
     <div>
       <md-input-container>
-        <input mdInput placeholder="Rows" [(ngModel)]="upgrade.rows" type="text" pattern="[+-=][0-9]+">
+        <input mdInput placeholder="Rows" [value]="upgrade.rows ? upgrade.rows : 0" type="text" pattern="[+-=][0-9]+"
+               (blur)="update(skilltree, upgrade, 'rows',$event)">
         <span mdSuffix>rows</span>
       </md-input-container>
       <button md-icon-button [mdPopoverTriggerFor]="rowsPopover">
@@ -30,7 +32,7 @@
       </button>
     </div>
     <div>
-      <md-button-toggle-group [value]="upgrade.drop">
+      <md-button-toggle-group [value]="upgrade.drop ? upgrade.drop : null">
         <md-button-toggle [value]="true" mdTooltip="Activate">
           <md-icon>check_box</md-icon>
         </md-button-toggle>
@@ -44,4 +46,5 @@
       <span>Drop content on death?</span>
     </div>
   </md-expansion-panel>
+  -->
 </div>

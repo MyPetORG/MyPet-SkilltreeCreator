@@ -38,7 +38,7 @@ export class WitherSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Wither = Object.assign({rule: result}, WitherDefault);
+          let slow: Wither = Object.assign({rule: result}, new WitherDefault);
           this.skill.upgrades.push(slow);
         }
       });

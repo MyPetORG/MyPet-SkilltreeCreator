@@ -38,7 +38,7 @@ export class RideSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let ride: Ride = Object.assign({rule: result}, RideDefault);
+          let ride: Ride = Object.assign({rule: result}, new RideDefault);
           this.skill.upgrades.push(ride);
         }
       });

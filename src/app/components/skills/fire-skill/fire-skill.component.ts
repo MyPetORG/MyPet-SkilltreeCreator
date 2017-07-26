@@ -38,7 +38,7 @@ export class FireSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let fire: Fire = Object.assign({rule: result}, FireDefault);
+          let fire: Fire = Object.assign({rule: result}, new FireDefault);
           this.skill.upgrades.push(fire);
         }
       });

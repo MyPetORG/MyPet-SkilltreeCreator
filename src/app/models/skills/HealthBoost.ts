@@ -1,9 +1,17 @@
-import { Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { setDefault } from "../../util/helpers";
 
 export interface HealthBoost extends Upgrade {
   health?: string;
 }
 
-export const HealthBoostDefault = {
-  health: "+0"
-} as HealthBoost;
+export class HealthBoostDefault implements HealthBoost {
+  id = getNewUpgradeID();
+  health: "+0";
+}
+
+export function HealthBoostLoader(data: any): HealthBoost {
+  let healthBoost: HealthBoost = Object.assign({}, new HealthBoostDefault);
+  setDefault(healthBoost, "health", data.health || data.Health);
+  return healthBoost;
+}

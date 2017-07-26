@@ -3,6 +3,7 @@ import * as fromRouter from "@ngrx/router-store";
 import { ActionReducer, combineReducers } from "@ngrx/store";
 import * as fromLayout from "./layout";
 import * as fromSkilltree from "./skilltree";
+import { Skilltree } from "../models/Skilltree";
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -49,3 +50,22 @@ export const getLayoutState = (state: State) => state.layout;
 
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
 export const getTab = createSelector(getLayoutState, fromLayout.getTab);
+export const getSelectedSkill = createSelector(getLayoutState, fromLayout.getSelectedSkill);
+
+/**
+ * Upgrade Reducers
+ */
+export const getUpgrades = createSelector(getSkilltreeState, fromSkilltree.getUpgrades);
+
+export const getSelectedUpgradeIds = createSelector(getSelectedSkill, getSelectedSkilltree, (skill, skilltree: Skilltree) => {
+  console.log("skilltree --", skilltree);
+  return skilltree ? skilltree.skills[skill.name] : [];
+});
+
+export const getSelectedUpgrades = createSelector(getUpgrades, getSelectedUpgradeIds, (upgrades, ids) => {
+  console.log("type", typeof ids);
+  if (!ids) {
+    return {}
+  }
+  return ids.map(id => upgrades[id]);
+});

@@ -38,7 +38,7 @@ export class LightningSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let lightning: Lightning = Object.assign({rule: result}, LightningDefault);
+          let lightning: Lightning = Object.assign({rule: result}, new LightningDefault);
           this.skill.upgrades.push(lightning);
         }
       });

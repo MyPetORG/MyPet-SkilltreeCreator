@@ -5,7 +5,13 @@ import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-
 import { Skill } from "../../../models/Skill";
 import { Backpack, BackpackDefault } from "app/models/skills/Backpack";
 import { LevelRule } from "../../../util/helpers";
-import { ISubscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs/Subscription";
+import { Skilltree } from "../../../models/Skilltree";
+import { Observable } from "rxjs/Observable";
+import { SkillInfo } from "../../../data/Skills";
+import { Store } from "@ngrx/store";
+import * as Reducers from "../../../reducers/index";
+import { Upgrade } from "../../../models/Upgrade";
 
 @Component({
   selector: 'app-backpack-skill',
@@ -16,21 +22,50 @@ export class BackpackSkillComponent implements OnInit, OnDestroy {
 
   LevelRule = LevelRule;
   skill: Skill<Backpack> = null;
+  selectedSkill$: Observable<SkillInfo>;
+  selectedSkilltree$: Observable<Skilltree>;
+  upgrades$: Observable<{ [id: number]: Upgrade }>;
 
-  sub: ISubscription;
+  skilltreeSubscription: Subscription;
+  skillSubscription: Subscription;
 
   constructor(private state: StateService,
-              private dialog: MdDialog) {
+              private dialog: MdDialog,
+              private store: Store<Reducers.State>) {
+    this.upgrades$ = this.store.select(Reducers.getSelectedUpgrades);
+    this.selectedSkill$ = this.store.select(Reducers.getSelectedSkill);
+    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
+    this.selectedSkill$.subscribe(value => {
+      /*
+       if(!this.selectedSkill) {
+       console.log("select Skill", value);
+       this.selectedSkill = value;
+       }
+       */
+    }).unsubscribe();
+
+    this.upgrades$.subscribe(value => {
+      console.log("upgrades", value);
+    })
+  }
+
+  update(skilltree, upgrade, field, $event) {
+    let update = {
+      id: upgrade.id,
+      [field]: $event.srcElement.value
+    };
+    //this.store.dispatch(new SkilltreeActions.UpdateSkillUpgrade(skilltree, update));
+    console.log("update", update);
   }
 
   ngOnInit() {
-    this.sub = this.state.skill.subscribe((skill: Skill<Backpack>) => {
+    this.skilltreeSubscription = this.state.skill.subscribe((skill: Skill<Backpack>) => {
       this.skill = skill;
     })
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.skilltreeSubscription.unsubscribe();
   }
 
   addUpgrade() {
@@ -38,8 +73,8 @@ export class BackpackSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let backpack: Backpack = Object.assign({rule: result}, BackpackDefault);
-          this.skill.upgrades.push(backpack);
+          let backpack: Backpack = Object.assign({rule: result}, new BackpackDefault);
+          //this.skill.upgrades.push(backpack);
         }
       });
     }

@@ -53,6 +53,8 @@ import { routes } from "./app.routing";
 import { RouterModule } from "@angular/router";
 import { RouterStoreModule } from "@ngrx/router-store";
 import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
+import { EffectsModule } from "@ngrx/effects";
+import { SkilltreeEffects } from "./effects/skilltree";
 
 @NgModule({
   declarations: [
@@ -105,6 +107,7 @@ import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltre
     StoreModule.provideStore(reducer),
     RouterStoreModule.connectRouter(),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    EffectsModule.run(SkilltreeEffects),
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

@@ -1,9 +1,17 @@
-import { Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { setDefault } from "../../util/helpers";
 
 export interface Control extends Upgrade {
   active?: boolean | null;
 }
 
-export const ControlDefault = {
-  active: null
-}as Control;
+export class ControlDefault implements Control {
+  id = getNewUpgradeID();
+  active: null;
+}
+
+export function ControlLoader(data: any): Control {
+  let control: Control = Object.assign({}, new ControlDefault);
+  setDefault(control, "active", data.active || data.Active);
+  return control;
+}

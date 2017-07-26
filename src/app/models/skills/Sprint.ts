@@ -1,9 +1,17 @@
-import { Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { setDefault } from "../../util/helpers";
 
 export interface Sprint extends Upgrade {
   active?: boolean | null;
 }
 
-export const SprintDefault = {
-  active: null
-} as Sprint;
+export class SprintDefault implements Sprint {
+  id = getNewUpgradeID();
+  active: null;
+}
+
+export function SprintLoader(data: any): Sprint {
+  let sprint: Sprint = Object.assign({}, new SprintDefault);
+  setDefault(sprint, "active", data.active || data.Active);
+  return sprint;
+}

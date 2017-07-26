@@ -39,7 +39,7 @@ export class ShieldSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let shield: Shield = Object.assign({rule: result}, RideDefault);
+          let shield: Shield = Object.assign({rule: result}, new RideDefault);
           this.skill.upgrades.push(shield);
         }
       });

@@ -38,7 +38,7 @@ export class ThornsSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Thorns = Object.assign({rule: result}, ThornsDefault);
+          let slow: Thorns = Object.assign({rule: result}, new ThornsDefault);
           this.skill.upgrades.push(slow);
         }
       });

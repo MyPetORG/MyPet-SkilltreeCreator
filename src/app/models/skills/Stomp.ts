@@ -1,11 +1,20 @@
-import { Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { setDefault } from "../../util/helpers";
 
 export interface Stomp extends Upgrade {
   chance?: string;
   damage?: string;
 }
 
-export const StompDefault = {
-  chance: "+0",
-  damage: "+0"
-} as Stomp;
+export class StompDefault implements Stomp {
+  id = getNewUpgradeID();
+  chance: "+0";
+  damage: "+0";
+}
+
+export function StompLoader(data: any): Stomp {
+  let slow: Stomp = Object.assign({}, new StompDefault);
+  setDefault(slow, "chance", data.chance || data.Chance);
+  setDefault(slow, "damage", data.damage || data.Damage);
+  return slow;
+}

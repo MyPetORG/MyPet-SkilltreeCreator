@@ -38,7 +38,7 @@ export class DamageSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let damage: Damage = Object.assign({rule: result}, DamageDefault);
+          let damage: Damage = Object.assign({rule: result}, new DamageDefault);
           this.skill.upgrades.push(damage);
         }
       });

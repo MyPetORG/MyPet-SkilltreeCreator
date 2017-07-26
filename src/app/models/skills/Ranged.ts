@@ -1,4 +1,5 @@
-import { Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { setDefault } from "../../util/helpers";
 
 export interface Ranged extends Upgrade {
   damage?: string;
@@ -6,8 +7,17 @@ export interface Ranged extends Upgrade {
   projectile?: string | null;
 }
 
-export const RangedDefault = {
-  damage: "+0",
-  rate: "+0",
-  projectile: null
-} as Ranged;
+export class RangedDefault implements Ranged {
+  id = getNewUpgradeID();
+  damage: "+0";
+  rate: "+0";
+  projectile: null;
+}
+
+export function RangedLoader(data: any): Ranged {
+  let ranged: Ranged = Object.assign({}, new RangedDefault);
+  setDefault(ranged, "damage", data.damage || data.Damage);
+  setDefault(ranged, "rate", data.rate || data.Rate);
+  setDefault(ranged, "projectile", data.projectile || data.Projectile);
+  return ranged;
+}

@@ -38,7 +38,7 @@ export class BehaviorSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let behavior: Behavior = Object.assign({rule: result}, BehaviorDefault);
+          let behavior: Behavior = Object.assign({rule: result}, new BehaviorDefault);
           this.skill.upgrades.push(behavior);
         }
       });

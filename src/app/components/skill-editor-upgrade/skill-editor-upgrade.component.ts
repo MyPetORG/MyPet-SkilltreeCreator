@@ -1,4 +1,8 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
+import * as Reducers from "../../reducers/index";
+import { Observable } from "rxjs/Observable";
+import { Store } from "@ngrx/store";
+import { SkillInfo } from "../../data/Skills";
 
 @Component({
   selector: 'app-skill-editor-upgrade',
@@ -6,5 +10,9 @@ import { Component, Input } from "@angular/core";
   styleUrls: ['./skill-editor-upgrade.component.scss']
 })
 export class SkillEditorUpgradeComponent {
-  @Input() skill;
+  selectedSkill$: Observable<SkillInfo>;
+
+  constructor(private store: Store<Reducers.State>) {
+    this.selectedSkill$ = this.store.select(Reducers.getSelectedSkill);
+  }
 }

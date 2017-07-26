@@ -16,7 +16,13 @@ import { Pickup } from "../models/skills/Pickup";
 import { Ranged } from "../models/skills/Ranged";
 import { Shield } from "../models/skills/Shield";
 
-export const Skills = [
+export interface SkillInfo {
+  name: string,
+  description: string,
+  icon: string,
+}
+
+export const Skills: SkillInfo[] = [
   {
     name: 'Backpack',
     description: 'skill.Fire.description',

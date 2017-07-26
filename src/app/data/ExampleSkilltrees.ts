@@ -27,6 +27,16 @@ export const RideSkilltree = {
         }
       }
     },
+    "Backpack": {
+      "Upgrades": {
+        "1": {
+          "rows": "=1",
+        },
+        "%3<20": {
+          "rows": "+1",
+        }
+      }
+    },
     "Beacon": {
       "Upgrades": {
         "1": {

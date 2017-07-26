@@ -38,7 +38,7 @@ export class StompSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let slow: Stomp = Object.assign({rule: result}, StompDefault);
+          let slow: Stomp = Object.assign({rule: result}, new StompDefault);
           this.skill.upgrades.push(slow);
         }
       });

@@ -21,3 +21,10 @@ export class LevelRule {
     }
   }
 }
+
+
+export function setDefault(object: object, field: string, value: any) {
+  if (typeof value !== "undefined") {
+    object[field] = value;
+  }
+}

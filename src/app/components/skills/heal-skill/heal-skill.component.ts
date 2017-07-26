@@ -38,7 +38,7 @@ export class HealSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let heal: Heal = Object.assign({rule: result}, HealDefault);
+          let heal: Heal = Object.assign({rule: result}, new HealDefault);
           this.skill.upgrades.push(heal);
         }
       });

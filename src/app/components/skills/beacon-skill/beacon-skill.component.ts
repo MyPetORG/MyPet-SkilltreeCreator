@@ -38,7 +38,7 @@ export class BeaconSkillComponent implements OnInit, OnDestroy {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let beacon: Beacon = Object.assign({rule: result}, BeaconDefault);
+          let beacon: Beacon = Object.assign({rule: result}, new BeaconDefault);
           this.skill.upgrades.push(beacon);
         }
       });
