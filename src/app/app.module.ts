@@ -19,7 +19,6 @@ import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/s
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
-import { MdExpansionModule } from "./components/elements/expansion/index";
 import { MdPopoverModule } from "./components/elements/popover/index";
 import { KnockbackSkillComponent } from "./components/skills/knockback-skill/knockback-skill.component";
 import { LightningSkillComponent } from "./components/skills/lightning-skill/lightning-skill.component";
@@ -46,12 +45,12 @@ import "hammerjs";
 import { ContextMenuModule } from "ngx-contextmenu";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from "@ngrx/store";
-import { reducer } from "./reducers/index";
+import { reducers } from "./reducers/index";
 import { KeysPipe } from "./pipes/keys.pipe";
 import { SkilltreeExistsGuard } from "./guards/skilltree-exists.guard";
 import { routes } from "./app.routing";
 import { RouterModule } from "@angular/router";
-import { RouterStoreModule } from "@ngrx/router-store";
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
 import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./effects/skilltree";
@@ -100,14 +99,15 @@ import { SkilltreeEffects } from "./effects/skilltree";
     FlexLayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MdExpansionModule,
     MdPopoverModule,
     ContextMenuModule,
+    StoreModule.forRoot(reducers),
     RouterModule.forRoot(routes, {useHash: true}),
-    StoreModule.provideStore(reducer),
-    RouterStoreModule.connectRouter(),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    EffectsModule.run(SkilltreeEffects),
+    StoreRouterConnectingModule,
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([
+      SkilltreeEffects
+    ]),
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

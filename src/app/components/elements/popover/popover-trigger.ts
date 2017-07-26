@@ -21,7 +21,6 @@ import {
   Dir,
   HorizontalConnectionPos,
   isFakeMousedownFromScreenReader,
-  LayoutDirection,
   Overlay,
   OverlayRef,
   OverlayState,
@@ -169,7 +168,7 @@ export class MdPopoverTrigger implements AfterViewInit, OnDestroy {
   }
 
   /** The text direction of the containing app. */
-  get dir(): LayoutDirection {
+  get dir() {
     return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
   }
 

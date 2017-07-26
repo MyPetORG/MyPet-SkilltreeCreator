@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import * as fromRouter from "@ngrx/router-store";
-import { ActionReducer, combineReducers } from "@ngrx/store";
+import { ActionReducerMap } from "@ngrx/store";
 import * as fromLayout from "./layout";
 import * as fromSkilltree from "./skilltree";
 import { Skilltree } from "../models/Skilltree";
@@ -12,7 +12,7 @@ import { Skilltree } from "../models/Skilltree";
 export interface State {
   layout: fromLayout.State;
   skilltree: fromSkilltree.State;
-  router: fromRouter.RouterState;
+  router: fromRouter.RouterReducerState;
 }
 
 /**
@@ -22,17 +22,11 @@ export interface State {
  * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
-const reducers = {
+export const reducers: ActionReducerMap<State> = {
   layout: fromLayout.reducer,
   skilltree: fromSkilltree.reducer,
   router: fromRouter.routerReducer,
 };
-
-const productionReducer: ActionReducer<State> = combineReducers(reducers);
-
-export function reducer(state: any, action: any) {
-  return productionReducer(state, action);
-}
 
 /**
  * Skilltree Reducers
