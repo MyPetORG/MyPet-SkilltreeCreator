@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { MD_DIALOG_DATA, MdDialogRef } from "@angular/material";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Skilltree } from "../../models/Skilltree";
 import { MobTypes } from "../../data/MobTypes";
 
@@ -11,8 +11,8 @@ import { MobTypes } from "../../data/MobTypes";
 export class MobTypeSelectDialogComponent implements OnInit {
   types = [];
 
-  constructor(public dialogRef: MdDialogRef<MobTypeSelectDialogComponent>,
-              @Inject(MD_DIALOG_DATA) private skilltree: Skilltree) {
+  constructor(public dialogRef: MatDialogRef<MobTypeSelectDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) private skilltree: Skilltree) {
   }
 
   ngOnInit(): void {

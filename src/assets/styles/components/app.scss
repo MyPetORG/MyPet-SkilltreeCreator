@@ -1,13 +1,13 @@
-html, body, main, app-skilltree, md-sidenav-container {
+html, body, main, app-skilltree, mat-sidenav-container {
   margin: 0;
   height: 100%;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
 }
 
 .spacer-b-1em {
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
 }
 
 .spacer-t-1em {
-  margin-top: 1em;
+  margin-top: 1em !important;;
 }

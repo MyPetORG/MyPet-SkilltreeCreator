@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { Skilltree } from "../../models/Skilltree";
 import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
-import { MdDialog, MdDialogConfig } from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import { FormControl } from "@angular/forms";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Store } from "@ngrx/store";
@@ -27,7 +27,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   description = new FormControl();
   _description: string[] = [];
 
-  constructor(private dialog: MdDialog,
+  constructor(private dialog: MatDialog,
               private store: Store<Reducers.State>) {
     this.skilltree$ = store.select(Reducers.getSelectedSkilltree);
     this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
@@ -51,7 +51,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   selectMobType() {
-    let conf = new MdDialogConfig();
+    let conf = new MatDialogConfig();
     conf.data = this.skilltree;
     let dialogRef = this.dialog.open(MobTypeSelectDialogComponent, conf);
     dialogRef.afterClosed().subscribe(result => {

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MdDialog, MdSnackBar } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
 import { Observable } from "rxjs/Observable";
@@ -19,8 +19,8 @@ export class SkilltreeListComponent {
   selectedSkilltreeId$: Observable<string | null>;
   skilltrees: Skilltree[] = [];
 
-  constructor(private dialog: MdDialog,
-              public snackBar: MdSnackBar,
+  constructor(private dialog: MatDialog,
+              public snackBar: MatSnackBar,
               private store: Store<Reducers.State>,
               private router: Router) {
     this.skilltrees$ = this.store.select(Reducers.getSkilltrees);

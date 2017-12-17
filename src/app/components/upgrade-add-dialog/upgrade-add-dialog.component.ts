@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { MdDialogRef } from "@angular/material";
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { LevelRule } from "../../models/LevelRule";
 
 @Component({
@@ -15,7 +15,8 @@ export class UpgradeAddDialogComponent {
   minimum: number;
   limit: number;
 
-  constructor(public dialogRef: MdDialogRef<UpgradeAddDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<UpgradeAddDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   done() {

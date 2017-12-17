@@ -1,11 +1,10 @@
-<md-toolbar class="spacer-t-1em spacer-b-1em">
-  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</md-toolbar>
+<mat-toolbar class="spacer-t-1em spacer-b-1em">
+  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</mat-toolbar>
 
-<md-popover #speedPopover="mdPopover" x-position="after" y-position="below"
-            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
-  <md-card>
-    <md-card-content>
+<sat-popover #speedPopover horizontalAlign="after" verticalAlign="below">
+  <mat-card>
+    <mat-card-content>
       <p>The speed at which the owner can ride the pet.<br>
         Format: [+-=][number]<br>
         Examples:<br>
@@ -13,13 +12,12 @@
         -3<br>
         =6
       </p>
-    </md-card-content>
-  </md-card>
-</md-popover>
-<md-popover #jumpHeightPopover="mdPopover" x-position="after" y-position="below"
-            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
-  <md-card>
-    <md-card-content>
+    </mat-card-content>
+  </mat-card>
+</sat-popover>
+<sat-popover #jumpHeightPopover horizontalAlign="after" verticalAlign="below">
+  <mat-card>
+    <mat-card-content>
       <p>How high the pet can jump.<br>
         Format: [+-=][number]<br>
         Examples:<br>
@@ -27,44 +25,44 @@
         -3<br>
         =6
       </p>
-    </md-card-content>
-  </md-card>
-</md-popover>
+    </mat-card-content>
+  </mat-card>
+</sat-popover>
 
 <div *ngIf="skill">
-  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
-    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
-      <md-input-container>
-        <input mdInput placeholder="Speed" [(ngModel)]="upgrade.speed" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
-      </md-input-container>
-      <button md-icon-button [mdPopoverTriggerFor]="speedPopover">
-        <md-icon>info_outline</md-icon>
+      <mat-input-container>
+        <input matInput placeholder="Speed" [(ngModel)]="upgrade.speed" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+      </mat-input-container>
+      <button mat-icon-button [satPopoverAnchorFor]="speedPopover">
+        <mat-icon>info_outline</mat-icon>
       </button>
     </div>
     <div>
-      <md-input-container>
-        <input mdInput placeholder="Jump Height" [(ngModel)]="upgrade.jumpHeight" type="text"
+      <mat-input-container>
+        <input matInput placeholder="Jump Height" [(ngModel)]="upgrade.jumpHeight" type="text"
                pattern="[+-=][0-9]+(\.[0-9]+)?">
-        <span mdSuffix>Blocks</span>
-      </md-input-container>
-      <button md-icon-button [mdPopoverTriggerFor]="jumpHeightPopover">
-        <md-icon>info_outline</md-icon>
+        <span matSuffix>Blocks</span>
+      </mat-input-container>
+      <button mat-icon-button [satPopoverAnchorFor]="jumpHeightPopover">
+        <mat-icon>info_outline</mat-icon>
       </button>
     </div>
     <div>
-      <md-button-toggle-group [value]="upgrade.canFly">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.canFly">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Can Fly?</span>
     </div>
-  </md-expansion-panel>
+  </mat-expansion-panel>
 </div>

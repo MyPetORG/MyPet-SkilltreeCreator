@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { StateService } from "../../../services/state.service";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
@@ -20,7 +20,7 @@ export class StompSkillComponent implements OnInit, OnDestroy {
   sub: ISubscription;
 
   constructor(private state: StateService,
-              private dialog: MdDialog) {
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {

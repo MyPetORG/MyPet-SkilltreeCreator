@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Skill } from "../../../models/Skill";
 import { Knockback, KnockbackDefault } from "../../../models/skills/Knockback";
 import { StateService } from "../../../services/state.service";
-import { MdDialog } from "@angular/material";
+import { MatDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { ISubscription } from "rxjs/Subscription";
@@ -20,7 +20,7 @@ export class KnockbackSkillComponent implements OnInit, OnDestroy {
   sub: ISubscription;
 
   constructor(private state: StateService,
-              private dialog: MdDialog) {
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {

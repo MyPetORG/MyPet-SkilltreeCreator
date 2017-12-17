@@ -1,28 +1,28 @@
-<md-card fxLayout="column">
-  <md-input-container>
-    <input mdInput placeholder="ID" [formControl]="id" (blur)="update('id',id)">
-  </md-input-container>
-  <md-input-container>
-    <input mdInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
-  </md-input-container>
-  <md-input-container>
-    <input mdInput placeholder="Permission" [formControl]="permission" (blur)="update('permission',permission)">
-    <span mdPrefix>MyPet.skilltree.</span>
-  </md-input-container>
-</md-card>
+<mat-card fxLayout="column">
+  <mat-input-container>
+    <input matInput placeholder="ID" [formControl]="id" (blur)="update('id',id)">
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
+  </mat-input-container>
+  <mat-input-container>
+    <input matInput placeholder="Permission" [formControl]="permission" (blur)="update('permission',permission)">
+    <span matPrefix>MyPet.skilltree.</span>
+  </mat-input-container>
+</mat-card>
 
-<md-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
-  <md-input-container fxFlex="100">
-    <textarea mdInput placeholder="Description" (keyup)="parseTextArea()" [formControl]="description"
+<mat-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
+  <mat-input-container fxFlex="100">
+    <textarea matInput placeholder="Description" (keyup)="parseTextArea()" [formControl]="description"
               (blur)="updateDescription()"></textarea>
-  </md-input-container>
+  </mat-input-container>
   <div class="codebox">
     <ul>
       <li *ngFor="let line of _description" [innerHTML]="line | mcChat"></li>
     </ul>
   </div>
-</md-card>
+</mat-card>
 
-<md-card>
-  <button md-raised-button (click)="selectMobType()">Select MobType</button>
-</md-card>
+<mat-card>
+  <button mat-raised-button (click)="selectMobType()">Select MobType</button>
+</mat-card>

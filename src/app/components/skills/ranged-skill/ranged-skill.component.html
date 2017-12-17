@@ -1,11 +1,10 @@
-<md-toolbar class="spacer-t-1em spacer-b-1em">
-  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</md-toolbar>
+<mat-toolbar class="spacer-t-1em spacer-b-1em">
+  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</mat-toolbar>
 
-<md-popover #rangePopover="mdPopover" x-position="after" y-position="below"
-            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
-  <md-card>
-    <md-card-content>
+<sat-popover #rangePopover horizontalAlign="after" verticalAlign="below">
+  <mat-card>
+    <mat-card-content>
       <p>The range the pet will start shooting.<br>
         Format: [+-=][number]<br>
         Examples:<br>
@@ -13,13 +12,12 @@
         -3<br>
         =6
       </p>
-    </md-card-content>
-  </md-card>
-</md-popover>
-<md-popover #ratePopover="mdPopover" x-position="after" y-position="below"
-            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
-  <md-card>
-    <md-card-content>
+    </mat-card-content>
+  </mat-card>
+</sat-popover>
+<sat-popover #ratePopover horizontalAlign="after" verticalAlign="below">
+  <mat-card>
+    <mat-card-content>
       <p>The rate at which the pet will shot.<br>
         Format: [+-=][number]<br>
         Examples:<br>
@@ -27,41 +25,41 @@
         -3<br>
         =6
       </p>
-    </md-card-content>
-  </md-card>
-</md-popover>
+    </mat-card-content>
+  </mat-card>
+</sat-popover>
 
 <div *ngIf="skill">
-  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
-    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
-      <md-input-container>
-        <input mdInput placeholder="Range" [(ngModel)]="upgrade.range" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
-        <span mdSuffix>meters</span>
-      </md-input-container>
-      <button md-icon-button [mdPopoverTriggerFor]="rangePopover">
-        <md-icon>info_outline</md-icon>
+      <mat-input-container>
+        <input matInput placeholder="Range" [(ngModel)]="upgrade.range" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <span matSuffix>meters</span>
+      </mat-input-container>
+      <button mat-icon-button [satPopoverAnchorFor]="rangePopover">
+        <mat-icon>info_outline</mat-icon>
       </button>
     </div>
     <div>
-      <md-input-container>
-        <input mdInput placeholder="Rate of fire" [(ngModel)]="upgrade.rate" type="text"
+      <mat-input-container>
+        <input matInput placeholder="Rate of fire" [(ngModel)]="upgrade.rate" type="text"
                pattern="[+-=][0-9]+(\.[0-9]+)?">
-        <span mdSuffix> x 50ms delay = shots/second</span>
-      </md-input-container>
-      <button md-icon-button [mdPopoverTriggerFor]="ratePopover">
-        <md-icon>info_outline</md-icon>
+        <span matSuffix> x 50ms delay = shots/second</span>
+      </mat-input-container>
+      <button mat-icon-button [satPopoverAnchorFor]="ratePopover">
+        <mat-icon>info_outline</mat-icon>
       </button>
     </div>
     <div>
-      <md-select placeholder="Projectile" [(ngModel)]="upgrade.projectile">
-        <md-option value="Arrow">Arrow</md-option>
-        <md-option value="Snowball">Snowball</md-option>
-        <md-option value="Fireball">Fireball</md-option>
-        <md-option value="LargeFireball">Large Fireball</md-option>
-        <md-option value="WitherSkull">Wither Skull</md-option>
-        <md-option value="Egg">Egg</md-option>
-      </md-select>
+      <mat-select placeholder="Projectile" [(ngModel)]="upgrade.projectile">
+        <mat-option value="Arrow">Arrow</mat-option>
+        <mat-option value="Snowball">Snowball</mat-option>
+        <mat-option value="Fireball">Fireball</mat-option>
+        <mat-option value="LargeFireball">Large Fireball</mat-option>
+        <mat-option value="WitherSkull">Wither Skull</mat-option>
+        <mat-option value="Egg">Egg</mat-option>
+      </mat-select>
     </div>
-  </md-expansion-panel>
+  </mat-expansion-panel>
 </div>

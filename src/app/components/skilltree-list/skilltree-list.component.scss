@@ -1,15 +1,15 @@
-md-card {
+mat-card {
   margin-bottom: 15px;
 }
 
-md-card.small {
+mat-card.small {
   padding: 12px;
 }
 
-md-list-item.selected {
+mat-list-item.selected {
   background-color: #C8E6C9;;
 }
 
-.no-padding, md-nav-list {
+.no-padding, mat-nav-list {
   padding: 0 !important;
 }

@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { MdDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
 import { Fire, FireDefault } from "../../../models/skills/Fire";
 import { ISubscription } from "rxjs/Subscription";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: 'app-fire-skill',
@@ -20,7 +20,7 @@ export class FireSkillComponent implements OnInit, OnDestroy {
   sub: ISubscription;
 
   constructor(private state: StateService,
-              private dialog: MdDialog) {
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
-<md-toolbar class="spacer-b-1em">
-  <button md-raised-button (click)="addSkilltree()">Add Skilltree</button>
-</md-toolbar>
+<mat-toolbar class="spacer-b-1em">
+  <button mat-raised-button (click)="addSkilltree()">Add Skilltree</button>
+</mat-toolbar>
 
 <context-menu #skilltreeMenu>
   <ng-template contextMenuItem (execute)="selectSkilltree($event.item)">
@@ -19,22 +19,22 @@
   </ng-template>
 </context-menu>
 
-<md-card class="no-padding">
-  <md-nav-list dense>
-    <md-list-item *ngFor="let skilltree of skilltrees" (click)="selectSkilltree(skilltree)"
+<mat-card class="no-padding">
+  <mat-nav-list dense>
+    <mat-list-item *ngFor="let skilltree of skilltrees" (click)="selectSkilltree(skilltree)"
                   [contextMenu]="skilltreeMenu" [contextMenuSubject]="skilltree">
 
-      <img md-list-avatar src="assets/img/mobheads/All.png">
+      <img mat-list-avatar src="assets/img/mobheads/All.png">
 
-      <h3 md-line> {{skilltree.name}} </h3>
-      <p md-line>
+      <h3 mat-line> {{skilltree.name}} </h3>
+      <p mat-line>
         <span>{{skilltree.id}}</span>
       </p>
       <span style="flex: 1 1 auto;"></span>
-      <button md-icon-button (click)="editSkills(skilltree)">
-        <md-icon>create</md-icon>
+      <button mat-icon-button (click)="editSkills(skilltree)">
+        <mat-icon>create</mat-icon>
       </button>
-    </md-list-item>
-  </md-nav-list>
-</md-card>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-card>
 

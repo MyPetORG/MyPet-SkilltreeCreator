@@ -7,7 +7,6 @@ import { AppComponent } from "./components/app/app.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ExampleDataService } from "./services/data.service";
-import { MaterialModule } from "@angular/material";
 import { SkilltreeListComponent } from "./components/skilltree-list/skilltree-list.component";
 import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/skilltree-add-dialog.component";
 import { SkilltreePropertiesComponent } from "./components/skilltree-properties/skilltree-properties.component";
@@ -19,7 +18,6 @@ import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/s
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
-import { MdPopoverModule } from "./components/elements/popover/index";
 import { KnockbackSkillComponent } from "./components/skills/knockback-skill/knockback-skill.component";
 import { LightningSkillComponent } from "./components/skills/lightning-skill/lightning-skill.component";
 import { PoisonSkillComponent } from "./components/skills/poison-skill/poison-skill.component";
@@ -54,19 +52,29 @@ import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
 import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./effects/skilltree";
+import { SatPopoverModule } from "@ncstate/sat-popover";
+import {
+  MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule,
+  MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatPaginatorModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule,
+  MatSlideToggleModule, MatSnackBarModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [
     AppComponent,
-    SkilltreeListComponent,
     SkilltreeAddDialogComponent,
+    UpgradeAddDialogComponent,
+    MobTypeSelectDialogComponent,
     SkilltreePropertiesComponent,
+    SkilltreeListComponent,
     SkilltreeComponent,
     SkillEditorComponent,
     SkillEditorUpgradeComponent,
-    MobTypeSelectDialogComponent,
-    UpgradeAddDialogComponent,
+    SkilltreeEditorComponent,
+
     McChatPipe,
+    KeysPipe,
 
     BackpackSkillComponent,
     BeaconSkillComponent,
@@ -88,8 +96,6 @@ import { SkilltreeEffects } from "./effects/skilltree";
     StompSkillComponent,
     ThornsSkillComponent,
     WitherSkillComponent,
-    KeysPipe,
-    SkilltreeEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,8 +104,11 @@ import { SkilltreeEffects } from "./effects/skilltree";
     HttpModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MaterialModule,
-    MdPopoverModule,
+    MatButtonModule, MatCheckboxModule, MatIconModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
+    MatSidenavModule, MatOptionModule, MatTooltipModule, MatExpansionModule, MatButtonToggleModule, MatListModule,
+    MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
+    MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule,
+    SatPopoverModule,
     ContextMenuModule,
     StoreModule.forRoot(reducers),
     RouterModule.forRoot(routes, {useHash: true}),

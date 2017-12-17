@@ -1,31 +1,31 @@
-<h1 md-dialog-title>Add Upgrade</h1>
-<div md-dialog-content fxLayout="column">
-  <md-radio-group [(ngModel)]="type">
-    <md-radio-button value="1">Fixed</md-radio-button>
-    <md-radio-button value="2">Dynamic</md-radio-button>
-  </md-radio-group>
+<h1 mat-dialog-title>Add Upgrade</h1>
+<div mat-dialog-content fxLayout="column">
+  <mat-radio-group [(ngModel)]="type">
+    <mat-radio-button value="1">Fixed</mat-radio-button>
+    <mat-radio-button value="2">Dynamic</mat-radio-button>
+  </mat-radio-group>
 
-  <md-input-container *ngIf="type == 1">
-    <input mdInput placeholder="Level(s)" [(ngModel)]="level">
-  </md-input-container>
+  <mat-input-container *ngIf="type == 1">
+    <input matInput placeholder="Level(s)" [(ngModel)]="level">
+  </mat-input-container>
 
-  <md-input-container *ngIf="type == 2">
-    <span mdPrefix>Every&nbsp;</span>
-    <input mdInput placeholder="(Required)" [(ngModel)]="every" type="number">
-    <span mdSuffix="">&nbsp;Level</span>
-  </md-input-container>
+  <mat-input-container *ngIf="type == 2">
+    <span matPrefix>Every&nbsp;</span>
+    <input matInput placeholder="(Required)" [(ngModel)]="every" type="number">
+    <span matSuffix="">&nbsp;Level</span>
+  </mat-input-container>
 
-  <md-input-container *ngIf="type == 2">
-    <span mdPrefix>Start from level&nbsp;</span>
-    <input mdInput placeholder="(Optional)" [(ngModel)]="minimum" type="number">
-  </md-input-container>
+  <mat-input-container *ngIf="type == 2">
+    <span matPrefix>Start from level&nbsp;</span>
+    <input matInput placeholder="(Optional)" [(ngModel)]="minimum" type="number">
+  </mat-input-container>
 
-  <md-input-container *ngIf="type == 2">
-    <span mdPrefix>Until level&nbsp;</span>
-    <input mdInput placeholder="(Optional)" [(ngModel)]="limit" type="number">
-  </md-input-container>
+  <mat-input-container *ngIf="type == 2">
+    <span matPrefix>Until level&nbsp;</span>
+    <input matInput placeholder="(Optional)" [(ngModel)]="limit" type="number">
+  </mat-input-container>
 
 </div>
-<div md-dialog-actions>
-  <button md-raised-button (click)="done()">Add</button>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="done()">Add</button>
 </div>

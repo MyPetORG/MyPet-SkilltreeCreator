@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { MdDialogRef } from "@angular/material";
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 
 @Component({
   selector: 'app-skilltree-add-dialog',
@@ -10,7 +10,8 @@ export class SkilltreeAddDialogComponent {
 
   name: string = "";
 
-  constructor(public dialogRef: MdDialogRef<SkilltreeAddDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<SkilltreeAddDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   done() {

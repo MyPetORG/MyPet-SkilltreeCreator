@@ -1,11 +1,11 @@
-<md-toolbar class="spacer-t-1em spacer-b-1em">
-  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</md-toolbar>
+<mat-toolbar class="spacer-t-1em spacer-b-1em">
+  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</mat-toolbar>
 
-<md-popover #damagePopover="mdPopover" x-position="after" y-position="below"
-            [overlapTrigger]="true" mdPopoverTrigger="click" [mdPopoverDelay]="400">
-  <md-card>
-    <md-card-content>
+<sat-popover #damagePopover horizontalAlign="after" verticalAlign="below"
+>
+  <mat-card>
+    <mat-card-content>
       <p>The amount of damage the pet will cause with melee attacks.<br>
         Format: [+-=][number]<br>
         Examples:<br>
@@ -13,19 +13,19 @@
         -3<br>
         =6.0
       </p>
-    </md-card-content>
-  </md-card>
-</md-popover>
+    </mat-card-content>
+  </mat-card>
+</sat-popover>
 
 <div *ngIf="skill">
-  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
-    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
-    <md-input-container>
-      <input mdInput placeholder="Damage" [(ngModel)]="upgrade.damage" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
-      <span mdSuffix>damage</span>
-    </md-input-container>
-    <button md-icon-button [mdPopoverTriggerFor]="damagePopover">
-      <md-icon>info_outline</md-icon>
+  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
+    <mat-input-container>
+      <input matInput placeholder="Damage" [(ngModel)]="upgrade.damage" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+      <span matSuffix>damage</span>
+    </mat-input-container>
+    <button mat-icon-button [satPopoverAnchorFor]="damagePopover">
+      <mat-icon>info_outline</mat-icon>
     </button>
-  </md-expansion-panel>
+  </mat-expansion-panel>
 </div>

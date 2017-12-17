@@ -1,80 +1,80 @@
-<md-toolbar class="spacer-t-1em spacer-b-1em">
-  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</md-toolbar>
+<mat-toolbar class="spacer-t-1em spacer-b-1em">
+  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</mat-toolbar>
 
 <div *ngIf="skill">
-  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
-    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
 
     <div>
-      <md-button-toggle-group [value]="upgrade.friend">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.friend">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Friendly Mode</span>
     </div>
     <div>
-      <md-button-toggle-group [value]="upgrade.aggro">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.aggro">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Aggressive Mode</span>
     </div>
     <div>
-      <md-button-toggle-group [value]="upgrade.farm">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.farm">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Farm Mode</span>
     </div>
     <div>
-      <md-button-toggle-group [value]="upgrade.raid">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.raid">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Raid Mode</span>
     </div>
     <div>
-      <md-button-toggle-group [value]="upgrade.duel">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.duel">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Duel Mode</span>
     </div>
-  </md-expansion-panel>
+  </mat-expansion-panel>
 </div>

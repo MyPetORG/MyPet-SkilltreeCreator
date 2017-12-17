@@ -1,8 +1,8 @@
-<nav md-tab-nav-bar>
-  <a md-tab-link [active]="(tab$ | async) == 0" (click)="switchTab(0)">
+<nav mat-tab-nav-bar>
+  <a mat-tab-link [active]="(tab$ | async) == 0" (click)="switchTab(0)">
     Skill Editor
   </a>
-  <a md-tab-link [active]="(tab$ | async) == 1" (click)="switchTab(1)">
+  <a mat-tab-link [active]="(tab$ | async) == 1" (click)="switchTab(1)">
     Skilltree Properties
   </a>
 </nav>

@@ -1,39 +1,39 @@
-<md-sidenav-container class="example-container" (backdropClick)="closeSidenav()">
-  <md-sidenav #sidenav class="example-sidenav"
+<mat-sidenav-container class="example-container" (backdropClick)="closeSidenav()">
+  <mat-sidenav #sidenav class="example-sidenav"
               fxLayout="column"
               fxLayoutAlign="start center"
               [opened]="showSidenav$ | async"
               [disableClose]="true">
-    <button md-icon-button>
-      <md-icon>save</md-icon>
+    <button mat-icon-button>
+      <mat-icon>save</mat-icon>
     </button>
-    <button md-icon-button>
-      <md-icon>input</md-icon>
+    <button mat-icon-button>
+      <mat-icon>input</mat-icon>
     </button>
-    <button md-icon-button>
-      <md-icon>cloud upload</md-icon>
+    <button mat-icon-button>
+      <mat-icon>cloud upload</mat-icon>
     </button>
-    <button md-icon-button>
-      <md-icon>info_outline</md-icon>
+    <button mat-icon-button>
+      <mat-icon>info_outline</mat-icon>
     </button>
-  </md-sidenav>
-  <button md-button (click)="openSidenav()" *ngIf="(selectedSkilltree$ | async) == null">
-    <md-icon>menu</md-icon>
+  </mat-sidenav>
+  <button mat-button (click)="openSidenav()" *ngIf="(selectedSkilltree$ | async) == null">
+    <mat-icon>menu</mat-icon>
   </button>
-  <button md-button (click)="back()" *ngIf="selectedSkilltree$ | async">
-    <md-icon>arrow_back</md-icon>
+  <button mat-button (click)="back()" *ngIf="selectedSkilltree$ | async">
+    <mat-icon>arrow_back</mat-icon>
   </button>
-  <span mdTooltip="This features has not yet been implemented.">
-    <button md-button disabled>
-      <md-icon>undo</md-icon>
+  <span matTooltip="This features has not yet been implemented.">
+    <button mat-button disabled>
+      <mat-icon>undo</mat-icon>
     </button>
   </span>
-  <span mdTooltip="This features has not yet been implemented.">
-    <button md-button disabled>
-      <md-icon>redo</md-icon>
+  <span matTooltip="This features has not yet been implemented.">
+    <button mat-button disabled>
+      <mat-icon>redo</mat-icon>
     </button>
   </span>
-  <md-card>
+  <mat-card>
     <router-outlet></router-outlet>
-  </md-card>
-</md-sidenav-container>
+  </mat-card>
+</mat-sidenav-container>

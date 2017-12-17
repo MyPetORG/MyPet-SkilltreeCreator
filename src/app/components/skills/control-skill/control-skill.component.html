@@ -1,23 +1,23 @@
-<md-toolbar class="spacer-t-1em spacer-b-1em">
-  <button md-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</md-toolbar>
+<mat-toolbar class="spacer-t-1em spacer-b-1em">
+  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
+</mat-toolbar>
 
 <div *ngIf="skill">
-  <md-expansion-panel *ngFor="let upgrade of skill.upgrades">
-    <md-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</md-expansion-panel-header>
+  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
-      <md-button-toggle-group [value]="upgrade.active">
-        <md-button-toggle [value]="true" mdTooltip="Activate">
-          <md-icon>check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="null" mdTooltip="Don't change">
-          <md-icon>indeterminate_check_box</md-icon>
-        </md-button-toggle>
-        <md-button-toggle [value]="false" mdTooltip="Deactivate">
-          <md-icon>check_box_outline_blank</md-icon>
-        </md-button-toggle>
-      </md-button-toggle-group>
+      <mat-button-toggle-group [value]="upgrade.active">
+        <mat-button-toggle [value]="true" matTooltip="Activate">
+          <mat-icon>check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="null" matTooltip="Don't change">
+          <mat-icon>indeterminate_check_box</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+          <mat-icon>check_box_outline_blank</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
       <span>Active?</span>
     </div>
-  </md-expansion-panel>
+  </mat-expansion-panel>
 </div>
