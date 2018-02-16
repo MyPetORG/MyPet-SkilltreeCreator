@@ -1,10 +1,10 @@
 import { Action } from "@ngrx/store";
 import { SkillInfo } from "../../data/Skills";
 
-export const OPEN_SIDENAV = '[Layout] Open Sidenav';
-export const CLOSE_SIDENAV = '[Layout] Close Sidenav';
-export const SWITCH_TAB = '[Layout] Change Tab';
-export const SELECT_SKILL = '[Layout] Select Skill';
+export const OPEN_SIDENAV = 'OPEN_SIDENAV';
+export const CLOSE_SIDENAV = 'CLOSE_SIDENAV';
+export const SWITCH_TAB = 'SWITCH_TAB';
+export const SELECT_SKILL = 'SELECT_SKILL';
 
 
 export class OpenSidenavAction implements Action {

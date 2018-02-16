@@ -134,7 +134,7 @@ import { environment } from '../environments/environment';
     }),
     StoreDevtoolsModule.instrument({
       name: 'MyPet SkilltreeCreator',
-      logOnly: environment.production,
+      logOnly: !environment.production,
     }),
     EffectsModule.forRoot([
       SkilltreeEffects

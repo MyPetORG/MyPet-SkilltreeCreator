@@ -44,9 +44,11 @@ export class BackpackSkillComponent implements OnInit, OnDestroy {
        */
     }).unsubscribe();
 
+    /*
     this.upgrades$.subscribe(value => {
       console.log("upgrades", value);
     })
+    */
   }
 
   update(skilltree, upgrade, field, $event) {

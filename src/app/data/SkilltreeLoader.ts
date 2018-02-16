@@ -25,7 +25,7 @@ import { MobTypes } from "./MobTypes";
 import { Upgrade } from "../models/Upgrade";
 
 export class SkilltreeLoader {
-  static loadSkilltree(data: any): { skilltree: Skilltree, upgrades: Upgrade[] } {
+  static loadSkilltree(data: any): Skilltree {
     let name = data.getProp("name");
     if (!name || name == "") {
       return null;
@@ -36,11 +36,10 @@ export class SkilltreeLoader {
     skilltree.description = data.getProp("description") || [];
 
 
-    let skillData = SkilltreeLoader.loadSkills(data.getProp("skills"));
-    skilltree.skills = skillData.skills;
+    skilltree.skills = SkilltreeLoader.loadSkills(data.getProp("skills"));
     skilltree.mobtypes = SkilltreeLoader.loadMobTypes(data.getProp("mobtypes"));
 
-    return {skilltree, upgrades: skillData.upgrades};
+    return skilltree;
   }
 
   static loadMobTypes(data: any) {
@@ -55,8 +54,7 @@ export class SkilltreeLoader {
     return types;
   }
 
-  static loadSkills(data: any) {
-    let upgrades = [];
+  static loadSkills(data: any): { [name: string]: Upgrade[] } {
     let skills = {};
     Skills.forEach(skillInfo => {
       if (data[skillInfo.name]) {
@@ -65,12 +63,11 @@ export class SkilltreeLoader {
           let rule = SkilltreeLoader.loadLevelRule(key);
           let upgrade = SkilltreeLoader.SkillLoader[skillInfo.name](data[skillInfo.name].getProp("upgrades")[key]);
           upgrade.rule = rule;
-          skills[skillInfo.name].push(upgrade.id);
-          upgrades.push(upgrade)
+          skills[skillInfo.name].push(upgrade);
         });
       }
     });
-    return {skills, upgrades};
+    return skills;
   }
 
   static loadLevelRule(rule: string): LevelRule {

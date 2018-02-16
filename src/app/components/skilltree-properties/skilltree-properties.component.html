@@ -1,6 +1,6 @@
 <mat-card fxLayout="column">
   <mat-input-container>
-    <input matInput placeholder="ID" [formControl]="id" (blur)="update('id',id)">
+    <input matInput placeholder="ID" [formControl]="id" (blur)="rename(id)">
   </mat-input-container>
   <mat-input-container>
     <input matInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">

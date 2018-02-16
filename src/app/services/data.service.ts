@@ -27,7 +27,7 @@ export class ExampleDataService {
     let upgrade2: Backpack = Object.assign({rule: {every: 2}}, new BackpackDefault);
     upgrades.push(upgrade, upgrade2);
 
-    st1.skills = {Backpack: [upgrade.id, upgrade2.id]};
+    st1.skills = {Backpack: [upgrade, upgrade2]};
     let st2: Skilltree = {id: "Test2", name: "testtt2", skills: {}, mobtypes: []};
     let st3: Skilltree = {id: "Test3", name: "testtt3", skills: {}, mobtypes: []};
     let st4: Skilltree = {id: "Test4", name: "testtt4", skills: {}, mobtypes: []};

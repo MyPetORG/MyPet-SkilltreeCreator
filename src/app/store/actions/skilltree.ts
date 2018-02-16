@@ -2,18 +2,18 @@ import { Action } from "@ngrx/store";
 import { Skilltree } from "../../models/Skilltree";
 import { Upgrade } from "../../models/Upgrade";
 
-export const ADD_SKILLTREE = '[Skilltree] Add';
-export const LOAD_SKILLTREE = '[Skilltree] Load';
-export const LOAD_SKILLTREE_SUCCESS = '[Skilltree] Load Success';
-export const COPY_SKILLTREE = '[Skilltree] Copy';
-export const REMOVE_SKILLTREE = '[Skilltree] Remove';
+export const ADD_SKILLTREE = 'ADD_SKILLTREE';
+export const LOAD_SKILLTREE = 'LOAD_SKILLTREE';
+export const LOAD_SKILLTREE_SUCCESS = 'LOAD_SKILLTREE_SUCCESS';
+export const COPY_SKILLTREE = 'COPY_SKILLTREE';
+export const REMOVE_SKILLTREE = 'REMOVE_SKILLTREE';
+export const RENAME_SKILLTREE = 'RENAME_SKILLTREE';
 
-export const SELECT_SKILLTREE = '[Skilltree] Select';
-export const UPDATE_SKILLTREE_INFO = '[Skilltree] Update Info';
+export const SELECT_SKILLTREE = 'SELECT_SKILLTREE';
+export const UPDATE_SKILLTREE_INFO = 'UPDATE_SKILLTREE_INFO';
 
-export const ADD_UPGRADE = '[Upgrade] Add';
-export const LOAD_UPGRADES = '[Upgrade] Load';
-export const UPDATE_UPGRADE = '[Upgrade] Update';
+export const ADD_UPGRADE = 'ADD_UPGRADE';
+export const UPDATE_UPGRADE = 'UPDATE_UPGRADE';
 
 /**
  * Add Skilltree Actions
@@ -34,10 +34,8 @@ export class LoadSkilltreeAction implements Action {
 
 export class LoadSkilltreeSuccessAction implements Action {
   readonly type = LOAD_SKILLTREE_SUCCESS;
-  readonly payload: { skilltree: Skilltree, upgrades: Upgrade[] };
 
-  constructor(skilltree: Skilltree, upgrades: Upgrade[]) {
-    this.payload = {skilltree, upgrades};
+  constructor(public payload: Skilltree) {
   }
 }
 
@@ -59,12 +57,22 @@ export class RemoveSkilltreeAction implements Action {
 }
 
 /**
+ * Remove Skilltree Actions
+ */
+export class RenameSkilltreeAction implements Action {
+  readonly type = RENAME_SKILLTREE;
+
+  constructor(public newId: string, public oldId: string) {
+  }
+}
+
+/**
  * Select Skilltree Actions
  */
 export class SelectSkilltreeAction implements Action {
   readonly type = SELECT_SKILLTREE;
 
-  constructor(public payload: string) {
+  constructor(public payload: string | null) {
   }
 }
 
@@ -73,11 +81,8 @@ export class SelectSkilltreeAction implements Action {
  */
 export class UpdateSkilltreeInfoAction implements Action {
   readonly type = UPDATE_SKILLTREE_INFO;
-  readonly payload: { skilltree: Skilltree, oldId: string };
 
-  constructor(skilltree: Skilltree, oldId: string) {
-    this.payload.skilltree = skilltree;
-    this.payload.oldId = oldId
+  constructor(public payload: { changes: any, id: string }) {
   }
 }
 
@@ -89,13 +94,6 @@ export class AddSkillUpgrade implements Action {
   readonly type = ADD_UPGRADE;
 
   constructor(public payload: Upgrade) {
-  }
-}
-
-export class LoadSkillUpgrades implements Action {
-  readonly type = LOAD_UPGRADES;
-
-  constructor(public payload: Upgrade[]) {
   }
 }
 
@@ -112,8 +110,8 @@ export type Actions
   | LoadSkilltreeSuccessAction
   | CopySkilltreeAction
   | RemoveSkilltreeAction
+  | RenameSkilltreeAction
   | SelectSkilltreeAction
   | UpdateSkilltreeInfoAction
   | UpdateSkillUpgrade
   | AddSkillUpgrade
-  | LoadSkillUpgrades

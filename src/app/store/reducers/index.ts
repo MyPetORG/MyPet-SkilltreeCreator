@@ -4,6 +4,7 @@ import { ActionReducerMap } from "@ngrx/store";
 import * as fromLayout from "./layout";
 import * as fromSkilltree from "./skilltree";
 import { Skilltree } from "../../models/Skilltree";
+import { SkillInfo } from "../../data/Skills";
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -33,9 +34,13 @@ export const reducers: ActionReducerMap<State> = {
  */
 export const getSkilltreeState = (state: State) => state.skilltree;
 
-export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.getSkilltrees);
-export const getSelectedSkilltree = createSelector(getSkilltreeState, fromSkilltree.getSelectedSkilltree);
+export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.selectSkilltreeEntities);
 export const getSelectedSkilltreeId = createSelector(getSkilltreeState, fromSkilltree.getSelectedSkilltreeId);
+export const getSelectedSkilltree = createSelector(
+  getSkilltrees,
+  getSelectedSkilltreeId,
+  (skilltreeEntities, skilltreeId) => skilltreeEntities[skilltreeId]
+);
 
 /**
  * Layout Reducers
@@ -49,17 +54,5 @@ export const getSelectedSkill = createSelector(getLayoutState, fromLayout.getSel
 /**
  * Upgrade Reducers
  */
-export const getUpgrades = createSelector(getSkilltreeState, fromSkilltree.getUpgrades);
 
-export const getSelectedUpgradeIds = createSelector(getSelectedSkill, getSelectedSkilltree, (skill, skilltree: Skilltree) => {
-  console.log("skilltree --", skilltree);
-  return skilltree ? skilltree.skills[skill.name] : [];
-});
-
-export const getSelectedUpgrades = createSelector(getUpgrades, getSelectedUpgradeIds, (upgrades, ids) => {
-  console.log("type", typeof ids);
-  if (!ids) {
-    return {}
-  }
-  return ids.map(id => upgrades[id]);
-});
+export const getSelectedUpgrades = createSelector(getSelectedSkilltree, getSelectedSkill, (skilltree: Skilltree, skill: SkillInfo) => skilltree ? skilltree.skills[skill.name] : []);

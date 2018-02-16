@@ -31,13 +31,15 @@ export class SkilltreePropertiesComponent implements OnDestroy {
               private store: Store<Reducers.State>) {
     this.skilltree$ = store.select(Reducers.getSelectedSkilltree);
     this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
-      this.skilltree = skilltree;
-      this.id.setValue(skilltree.id);
-      this.name.setValue(skilltree.name);
-      this.permission.setValue(skilltree.permission);
-      if (skilltree.description) {
-        this.description.setValue(skilltree.description.join("\n"));
-        this._description = skilltree.description;
+      if (skilltree) {
+        this.skilltree = skilltree;
+        this.id.setValue(skilltree.id);
+        this.name.setValue(skilltree.name);
+        this.permission.setValue(skilltree.permission);
+        if (skilltree.description) {
+          this.description.setValue(skilltree.description.join("\n"));
+          this._description = skilltree.description;
+        }
       }
     })
   }
@@ -60,18 +62,33 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         result.forEach(type => {
           mobtypes.push(type.name);
         });
-        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction(Object.assign({}, this.skilltree, {mobtypes}), this.skilltree.id));
+        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
+          changes: {mobtypes},
+          id: this.skilltree.id
+        }));
       }
     });
   }
 
   update(field, control: FormControl) {
     if (this.skilltree[field] != control.value) {
-      this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction(Object.assign({}, this.skilltree, {[field]: control.value}), this.skilltree.id));
+      this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
+        changes: {[field]: control.value},
+        id: this.skilltree.id
+      }));
     }
   }
 
   updateDescription() {
-    this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction(Object.assign({}, this.skilltree, {description: this.description.value.split("\n")}), this.skilltree.id));
+    this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
+      changes: {description: this.description.value.split("\n")},
+      id: this.skilltree.id
+    }));
+  }
+
+  rename(control: FormControl) {
+    if (this.skilltree.id != control.value) {
+      this.store.dispatch(new SkilltreeActions.RenameSkilltreeAction(control.value, this.skilltree.id));
+    }
   }
 }

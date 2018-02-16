@@ -1,92 +1,65 @@
 import * as skilltree from "../actions/skilltree";
 import { Skilltree } from "../../models/Skilltree";
-import { createSelector } from "reselect";
-import { Upgrade } from "../../models/Upgrade";
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 
 
-export interface State {
-  skilltrees: { [id: string]: Skilltree };
-  upgrades: { [id: number]: Upgrade };
-  selectedSkilltree: string | null;
+export interface State extends EntityState<Skilltree> {
+  selectedSkilltreeId: string | null;
 }
 
-const initialState: State = {
-  skilltrees: {},
-  selectedSkilltree: null,
-  upgrades: {},
-};
+export const adapter: EntityAdapter<Skilltree> = createEntityAdapter<Skilltree>({
+  sortComparer: sortByName,
+});
+
+const initialState: State = adapter.getInitialState({
+  // additional entity state properties
+  selectedSkilltreeId: null
+});
+
+export function sortByName(a: Skilltree, b: Skilltree): number {
+  let aOrder: number = a.order ? a.order : Number.MAX_SAFE_INTEGER;
+  let bOrder: number = b.order ? b.order : Number.MAX_SAFE_INTEGER;
+  return aOrder - bOrder;
+}
 
 export function reducer(state = initialState, action: skilltree.Actions): State {
   switch (action.type) {
-    case skilltree.LOAD_SKILLTREE_SUCCESS: {
-      const skilltree = action.payload.skilltree;
-
-      let newState = JSON.parse(JSON.stringify(state));
-      newState.skilltrees[skilltree.id] = JSON.parse(JSON.stringify(skilltree));
-
-      let upgrade = action.payload.upgrades;
-      upgrade.forEach(upgrade => {
-        newState.upgrades[upgrade.id] = JSON.parse(JSON.stringify(upgrade));
-      });
-
-      return newState;
-    }
+    case skilltree.LOAD_SKILLTREE_SUCCESS:
     case skilltree.COPY_SKILLTREE:
     case skilltree.ADD_SKILLTREE: {
       const skilltree = action.payload;
-
-      let ret = JSON.parse(JSON.stringify(state));
-      ret.skilltrees[skilltree.id] = skilltree;
-      return ret;
+      return adapter.addOne(skilltree, state);
     }
 
     case skilltree.REMOVE_SKILLTREE: {
-      const skilltree = action.payload;
+      const skilltree: Skilltree = action.payload;
 
-      let ret = JSON.parse(JSON.stringify(state));
-      delete ret.skilltrees[skilltree.id];
-
-      if (state.selectedSkilltree && state.selectedSkilltree == skilltree.id) {
-        ret.selectedSkilltree = null;
+      let newState;
+      if (state.selectedSkilltreeId && state.selectedSkilltreeId == skilltree.id) {
+        newState = {...state, selectedSkilltreeId: null};
+      } else {
+        newState = state;
       }
-
-      return ret;
+      return adapter.removeOne(skilltree.id, newState);
     }
 
     case skilltree.SELECT_SKILLTREE: {
       const skilltreeId = action.payload;
 
-      return Object.assign({}, state, {
-        selectedSkilltree: skilltreeId
-      });
+      return {...state, selectedSkilltreeId: skilltreeId};
+    }
+
+    case skilltree.RENAME_SKILLTREE: {
+      const oldId = action.oldId;
+      const newId = action.newId;
+
+      return adapter.updateOne({changes: {id: newId}, id: oldId}, state);
     }
 
     case skilltree.UPDATE_SKILLTREE_INFO: {
-      const updatedSkilltree = action.payload.skilltree;
-      const originalId = action.payload.oldId;
+      const update = action.payload;
 
-      let copy = JSON.parse(JSON.stringify(updatedSkilltree));
-      let ret = JSON.parse(JSON.stringify(state));
-
-      if (originalId != updatedSkilltree.id) {
-        delete ret.skilltrees[originalId];
-        if (state.selectedSkilltree == originalId) {
-          ret.selectedSkilltree = updatedSkilltree.id;
-        }
-      }
-      ret.skilltrees[updatedSkilltree.id] = copy;
-
-      return ret
-    }
-
-    case skilltree.LOAD_UPGRADES: {
-      let upgrade = action.payload;
-      let newState = JSON.parse(JSON.stringify(state));
-
-      upgrade.forEach(upgrade => {
-        newState.upgrades[upgrade.id] = JSON.parse(JSON.stringify(upgrade));
-      });
-      return newState
+      return adapter.updateOne(update, state);
     }
 
     default: {
@@ -95,12 +68,18 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
   }
 }
 
-export const getSkilltrees = (state: State) => state.skilltrees;
+export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltreeId;
 
-export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltree;
+export const {
+  // select the array of Skilltree ids
+  selectIds: selectSkilltreeIds,
 
-export const getSelectedSkilltree = createSelector(getSkilltrees, getSelectedSkilltreeId, (skilltrees, selectedSkilltree) => {
-  return skilltrees[selectedSkilltree];
-});
+  // select the dictionary of Skilltree entities
+  selectEntities: selectSkilltreeEntities,
 
-export const getUpgrades = (state: State) => state.upgrades;
+  // select the array of Skilltrees
+  selectAll: selectAllSkilltrees,
+
+  // select the total Skilltree count
+  selectTotal: selectSkilltreeTotal
+} = adapter.getSelectors();
