@@ -5,7 +5,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -19,11 +19,11 @@ export class SkilltreeEffects {
   loadSkilltree$: Observable<Action> = this.actions$
     .ofType(Skilltree.LOAD_SKILLTREE)
     .debounceTime(300)
-    .map(toPayload)
-    .switchMap(action => {
+
+    .switchMap((action: Skilltree.LoadSkilltreeAction) => {
       console.log("query", action);
 
-      let result = this.skilltreeLoader.loadSkilltree(action);
+      let result = this.skilltreeLoader.loadSkilltree(action.payload);
 
       return of(new Skilltree.LoadSkilltreeSuccessAction(result.skilltree, result.upgrades));
     });

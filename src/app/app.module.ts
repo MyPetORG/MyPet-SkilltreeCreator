@@ -54,11 +54,30 @@ import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./effects/skilltree";
 import { SatPopoverModule } from "@ncstate/sat-popover";
 import {
-  MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDialogModule,
-  MatExpansionModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatPaginatorModule,
-  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule,
-  MatSlideToggleModule, MatSnackBarModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatOptionModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from "@angular/material";
+import { environment } from '../environments/environment'; // Angular CLI environment
 
 @NgModule({
   declarations: [
@@ -109,11 +128,16 @@ import {
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule,
     SatPopoverModule,
-    ContextMenuModule,
+    ContextMenuModule.forRoot(),
     StoreModule.forRoot(reducers),
     RouterModule.forRoot(routes, {useHash: true}),
-    StoreRouterConnectingModule,
-    StoreDevtoolsModule.instrument(),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+    }),
+    StoreDevtoolsModule.instrument({
+      name: 'MyPet SkilltreeCreator',
+      logOnly: environment.production,
+    }),
     EffectsModule.forRoot([
       SkilltreeEffects
     ]),
