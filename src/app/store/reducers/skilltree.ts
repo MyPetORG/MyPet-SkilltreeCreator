@@ -1,7 +1,7 @@
 import * as skilltree from "../actions/skilltree";
-import { Skilltree } from "../models/Skilltree";
+import { Skilltree } from "../../models/Skilltree";
 import { createSelector } from "reselect";
-import { Upgrade } from "../models/Upgrade";
+import { Upgrade } from "../../models/Upgrade";
 
 
 export interface State {

@@ -4,10 +4,10 @@ import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-a
 import { Skilltree } from "../../models/Skilltree";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
-import * as Reducers from "../../reducers/index";
-import * as SkilltreeActions from "../../actions/skilltree";
+import * as Reducers from "../../store/reducers/index";
+import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Router } from "@angular/router";
-import * as LayoutActions from "../../actions/layout";
+import * as LayoutActions from "../../store/actions/layout";
 
 @Component({
   selector: 'app-skilltree-list',

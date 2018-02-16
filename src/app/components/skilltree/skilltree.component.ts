@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
-import * as Reducers from "../../reducers/index";
-import * as LayoutActions from "../../actions/layout";
+import * as Reducers from "../../store/reducers/index";
+import * as LayoutActions from "../../store/actions/layout";
 import { Router } from "@angular/router";
 
 @Component({

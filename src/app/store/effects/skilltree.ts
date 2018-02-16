@@ -10,7 +10,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import * as Skilltree from "../actions/skilltree";
-import { SkilltreeLoaderService } from "../services/skilltree-loader.service";
+import { SkilltreeLoaderService } from "../../services/skilltree-loader.service";
 
 @Injectable()
 export class SkilltreeEffects {

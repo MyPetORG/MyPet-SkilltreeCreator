@@ -3,8 +3,8 @@ import { Skilltree } from "../models/Skilltree";
 import { SkilltreeLoaderService } from "./skilltree-loader.service";
 import { RideSkilltree } from "../data/ExampleSkilltrees";
 import { Store } from "@ngrx/store";
-import * as Reducers from "../reducers/index";
-import * as SkilltreeActions from "../actions/skilltree";
+import * as Reducers from "../store/reducers/index";
+import * as SkilltreeActions from "../store/actions/skilltree";
 import { Backpack, BackpackDefault } from "../models/skills/Backpack";
 
 @Injectable()

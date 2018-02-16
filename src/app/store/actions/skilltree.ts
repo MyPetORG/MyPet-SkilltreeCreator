@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
-import { Skilltree } from "../models/Skilltree";
-import { Upgrade } from "../models/Upgrade";
+import { Skilltree } from "../../models/Skilltree";
+import { Upgrade } from "../../models/Upgrade";
 
 export const ADD_SKILLTREE = '[Skilltree] Add';
 export const LOAD_SKILLTREE = '[Skilltree] Load';

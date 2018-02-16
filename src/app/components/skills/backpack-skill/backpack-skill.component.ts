@@ -10,7 +10,7 @@ import { Skilltree } from "../../../models/Skilltree";
 import { Observable } from "rxjs/Observable";
 import { SkillInfo } from "../../../data/Skills";
 import { Store } from "@ngrx/store";
-import * as Reducers from "../../../reducers/index";
+import * as Reducers from "../../../store/reducers/index";
 import { Upgrade } from "../../../models/Upgrade";
 
 @Component({

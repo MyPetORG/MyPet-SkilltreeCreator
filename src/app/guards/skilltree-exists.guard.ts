@@ -10,7 +10,7 @@ import { Store } from "@ngrx/store";
 import { ActivatedRouteSnapshot, CanActivate } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { of } from "rxjs/observable/of";
-import * as Reducers from "../reducers/index";
+import * as Reducers from "../store/reducers/index";
 
 @Injectable()
 export class SkilltreeExistsGuard implements CanActivate {

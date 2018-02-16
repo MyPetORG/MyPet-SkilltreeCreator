@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import * as Reducers from "../../reducers/index";
+import * as Reducers from "../../store/reducers/index";
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import { SkillInfo } from "../../data/Skills";

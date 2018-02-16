@@ -42,7 +42,7 @@ import "hammerjs";
 import { ContextMenuModule } from "ngx-contextmenu";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from "@ngrx/store";
-import { reducers } from "./reducers";
+import { reducers } from "./store/reducers";
 import { KeysPipe } from "./pipes/keys.pipe";
 import { SkilltreeExistsGuard } from "./guards/skilltree-exists.guard";
 import { routes } from "./app.routing";
@@ -50,7 +50,7 @@ import { RouterModule } from "@angular/router";
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
 import { EffectsModule } from "@ngrx/effects";
-import { SkilltreeEffects } from "./effects/skilltree";
+import { SkilltreeEffects } from "./store/effects/skilltree";
 import { SatPopoverModule } from "@ncstate/sat-popover";
 import {
   MatButtonModule,

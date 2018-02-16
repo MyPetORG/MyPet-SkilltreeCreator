@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs/Subscription";
-import * as SkilltreeActions from "../../actions/skilltree";
-import * as Reducers from "../../reducers/index";
-import * as LayoutActions from "../../actions/layout";
+import * as SkilltreeActions from "../../store/actions/skilltree";
+import * as Reducers from "../../store/reducers/index";
+import * as LayoutActions from "../../store/actions/layout";
 import { Observable } from "rxjs/Observable";
 
 @Component({
