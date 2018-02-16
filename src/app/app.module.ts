@@ -1,7 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
 
 import { AppComponent } from "./components/app/app.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -43,7 +42,7 @@ import "hammerjs";
 import { ContextMenuModule } from "ngx-contextmenu";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from "@ngrx/store";
-import { reducers } from "./reducers/index";
+import { reducers } from "./reducers";
 import { KeysPipe } from "./pipes/keys.pipe";
 import { SkilltreeExistsGuard } from "./guards/skilltree-exists.guard";
 import { routes } from "./app.routing";
@@ -77,7 +76,7 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from "@angular/material";
-import { environment } from '../environments/environment'; // Angular CLI environment
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -120,7 +119,6 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatIconModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
