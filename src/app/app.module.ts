@@ -77,6 +77,8 @@ import {
   MatTooltipModule
 } from "@angular/material";
 import { environment } from '../environments/environment';
+import { IconLoaderService } from "./services/icon-loader.service";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -118,6 +120,7 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
@@ -150,6 +153,7 @@ import { environment } from '../environments/environment';
     ExampleDataService,
     SkilltreeLoaderService,
     SkilltreeExistsGuard,
+    IconLoaderService,
   ],
   bootstrap: [AppComponent]
 })

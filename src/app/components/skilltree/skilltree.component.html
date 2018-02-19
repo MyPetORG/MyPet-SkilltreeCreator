@@ -1,38 +1,34 @@
 <mat-sidenav-container class="example-container" (backdropClick)="closeSidenav()">
   <mat-sidenav #sidenav class="example-sidenav"
-              fxLayout="column"
-              fxLayoutAlign="start center"
-              [opened]="showSidenav$ | async"
-              [disableClose]="true">
+               fxLayout="column"
+               fxLayoutAlign="start center"
+               [opened]="showSidenav$ | async"
+               [disableClose]="true">
     <button mat-icon-button>
-      <mat-icon>save</mat-icon>
+      <mat-icon svgIcon="save">save</mat-icon>
     </button>
     <button mat-icon-button>
-      <mat-icon>input</mat-icon>
+      <mat-icon svgIcon="input">input</mat-icon>
     </button>
     <button mat-icon-button>
-      <mat-icon>cloud upload</mat-icon>
+      <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
     <button mat-icon-button>
-      <mat-icon>info_outline</mat-icon>
+      <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>
   <button mat-button (click)="openSidenav()" *ngIf="(selectedSkilltree$ | async) == null">
-    <mat-icon>menu</mat-icon>
+    <mat-icon svgIcon="menu">menu</mat-icon>
   </button>
   <button mat-button (click)="back()" *ngIf="selectedSkilltree$ | async">
-    <mat-icon>arrow_back</mat-icon>
+    <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
   </button>
-  <span matTooltip="This features has not yet been implemented.">
-    <button mat-button (click)="undo()" [disabled]="(pastStates$ | async).length <= 0">
-      <mat-icon>undo</mat-icon>
-    </button>
-  </span>
-  <span matTooltip="This features has not yet been implemented.">
-    <button mat-button (click)="redo()" [disabled]="(futureStates$ | async).length <= 0">
-      <mat-icon>redo</mat-icon>
-    </button>
-  </span>
+  <button mat-button (click)="undo()" [disabled]="(pastStates$ | async).length <= 0">
+    <mat-icon svgIcon="undo">undo</mat-icon>
+  </button>
+  <button mat-button (click)="redo()" [disabled]="(futureStates$ | async).length <= 0">
+    <mat-icon svgIcon="redo">redo</mat-icon>
+  </button>
   <mat-card>
     <router-outlet></router-outlet>
   </mat-card>
