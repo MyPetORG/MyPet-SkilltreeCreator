@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
 import { Router } from "@angular/router";
+import { RedoAction, UndoAction } from "../../store/reducers/undoable";
 
 @Component({
   selector: 'app-skilltree',
@@ -13,11 +14,15 @@ import { Router } from "@angular/router";
 export class SkilltreeComponent {
   showSidenav$: Observable<boolean>;
   selectedSkilltree$: Observable<string | null>;
+  pastStates$: Observable<any[] | null>;
+  futureStates$: Observable<any[] | null>;
 
   constructor(private store: Store<Reducers.State>,
               private router: Router) {
     this.showSidenav$ = this.store.select(Reducers.getShowSidenav);
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
+    this.pastStates$ = this.store.select(Reducers.getPastStates);
+    this.futureStates$ = this.store.select(Reducers.getFutureStates);
   }
 
   back() {
@@ -30,5 +35,13 @@ export class SkilltreeComponent {
 
   closeSidenav() {
     this.store.dispatch(new LayoutActions.CloseSidenavAction());
+  }
+
+  undo() {
+    this.store.dispatch(new UndoAction());
+  }
+
+  redo() {
+    this.store.dispatch(new RedoAction());
   }
 }

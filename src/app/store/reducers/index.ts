@@ -5,6 +5,7 @@ import * as fromLayout from "./layout";
 import * as fromSkilltree from "./skilltree";
 import { Skilltree } from "../../models/Skilltree";
 import { SkillInfo } from "../../data/Skills";
+import * as fromUndoable from "./undoable";
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -12,7 +13,7 @@ import { SkillInfo } from "../../data/Skills";
  */
 export interface State {
   layout: fromLayout.State;
-  skilltree: fromSkilltree.State;
+  skilltree: fromUndoable.UndoableState<fromSkilltree.State>;
   router: fromRouter.RouterReducerState;
 }
 
@@ -25,14 +26,24 @@ export interface State {
  */
 export const reducers: ActionReducerMap<State> = {
   layout: fromLayout.reducer,
-  skilltree: fromSkilltree.reducer,
+  skilltree: fromUndoable.undoable(fromSkilltree.reducer),
   router: fromRouter.routerReducer,
 };
+
+
+/**
+ * Undoable Reducers
+ */
+
+export const getUndoableState = (state: State) => state.skilltree;
+export const getPastStates = createSelector(getUndoableState, fromUndoable.getPastStates);
+export const getPresent = createSelector(getUndoableState, fromUndoable.getPresentStates);
+export const getFutureStates = createSelector(getUndoableState, fromUndoable.getFutureStates);
 
 /**
  * Skilltree Reducers
  */
-export const getSkilltreeState = (state: State) => state.skilltree;
+export const getSkilltreeState = getPresent;
 
 export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.selectSkilltreeEntities);
 export const getSelectedSkilltreeId = createSelector(getSkilltreeState, fromSkilltree.getSelectedSkilltreeId);

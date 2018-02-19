@@ -24,12 +24,12 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span matTooltip="This features has not yet been implemented.">
-    <button mat-button disabled>
+    <button mat-button (click)="undo()" [disabled]="(pastStates$ | async).length <= 0">
       <mat-icon>undo</mat-icon>
     </button>
   </span>
   <span matTooltip="This features has not yet been implemented.">
-    <button mat-button disabled>
+    <button mat-button (click)="redo()" [disabled]="(futureStates$ | async).length <= 0">
       <mat-icon>redo</mat-icon>
     </button>
   </span>
