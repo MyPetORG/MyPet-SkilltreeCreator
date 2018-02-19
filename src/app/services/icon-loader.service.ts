@@ -18,6 +18,9 @@ export class IconLoaderService {
     this.addSvgIcon('input', 'ic_input_24px.svg');
     this.addSvgIcon('save', 'ic_save_24px.svg');
     this.addSvgIcon('create', 'ic_create_24px.svg');
+    this.addSvgIcon('indeterminate_check_box', 'ic_indeterminate_check_box_24px.svg');
+    this.addSvgIcon('check_box', 'ic_check_box_24px.svg');
+    this.addSvgIcon('check_box_outline_blank', 'ic_check_box_outline_blank_24px.svg');
   }
 
   addSvgIcon(name: string, fileName: string) {
