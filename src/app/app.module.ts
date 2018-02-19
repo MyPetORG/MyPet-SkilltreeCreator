@@ -13,7 +13,6 @@ import { SkilltreeComponent } from "./components/skilltree/skilltree.component";
 import { SkillEditorComponent } from "./components/skill-editor/skill-editor.component";
 import { StateService } from "./services/state.service";
 import { FireSkillComponent } from "./components/skills/fire-skill/fire-skill.component";
-import { SkillEditorUpgradeComponent } from "./components/skill-editor-upgrade/skill-editor-upgrade.component";
 import { MobTypeSelectDialogComponent } from "./components/mob-type-select-dialog/mob-type-select-dialog.component";
 import { UpgradeAddDialogComponent } from "./components/upgrade-add-dialog/upgrade-add-dialog.component";
 import { McChatPipe } from "./pipes/mc-chat.pipe";
@@ -90,7 +89,6 @@ import { HttpClientModule } from "@angular/common/http";
     SkilltreeListComponent,
     SkilltreeComponent,
     SkillEditorComponent,
-    SkillEditorUpgradeComponent,
     SkilltreeEditorComponent,
 
     McChatPipe,
@@ -147,6 +145,28 @@ import { HttpClientModule } from "@angular/common/http";
     SkilltreeAddDialogComponent,
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
+
+    /** Skills **/
+    BackpackSkillComponent,
+    BeaconSkillComponent,
+    BehaviorSkillComponent,
+    ControlSkillComponent,
+    DamageSkillComponent,
+    FireSkillComponent,
+    HealSkillComponent,
+    HealthBoostSkillComponent,
+    KnockbackSkillComponent,
+    LightningSkillComponent,
+    PickupSkillComponent,
+    PoisonSkillComponent,
+    RangedSkillComponent,
+    RideSkillComponent,
+    ShieldSkillComponent,
+    SlowSkillComponent,
+    SprintSkillComponent,
+    StompSkillComponent,
+    ThornsSkillComponent,
+    WitherSkillComponent,
   ],
   providers: [
     StateService,
