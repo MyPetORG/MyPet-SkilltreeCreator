@@ -1,5 +1,4 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./components/app/app.component";
@@ -46,7 +45,7 @@ import { KeysPipe } from "./pipes/keys.pipe";
 import { SkilltreeExistsGuard } from "./guards/skilltree-exists.guard";
 import { routes } from "./app.routing";
 import { RouterModule } from "@angular/router";
-import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { RouterStateSerializer, StoreRouterConnectingModule } from "@ngrx/router-store";
 import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
 import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./store/effects/skilltree";
@@ -78,6 +77,8 @@ import {
 import { environment } from '../environments/environment';
 import { IconLoaderService } from "./services/icon-loader.service";
 import { HttpClientModule } from "@angular/common/http";
+import { storeFreeze } from "ngrx-store-freeze";
+import { FreezableRouterStateSerializer } from "./store/freezable-router";
 
 @NgModule({
   declarations: [
@@ -128,7 +129,7 @@ import { HttpClientModule } from "@angular/common/http";
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule,
     SatPopoverModule,
     ContextMenuModule.forRoot(),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {metaReducers: !environment.production ? [storeFreeze] : []}),
     RouterModule.forRoot(routes, {useHash: true}),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
@@ -174,6 +175,7 @@ import { HttpClientModule } from "@angular/common/http";
     SkilltreeLoaderService,
     SkilltreeExistsGuard,
     IconLoaderService,
+    {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer}
   ],
   bootstrap: [AppComponent]
 })
