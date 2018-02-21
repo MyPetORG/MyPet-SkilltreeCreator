@@ -133,7 +133,7 @@ import { AboutComponent } from './components/about/about.component';
     SatPopoverModule,
     ContextMenuModule.forRoot(),
     StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
-    RouterModule.forRoot(routes, {useHash: true}),
+    RouterModule.forRoot(routes),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
     }),
