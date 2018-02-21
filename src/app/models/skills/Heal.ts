@@ -8,8 +8,8 @@ export interface Heal extends Upgrade {
 
 export class HealDefault implements Heal {
   id = getNewUpgradeID();
-  timer: "+0";
-  health: "+0";
+  timer = "+0";
+  health = "+0";
 }
 
 export function HealLoader(data: any): Heal {

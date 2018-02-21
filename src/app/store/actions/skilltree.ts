@@ -11,9 +11,7 @@ export const RENAME_SKILLTREE = 'RENAME_SKILLTREE';
 
 export const SELECT_SKILLTREE = 'SELECT_SKILLTREE';
 export const UPDATE_SKILLTREE_INFO = 'UPDATE_SKILLTREE_INFO';
-
-export const ADD_UPGRADE = 'ADD_UPGRADE';
-export const UPDATE_UPGRADE = 'UPDATE_UPGRADE';
+export const UPDATE_SKILLTREE_UPGRADE = 'UPDATE_SKILLTREE_UPGRADE';
 
 /**
  * Add Skilltree Actions
@@ -86,21 +84,10 @@ export class UpdateSkilltreeInfoAction implements Action {
   }
 }
 
-/**
- * Upgrade Actions
- */
+export class UpdateSkilltreeUpgradeAction implements Action {
+  readonly type = UPDATE_SKILLTREE_UPGRADE;
 
-export class AddSkillUpgrade implements Action {
-  readonly type = ADD_UPGRADE;
-
-  constructor(public payload: Upgrade) {
-  }
-}
-
-export class UpdateSkillUpgrade implements Action {
-  readonly type = UPDATE_UPGRADE;
-
-  constructor(public upgrade: Upgrade, public update) {
+  constructor(public payload: { changes: any, id: string }) {
   }
 }
 
@@ -113,5 +100,4 @@ export type Actions
   | RenameSkilltreeAction
   | SelectSkilltreeAction
   | UpdateSkilltreeInfoAction
-  | UpdateSkillUpgrade
-  | AddSkillUpgrade
+  | UpdateSkilltreeUpgradeAction

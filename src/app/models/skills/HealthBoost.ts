@@ -7,7 +7,7 @@ export interface HealthBoost extends Upgrade {
 
 export class HealthBoostDefault implements HealthBoost {
   id = getNewUpgradeID();
-  health: "+0";
+  health = "+0";
 }
 
 export function HealthBoostLoader(data: any): HealthBoost {

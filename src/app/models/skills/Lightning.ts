@@ -8,8 +8,8 @@ export interface Lightning extends Upgrade {
 
 export class LightningDefault implements Lightning {
   id = getNewUpgradeID();
-  chance: "+0";
-  damage: "+0";
+  chance = "+0";
+  damage = "+0";
 }
 
 export function LightningLoader(data: any): Lightning {

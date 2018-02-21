@@ -62,6 +62,12 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
       return adapter.updateOne(update, state);
     }
 
+    case skilltree.UPDATE_SKILLTREE_UPGRADE: {
+      const update = action.payload;
+
+      return adapter.updateOne(update, state);
+    }
+
     default: {
       return state;
     }

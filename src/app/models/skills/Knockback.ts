@@ -7,7 +7,7 @@ export interface Knockback extends Upgrade {
 
 export class KnockbackDefault implements Knockback {
   id = getNewUpgradeID();
-  chance: "+0";
+  chance = "+0";
 }
 
 export function KnockbackLoader(data: any): Knockback {

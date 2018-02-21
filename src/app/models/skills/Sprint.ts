@@ -7,7 +7,7 @@ export interface Sprint extends Upgrade {
 
 export class SprintDefault implements Sprint {
   id = getNewUpgradeID();
-  active: null;
+  active = null;
 }
 
 export function SprintLoader(data: any): Sprint {

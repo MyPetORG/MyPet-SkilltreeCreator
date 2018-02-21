@@ -8,8 +8,8 @@ export interface Slow extends Upgrade {
 
 export class SlowDefault implements Slow {
   id = getNewUpgradeID();
-  chance: "+0";
-  duration: "+0";
+  chance = "+0";
+  duration = "+0";
 }
 
 export function SlowLoader(data: any): Slow {

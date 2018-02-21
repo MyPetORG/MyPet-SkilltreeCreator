@@ -8,8 +8,8 @@ export interface Thorns extends Upgrade {
 
 export class ThornsDefault implements Thorns {
   id = getNewUpgradeID();
-  chance: "+0";
-  reflection: "+0";
+  chance = "+0";
+  reflection = "+0";
 }
 
 export function ThornsLoader(data: any): Thorns {

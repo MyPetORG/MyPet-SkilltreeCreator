@@ -1,52 +1,56 @@
-<mat-toolbar class="spacer-t-1em spacer-b-1em">
-  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</mat-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <mat-toolbar class="spacer-t-1em spacer-b-1em">
+    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </mat-toolbar>
 
-<sat-popover #chancePopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The chance the pet will poison it's target on hit.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +2<br>
-        -3<br>
-        =6
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
-<sat-popover #durationPopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The duration the target will be poisioned.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +2<br>
-        -3<br>
-        =6
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
+  <sat-popover #chancePopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The chance the pet will poison it's target on hit.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +2<br>
+          -3<br>
+          =6
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
+  <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The duration the target will be poisioned.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +2<br>
+          -3<br>
+          =6
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
 
-<div *ngIf="skill">
-  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Poison; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Chance" [(ngModel)]="upgrade.chance" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : 0" type="text"
+               pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
+               (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
         <span matSuffix>%</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="chancePopover">
+      <button mat-icon-button [satPopoverAnchorFor]="chancePopover" (click)="chancePopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Duration" [(ngModel)]="upgrade.duration" type="text" pattern="[+-=][0-9]+">
+        <input matInput placeholder="Duration" [value]="upgrade.duration ? upgrade.duration : 0" type="text"
+               pattern="[+-=][0-9]+"
+               (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
         <span matSuffix>sec</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="durationPopover">
+      <button mat-icon-button [satPopoverAnchorFor]="durationPopover" (click)="durationPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>

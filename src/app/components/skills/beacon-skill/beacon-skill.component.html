@@ -1,77 +1,80 @@
-<mat-toolbar class="spacer-t-1em spacer-b-1em">
-  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</mat-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <mat-toolbar class="spacer-t-1em spacer-b-1em">
+    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </mat-toolbar>
 
-<sat-popover #durationPopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The duration the beacon buffs will last.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +5<br>
-        -13<br>
-        =1
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
-<sat-popover #rangePopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The range the beacon buffs will be distributed.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +5<br>
-        -13<br>
-        =1
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
-<sat-popover #countPopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The amount of buffs the owner of the pet can select at once.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +5<br>
-        -13<br>
-        =1
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
+  <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The duration the beacon buffs will last.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +5<br>
+          -13<br>
+          =1
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
+  <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The range the beacon buffs will be distributed.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +5<br>
+          -13<br>
+          =1
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
+  <sat-popover #countPopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The amount of buffs the owner of the pet can select at once.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +5<br>
+          -13<br>
+          =1
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
 
-<div *ngIf="skill">
-  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Beacon; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Buff Range" [(ngModel)]="upgrade.range" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Buff Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?"
+               (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
         <span matSuffix>meters</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="rangePopover">
+      <button mat-icon-button [satPopoverAnchorFor]="rangePopover" (click)="rangePopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Buff Duration" [(ngModel)]="upgrade.duration" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Duration" [value]="upgrade.duration ? upgrade.duration : 0" type="text"
+               pattern="[+-=][0-9]+"
+               (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
         <span matSuffix>sec</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="durationPopover">
+      <button mat-icon-button [satPopoverAnchorFor]="durationPopover" (click)="durationPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Buff Count" [(ngModel)]="upgrade.count" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Buff Count" [value]="upgrade.count ? upgrade.count : 0" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?"
+               (blur)="update(skilltree, upgrade, 'count', $event.srcElement.value)">
         <span matSuffix>buffs</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="countPopover">
+      <button mat-icon-button [satPopoverAnchorFor]="countPopover" (click)="countPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>
@@ -81,7 +84,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/absorption.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.Absorption.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.Absorption.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'Absorption', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -93,8 +97,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Absorbtion</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Absorption.level"
-                        [disabled]="!upgrade.buffs.Absorption.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.Absorption.level"
+                        [disabled]="!upgrade.buffs.Absorption.active"
+                        (change)="updateBuff(skilltree, upgrade, 'Absorption', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -108,7 +113,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/fireresistance.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.FireResistance.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.FireResistance.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'FireResistance', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -127,7 +133,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/haste.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.Haste.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.Haste.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'Haste', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -139,8 +146,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Haste</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Haste.level"
-                        [disabled]="!upgrade.buffs.Haste.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.Haste.level"
+                        [disabled]="!upgrade.buffs.Haste.active"
+                        (change)="updateBuff(skilltree, upgrade, 'Haste', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -154,7 +162,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/healthboost_2.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.HealthBoost.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.HealthBoost.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'HealthBoost', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -166,8 +175,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Health Boost</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.HealthBoost.level"
-                        [disabled]="!upgrade.buffs.HealthBoost.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.HealthBoost.level"
+                        [disabled]="!upgrade.buffs.HealthBoost.active"
+                        (change)="updateBuff(skilltree, upgrade, 'HealthBoost', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -181,7 +191,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/jumpboost.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.JumpBoost.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.JumpBoost.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'JumpBoost', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -193,8 +204,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Jump Boost</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.JumpBoost.level"
-                        [disabled]="!upgrade.buffs.JumpBoost.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.JumpBoost.level"
+                        [disabled]="!upgrade.buffs.JumpBoost.active"
+                        (change)="updateBuff(skilltree, upgrade, 'JumpBoost', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -208,7 +220,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/luck.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.Luck.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.Luck.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'Luck', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -227,7 +240,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/nightvision.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.NightVision.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.NightVision.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'NightVision', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -246,7 +260,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/resistance.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.Resistance.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.Resistance.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'Resistance', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -258,8 +273,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Resistance</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Resistance.level"
-                        [disabled]="!upgrade.buffs.Resistance.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.Resistance.level"
+                        [disabled]="!upgrade.buffs.Resistance.active"
+                        (change)="updateBuff(skilltree, upgrade, 'Resistance', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -273,7 +289,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/speed.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.Speed.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.Speed.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'Speed', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -285,8 +302,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Speed</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Speed.level"
-                        [disabled]="!upgrade.buffs.Speed.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.Speed.level"
+                        [disabled]="!upgrade.buffs.Speed.active"
+                        (change)="updateBuff(skilltree, upgrade, 'Speed', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -300,7 +318,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/strength.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.Strength.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.Strength.active"
+                                     (change)="updateBuff(skilltree, upgrade, 'Strength', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>
@@ -312,8 +331,9 @@
               </mat-button-toggle>
             </mat-button-toggle-group>
             <span>Strength</span>
-            <mat-select placeholder="Buff Level" [(ngModel)]="upgrade.buffs.Strength.level"
-                        [disabled]="!upgrade.buffs.Strength.active">
+            <mat-select placeholder="Buff Level" [value]="upgrade.buffs.Strength.level"
+                        [disabled]="!upgrade.buffs.Strength.active"
+                        (change)="updateBuff(skilltree, upgrade, 'Strength', 'level', $event.value)">
               <mat-option value="1">I</mat-option>
               <mat-option value="2">II</mat-option>
               <mat-option value="3">III</mat-option>
@@ -327,7 +347,8 @@
         <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/waterbreathing.png">
         <span mat-line>
           <div>
-            <mat-button-toggle-group [value]="upgrade.buffs.WaterBreathing.active">
+            <mat-button-toggle-group [value]="null || upgrade.buffs.WaterBreathing.active"
+                                     (change)="update(skilltree, upgrade, 'WaterBreathing', 'active', $event.value)">
               <mat-button-toggle [value]="true" matTooltip="Activate">
                <mat-icon svgIcon="check_box">check_box</mat-icon>
               </mat-button-toggle>

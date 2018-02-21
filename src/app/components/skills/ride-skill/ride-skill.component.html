@@ -1,64 +1,68 @@
-<mat-toolbar class="spacer-t-1em spacer-b-1em">
-  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</mat-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <mat-toolbar class="spacer-t-1em spacer-b-1em">
+    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </mat-toolbar>
 
-<sat-popover #speedPopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The speed at which the owner can ride the pet.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +2<br>
-        -3<br>
-        =6
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
-<sat-popover #jumpHeightPopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>How high the pet can jump.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +2<br>
-        -3<br>
-        =6
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
+  <sat-popover #speedPopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The speed at which the owner can ride the pet.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +2<br>
+          -3<br>
+          =6
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
+  <sat-popover #jumpHeightPopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>How high the pet can jump.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +2<br>
+          -3<br>
+          =6
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
 
-<div *ngIf="skill">
-  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Ride; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Speed" [(ngModel)]="upgrade.speed" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Speed" [value]="upgrade.speed ? upgrade.speed : 0" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?"
+               (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value)">
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="speedPopover">
+      <button mat-icon-button [satPopoverAnchorFor]="speedPopover" (click)="speedPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Jump Height" [(ngModel)]="upgrade.jumpHeight" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Jump Height" [value]="upgrade.jumpHeight ? upgrade.jumpHeight : 0" type="text"
+               pattern="[+-=][0-9]+(\.[0-9]+)?"
+               (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value)">
         <span matSuffix>Blocks</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="jumpHeightPopover">
+      <button mat-icon-button [satPopoverAnchorFor]="jumpHeightPopover" (click)="jumpHeightPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>
     <div>
-      <mat-button-toggle-group [value]="upgrade.canFly">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
+      <mat-button-toggle-group [value]="null || upgrade.canFly"
+                               (change)="update(skilltree, upgrade, 'canFly', $event.value)">
+        <mat-button-toggle [value]="true" matTooltip="Yes">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>
         <mat-button-toggle [value]="null" matTooltip="Don't change">
           <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
         </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+        <mat-button-toggle [value]="false" matTooltip="No">
           <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
         </mat-button-toggle>
       </mat-button-toggle-group>

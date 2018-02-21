@@ -1,19 +1,20 @@
-<mat-toolbar class="spacer-t-1em spacer-b-1em">
-  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</mat-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <mat-toolbar class="spacer-t-1em spacer-b-1em">
+    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </mat-toolbar>
 
-<div *ngIf="skill">
-  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Control; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
-      <mat-button-toggle-group [value]="upgrade.active">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
+      <mat-button-toggle-group [value]="null || upgrade.active"
+                               (change)="update(skilltree, upgrade, 'active', $event.value)">
+        <mat-button-toggle [value]="true" matTooltip="Yes">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>
         <mat-button-toggle [value]="null" matTooltip="Don't change">
           <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
         </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
+        <mat-button-toggle [value]="false" matTooltip="No">
           <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
         </mat-button-toggle>
       </mat-button-toggle-group>

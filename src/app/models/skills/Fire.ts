@@ -8,8 +8,8 @@ export interface Fire extends Upgrade {
 
 export class FireDefault implements Fire {
   id = getNewUpgradeID();
-  chance: "+0";
-  duration: "+0";
+  chance = "+0";
+  duration = "+0";
 }
 
 export function FireLoader(data: any): Fire {

@@ -9,9 +9,9 @@ export interface Ride extends Upgrade {
 
 export class RideDefault implements Ride {
   id = getNewUpgradeID();
-  canFly: null;
-  speed: "+0";
-  jumpHeight: "+0";
+  canFly = null;
+  speed = "+0";
+  jumpHeight = "+0";
 }
 
 export function RideLoader(data: any): Ride {

@@ -1,45 +1,62 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { StateService } from "../../../services/state.service";
 import { MatDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
 import { Lightning, LightningDefault } from "../../../models/skills/Lightning";
-import { ISubscription } from "rxjs/Subscription";
+import { Skilltree } from "../../../models/Skilltree";
+import { Upgrade } from "../../../models/Upgrade";
+import { Observable } from "rxjs/Observable";
+import * as Reducers from "../../../store/reducers";
+import { SkillInfo } from "../../../data/Skills";
+import { Store } from "@ngrx/store";
+import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
   selector: 'app-lightning-skill',
   templateUrl: './lightning-skill.component.html',
   styleUrls: ['./lightning-skill.component.scss']
 })
-export class LightningSkillComponent implements OnInit, OnDestroy {
+export class LightningSkillComponent {
 
   LevelRule = LevelRule;
   skill: Skill<Lightning> = null;
-
-  sub: ISubscription;
+  selectedSkill$: Observable<SkillInfo>;
+  selectedSkilltree$: Observable<Skilltree>;
+  upgrades$: Observable<{ [id: number]: Upgrade }>;
 
   constructor(private state: StateService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private store: Store<Reducers.State>) {
+    this.upgrades$ = this.store.select(Reducers.getSelectedUpgrades);
+    this.selectedSkill$ = this.store.select(Reducers.getSelectedSkill);
+    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
   }
 
-  ngOnInit() {
-    this.sub = this.state.skill.subscribe((skill: Skill<Lightning>) => {
-      this.skill = skill;
-    })
+  update(skilltree: Skilltree, upgrade: Upgrade, field, value) {
+    let changes = skilltree.skills;
+    if (changes.Lightning[changes.Lightning.indexOf(upgrade)][field] != value) {
+      changes = JSON.parse(JSON.stringify(changes));
+      changes.Lightning[skilltree.skills.Lightning.indexOf(upgrade)][field] = value;
+      this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    }
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
-  addUpgrade() {
-    if (this.skill) {
+  addUpgrade(skilltree: Skilltree) {
+    if (skilltree) {
       let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
+          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+
+          if (!changes.skills.Lightning) {
+            changes.skills.Lightning = [];
+          }
+
           let lightning: Lightning = Object.assign({rule: result}, new LightningDefault);
-          this.skill.upgrades.push(lightning);
+          changes.skills.Lightning.push(lightning);
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
         }
       });
     }

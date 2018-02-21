@@ -1,13 +1,14 @@
-<mat-toolbar class="spacer-t-1em spacer-b-1em">
-  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</mat-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <mat-toolbar class="spacer-t-1em spacer-b-1em">
+    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </mat-toolbar>
 
-<div *ngIf="skill">
-  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Behavior; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
 
     <div>
-      <mat-button-toggle-group [value]="upgrade.friend">
+      <mat-button-toggle-group [value]="null || upgrade.friend"
+                               (change)="update(skilltree, upgrade, 'friend', $event.value)">
         <mat-button-toggle [value]="true" matTooltip="Activate">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>
@@ -21,7 +22,8 @@
       <span>Friendly Mode</span>
     </div>
     <div>
-      <mat-button-toggle-group [value]="upgrade.aggro">
+      <mat-button-toggle-group [value]="null || upgrade.aggro"
+                               (change)="update(skilltree, upgrade, 'aggro', $event.value)">
         <mat-button-toggle [value]="true" matTooltip="Activate">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>
@@ -35,7 +37,8 @@
       <span>Aggressive Mode</span>
     </div>
     <div>
-      <mat-button-toggle-group [value]="upgrade.farm">
+      <mat-button-toggle-group [value]="null || upgrade.farm"
+                               (change)="update(skilltree, upgrade, 'farm', $event.value)">
         <mat-button-toggle [value]="true" matTooltip="Activate">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>
@@ -49,7 +52,8 @@
       <span>Farm Mode</span>
     </div>
     <div>
-      <mat-button-toggle-group [value]="upgrade.raid">
+      <mat-button-toggle-group [value]="null || upgrade.raid"
+                               (change)="update(skilltree, upgrade, 'raid', $event.value)">
         <mat-button-toggle [value]="true" matTooltip="Activate">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>
@@ -63,7 +67,8 @@
       <span>Raid Mode</span>
     </div>
     <div>
-      <mat-button-toggle-group [value]="upgrade.duel">
+      <mat-button-toggle-group [value]="null || upgrade.duel"
+                               (change)="update(skilltree, upgrade, 'duel', $event.value)">
         <mat-button-toggle [value]="true" matTooltip="Activate">
           <mat-icon svgIcon="check_box">check_box</mat-icon>
         </mat-button-toggle>

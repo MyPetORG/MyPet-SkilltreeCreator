@@ -8,8 +8,8 @@ export interface Wither extends Upgrade {
 
 export class WitherDefault implements Wither {
   id = getNewUpgradeID();
-  chance: "+0";
-  duration: "+0";
+  chance = "+0";
+  duration = "+0";
 }
 
 export function WitherLoader(data: any): Wither {

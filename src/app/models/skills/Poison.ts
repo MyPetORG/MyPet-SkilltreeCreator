@@ -8,8 +8,8 @@ export interface Poison extends Upgrade {
 
 export class PoisonDefault implements Poison {
   id = getNewUpgradeID();
-  chance: "+0";
-  duration: "+0";
+  chance = "+0";
+  duration = "+0";
 }
 
 export function PoisonLoader(data: any): Poison {

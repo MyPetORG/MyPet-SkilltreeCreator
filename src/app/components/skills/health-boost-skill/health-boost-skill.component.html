@@ -1,30 +1,32 @@
-<mat-toolbar class="spacer-t-1em spacer-b-1em">
-  <button mat-raised-button (click)="addUpgrade()">Add Upgrade</button>
-</mat-toolbar>
+<div *ngIf="selectedSkilltree$ | async as skilltree">
+  <mat-toolbar class="spacer-t-1em spacer-b-1em">
+    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
+  </mat-toolbar>
 
-<sat-popover #healthPopover horizontalAlign="after" verticalAlign="below">
-  <mat-card>
-    <mat-card-content>
-      <p>The boost of health the pet will gain.<br>
-        Format: [+-=][number]<br>
-        Examples:<br>
-        +2<br>
-        -3<br>
-        =6
-      </p>
-    </mat-card-content>
-  </mat-card>
-</sat-popover>
+  <sat-popover #healthPopover xAlign="after" yAlign="center" hasBackdrop>
+    <mat-card>
+      <mat-card-content>
+        <p>The boost of health the pet will gain.<br>
+          Format: [+-=][number]<br>
+          Examples:<br>
+          +2<br>
+          -3<br>
+          =6
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
 
-<div *ngIf="skill">
-  <mat-expansion-panel *ngFor="let upgrade of skill.upgrades">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.HealthBoost; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div>
       <mat-input-container>
-        <input matInput placeholder="Health" [(ngModel)]="upgrade.health" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?">
+        <input matInput placeholder="Health" [value]="upgrade.health ? upgrade.health : 0"
+               type="text" pattern="[+-=][0-9]+(\.[0-9]+)?"
+               (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value)">
         <span matSuffix>extra health</span>
       </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="healthPopover">
+      <button mat-icon-button [satPopoverAnchorFor]="healthPopover" (click)="healthPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
     </div>

@@ -7,7 +7,7 @@ export interface Damage extends Upgrade {
 
 export class DamageDefault implements Damage {
   id = getNewUpgradeID();
-  damage: "+0";
+  damage = "+0";
 }
 
 export function DamageLoader(data: any): Damage {

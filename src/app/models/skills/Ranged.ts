@@ -9,9 +9,9 @@ export interface Ranged extends Upgrade {
 
 export class RangedDefault implements Ranged {
   id = getNewUpgradeID();
-  damage: "+0";
-  rate: "+0";
-  projectile: null;
+  damage = "+0";
+  rate = "+0";
+  projectile = null;
 }
 
 export function RangedLoader(data: any): Ranged {

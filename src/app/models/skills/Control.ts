@@ -7,7 +7,7 @@ export interface Control extends Upgrade {
 
 export class ControlDefault implements Control {
   id = getNewUpgradeID();
-  active: null;
+  active = null;
 }
 
 export function ControlLoader(data: any): Control {

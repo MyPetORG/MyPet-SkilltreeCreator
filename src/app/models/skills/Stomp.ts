@@ -8,8 +8,8 @@ export interface Stomp extends Upgrade {
 
 export class StompDefault implements Stomp {
   id = getNewUpgradeID();
-  chance: "+0";
-  damage: "+0";
+  chance = "+0";
+  damage = "+0";
 }
 
 export function StompLoader(data: any): Stomp {

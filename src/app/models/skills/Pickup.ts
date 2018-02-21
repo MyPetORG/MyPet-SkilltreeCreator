@@ -8,8 +8,8 @@ export interface Pickup extends Upgrade {
 
 export class PickupDefault implements Pickup {
   id = getNewUpgradeID();
-  range: "+0";
-  exp: null;
+  range = "+0";
+  exp = null;
 }
 
 export function PickupLoader(data: any): Pickup {

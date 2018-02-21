@@ -8,8 +8,8 @@ export interface Shield extends Upgrade {
 
 export class ShieldDefault implements Shield {
   id = getNewUpgradeID();
-  chance: "+0";
-  redirect: "+0";
+  chance = "+0";
+  redirect = "+0";
 }
 
 export function ShieldLoader(data: any): Shield {

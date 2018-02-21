@@ -11,11 +11,11 @@ export interface Behavior extends Upgrade {
 
 export class BehaviorDefault implements Behavior {
   id = getNewUpgradeID();
-  friend: null;
-  aggro: null;
-  farm: null;
-  raid: null;
-  duel: null;
+  friend = null;
+  aggro = null;
+  farm = null;
+  raid = null;
+  duel = null;
 }
 
 
