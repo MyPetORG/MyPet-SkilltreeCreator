@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: SkilltreeListComponent
   },
   {
-    path: ':id',
+    path: 'st/:id',
     canActivate: [SkilltreeExistsGuard],
     component: SkilltreeEditorComponent
   },

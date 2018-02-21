@@ -52,13 +52,13 @@ export class SkilltreeListComponent {
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    this.router.navigate(["/" + skilltree.id]).then(() => {
+    this.router.navigate(["st", skilltree.id]).then(() => {
       this.store.dispatch(new LayoutActions.SwitchTabAction(1));
     });
   }
 
   editSkills(skilltree: Skilltree) {
-    this.router.navigate(["/" + skilltree.id]).then(() => {
+    this.router.navigate(["st", skilltree.id]).then(() => {
       this.store.dispatch(new LayoutActions.SwitchTabAction(0));
     });
   }

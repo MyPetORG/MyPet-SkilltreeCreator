@@ -45,7 +45,7 @@ export class SkilltreeEffects {
     ofType(Skilltree.RENAME_SKILLTREE),
     tap((action: RenameSkilltreeAction) => {
       console.log("effect:", action);
-      this.router.navigate(["/" + action.newId]).then(() => {
+      this.router.navigate(["st", action.newId]).then(() => {
         this.snackBar.open(action.oldId + " was renamed to " + action.newId, "Skilltree", {
           duration: 2000,
         });
