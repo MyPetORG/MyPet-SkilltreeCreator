@@ -41,7 +41,7 @@ import "hammerjs";
 import { ContextMenuModule } from "ngx-contextmenu";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { StoreModule } from "@ngrx/store";
-import { reducers } from "./store/reducers";
+import { getReducers, reducerToken } from "./store/reducers";
 import { KeysPipe } from "./pipes/keys.pipe";
 import { SkilltreeExistsGuard } from "./guards/skilltree-exists.guard";
 import { routes } from "./app.routing";
@@ -130,7 +130,7 @@ import { FreezableRouterStateSerializer } from "./store/freezable-router";
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule,
     SatPopoverModule,
     ContextMenuModule.forRoot(),
-    StoreModule.forRoot(reducers, {metaReducers: !environment.production ? [storeFreeze] : []}),
+    StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
     RouterModule.forRoot(routes, {useHash: true}),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
@@ -176,7 +176,8 @@ import { FreezableRouterStateSerializer } from "./store/freezable-router";
     SkilltreeLoaderService,
     SkilltreeExistsGuard,
     IconLoaderService,
-    {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer}
+    {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
+    {provide: reducerToken, useFactory: getReducers},
   ],
   bootstrap: [AppComponent]
 })

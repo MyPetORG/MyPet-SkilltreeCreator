@@ -6,6 +6,7 @@ import * as fromSkilltree from "./skilltree";
 import { Skilltree } from "../../models/Skilltree";
 import { SkillInfo } from "../../data/Skills";
 import * as fromUndoable from "./undoable";
+import { InjectionToken } from "@angular/core";
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -29,6 +30,15 @@ export const reducers: ActionReducerMap<State> = {
   skilltree: fromUndoable.undoable(fromSkilltree.reducer),
   router: fromRouter.routerReducer,
 };
+
+export const reducerToken = new InjectionToken<ActionReducerMap<State>>(
+  'Registered Reducers'
+);
+Object.assign(reducerToken, reducers);
+
+export function getReducers() {
+  return reducers;
+}
 
 
 /**
