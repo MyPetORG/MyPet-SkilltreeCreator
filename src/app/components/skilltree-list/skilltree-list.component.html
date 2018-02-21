@@ -21,8 +21,8 @@
 
 <mat-card class="no-padding">
   <mat-nav-list dense>
-    <mat-list-item *ngFor="let skilltree of skilltrees" (click)="selectSkilltree(skilltree)"
-                  [contextMenu]="skilltreeMenu" [contextMenuSubject]="skilltree">
+    <mat-list-item *ngFor="let skilltree of skilltrees" (click)="editSkills(skilltree)"
+                   [contextMenu]="skilltreeMenu" [contextMenuSubject]="skilltree">
 
       <img mat-list-avatar src="assets/img/mobheads/All.png">
 
@@ -31,7 +31,7 @@
         <span>{{skilltree.id}}</span>
       </p>
       <span style="flex: 1 1 auto;"></span>
-      <button mat-icon-button (click)="editSkills(skilltree)">
+      <button mat-icon-button (click)="selectSkilltree(skilltree)">
         <mat-icon svgIcon="create">create</mat-icon>
       </button>
     </mat-list-item>
