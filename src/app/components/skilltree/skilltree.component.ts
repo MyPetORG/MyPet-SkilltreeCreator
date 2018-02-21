@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
-import { Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { RedoAction, UndoAction } from "../../store/reducers/undoable";
 
 @Component({
@@ -16,6 +16,7 @@ export class SkilltreeComponent {
   selectedSkilltree$: Observable<string | null>;
   pastStates$: Observable<any[] | null>;
   futureStates$: Observable<any[] | null>;
+  isRootPath: boolean = false;
 
   constructor(private store: Store<Reducers.State>,
               private router: Router) {
@@ -23,6 +24,12 @@ export class SkilltreeComponent {
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
     this.pastStates$ = this.store.select(Reducers.getPastStates);
     this.futureStates$ = this.store.select(Reducers.getFutureStates);
+
+    this.router.events.subscribe(data => {
+      if (data instanceof NavigationEnd) {
+        this.isRootPath = data.url == "/";
+      }
+    });
   }
 
   back() {

@@ -80,6 +80,7 @@ import { IconLoaderService } from "./services/icon-loader.service";
 import { HttpClientModule } from "@angular/common/http";
 import { storeFreeze } from "ngrx-store-freeze";
 import { FreezableRouterStateSerializer } from "./store/freezable-router";
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { FreezableRouterStateSerializer } from "./store/freezable-router";
     StompSkillComponent,
     ThornsSkillComponent,
     WitherSkillComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

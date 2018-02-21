@@ -13,14 +13,14 @@
     <button mat-icon-button>
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button routerLink="/about">
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>
-  <button mat-button (click)="openSidenav()" *ngIf="(selectedSkilltree$ | async) == null">
+  <button mat-button (click)="openSidenav()" *ngIf="isRootPath">
     <mat-icon svgIcon="menu">menu</mat-icon>
   </button>
-  <button mat-button (click)="back()" *ngIf="selectedSkilltree$ | async">
+  <button mat-button (click)="back()" *ngIf="!isRootPath">
     <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
   </button>
   <button mat-button (click)="undo()" [disabled]="(pastStates$ | async).length <= 0">
