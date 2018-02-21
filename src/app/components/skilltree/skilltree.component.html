@@ -4,16 +4,16 @@
                fxLayoutAlign="start center"
                [opened]="showSidenav$ | async"
                [disableClose]="true">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="closeSidenav()">
       <mat-icon svgIcon="save">save</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="closeSidenav()">
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="closeSidenav()">
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button mat-icon-button routerLink="/about">
+    <button mat-icon-button routerLink="/about" (click)="closeSidenav()">
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>
