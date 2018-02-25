@@ -12,6 +12,7 @@ import { Store } from "@ngrx/store";
 import * as Reducers from "../../../store/reducers/index";
 import { Upgrade } from "../../../models/Upgrade";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
+import { Beacon } from "../../../models/skills/Beacon";
 @Component({
   selector: 'app-backpack-skill',
   templateUrl: './backpack-skill.component.html',
@@ -27,6 +28,7 @@ export class BackpackSkillComponent {
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
   upgrades$: Observable<{ [id: number]: Upgrade }>;
+  selectedUpgrade = -1;
 
   constructor(private state: StateService,
               private dialog: MatDialog,

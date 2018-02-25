@@ -17,7 +17,8 @@
     </mat-card>
   </sat-popover>
 
-  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Damage; trackBy: id">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Damage; trackBy: id; let i = index"
+                       [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <mat-card>
       <mat-input-container>

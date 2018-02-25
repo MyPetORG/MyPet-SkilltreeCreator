@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
 import { LevelRule } from "../../../util/helpers";
 import { Fire, FireDefault } from "../../../models/skills/Fire";
-import { ISubscription } from "rxjs/Subscription";
 import { MatDialog } from "@angular/material";
 import { Skilltree } from "../../../models/Skilltree";
 import { Upgrade } from "../../../models/Upgrade";
@@ -26,6 +25,7 @@ export class FireSkillComponent {
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
   upgrades$: Observable<{ [id: number]: Upgrade }>;
+  selectedUpgrade = -1;
 
   constructor(private state: StateService,
               private dialog: MatDialog,

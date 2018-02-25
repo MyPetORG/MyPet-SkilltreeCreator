@@ -25,6 +25,7 @@ export class RangedSkillComponent {
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
   upgrades$: Observable<{ [id: number]: Upgrade }>;
+  selectedUpgrade = -1;
 
   constructor(private state: StateService,
               private dialog: MatDialog,

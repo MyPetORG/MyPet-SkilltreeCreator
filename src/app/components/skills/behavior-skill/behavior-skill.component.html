@@ -3,7 +3,8 @@
     <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
   </mat-toolbar>
 
-  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Behavior; trackBy: id">
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Behavior; trackBy: id; let i = index"
+                       [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <mat-card>
       <mat-checkbox [checked]="upgrade.friend == true"

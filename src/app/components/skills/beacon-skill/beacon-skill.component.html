@@ -44,7 +44,8 @@
   </sat-popover>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Beacon; trackBy: id">
+    <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Beacon; trackBy: id; let i = index"
+                         [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
       <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
       <div fxLayout="column">
         <mat-card>
@@ -81,7 +82,6 @@
           </button>
         </mat-card>
         <mat-card>
-
           <mat-list>
             <h3 mat-subheader>Buffs</h3>
             <mat-list-item>
