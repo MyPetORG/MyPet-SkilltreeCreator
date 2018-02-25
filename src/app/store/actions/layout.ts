@@ -5,6 +5,7 @@ export const OPEN_SIDENAV = 'OPEN_SIDENAV';
 export const CLOSE_SIDENAV = 'CLOSE_SIDENAV';
 export const SWITCH_TAB = 'SWITCH_TAB';
 export const SELECT_SKILL = 'SELECT_SKILL';
+export const SELECT_SKILLTREE = 'SELECT_SKILLTREE';
 
 
 export class OpenSidenavAction implements Action {
@@ -29,8 +30,16 @@ export class SelectSkillAction implements Action {
   }
 }
 
+export class SelectSkilltreeAction implements Action {
+  readonly type = SELECT_SKILLTREE;
+
+  constructor(public payload: string | null) {
+  }
+}
+
 export type Actions
   = OpenSidenavAction
   | CloseSidenavAction
   | SwitchTabAction
-  | SelectSkillAction;
+  | SelectSkillAction
+  | SelectSkilltreeAction;

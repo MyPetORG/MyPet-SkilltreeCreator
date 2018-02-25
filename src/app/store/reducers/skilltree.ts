@@ -43,12 +43,6 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
       return adapter.removeOne(skilltree.id, newState);
     }
 
-    case skilltree.SELECT_SKILLTREE: {
-      const skilltreeId = action.payload;
-
-      return {...state, selectedSkilltreeId: skilltreeId};
-    }
-
     case skilltree.RENAME_SKILLTREE: {
       const oldId = action.oldId;
       const newId = action.newId;
@@ -73,8 +67,6 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
     }
   }
 }
-
-export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltreeId;
 
 export const {
   // select the array of Skilltree ids

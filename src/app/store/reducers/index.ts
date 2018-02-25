@@ -51,19 +51,6 @@ export const getPresent = createSelector(getUndoableState, fromUndoable.getPrese
 export const getFutureStates = createSelector(getUndoableState, fromUndoable.getFutureStates);
 
 /**
- * Skilltree Reducers
- */
-export const getSkilltreeState = getPresent;
-
-export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.selectSkilltreeEntities);
-export const getSelectedSkilltreeId = createSelector(getSkilltreeState, fromSkilltree.getSelectedSkilltreeId);
-export const getSelectedSkilltree = createSelector(
-  getSkilltrees,
-  getSelectedSkilltreeId,
-  (skilltreeEntities, skilltreeId) => skilltreeEntities[skilltreeId]
-);
-
-/**
  * Layout Reducers
  */
 export const getLayoutState = (state: State) => state.layout;
@@ -71,6 +58,20 @@ export const getLayoutState = (state: State) => state.layout;
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
 export const getTab = createSelector(getLayoutState, fromLayout.getTab);
 export const getSelectedSkill = createSelector(getLayoutState, fromLayout.getSelectedSkill);
+export const getSelectedSkilltreeId = createSelector(getLayoutState, fromLayout.getSelectedSkilltreeId);
+
+/**
+ * Skilltree Reducers
+ */
+export const getSkilltreeState = getPresent;
+
+export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.selectSkilltreeEntities);
+
+export const getSelectedSkilltree = createSelector(
+  getSkilltrees,
+  getSelectedSkilltreeId,
+  (skilltreeEntities, skilltreeId) => skilltreeEntities[skilltreeId]
+);
 
 /**
  * Upgrade Reducers

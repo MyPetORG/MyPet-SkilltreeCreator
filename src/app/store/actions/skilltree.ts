@@ -1,6 +1,5 @@
 import { Action } from "@ngrx/store";
 import { Skilltree } from "../../models/Skilltree";
-import { Upgrade } from "../../models/Upgrade";
 
 export const ADD_SKILLTREE = 'ADD_SKILLTREE';
 export const LOAD_SKILLTREE = 'LOAD_SKILLTREE';
@@ -9,7 +8,6 @@ export const COPY_SKILLTREE = 'COPY_SKILLTREE';
 export const REMOVE_SKILLTREE = 'REMOVE_SKILLTREE';
 export const RENAME_SKILLTREE = 'RENAME_SKILLTREE';
 
-export const SELECT_SKILLTREE = 'SELECT_SKILLTREE';
 export const UPDATE_SKILLTREE_INFO = 'UPDATE_SKILLTREE_INFO';
 export const UPDATE_SKILLTREE_UPGRADE = 'UPDATE_SKILLTREE_UPGRADE';
 
@@ -25,6 +23,7 @@ export class AddSkilltreeAction implements Action {
 
 export class LoadSkilltreeAction implements Action {
   readonly type = LOAD_SKILLTREE;
+  readonly ignoredByUndo = true;
 
   constructor(public payload: any) {
   }
@@ -65,16 +64,6 @@ export class RenameSkilltreeAction implements Action {
 }
 
 /**
- * Select Skilltree Actions
- */
-export class SelectSkilltreeAction implements Action {
-  readonly type = SELECT_SKILLTREE;
-
-  constructor(public payload: string | null) {
-  }
-}
-
-/**
  * Update Skilltree Actions
  */
 export class UpdateSkilltreeInfoAction implements Action {
@@ -98,6 +87,5 @@ export type Actions
   | CopySkilltreeAction
   | RemoveSkilltreeAction
   | RenameSkilltreeAction
-  | SelectSkilltreeAction
   | UpdateSkilltreeInfoAction
   | UpdateSkilltreeUpgradeAction

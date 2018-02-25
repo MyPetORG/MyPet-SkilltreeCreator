@@ -6,12 +6,14 @@ export interface State {
   showSidenav: boolean;
   tab: number;
   skill: SkillInfo;
+  selectedSkilltreeId: string
 }
 
 const initialState: State = {
   showSidenav: false,
   tab: 0,
-  skill: Skills[0]
+  skill: Skills[0],
+  selectedSkilltreeId: null,
 };
 
 export function reducer(state = initialState, action: layout.Actions): State {
@@ -36,6 +38,12 @@ export function reducer(state = initialState, action: layout.Actions): State {
         skill: action.payload
       });
 
+    case layout.SELECT_SKILLTREE: {
+      return Object.assign({}, state, {
+        selectedSkilltreeId: action.payload
+      });
+    }
+
     default:
       return state;
   }
@@ -44,3 +52,4 @@ export function reducer(state = initialState, action: layout.Actions): State {
 export const getShowSidenav = (state: State) => state.showSidenav;
 export const getTab = (state: State) => state.tab;
 export const getSelectedSkill = (state: State) => state.skill;
+export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltreeId;

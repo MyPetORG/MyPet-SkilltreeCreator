@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
@@ -8,6 +8,7 @@ import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Router } from "@angular/router";
 import * as LayoutActions from "../../store/actions/layout";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-skilltree-list',
@@ -31,7 +32,7 @@ export class SkilltreeListComponent {
         this.skilltrees.push(skilltrees[id]);
       })
     });
-    this.store.dispatch(new SkilltreeActions.SelectSkilltreeAction(null));
+    this.store.dispatch(new LayoutActions.SelectSkilltreeAction(null));
   }
 
   addSkilltree() {

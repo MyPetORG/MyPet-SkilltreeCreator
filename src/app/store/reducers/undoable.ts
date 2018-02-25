@@ -57,6 +57,15 @@ export const undoable = reducer => {
         if (present === newPresent) {
           return state
         }
+        // IGNORED actions
+        console.log(action.type, action.ignoredByUndo, action);
+        if (action.ignoredByUndo) {
+          return {
+            past: [...state.past],
+            present: newPresent,
+            future: [...state.future]
+          }
+        }
         return {
           past: [...past, present],
           present: newPresent,
