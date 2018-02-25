@@ -52,6 +52,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./store/effects/skilltree";
 import { SatPopoverModule } from "@ncstate/sat-popover";
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -132,7 +133,7 @@ import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.di
     MatButtonModule, MatCheckboxModule, MatIconModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
     MatSidenavModule, MatOptionModule, MatTooltipModule, MatExpansionModule, MatButtonToggleModule, MatListModule,
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
-    MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule,
+    MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule,
     SatPopoverModule,
     ContextMenuModule.forRoot(),
     StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
