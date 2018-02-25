@@ -5,7 +5,7 @@
       <div fxLayout="column">
         <mat-form-field class="demo-chip-list">
           <mat-chip-list #chipList>
-            <mat-chip *ngFor="let l of level" (remove)="removeLevel(l)">
+            <mat-chip *ngFor="let l of level" (remove)="removeLevel(l)" [selectable]="false">
               {{l}}
               <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
             </mat-chip>
