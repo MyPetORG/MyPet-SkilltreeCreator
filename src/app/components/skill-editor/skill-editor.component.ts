@@ -54,7 +54,7 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   loadComponent(skill: SkillInfo) {
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(SkillUpgradeComponents[skill.name]);
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(SkillUpgradeComponents[skill.id]);
     let componentRef = this.upgradeComponent.createComponent(componentFactory);
   }
 

@@ -76,4 +76,4 @@ export const getSelectedSkill = createSelector(getLayoutState, fromLayout.getSel
  * Upgrade Reducers
  */
 
-export const getSelectedUpgrades = createSelector(getSelectedSkilltree, getSelectedSkill, (skilltree: Skilltree, skill: SkillInfo) => skilltree ? skilltree.skills[skill.name] : []);
+export const getSelectedUpgrades = createSelector(getSelectedSkilltree, getSelectedSkill, (skilltree: Skilltree, skill: SkillInfo) => skilltree ? skilltree.skills[skill.id] : []);

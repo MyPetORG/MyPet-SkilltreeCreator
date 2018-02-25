@@ -27,7 +27,7 @@ export const SkillUpgradeComponents = {
   'Damage': DamageSkillComponent,
   'Fire': FireSkillComponent,
   'Heal': HealSkillComponent,
-  'Health Boost': HealthBoostSkillComponent,
+  'HealthBoost': HealthBoostSkillComponent,
   'Knockback': KnockbackSkillComponent,
   'Lightning': LightningSkillComponent,
   'Pickup': PickupSkillComponent,

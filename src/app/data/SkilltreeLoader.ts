@@ -57,13 +57,13 @@ export class SkilltreeLoader {
   static loadSkills(data: any): { [name: string]: Upgrade[] } {
     let skills = {};
     Skills.forEach(skillInfo => {
-      if (data[skillInfo.name]) {
-        skills[skillInfo.name] = [];
-        Object.keys(data[skillInfo.name].getProp("upgrades")).forEach(key => {
+      if (data[skillInfo.id]) {
+        skills[skillInfo.id] = [];
+        Object.keys(data[skillInfo.id].getProp("upgrades")).forEach(key => {
           let rule = SkilltreeLoader.loadLevelRule(key);
-          let upgrade = SkilltreeLoader.SkillLoader[skillInfo.name](data[skillInfo.name].getProp("upgrades")[key]);
+          let upgrade = SkilltreeLoader.SkillLoader[skillInfo.id](data[skillInfo.id].getProp("upgrades")[key]);
           upgrade.rule = rule;
-          skills[skillInfo.name].push(upgrade);
+          skills[skillInfo.id].push(upgrade);
         });
       }
     });
