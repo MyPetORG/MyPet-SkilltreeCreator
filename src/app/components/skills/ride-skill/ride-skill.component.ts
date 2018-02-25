@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { StateService } from "../../../services/state.service";
-import { MatDialog } from "@angular/material";
+import { MAT_CHECKBOX_CLICK_ACTION, MatDialog } from "@angular/material";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { LevelRule } from "../../../util/helpers";
 import { Skill } from "../../../models/Skill";
@@ -16,7 +16,10 @@ import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 @Component({
   selector: 'app-ride-skill',
   templateUrl: './ride-skill.component.html',
-  styleUrls: ['./ride-skill.component.scss']
+  styleUrls: ['./ride-skill.component.scss'],
+  providers: [
+    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+  ]
 })
 export class RideSkillComponent {
 
@@ -41,6 +44,25 @@ export class RideSkillComponent {
       changes.Ride[skilltree.skills.Ride.indexOf(upgrade)][field] = value;
       this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
     }
+  }
+
+  toggle(skilltree: Skilltree, upgrade: Upgrade, field) {
+    let changes = skilltree.skills;
+    let value = changes.Ride[skilltree.skills.Ride.indexOf(upgrade)][field];
+    switch (value) {
+      case null:
+        value = true;
+        break;
+      case true:
+        value = false;
+        break;
+      case false:
+        value = null;
+        break;
+    }
+    changes = JSON.parse(JSON.stringify(changes));
+    changes.Ride[skilltree.skills.Ride.indexOf(upgrade)][field] = value;
+    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
   }
 
   addUpgrade(skilltree: Skilltree) {

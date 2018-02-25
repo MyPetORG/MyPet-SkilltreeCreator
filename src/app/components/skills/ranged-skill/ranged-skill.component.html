@@ -32,7 +32,7 @@
 
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Ranged; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <div>
+    <mat-card>
       <mat-input-container>
         <input matInput placeholder="Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
                pattern="[+-=][0-9]+(\.[0-9]+)?"
@@ -42,8 +42,8 @@
       <button mat-icon-button [satPopoverAnchorFor]="rangePopover" (click)="rangePopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
-    </div>
-    <div>
+    </mat-card>
+    <mat-card>
       <mat-input-container>
         <input matInput placeholder="Rate of fire" [value]="upgrade.rate ? upgrade.rate : 0" type="text"
                pattern="[+-=][0-9]+(\.[0-9]+)?"
@@ -53,17 +53,19 @@
       <button mat-icon-button [satPopoverAnchorFor]="ratePopover" (click)="ratePopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
-    </div>
-    <div>
-      <mat-select placeholder="Projectile" [value]="upgrade.projectile|| 'Arrow'"
-                  (change)="update(skilltree, upgrade, 'projectile', $event.value)">
-        <mat-option value="Arrow">Arrow</mat-option>
-        <mat-option value="Snowball">Snowball</mat-option>
-        <mat-option value="Fireball">Fireball</mat-option>
-        <mat-option value="LargeFireball">Large Fireball</mat-option>
-        <mat-option value="WitherSkull">Wither Skull</mat-option>
-        <mat-option value="Egg">Egg</mat-option>
-      </mat-select>
-    </div>
+    </mat-card>
+    <mat-card>
+      <mat-form-field>
+        <mat-select placeholder="Projectile" [value]="upgrade.projectile|| 'Arrow'"
+                    (change)="update(skilltree, upgrade, 'projectile', $event.value)">
+          <mat-option value="Arrow">Arrow</mat-option>
+          <mat-option value="Snowball">Snowball</mat-option>
+          <mat-option value="Fireball">Fireball</mat-option>
+          <mat-option value="LargeFireball">Large Fireball</mat-option>
+          <mat-option value="WitherSkull">Wither Skull</mat-option>
+          <mat-option value="Egg">Egg</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card>
   </mat-expansion-panel>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MAT_CHECKBOX_CLICK_ACTION } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
 import { Skill } from "../../../models/Skill";
@@ -16,7 +16,10 @@ import { UpdateSkilltreeUpgradeAction } from "app/store/actions/skilltree";
 @Component({
   selector: 'app-beacon-skill',
   templateUrl: './beacon-skill.component.html',
-  styleUrls: ['./beacon-skill.component.scss']
+  styleUrls: ['./beacon-skill.component.scss'],
+  providers: [
+    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+  ]
 })
 export class BeaconSkillComponent {
 
@@ -41,6 +44,25 @@ export class BeaconSkillComponent {
       changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)][field] = value;
       this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
     }
+  }
+
+  toggleBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, field) {
+    let changes = skilltree.skills;
+    let value = (changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff][field];
+    switch (value) {
+      case null:
+        value = true;
+        break;
+      case true:
+        value = false;
+        break;
+      case false:
+        value = null;
+        break;
+    }
+    changes = JSON.parse(JSON.stringify(changes));
+    (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff][field] = value;
+    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
   }
 
   updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, field, value) {

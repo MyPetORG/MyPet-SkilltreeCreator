@@ -32,7 +32,7 @@
 
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Ride; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <div>
+    <mat-card>
       <mat-input-container>
         <input matInput placeholder="Speed" [value]="upgrade.speed ? upgrade.speed : 0" type="text"
                pattern="[+-=][0-9]+(\.[0-9]+)?"
@@ -41,8 +41,8 @@
       <button mat-icon-button [satPopoverAnchorFor]="speedPopover" (click)="speedPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
-    </div>
-    <div>
+    </mat-card>
+    <mat-card>
       <mat-input-container>
         <input matInput placeholder="Jump Height" [value]="upgrade.jumpHeight ? upgrade.jumpHeight : 0" type="text"
                pattern="[+-=][0-9]+(\.[0-9]+)?"
@@ -52,21 +52,15 @@
       <button mat-icon-button [satPopoverAnchorFor]="jumpHeightPopover" (click)="jumpHeightPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
-    </div>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.canFly"
-                               (change)="update(skilltree, upgrade, 'canFly', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Yes">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="No">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Can Fly?</span>
-    </div>
+    </mat-card>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.canFly == true"
+                    [indeterminate]="upgrade.canFly == null"
+                    (click)="toggle(skilltree, upgrade, 'canFly')"
+                    [matTooltip]="upgrade.canFly == true ? 'Yes' : (upgrade.canFly == false ? 'No' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Can Fly?
+      </mat-checkbox>
+    </mat-card>
   </mat-expansion-panel>
 </div>

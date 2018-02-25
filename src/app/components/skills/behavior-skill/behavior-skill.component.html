@@ -5,81 +5,50 @@
 
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Behavior; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.friend"
-                               (change)="update(skilltree, upgrade, 'friend', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Friendly Mode</span>
-    </div>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.aggro"
-                               (change)="update(skilltree, upgrade, 'aggro', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Aggressive Mode</span>
-    </div>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.farm"
-                               (change)="update(skilltree, upgrade, 'farm', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Farm Mode</span>
-    </div>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.raid"
-                               (change)="update(skilltree, upgrade, 'raid', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Raid Mode</span>
-    </div>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.duel"
-                               (change)="update(skilltree, upgrade, 'duel', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Activate">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="Deactivate">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Duel Mode</span>
-    </div>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.friend == true"
+                    [indeterminate]="upgrade.friend == null"
+                    (click)="toggle(skilltree, upgrade, 'friend')"
+                    [matTooltip]="upgrade.friend == true ? 'Activated' : (upgrade.friend == false ? 'Deactivated' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Friendly Mode
+      </mat-checkbox>
+    </mat-card>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.aggro == true"
+                    [indeterminate]="upgrade.aggro == null"
+                    (click)="toggle(skilltree, upgrade, 'aggro')"
+                    [matTooltip]="upgrade.aggro == true ? 'Activated' : (upgrade.aggro == false ? 'Deactivated' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Aggressive Mode
+      </mat-checkbox>
+    </mat-card>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.farm == true"
+                    [indeterminate]="upgrade.farm == null"
+                    (click)="toggle(skilltree, upgrade, 'farm')"
+                    [matTooltip]="upgrade.farm == true ? 'Activated' : (upgrade.farm == false ? 'Deactivated' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Farm Mode
+      </mat-checkbox>
+    </mat-card>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.raid == true"
+                    [indeterminate]="upgrade.raid == null"
+                    (click)="toggle(skilltree, upgrade, 'raid')"
+                    [matTooltip]="upgrade.raid == true ? 'Activated' : (upgrade.raid == false ? 'Deactivated' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Raid Mode
+      </mat-checkbox>
+    </mat-card>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.duel == true"
+                    [indeterminate]="upgrade.duel == null"
+                    (click)="toggle(skilltree, upgrade, 'duel')"
+                    [matTooltip]="upgrade.duel == true ? 'Activated' : (upgrade.duel == false ? 'Deactivated' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Duel Mode
+      </mat-checkbox>
+    </mat-card>
   </mat-expansion-panel>
 </div>

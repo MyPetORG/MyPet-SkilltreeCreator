@@ -15,3 +15,7 @@ html, body, main, app-skilltree, mat-sidenav-container {
 .bold {
   font-weight: bold !important;
 }
+
+mat-expansion-panel-header.mat-expanded, mat-expansion-panel-header.mat-expanded:hover {
+  background-color: whitesmoke !important;
+}

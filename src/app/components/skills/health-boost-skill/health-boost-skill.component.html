@@ -19,7 +19,7 @@
 
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.HealthBoost; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <div>
+    <mat-card>
       <mat-input-container>
         <input matInput placeholder="Health" [value]="upgrade.health ? upgrade.health : 0"
                type="text" pattern="[+-=][0-9]+(\.[0-9]+)?"
@@ -29,6 +29,6 @@
       <button mat-icon-button [satPopoverAnchorFor]="healthPopover" (click)="healthPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
-    </div>
+    </mat-card>
   </mat-expansion-panel>
 </div>

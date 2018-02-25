@@ -5,20 +5,14 @@
 
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Sprint; trackBy: id">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.active"
-                               (change)="update(skilltree, upgrade, 'active', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Yes">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="No">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Active?</span>
-    </div>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.active == true"
+                    [indeterminate]="upgrade.active == null"
+                    (click)="toggle(skilltree, upgrade, 'active')"
+                    [matTooltip]="upgrade.active == true ? 'Yes' : (upgrade.active == false ? 'No' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Active?
+      </mat-checkbox>
+    </mat-card>
   </mat-expansion-panel>
 </div>

@@ -17,32 +17,32 @@
     </mat-card>
   </sat-popover>
 
-  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Backpack; trackBy: id">
-    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <div>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Backpack; trackBy: id>
+      <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
+      <div fxLayout.md=" row wrap
+    " fxLayout="column">
+    <mat-card>
       <mat-input-container>
-        <input matInput placeholder="Rows" [value]="upgrade.rows ? upgrade.rows : 0" type="text" pattern="[+-=][0-9]+"
+        <input matInput placeholder="Rows" [value]="upgrade.rows ? upgrade.rows : 0" type="text"
+               pattern="[+-=][0-9]+"
                (blur)="update(skilltree, upgrade, 'rows', $event.srcElement.value)">
         <span matSuffix>rows</span>
       </mat-input-container>
       <button mat-icon-button [satPopoverAnchorFor]="rowsPopover" (click)="rowsPopover.toggle()">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>
       </button>
-    </div>
-    <div>
-      <mat-button-toggle-group [value]="null || upgrade.drop"
-                               (change)="update(skilltree, upgrade, 'drop', $event.value)">
-        <mat-button-toggle [value]="true" matTooltip="Yes">
-          <mat-icon svgIcon="check_box">check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="null" matTooltip="Don't change">
-          <mat-icon svgIcon="indeterminate_check_box">indeterminate_check_box</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle [value]="false" matTooltip="No">
-          <mat-icon svgIcon="check_box_outline_blank">check_box_outline_blank</mat-icon>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <span>Drop content on death?</span>
-    </div>
-  </mat-expansion-panel>
+    </mat-card>
+    <mat-card>
+      <mat-checkbox [checked]="upgrade.drop == true"
+                    [indeterminate]="upgrade.drop == null"
+                    (click)="toggle(skilltree, upgrade, 'drop')"
+                    [matTooltip]="upgrade.drop == true ? 'Yes' : (upgrade.drop == false ? 'No' : 'Don\'t change')"
+                    matTooltipPosition="right">
+        Drop content on death?
+      </mat-checkbox>
+    </mat-card>
+</div>
+</mat-expansion-panel>
+</mat-accordion>
 </div>
