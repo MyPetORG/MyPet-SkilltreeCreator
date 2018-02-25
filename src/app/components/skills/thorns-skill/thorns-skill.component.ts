@@ -62,4 +62,8 @@ export class ThornsSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

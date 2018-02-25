@@ -84,4 +84,8 @@ export class ControlSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

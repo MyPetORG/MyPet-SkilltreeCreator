@@ -62,4 +62,8 @@ export class RangedSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

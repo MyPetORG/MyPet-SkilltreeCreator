@@ -62,4 +62,8 @@ export class StompSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

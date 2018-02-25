@@ -84,4 +84,8 @@ export class PickupSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

@@ -62,4 +62,8 @@ export class PoisonSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

@@ -62,4 +62,8 @@ export class KnockbackSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

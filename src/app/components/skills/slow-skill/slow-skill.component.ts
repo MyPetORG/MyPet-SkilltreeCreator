@@ -62,4 +62,8 @@ export class SlowSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

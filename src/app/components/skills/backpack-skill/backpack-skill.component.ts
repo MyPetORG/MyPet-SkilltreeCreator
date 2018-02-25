@@ -84,4 +84,8 @@ export class BackpackSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

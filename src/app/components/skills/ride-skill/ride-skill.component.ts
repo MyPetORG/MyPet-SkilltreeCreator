@@ -84,4 +84,8 @@ export class RideSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

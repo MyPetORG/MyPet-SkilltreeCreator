@@ -62,4 +62,8 @@ export class HealSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

@@ -93,4 +93,8 @@ export class BeaconSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

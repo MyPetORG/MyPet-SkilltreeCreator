@@ -62,4 +62,8 @@ export class HealthBoostSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

@@ -62,4 +62,8 @@ export class WitherSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

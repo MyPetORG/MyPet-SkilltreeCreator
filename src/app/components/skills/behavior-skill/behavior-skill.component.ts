@@ -84,4 +84,8 @@ export class BehaviorSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

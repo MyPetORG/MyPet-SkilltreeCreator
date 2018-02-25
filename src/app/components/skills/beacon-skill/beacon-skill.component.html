@@ -44,7 +44,7 @@
   </sat-popover>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Beacon; trackBy: id; let i = index"
+    <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Beacon; trackBy: trackById; let i = index"
                          [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
       <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
       <div fxLayout="column">

@@ -84,4 +84,8 @@ export class SprintSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

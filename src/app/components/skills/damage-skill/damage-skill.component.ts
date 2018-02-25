@@ -62,4 +62,8 @@ export class DamageSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

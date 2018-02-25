@@ -62,4 +62,8 @@ export class LightningSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }

@@ -62,4 +62,8 @@ export class ShieldSkillComponent {
       });
     }
   }
+
+  trackById(index, item) {
+    return item.id;
+  }
 }
