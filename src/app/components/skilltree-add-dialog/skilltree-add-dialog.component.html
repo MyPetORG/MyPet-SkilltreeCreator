@@ -2,7 +2,14 @@
 <div mat-dialog-content>Please enter a name.</div>
 <div mat-dialog-actions>
   <mat-input-container>
-    <input matInput placeholder="Skilltree Name" [(ngModel)]="name">
+    <input matInput placeholder="Skilltree Name" [(ngModel)]="name" [appSkilltreeDuplicate]="skilltreeNames"
+           #nameInput="ngModel" required>
+    <mat-error *ngIf="nameInput.errors?.skilltreeDuplicate">
+      There is already a skilltree with this name.
+    </mat-error>
+    <mat-error *ngIf="nameInput.errors?.required">
+      Please enter a skilltree name.
+    </mat-error>
   </mat-input-container>
-  <button mat-button (click)="done()" [disabled]="name.trim() == ''">Add</button>
+  <button mat-button (click)="done()" [disabled]="name.trim() == '' || nameInput.errors">Add</button>
 </div>

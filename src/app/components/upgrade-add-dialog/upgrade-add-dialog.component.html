@@ -1,31 +1,50 @@
 <h1 mat-dialog-title>Add Upgrade</h1>
-<div mat-dialog-content fxLayout="column">
-  <mat-radio-group [(ngModel)]="type">
-    <mat-radio-button value="1">Fixed</mat-radio-button>
-    <mat-radio-button value="2">Dynamic</mat-radio-button>
-  </mat-radio-group>
+<div mat-dialog-content>
+  <mat-tab-group [selectedIndex]="type" [dynamicHeight]="true">
+    <mat-tab label="Fixed">
+      <div fxLayout="column">
+        <mat-form-field class="demo-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let l of level" (remove)="removeLevel(l)">
+              {{l}}
+              <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Level..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   (matChipInputTokenEnd)="addLevel($event)"/>
+          </mat-chip-list>
+        </mat-form-field>
 
-  <mat-input-container *ngIf="type == 1">
-    <input matInput placeholder="Level(s)" [(ngModel)]="level">
-  </mat-input-container>
+        <button mat-raised-button (click)="done()" color="primary" [disabled]="level.length == 0">Add</button>
+      </div>
+    </mat-tab>
+    <mat-tab label="Dynamic">
+      <div fxLayout="column">
+        <mat-input-container>
+          <span matPrefix>Every&nbsp;</span>
+          <input matInput placeholder="(Required)" [(ngModel)]="every" type="number" required pattern="\d+"
+                 #everyInput="ngModel">
+          <span matSuffix="">&nbsp;Level</span>
+        </mat-input-container>
 
-  <mat-input-container *ngIf="type == 2">
-    <span matPrefix>Every&nbsp;</span>
-    <input matInput placeholder="(Required)" [(ngModel)]="every" type="number">
-    <span matSuffix="">&nbsp;Level</span>
-  </mat-input-container>
+        <mat-input-container>
+          <span matPrefix>Start from level&nbsp;</span>
+          <input matInput placeholder="(Optional)" [(ngModel)]="minimum" type="number" pattern="\d+"
+                 #minimumInput="ngModel">
+        </mat-input-container>
 
-  <mat-input-container *ngIf="type == 2">
-    <span matPrefix>Start from level&nbsp;</span>
-    <input matInput placeholder="(Optional)" [(ngModel)]="minimum" type="number">
-  </mat-input-container>
+        <mat-input-container>
+          <span matPrefix>Until level&nbsp;</span>
+          <input matInput placeholder="(Optional)" [(ngModel)]="limit" type="number" pattern="\d+"
+                 #limitInput="ngModel">
+        </mat-input-container>
 
-  <mat-input-container *ngIf="type == 2">
-    <span matPrefix>Until level&nbsp;</span>
-    <input matInput placeholder="(Optional)" [(ngModel)]="limit" type="number">
-  </mat-input-container>
-
+        <button mat-raised-button (click)="done()" color="primary"
+                [disabled]="everyInput.errors != null || minimumInput.errors != null || limitInput.errors != null">Add
+        </button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="done()">Add</button>
-</div>
+

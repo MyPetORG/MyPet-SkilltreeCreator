@@ -20,6 +20,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   skilltree$: Observable<Skilltree>;
   skilltreeSubscription: Subscription;
   skilltree: Skilltree;
+  skilltreeNames: string[] = [];
+  skilltreeNamesSubscription = null;
 
   id = new FormControl();
   name = new FormControl();
@@ -33,6 +35,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
     this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
       if (skilltree) {
         this.skilltree = skilltree;
+        this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id), 1);
         this.id.setValue(skilltree.id);
         this.name.setValue(skilltree.name);
         this.permission.setValue(skilltree.permission);
@@ -41,11 +44,22 @@ export class SkilltreePropertiesComponent implements OnDestroy {
           this._description = skilltree.description;
         }
       }
-    })
+    });
+    this.skilltreeNamesSubscription = this.store.select(Reducers.getSkilltrees).subscribe(skilltrees => {
+      this.skilltreeNames = [];
+      Object.keys(skilltrees).forEach(id => {
+        if (this.name.value != id) {
+          this.skilltreeNames.push(id);
+        }
+      });
+    });
   }
 
   ngOnDestroy() {
     this.skilltreeSubscription.unsubscribe();
+    if (this.skilltreeNamesSubscription) {
+      this.skilltreeNamesSubscription.unsubscribe();
+    }
   }
 
   parseTextArea() {
@@ -71,7 +85,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   update(field, control: FormControl) {
-    if (this.skilltree[field] != control.value) {
+    if (this.skilltree[field] != control.value && control.errors == null) {
       this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
         changes: {[field]: control.value},
         id: this.skilltree.id
@@ -87,7 +101,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   rename(control: FormControl) {
-    if (this.skilltree.id != control.value) {
+    if (this.skilltree.id != control.value && control.errors == null) {
       this.store.dispatch(new SkilltreeActions.RenameSkilltreeAction(control.value, this.skilltree.id));
     }
   }

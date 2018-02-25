@@ -21,6 +21,7 @@ export class IconLoaderService {
     this.addSvgIcon('indeterminate_check_box', 'ic_indeterminate_check_box_24px.svg');
     this.addSvgIcon('check_box', 'ic_check_box_24px.svg');
     this.addSvgIcon('check_box_outline_blank', 'ic_check_box_outline_blank_24px.svg');
+    this.addSvgIcon('cancel', 'ic_cancel_24px.svg');
   }
 
   addSvgIcon(name: string, fileName: string) {

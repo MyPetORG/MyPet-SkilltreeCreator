@@ -81,6 +81,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { storeFreeze } from "ngrx-store-freeze";
 import { FreezableRouterStateSerializer } from "./store/freezable-router";
 import { AboutComponent } from './components/about/about.component';
+import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.directive';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,8 @@ import { AboutComponent } from './components/about/about.component';
     ThornsSkillComponent,
     WitherSkillComponent,
     AboutComponent,
+
+    SkilltreeDuplicateDirective,
   ],
   imports: [
     BrowserModule,

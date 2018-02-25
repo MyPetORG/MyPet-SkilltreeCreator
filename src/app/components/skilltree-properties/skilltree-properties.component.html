@@ -1,13 +1,28 @@
 <mat-card fxLayout="column">
   <mat-input-container>
-    <input matInput placeholder="ID" [formControl]="id" (blur)="rename(id)">
+    <input matInput placeholder="Skilltree Name" [formControl]="id" (blur)="rename(id)"
+           [appSkilltreeDuplicate]="skilltreeNames" required pattern="[^\s]*">
+    <mat-error *ngIf="id.errors?.skilltreeDuplicate">
+      There is already a skilltree with this name.
+    </mat-error>
+    <mat-error *ngIf="id.errors?.required">
+      Please enter a skilltree name.
+    </mat-error>
+    <mat-error *ngIf="id.errors?.pattern">
+      Whitespaces are not allowed.
+    </mat-error>
   </mat-input-container>
   <mat-input-container>
     <input matInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
   </mat-input-container>
   <mat-input-container>
-    <input matInput placeholder="Permission" [formControl]="permission" (blur)="update('permission',permission)">
     <span matPrefix>MyPet.skilltree.</span>
+    <input matInput [placeholder]="!permission.value ? id.value + ' (Permission)' : 'Permission'"
+           pattern="[^\s]*"
+           [formControl]="permission" (blur)="update('permission',permission)">
+    <mat-error *ngIf="permission.errors?.pattern">
+      Whitespaces are not allowed.
+    </mat-error>
   </mat-input-container>
 </mat-card>
 
