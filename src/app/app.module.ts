@@ -74,7 +74,8 @@ import {
   MatSnackBarModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSliderModule
 } from "@angular/material";
 import { environment } from '../environments/environment';
 import { IconLoaderService } from "./services/icon-loader.service";
@@ -83,6 +84,7 @@ import { storeFreeze } from "ngrx-store-freeze";
 import { FreezableRouterStateSerializer } from "./store/freezable-router";
 import { AboutComponent } from './components/about/about.component';
 import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.directive';
+import { RomanPipe } from './pipes/roman.pipe';
 
 @NgModule({
   declarations: [
@@ -98,6 +100,7 @@ import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.di
 
     McChatPipe,
     KeysPipe,
+    RomanPipe,
 
     BackpackSkillComponent,
     BeaconSkillComponent,
@@ -133,7 +136,7 @@ import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.di
     MatButtonModule, MatCheckboxModule, MatIconModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
     MatSidenavModule, MatOptionModule, MatTooltipModule, MatExpansionModule, MatButtonToggleModule, MatListModule,
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
-    MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule,
+    MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule, MatSliderModule,
     SatPopoverModule,
     ContextMenuModule.forRoot(),
     StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
