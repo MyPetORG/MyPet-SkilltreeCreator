@@ -6,14 +6,16 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Control; trackBy: id; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.active == true"
-                    [indeterminate]="upgrade.active == null"
-                    (click)="toggle(skilltree, upgrade, 'active')"
-                    [matTooltip]="upgrade.active == true ? 'Yes' : (upgrade.active == false ? 'No' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Active?
-      </mat-checkbox>
-    </mat-card>
+    <div fxLayout="column">
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.active == true"
+                      [indeterminate]="upgrade.active == null"
+                      (click)="toggle(skilltree, upgrade, 'active')"
+                      [matTooltip]="upgrade.active == true ? 'Yes' : (upgrade.active == false ? 'No' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Active?
+        </mat-checkbox>
+      </mat-card>
+    </div>
   </mat-expansion-panel>
 </div>

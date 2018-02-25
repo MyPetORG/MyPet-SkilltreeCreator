@@ -33,27 +33,29 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Poison; trackBy: id; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : 0" type="text"
-               pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
-               (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
-        <span matSuffix>%</span>
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="chancePopover" (click)="chancePopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Duration" [value]="upgrade.duration ? upgrade.duration : 0" type="text"
-               pattern="[+-=][0-9]+"
-               (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
-        <span matSuffix>sec</span>
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="durationPopover" (click)="durationPopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
+    <div fxLayout="column">
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : 0" type="text"
+                 pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
+                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
+          <span matSuffix>%</span>
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="chancePopover" (click)="chancePopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Duration" [value]="upgrade.duration ? upgrade.duration : 0" type="text"
+                 pattern="[+-=][0-9]+"
+                 (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
+          <span matSuffix>sec</span>
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="durationPopover" (click)="durationPopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+    </div>
   </mat-expansion-panel>
 </div>

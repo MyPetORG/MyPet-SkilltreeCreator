@@ -33,35 +33,37 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Ride; trackBy: id; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Speed" [value]="upgrade.speed ? upgrade.speed : 0" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?"
-               (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value)">
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="speedPopover" (click)="speedPopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Jump Height" [value]="upgrade.jumpHeight ? upgrade.jumpHeight : 0" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?"
-               (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value)">
-        <span matSuffix>Blocks</span>
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="jumpHeightPopover" (click)="jumpHeightPopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.canFly == true"
-                    [indeterminate]="upgrade.canFly == null"
-                    (click)="toggle(skilltree, upgrade, 'canFly')"
-                    [matTooltip]="upgrade.canFly == true ? 'Yes' : (upgrade.canFly == false ? 'No' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Can Fly?
-      </mat-checkbox>
-    </mat-card>
+    <div fxLayout="column">
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Speed" [value]="upgrade.speed ? upgrade.speed : 0" type="text"
+                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value)">
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="speedPopover" (click)="speedPopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Jump Height" [value]="upgrade.jumpHeight ? upgrade.jumpHeight : 0" type="text"
+                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value)">
+          <span matSuffix>Blocks</span>
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="jumpHeightPopover" (click)="jumpHeightPopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.canFly == true"
+                      [indeterminate]="upgrade.canFly == null"
+                      (click)="toggle(skilltree, upgrade, 'canFly')"
+                      [matTooltip]="upgrade.canFly == true ? 'Yes' : (upgrade.canFly == false ? 'No' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Can Fly?
+        </mat-checkbox>
+      </mat-card>
+    </div>
   </mat-expansion-panel>
 </div>

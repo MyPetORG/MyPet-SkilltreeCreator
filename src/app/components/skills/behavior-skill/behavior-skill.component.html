@@ -6,50 +6,52 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Behavior; trackBy: id; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.friend == true"
-                    [indeterminate]="upgrade.friend == null"
-                    (click)="toggle(skilltree, upgrade, 'friend')"
-                    [matTooltip]="upgrade.friend == true ? 'Activated' : (upgrade.friend == false ? 'Deactivated' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Friendly Mode
-      </mat-checkbox>
-    </mat-card>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.aggro == true"
-                    [indeterminate]="upgrade.aggro == null"
-                    (click)="toggle(skilltree, upgrade, 'aggro')"
-                    [matTooltip]="upgrade.aggro == true ? 'Activated' : (upgrade.aggro == false ? 'Deactivated' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Aggressive Mode
-      </mat-checkbox>
-    </mat-card>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.farm == true"
-                    [indeterminate]="upgrade.farm == null"
-                    (click)="toggle(skilltree, upgrade, 'farm')"
-                    [matTooltip]="upgrade.farm == true ? 'Activated' : (upgrade.farm == false ? 'Deactivated' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Farm Mode
-      </mat-checkbox>
-    </mat-card>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.raid == true"
-                    [indeterminate]="upgrade.raid == null"
-                    (click)="toggle(skilltree, upgrade, 'raid')"
-                    [matTooltip]="upgrade.raid == true ? 'Activated' : (upgrade.raid == false ? 'Deactivated' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Raid Mode
-      </mat-checkbox>
-    </mat-card>
-    <mat-card>
-      <mat-checkbox [checked]="upgrade.duel == true"
-                    [indeterminate]="upgrade.duel == null"
-                    (click)="toggle(skilltree, upgrade, 'duel')"
-                    [matTooltip]="upgrade.duel == true ? 'Activated' : (upgrade.duel == false ? 'Deactivated' : 'Don\'t change')"
-                    matTooltipPosition="right">
-        Duel Mode
-      </mat-checkbox>
-    </mat-card>
+    <div fxLayout="column">
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.friend == true"
+                      [indeterminate]="upgrade.friend == null"
+                      (click)="toggle(skilltree, upgrade, 'friend')"
+                      [matTooltip]="upgrade.friend == true ? 'Activated' : (upgrade.friend == false ? 'Deactivated' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Friendly Mode
+        </mat-checkbox>
+      </mat-card>
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.aggro == true"
+                      [indeterminate]="upgrade.aggro == null"
+                      (click)="toggle(skilltree, upgrade, 'aggro')"
+                      [matTooltip]="upgrade.aggro == true ? 'Activated' : (upgrade.aggro == false ? 'Deactivated' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Aggressive Mode
+        </mat-checkbox>
+      </mat-card>
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.farm == true"
+                      [indeterminate]="upgrade.farm == null"
+                      (click)="toggle(skilltree, upgrade, 'farm')"
+                      [matTooltip]="upgrade.farm == true ? 'Activated' : (upgrade.farm == false ? 'Deactivated' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Farm Mode
+        </mat-checkbox>
+      </mat-card>
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.raid == true"
+                      [indeterminate]="upgrade.raid == null"
+                      (click)="toggle(skilltree, upgrade, 'raid')"
+                      [matTooltip]="upgrade.raid == true ? 'Activated' : (upgrade.raid == false ? 'Deactivated' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Raid Mode
+        </mat-checkbox>
+      </mat-card>
+      <mat-card>
+        <mat-checkbox [checked]="upgrade.duel == true"
+                      [indeterminate]="upgrade.duel == null"
+                      (click)="toggle(skilltree, upgrade, 'duel')"
+                      [matTooltip]="upgrade.duel == true ? 'Activated' : (upgrade.duel == false ? 'Deactivated' : 'Don\'t change')"
+                      matTooltipPosition="right">
+          Duel Mode
+        </mat-checkbox>
+      </mat-card>
+    </div>
   </mat-expansion-panel>
 </div>

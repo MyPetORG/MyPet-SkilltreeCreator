@@ -33,40 +33,42 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Ranged; trackBy: id; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?"
-               (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
-        <span matSuffix>meters</span>
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="rangePopover" (click)="rangePopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Rate of fire" [value]="upgrade.rate ? upgrade.rate : 0" type="text"
-               pattern="[+-=][0-9]+(\.[0-9]+)?"
-               (blur)="update(skilltree, upgrade, 'rate', $event.srcElement.value)">
-        <span matSuffix> x 50ms delay = shots/second</span>
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="ratePopover" (click)="ratePopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
-    <mat-card>
-      <mat-form-field>
-        <mat-select placeholder="Projectile" [value]="upgrade.projectile|| 'Arrow'"
-                    (change)="update(skilltree, upgrade, 'projectile', $event.value)">
-          <mat-option value="Arrow">Arrow</mat-option>
-          <mat-option value="Snowball">Snowball</mat-option>
-          <mat-option value="Fireball">Fireball</mat-option>
-          <mat-option value="LargeFireball">Large Fireball</mat-option>
-          <mat-option value="WitherSkull">Wither Skull</mat-option>
-          <mat-option value="Egg">Egg</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card>
+    <div fxLayout="column">
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
+                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
+          <span matSuffix>meters</span>
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="rangePopover" (click)="rangePopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Rate of fire" [value]="upgrade.rate ? upgrade.rate : 0" type="text"
+                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 (blur)="update(skilltree, upgrade, 'rate', $event.srcElement.value)">
+          <span matSuffix> x 50ms delay = shots/second</span>
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="ratePopover" (click)="ratePopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+      <mat-card>
+        <mat-form-field>
+          <mat-select placeholder="Projectile" [value]="upgrade.projectile|| 'Arrow'"
+                      (change)="update(skilltree, upgrade, 'projectile', $event.value)">
+            <mat-option value="Arrow">Arrow</mat-option>
+            <mat-option value="Snowball">Snowball</mat-option>
+            <mat-option value="Fireball">Fireball</mat-option>
+            <mat-option value="LargeFireball">Large Fireball</mat-option>
+            <mat-option value="WitherSkull">Wither Skull</mat-option>
+            <mat-option value="Egg">Egg</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+    </div>
   </mat-expansion-panel>
 </div>

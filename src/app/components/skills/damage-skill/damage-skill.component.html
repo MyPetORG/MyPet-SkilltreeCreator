@@ -20,15 +20,17 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Damage; trackBy: id; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
-    <mat-card>
-      <mat-input-container>
-        <input matInput placeholder="Damage" [value]="upgrade.damage" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?"
-               (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value)">
-        <span matSuffix>damage</span>
-      </mat-input-container>
-      <button mat-icon-button [satPopoverAnchorFor]="damagePopover" (click)="damagePopover.toggle()">
-        <mat-icon svgIcon="info_outline">info_outline</mat-icon>
-      </button>
-    </mat-card>
+    <div fxLayout="column">
+      <mat-card>
+        <mat-input-container>
+          <input matInput placeholder="Damage" [value]="upgrade.damage" type="text" pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value)">
+          <span matSuffix>damage</span>
+        </mat-input-container>
+        <button mat-icon-button [satPopoverAnchorFor]="damagePopover" (click)="damagePopover.toggle()">
+          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+        </button>
+      </mat-card>
+    </div>
   </mat-expansion-panel>
 </div>
