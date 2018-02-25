@@ -1,30 +1,49 @@
-<mat-card fxLayout="column">
-  <mat-input-container>
-    <input matInput placeholder="Skilltree Name" [formControl]="id" (blur)="rename(id)"
-           [appSkilltreeDuplicate]="skilltreeNames" required pattern="[^\s]*">
-    <mat-error *ngIf="id.errors?.skilltreeDuplicate">
-      There is already a skilltree with this name.
-    </mat-error>
-    <mat-error *ngIf="id.errors?.required">
-      Please enter a skilltree name.
-    </mat-error>
-    <mat-error *ngIf="id.errors?.pattern">
-      Whitespaces are not allowed.
-    </mat-error>
-  </mat-input-container>
-  <mat-input-container>
-    <input matInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
-  </mat-input-container>
-  <mat-input-container>
-    <span matPrefix>MyPet.skilltree.</span>
-    <input matInput [placeholder]="!permission.value ? id.value + ' (Permission)' : 'Permission'"
-           pattern="[^\s]*"
-           [formControl]="permission" (blur)="update('permission',permission)">
-    <mat-error *ngIf="permission.errors?.pattern">
-      Whitespaces are not allowed.
-    </mat-error>
-  </mat-input-container>
-</mat-card>
+<div fxLayout="row" fxLayoutGap="10px">
+  <mat-card fxLayout="column" fxFlex="grow">
+    <mat-input-container>
+      <input matInput placeholder="Skilltree Name" [formControl]="id" (blur)="rename(id)"
+             [appSkilltreeDuplicate]="skilltreeNames" required pattern="[^\s]*">
+      <mat-error *ngIf="id.errors?.skilltreeDuplicate">
+        There is already a skilltree with this name.
+      </mat-error>
+      <mat-error *ngIf="id.errors?.required">
+        Please enter a skilltree name.
+      </mat-error>
+      <mat-error *ngIf="id.errors?.pattern">
+        Whitespaces are not allowed.
+      </mat-error>
+    </mat-input-container>
+    <mat-input-container>
+      <input matInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
+    </mat-input-container>
+    <mat-input-container>
+      <span matPrefix>MyPet.skilltree.</span>
+      <input matInput [placeholder]="!permission.value ? id.value + ' (Permission)' : 'Permission'"
+             pattern="[^\s]*"
+             [formControl]="permission" (blur)="update('permission',permission)">
+      <mat-error *ngIf="permission.errors?.pattern">
+        Whitespaces are not allowed.
+      </mat-error>
+    </mat-input-container>
+  </mat-card>
+  <mat-card fxLayout="column" fxFlex="grow">
+    <mat-input-container>
+      <input matInput placeholder="Required Pet Level" [formControl]="requiredLevel"
+             (blur)="update('requiredLevel',requiredLevel)" pattern="\d*" type="number">
+      <mat-error *ngIf="requiredLevel.errors?.pattern">
+        Please enter a valid number
+      </mat-error>
+    </mat-input-container>
+    <mat-input-container>
+      <input matInput placeholder="Maximum Pet Level" [formControl]="maxLevel" type="number"
+             (blur)="update('maxLevel',maxLevel)"
+             pattern="\d*">
+      <mat-error *ngIf="maxLevel.errors?.pattern">
+        Please enter a valid number
+      </mat-error>
+    </mat-input-container>
+  </mat-card>
+</div>
 
 <mat-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
   <mat-input-container fxFlex="100">

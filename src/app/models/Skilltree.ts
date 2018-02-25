@@ -8,4 +8,6 @@ export interface Skilltree {
   permission?: string;
   skills: { [name: string]: Upgrade[] };
   mobtypes: string[];
+  requiredLevel?: number;
+  maxLevel?: number;
 }

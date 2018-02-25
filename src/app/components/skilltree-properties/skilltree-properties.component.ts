@@ -27,6 +27,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   name = new FormControl();
   permission = new FormControl();
   description = new FormControl();
+  requiredLevel = new FormControl();
+  maxLevel = new FormControl();
   _description: string[] = [];
 
   constructor(private dialog: MatDialog,
@@ -39,6 +41,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         this.id.setValue(skilltree.id);
         this.name.setValue(skilltree.name);
         this.permission.setValue(skilltree.permission);
+        this.requiredLevel.setValue(skilltree.requiredLevel);
+        this.maxLevel.setValue(skilltree.maxLevel);
         if (skilltree.description) {
           this.description.setValue(skilltree.description.join("\n"));
           this._description = skilltree.description;
