@@ -85,6 +85,7 @@ import { FreezableRouterStateSerializer } from "./store/freezable-router";
 import { AboutComponent } from './components/about/about.component';
 import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.directive';
 import { RomanPipe } from './pipes/roman.pipe';
+import { ClipboardModule } from "ngx-clipboard";
 
 @NgModule({
   declarations: [
@@ -133,6 +134,7 @@ import { RomanPipe } from './pipes/roman.pipe';
     ReactiveFormsModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
+    ClipboardModule,
     MatButtonModule, MatCheckboxModule, MatIconModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
     MatSidenavModule, MatOptionModule, MatTooltipModule, MatExpansionModule, MatButtonToggleModule, MatListModule,
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,

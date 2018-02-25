@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { Skilltree } from "../../models/Skilltree";
 import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
-import { MatDialog, MatDialogConfig } from "@angular/material";
+import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { FormControl } from "@angular/forms";
 import "rxjs/add/operator/distinctUntilChanged";
 import { Store } from "@ngrx/store";
@@ -32,6 +32,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   _description: string[] = [];
 
   constructor(private dialog: MatDialog,
+              public snackBar: MatSnackBar,
               private store: Store<Reducers.State>) {
     this.skilltree$ = store.select(Reducers.getSelectedSkilltree);
     this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
@@ -108,5 +109,11 @@ export class SkilltreePropertiesComponent implements OnDestroy {
     if (this.skilltree.id != control.value && control.errors == null) {
       this.store.dispatch(new SkilltreeActions.RenameSkilltreeAction(control.value, this.skilltree.id));
     }
+  }
+
+  notifyCopy() {
+    this.snackBar.open("Permission copied!", "Permission", {
+      duration: 2000,
+    });
   }
 }

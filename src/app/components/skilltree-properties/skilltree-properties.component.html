@@ -21,6 +21,11 @@
       <input matInput [placeholder]="!permission.value ? id.value + ' (Permission)' : 'Permission'"
              pattern="[^\s]*"
              [formControl]="permission" (blur)="update('permission',permission)">
+      <button mat-raised-button matSuffix color="primary" ngxClipboard
+              [cbContent]="'MyPet.skilltree.' + (permission.value ? permission.value : id.value)"
+              (click)="notifyCopy()">
+        <mat-icon svgIcon="content_copy">content_copy</mat-icon>
+      </button>
       <mat-error *ngIf="permission.errors?.pattern">
         Whitespaces are not allowed.
       </mat-error>

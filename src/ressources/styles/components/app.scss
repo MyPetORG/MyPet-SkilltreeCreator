@@ -19,3 +19,11 @@ html, body, main, app-skilltree, mat-sidenav-container {
 mat-expansion-panel-header.mat-expanded, mat-expansion-panel-header.mat-expanded:hover {
   background-color: whitesmoke !important;
 }
+
+.mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  color: white !important;
+}
+
+.mat-raised-button.mat-primary:disabled, .mat-fab.mat-primary:disabled, .mat-mini-fab.mat-primary:disabled {
+  color: inherit !important;
+}
