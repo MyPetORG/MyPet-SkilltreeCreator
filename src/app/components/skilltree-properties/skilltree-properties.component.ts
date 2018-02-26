@@ -48,12 +48,13 @@ export class SkilltreePropertiesComponent implements OnDestroy {
           this.description.setValue(skilltree.description.join("\n"));
           this._description = skilltree.description;
         }
+        this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id));
       }
     });
     this.skilltreeNamesSubscription = this.store.select(Reducers.getSkilltrees).subscribe(skilltrees => {
       this.skilltreeNames = [];
       Object.keys(skilltrees).forEach(id => {
-        if (this.name.value != id) {
+        if (this.id.value != id) {
           this.skilltreeNames.push(id);
         }
       });
