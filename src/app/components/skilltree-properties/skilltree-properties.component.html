@@ -23,7 +23,7 @@
              [formControl]="permission" (blur)="update('permission',permission)">
       <button mat-raised-button matSuffix color="primary" ngxClipboard
               [cbContent]="'MyPet.skilltree.' + (permission.value ? permission.value : id.value)"
-              (click)="notifyCopy()">
+              (click)="notifyCopy()" matTooltip="Copy permission to clipboard" matTooltipPosition="left">
         <mat-icon svgIcon="content_copy">content_copy</mat-icon>
       </button>
       <mat-error *ngIf="permission.errors?.pattern">
