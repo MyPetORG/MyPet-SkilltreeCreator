@@ -1,14 +1,18 @@
-import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef } from "@angular/material";
+import { Component, Inject, OnDestroy } from "@angular/core";
+import { MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar } from "@angular/material";
 import { LevelRule } from "../../models/LevelRule";
 import { COMMA, ENTER, SPACE } from "@angular/cdk/keycodes";
+import * as Reducers from "../../store/reducers";
+import { Store } from "@ngrx/store";
+import { Upgrade } from "../../models/Upgrade";
+import { isArray } from "util";
 
 @Component({
   selector: 'app-upgrade-add-dialog',
   templateUrl: './upgrade-add-dialog.component.html',
   styleUrls: ['./upgrade-add-dialog.component.scss']
 })
-export class UpgradeAddDialogComponent {
+export class UpgradeAddDialogComponent implements OnDestroy {
 
   type: number = 0;
   level: number[] = [];
@@ -18,22 +22,49 @@ export class UpgradeAddDialogComponent {
 
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
+  levelRules: LevelRule[] = [];
+  levelRulessSubscription = null;
+
   constructor(public dialogRef: MatDialogRef<UpgradeAddDialogComponent>,
+              private store: Store<Reducers.State>,
+              public snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    this.levelRulessSubscription = this.store.select(Reducers.getSelectedUpgrades).subscribe(upgrades => {
+      this.levelRules = [];
+      upgrades.forEach((upgrade: Upgrade) => {
+        this.levelRules.push(upgrade.rule);
+      })
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.levelRulessSubscription) {
+      this.levelRulessSubscription.unsubscribe();
+    }
   }
 
   done() {
-    let rule: LevelRule = {};
+    let newRule: LevelRule = {};
 
     if (this.type == 0) {
-      rule.exact = this.level.slice();
+      newRule.exact = this.level.sort();
     } else if (this.type == 1) {
-      rule.every = this.every;
-      rule.minimum = this.minimum;
-      rule.limit = this.limit;
+      newRule.every = this.every;
+      newRule.minimum = this.minimum;
+      newRule.limit = this.limit;
     }
 
-    this.dialogRef.close(rule)
+    let found = this.levelRules.find(rule => {
+      return this.compareLevelRule(rule, newRule);
+    });
+    if (!found) {
+      this.dialogRef.close(newRule)
+    } else {
+      this.snackBar.open("There is already a rule with these values.", "Error", {
+        duration: 2000,
+      });
+    }
   }
 
   addLevel(event: MatChipInputEvent): void {
@@ -58,5 +89,18 @@ export class UpgradeAddDialogComponent {
     if (index >= 0) {
       this.level.splice(index, 1);
     }
+  }
+
+  compareLevelRule(ruleA: LevelRule, ruleB: LevelRule): any {
+    if (this.type == 0) {
+      if (isArray(ruleA.exact) && isArray(ruleB.exact)) {
+        if (ruleA.exact.slice().sort().join(',') === ruleB.exact.sort().join(',')) {
+          return true;
+        }
+      }
+    } else if (this.type == 1) {
+      return ruleA.every == ruleB.every && ruleA.limit == ruleB.limit && ruleA.minimum == ruleB.minimum;
+    }
+    return false;
   }
 }
