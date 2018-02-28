@@ -39,6 +39,39 @@ export class SkilltreeEffects {
     });
 
   @Effect()
+  loadSkilltrees$: Observable<Action> = this.actions$
+    .ofType(SkilltreeActions.LOAD_SKILLTREES)
+    .switchMap(() => {
+      return this.skilltreeLoader.loadSkilltrees()
+        .map(res => res as any[])
+        .map(res => {
+          res.forEach(st => this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st)));
+          return new SkilltreeActions.LoadSkilltreesSuccessAction()
+        })
+        .catch(err => of(new SkilltreeActions.LoadSkilltreesFailedAction(err)));
+    });
+
+  @Effect({dispatch: false})
+  loadSkilltreesSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.LOAD_SKILLTREES_SUCCESS),
+    tap(() => {
+      this.snackBar.open("Skilltrees loaded successfully", null, {
+        duration: 2000,
+      });
+    })
+  );
+
+  @Effect({dispatch: false})
+  loadSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.LOAD_SKILLTREES_FAILED),
+    tap(() => {
+      this.snackBar.open("Skilltrees loading failed!", "ERROR", {
+        duration: 2000,
+      });
+    })
+  );
+
+  @Effect()
   saveSkilltree$: Observable<Action> = this.actions$
     .ofType(SkilltreeActions.SAVE_SKILLTREES)
     .withLatestFrom(this.store.select(Reducers.getSkilltrees))

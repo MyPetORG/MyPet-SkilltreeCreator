@@ -3,6 +3,9 @@ import { Skilltree } from "../../models/Skilltree";
 
 export const ADD_SKILLTREE = 'ADD_SKILLTREE';
 export const LOAD_SKILLTREE = 'LOAD_SKILLTREE';
+export const LOAD_SKILLTREES = 'LOAD_SKILLTREES';
+export const LOAD_SKILLTREES_SUCCESS = 'LOAD_SKILLTREES_SUCCESS';
+export const LOAD_SKILLTREES_FAILED = 'LOAD_SKILLTREES_FAILED';
 export const LOAD_SKILLTREE_SUCCESS = 'LOAD_SKILLTREE_SUCCESS';
 export const SAVE_SKILLTREES = 'SAVE_SKILLTREES';
 export const SAVE_SKILLTREES_SUCCESS = 'SAVE_SKILLTREES_SUCCESS';
@@ -24,11 +27,43 @@ export class AddSkilltreeAction implements Action {
   }
 }
 
+export class LoadSkilltreesAction implements Action {
+  readonly type = LOAD_SKILLTREES;
+  readonly ignoredByUndo = true;
+
+  constructor() {
+  }
+}
+
+export class LoadSkilltreesFailedAction implements Action {
+  readonly type = LOAD_SKILLTREES_FAILED;
+  readonly ignoredByUndo = true;
+
+  constructor(public error: any) {
+  }
+}
+
+export class LoadSkilltreesSuccessAction implements Action {
+  readonly type = LOAD_SKILLTREES_SUCCESS;
+  readonly ignoredByUndo = true;
+
+  constructor() {
+  }
+}
+
 export class LoadSkilltreeAction implements Action {
   readonly type = LOAD_SKILLTREE;
   readonly ignoredByUndo = true;
 
   constructor(public payload: any) {
+  }
+}
+
+export class LoadSkilltreeSuccessAction implements Action {
+  readonly type = LOAD_SKILLTREE_SUCCESS;
+  readonly ignoredByUndo = true;
+
+  constructor(public payload: Skilltree) {
   }
 }
 
@@ -53,13 +88,6 @@ export class SaveSkilltreesFailedAction implements Action {
   readonly ignoredByUndo = true;
 
   constructor(public error: any) {
-  }
-}
-
-export class LoadSkilltreeSuccessAction implements Action {
-  readonly type = LOAD_SKILLTREE_SUCCESS;
-
-  constructor(public payload: Skilltree) {
   }
 }
 
@@ -111,6 +139,8 @@ export type Actions
   = AddSkilltreeAction
   | LoadSkilltreeAction
   | LoadSkilltreeSuccessAction
+  | LoadSkilltreesAction
+  | LoadSkilltreesFailedAction
   | SaveSkilltreesAction
   | SaveSkilltreesSuccessAction
   | SaveSkilltreesFailedAction

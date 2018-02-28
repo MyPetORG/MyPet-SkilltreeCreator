@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from "./components/app/app.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ExampleDataService } from "./services/data.service";
 import { SkilltreeListComponent } from "./components/skilltree-list/skilltree-list.component";
 import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/skilltree-add-dialog.component";
 import { SkilltreePropertiesComponent } from "./components/skilltree-properties/skilltree-properties.component";
@@ -184,13 +183,13 @@ import { SkilltreeSaverService } from "./services/skilltree-saver.service";
   ],
   providers: [
     StateService,
-    ExampleDataService,
     SkilltreeLoaderService,
     SkilltreeSaverService,
     SkilltreeExistsGuard,
     IconLoaderService,
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
     {provide: reducerToken, useFactory: getReducers},
+    ...environment.providers,
   ],
   bootstrap: [AppComponent]
 })

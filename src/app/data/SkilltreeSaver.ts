@@ -4,6 +4,6 @@ export class SkilltreeSaver {
 
   static saveSkilltrees(skilltrees: Skilltree[]): any {
     console.log("save skilltrees:", skilltrees);
-    return {}; //TODO
+    return {skilltrees}; //TODO
   }
 }

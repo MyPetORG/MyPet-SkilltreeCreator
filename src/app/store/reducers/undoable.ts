@@ -58,7 +58,6 @@ export const undoable = reducer => {
           return state
         }
         // IGNORED actions
-        console.log(action.type, action.ignoredByUndo, action);
         if (action.ignoredByUndo) {
           return {
             past: [...state.past],

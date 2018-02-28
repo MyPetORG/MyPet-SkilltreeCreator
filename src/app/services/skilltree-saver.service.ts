@@ -12,7 +12,6 @@ export class SkilltreeSaverService {
 
   public saveSkilltrees(data: Skilltree[]) {
     let jsonSkilltrees = SkilltreeSaver.saveSkilltrees(data);
-    return of("success");
-    //return this.http.post("test", jsonSkilltrees);
+    return this.http.post("/api/skilltrees/save", jsonSkilltrees);
   }
 }

@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
-import { ExampleDataService } from "../../services/data.service";
 import { IconLoaderService } from "../../services/icon-loader.service";
+import * as SkilltreeActions from "../../store/actions/skilltree";
+import * as Reducers from "../../store/reducers";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,10 @@ import { IconLoaderService } from "../../services/icon-loader.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(exampleData: ExampleDataService,
-              iconLoader: IconLoaderService) {
-    exampleData.load();
+  constructor(iconLoader: IconLoaderService,
+              private store: Store<Reducers.State>) {
     iconLoader.load();
+
+    this.store.dispatch(new SkilltreeActions.LoadSkilltreesAction());
   }
 }
