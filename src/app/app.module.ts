@@ -86,6 +86,7 @@ import { AboutComponent } from './components/about/about.component';
 import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.directive';
 import { RomanPipe } from './pipes/roman.pipe';
 import { ClipboardModule } from "ngx-clipboard";
+import { SkilltreeSaverService } from "./services/skilltree-saver.service";
 
 @NgModule({
   declarations: [
@@ -185,6 +186,7 @@ import { ClipboardModule } from "ngx-clipboard";
     StateService,
     ExampleDataService,
     SkilltreeLoaderService,
+    SkilltreeSaverService,
     SkilltreeExistsGuard,
     IconLoaderService,
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},

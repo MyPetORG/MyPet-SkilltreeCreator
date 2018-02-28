@@ -4,6 +4,9 @@ import { Skilltree } from "../../models/Skilltree";
 export const ADD_SKILLTREE = 'ADD_SKILLTREE';
 export const LOAD_SKILLTREE = 'LOAD_SKILLTREE';
 export const LOAD_SKILLTREE_SUCCESS = 'LOAD_SKILLTREE_SUCCESS';
+export const SAVE_SKILLTREES = 'SAVE_SKILLTREES';
+export const SAVE_SKILLTREES_SUCCESS = 'SAVE_SKILLTREES_SUCCESS';
+export const SAVE_SKILLTREES_FAILED = 'SAVE_SKILLTREES_FAILED';
 export const COPY_SKILLTREE = 'COPY_SKILLTREE';
 export const REMOVE_SKILLTREE = 'REMOVE_SKILLTREE';
 export const RENAME_SKILLTREE = 'RENAME_SKILLTREE';
@@ -26,6 +29,30 @@ export class LoadSkilltreeAction implements Action {
   readonly ignoredByUndo = true;
 
   constructor(public payload: any) {
+  }
+}
+
+export class SaveSkilltreesAction implements Action {
+  readonly type = SAVE_SKILLTREES;
+  readonly ignoredByUndo = true;
+
+  constructor() {
+  }
+}
+
+export class SaveSkilltreesSuccessAction implements Action {
+  readonly type = SAVE_SKILLTREES_SUCCESS;
+  readonly ignoredByUndo = true;
+
+  constructor(public result: any) {
+  }
+}
+
+export class SaveSkilltreesFailedAction implements Action {
+  readonly type = SAVE_SKILLTREES_FAILED;
+  readonly ignoredByUndo = true;
+
+  constructor(public error: any) {
   }
 }
 
@@ -84,6 +111,9 @@ export type Actions
   = AddSkilltreeAction
   | LoadSkilltreeAction
   | LoadSkilltreeSuccessAction
+  | SaveSkilltreesAction
+  | SaveSkilltreesSuccessAction
+  | SaveSkilltreesFailedAction
   | CopySkilltreeAction
   | RemoveSkilltreeAction
   | RenameSkilltreeAction

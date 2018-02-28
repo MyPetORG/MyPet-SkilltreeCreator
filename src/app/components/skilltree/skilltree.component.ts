@@ -3,7 +3,8 @@ import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import * as SkilltreeActions from "../../store/actions/skilltree";
+import { NavigationEnd, Router } from "@angular/router";
 import { RedoAction, UndoAction } from "../../store/reducers/undoable";
 
 @Component({
@@ -42,6 +43,11 @@ export class SkilltreeComponent {
 
   closeSidenav() {
     this.store.dispatch(new LayoutActions.CloseSidenavAction());
+  }
+
+  save() {
+    this.store.dispatch(new LayoutActions.CloseSidenavAction());
+    this.store.dispatch(new SkilltreeActions.SaveSkilltreesAction());
   }
 
   undo() {
