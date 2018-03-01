@@ -11,6 +11,7 @@ export const SAVE_SKILLTREES = 'SAVE_SKILLTREES';
 export const SAVE_SKILLTREES_SUCCESS = 'SAVE_SKILLTREES_SUCCESS';
 export const SAVE_SKILLTREES_FAILED = 'SAVE_SKILLTREES_FAILED';
 export const COPY_SKILLTREE = 'COPY_SKILLTREE';
+export const UPDATE_SKILLTREE_ORDER = 'UPDATE_SKILLTREE_ORDER';
 export const REMOVE_SKILLTREE = 'REMOVE_SKILLTREE';
 export const RENAME_SKILLTREE = 'RENAME_SKILLTREE';
 
@@ -98,6 +99,13 @@ export class CopySkilltreeAction implements Action {
   }
 }
 
+export class UpdateSkilltreeOrderAction implements Action {
+  readonly type = UPDATE_SKILLTREE_ORDER;
+
+  constructor(public payload: { id: string, changes: { order: number } }[], public ignoredByUndo = true) {
+  }
+}
+
 /**
  * Remove Skilltree Actions
  */
@@ -145,6 +153,7 @@ export type Actions
   | SaveSkilltreesSuccessAction
   | SaveSkilltreesFailedAction
   | CopySkilltreeAction
+  | UpdateSkilltreeOrderAction
   | RemoveSkilltreeAction
   | RenameSkilltreeAction
   | UpdateSkilltreeInfoAction

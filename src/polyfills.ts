@@ -43,6 +43,8 @@ import 'core-js/es7/reflect';
  * Zone JS is required by Angular itself.
  */
 import 'zone.js/dist/zone'; // Included with Angular CLI.
+import { polyfill } from "mobile-drag-drop";
+import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
 
 
 
@@ -76,4 +78,13 @@ Object.defineProperty(Object.prototype, "getProp", {
   },
   //this keeps jquery happy
   enumerable: false
+});
+
+polyfill({
+  // use this to make use of the scroll behaviour
+  dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
+});
+
+window.addEventListener("touchmove", function () {
+  // workaround to make scroll prevent work in iOS Safari > 10
 });

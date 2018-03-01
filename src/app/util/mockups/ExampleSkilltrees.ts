@@ -1,6 +1,7 @@
 export const RideSkilltree = {
   "ID": "ride",
   "Name": "Ride",
+  "Order": 5,
   "Description": [
     "Ride your pet"
   ],

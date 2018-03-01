@@ -1,15 +1,28 @@
-mat-card {
-  margin-bottom: 15px;
-}
-
-mat-card.small {
-  padding: 12px;
-}
-
-mat-list-item.selected {
-  background-color: #C8E6C9;;
+:host::ng-deep div.mat-list-item-content {
+  padding-left: 0 !important;
 }
 
 .no-padding, mat-nav-list {
   padding: 0 !important;
+}
+
+.handle {
+  cursor: grab;
+  height: 100% !important;
+  border-radius: 0 !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  background-color: whitesmoke;
+}
+
+.dndList {
+  transition: all .3s ease;
+}
+
+.dndDraggingSource {
+  display: none !important;
+}
+
+.dndPlaceholder {
+  background-color: #C8E6C9 !important;
 }

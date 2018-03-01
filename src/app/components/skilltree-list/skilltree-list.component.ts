@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/Skilltree";
@@ -8,7 +8,7 @@ import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Router } from "@angular/router";
 import * as LayoutActions from "../../store/actions/layout";
-import { Subscription } from "rxjs/Subscription";
+import { ContextMenuService } from "ngx-contextmenu";
 
 @Component({
   selector: 'app-skilltree-list',
@@ -22,6 +22,7 @@ export class SkilltreeListComponent {
 
   constructor(private dialog: MatDialog,
               public snackBar: MatSnackBar,
+              private contextMenuService: ContextMenuService,
               private store: Store<Reducers.State>,
               private router: Router) {
     this.skilltrees$ = this.store.select(Reducers.getSkilltrees);
@@ -29,10 +30,37 @@ export class SkilltreeListComponent {
     this.skilltrees$.subscribe(skilltrees => {
       this.skilltrees = [];
       Object.keys(skilltrees).forEach(id => {
-        this.skilltrees.push(skilltrees[id]);
-      })
+        this.skilltrees.push(JSON.parse(JSON.stringify(skilltrees[id])));
+      });
+      this.skilltrees.sort((a, b) => {
+        return a.order - b.order;
+      });
     });
     this.store.dispatch(new LayoutActions.SelectSkilltreeAction(null));
+  }
+
+  drag(event) {
+    let newIndex = event.index;
+    let skilltree = event.data;
+    let oldIndex = this.skilltrees.findIndex((st) => {
+      return skilltree.id == st.id;
+    });
+
+    if (oldIndex == 0 && newIndex == 1) {
+      return;
+    }
+
+    this.skilltrees.splice(oldIndex, 1);
+    this.skilltrees.splice(newIndex, 0, skilltree);
+
+    let changes: { id: string, changes: { order: number } }[] = [];
+    this.skilltrees.forEach((st, index) => {
+      if (st.order != index) {
+        changes.push({id: st.id, changes: {order: index}})
+      }
+    });
+
+    this.store.dispatch(new SkilltreeActions.UpdateSkilltreeOrderAction(changes, false));
   }
 
   addSkilltree() {
@@ -42,6 +70,7 @@ export class SkilltreeListComponent {
         this.store.dispatch(new SkilltreeActions.AddSkilltreeAction({
           id: result,
           name: result,
+          order: Number.MAX_SAFE_INTEGER,
           skills: {},
           mobtypes: []
         }));
@@ -83,5 +112,15 @@ export class SkilltreeListComponent {
         });
       }
     });
+  }
+
+  public onContextMenu($event: MouseEvent, item: any, menu): void {
+    this.contextMenuService.show.next({
+      contextMenu: menu,
+      event: $event,
+      item: item,
+    });
+    $event.preventDefault();
+    $event.stopPropagation();
   }
 }

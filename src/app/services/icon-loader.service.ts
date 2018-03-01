@@ -23,6 +23,8 @@ export class IconLoaderService {
     this.addSvgIcon('check_box_outline_blank', 'ic_check_box_outline_blank_24px.svg');
     this.addSvgIcon('cancel', 'ic_cancel_24px.svg');
     this.addSvgIcon('content_copy', 'ic_content_copy_24px.svg');
+    this.addSvgIcon('drag_handle', 'ic_drag_handle_24px.svg');
+    this.addSvgIcon('arrow_drop_down', 'ic_arrow_drop_down_24px.svg');
   }
 
   addSvgIcon(name: string, fileName: string) {

@@ -86,6 +86,7 @@ import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.di
 import { RomanPipe } from './pipes/roman.pipe';
 import { ClipboardModule } from "ngx-clipboard";
 import { SkilltreeSaverService } from "./services/skilltree-saver.service";
+import { DndModule } from "ngx-drag-drop";
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { SkilltreeSaverService } from "./services/skilltree-saver.service";
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule, MatSliderModule,
     SatPopoverModule,
+    DndModule,
     ContextMenuModule.forRoot(),
     StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
     RouterModule.forRoot(routes),

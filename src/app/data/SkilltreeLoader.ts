@@ -34,7 +34,7 @@ export class SkilltreeLoader {
     skilltree.permission = data.getProp("permission") || "";
     skilltree.name = data.getProp("name") || skilltree.id;
     skilltree.description = data.getProp("description") || [];
-
+    skilltree.order = data.getProp("order") || Number.MAX_SAFE_INTEGER;
 
     skilltree.skills = SkilltreeLoader.loadSkills(data.getProp("skills"));
     skilltree.mobtypes = SkilltreeLoader.loadMobTypes(data.getProp("mobtypes"));
