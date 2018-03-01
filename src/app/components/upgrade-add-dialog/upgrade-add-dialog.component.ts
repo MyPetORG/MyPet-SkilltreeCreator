@@ -32,13 +32,11 @@ export class UpgradeAddDialogComponent implements OnDestroy {
 
     this.levelRulessSubscription = this.store.select(Reducers.getSelectedUpgrades).subscribe(upgrades => {
       this.levelRules = [];
-      if (!upgrades) {
-        this.dialogRef.close();
-        return;
+      if (upgrades) {
+        upgrades.forEach((upgrade: Upgrade) => {
+          this.levelRules.push(upgrade.rule);
+        })
       }
-      upgrades.forEach((upgrade: Upgrade) => {
-        this.levelRules.push(upgrade.rule);
-      })
     });
   }
 
