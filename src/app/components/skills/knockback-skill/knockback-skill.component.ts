@@ -63,6 +63,13 @@ export class KnockbackSkillComponent {
     }
   }
 
+  deleteRule(skilltree: Skilltree, upgrade) {
+    let changes = JSON.parse(JSON.stringify(skilltree.skills));
+    changes.Knockback.splice(skilltree.skills.Knockback.indexOf(upgrade), 1);
+    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.selectedUpgrade = -1;
+  }
+
   trackById(index, item) {
     return item.id;
   }

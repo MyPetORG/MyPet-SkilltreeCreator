@@ -63,6 +63,13 @@ export class RangedSkillComponent {
     }
   }
 
+  deleteRule(skilltree: Skilltree, upgrade) {
+    let changes = JSON.parse(JSON.stringify(skilltree.skills));
+    changes.Backpack.splice(skilltree.skills.Backpack.indexOf(upgrade), 1);
+    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.selectedUpgrade = -1;
+  }
+
   trackById(index, item) {
     return item.id;
   }
