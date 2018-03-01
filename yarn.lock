@@ -5377,6 +5377,10 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   dependencies:
     minimalistic-assert "^1.0.0"
 
+web-animations-js@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
+
 webpack-core@^0.6.8:
   version "0.6.9"
   resolved "https://registry.yarnpkg.com/webpack-core/-/webpack-core-0.6.9.tgz#fc571588c8558da77be9efb6debdc5a3b172bdc2"
