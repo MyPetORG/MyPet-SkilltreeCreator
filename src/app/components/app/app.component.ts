@@ -15,5 +15,20 @@ export class AppComponent {
     iconLoader.load();
 
     this.store.dispatch(new SkilltreeActions.LoadSkilltreesAction());
+
+    /*
+    //TODO logic to filter if there are actually any changes
+    window.onbeforeunload = function(e) {
+      return 'You may have unsave changes. Are you sure you want to leave this site?';
+    };
+    */
   }
+
+  /*
+  //TODO logic to filter if there are actually any changes
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+      //$event.returnValue = "You may have unsave changes. Are you sure you want to leave this site?";
+  }
+  */
 }
