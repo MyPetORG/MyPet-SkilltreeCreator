@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "app/store/actions/skilltree";
 
 @Component({
-  selector: 'app-stomp-skill',
+  selector: 'stc-stomp-skill',
   templateUrl: './stomp-skill.component.html',
   styleUrls: ['./stomp-skill.component.scss']
 })

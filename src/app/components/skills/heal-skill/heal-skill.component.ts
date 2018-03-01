@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "app/store/actions/skilltree";
 
 @Component({
-  selector: 'app-heal-skill',
+  selector: 'stc-heal-skill',
   templateUrl: './heal-skill.component.html',
   styleUrls: ['./heal-skill.component.scss']
 })

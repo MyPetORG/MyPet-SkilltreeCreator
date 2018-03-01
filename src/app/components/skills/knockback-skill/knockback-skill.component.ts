@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-knockback-skill',
+  selector: 'stc-knockback-skill',
   templateUrl: './knockback-skill.component.html',
   styleUrls: ['./knockback-skill.component.scss']
 })

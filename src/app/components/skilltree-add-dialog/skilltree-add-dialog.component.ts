@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers";
 
 @Component({
-  selector: 'app-skilltree-add-dialog',
+  selector: 'stc-skilltree-add-dialog',
   templateUrl: './skilltree-add-dialog.component.html',
   styleUrls: ['./skilltree-add-dialog.component.scss']
 })

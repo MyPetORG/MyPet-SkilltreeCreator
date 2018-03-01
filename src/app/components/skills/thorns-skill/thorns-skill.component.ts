@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-thorns-skill',
+  selector: 'stc-thorns-skill',
   templateUrl: './thorns-skill.component.html',
   styleUrls: ['./thorns-skill.component.scss']
 })

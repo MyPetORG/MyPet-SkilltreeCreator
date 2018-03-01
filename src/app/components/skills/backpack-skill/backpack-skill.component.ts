@@ -12,9 +12,9 @@ import { Store } from "@ngrx/store";
 import * as Reducers from "../../../store/reducers/index";
 import { Upgrade } from "../../../models/Upgrade";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
-import { Beacon } from "../../../models/skills/Beacon";
+
 @Component({
-  selector: 'app-backpack-skill',
+  selector: 'stc-backpack-skill',
   templateUrl: './backpack-skill.component.html',
   styleUrls: ['./backpack-skill.component.scss'],
   providers: [

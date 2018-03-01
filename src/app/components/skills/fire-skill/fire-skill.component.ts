@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-fire-skill',
+  selector: 'stc-fire-skill',
   templateUrl: './fire-skill.component.html',
   styleUrls: ['./fire-skill.component.scss']
 })

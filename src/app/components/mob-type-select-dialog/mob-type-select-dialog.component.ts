@@ -4,7 +4,7 @@ import { Skilltree } from "../../models/Skilltree";
 import { MobTypes } from "../../data/MobTypes";
 
 @Component({
-  selector: 'app-mob-type-select-dialog',
+  selector: 'stc-mob-type-select-dialog',
   templateUrl: './mob-type-select-dialog.component.html',
   styleUrls: ['./mob-type-select-dialog.component.scss']
 })

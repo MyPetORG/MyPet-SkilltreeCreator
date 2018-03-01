@@ -8,7 +8,7 @@ import { Upgrade } from "../../models/Upgrade";
 import { isArray } from "util";
 
 @Component({
-  selector: 'app-upgrade-add-dialog',
+  selector: 'stc-upgrade-add-dialog',
   templateUrl: './upgrade-add-dialog.component.html',
   styleUrls: ['./upgrade-add-dialog.component.scss']
 })

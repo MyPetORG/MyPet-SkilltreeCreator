@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "app/store/actions/skilltree";
 
 @Component({
-  selector: 'app-beacon-skill',
+  selector: 'stc-beacon-skill',
   templateUrl: './beacon-skill.component.html',
   styleUrls: ['./beacon-skill.component.scss'],
   providers: [

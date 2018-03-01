@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-sprint-skill',
+  selector: 'stc-sprint-skill',
   templateUrl: './sprint-skill.component.html',
   styleUrls: ['./sprint-skill.component.scss'],
   providers: [

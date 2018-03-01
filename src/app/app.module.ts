@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SkilltreeListComponent } from "./components/skilltree-list/skilltree-list.component";
 import { SkilltreeAddDialogComponent } from "./components/skilltree-add-dialog/skilltree-add-dialog.component";
 import { SkilltreePropertiesComponent } from "./components/skilltree-properties/skilltree-properties.component";
-import { SkilltreeComponent } from "./components/skilltree/skilltree.component";
+import { SkilltreeCreatorComponent } from "./components/skilltree-creator/skilltree-creator.component";
 import { SkillEditorComponent } from "./components/skill-editor/skill-editor.component";
 import { StateService } from "./services/state.service";
 import { FireSkillComponent } from "./components/skills/fire-skill/fire-skill.component";
@@ -96,7 +96,7 @@ import { DndModule } from "ngx-drag-drop";
     MobTypeSelectDialogComponent,
     SkilltreePropertiesComponent,
     SkilltreeListComponent,
-    SkilltreeComponent,
+    SkilltreeCreatorComponent,
     SkillEditorComponent,
     SkilltreeEditorComponent,
 

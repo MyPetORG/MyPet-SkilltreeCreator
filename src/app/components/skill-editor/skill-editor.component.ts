@@ -16,7 +16,7 @@ import { SkillUpgradeComponents } from "../../data/UpgradeComponents";
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-skill-editor',
+  selector: 'stc-skill-editor',
   templateUrl: './skill-editor.component.html',
   styleUrls: ['./skill-editor.component.scss']
 })

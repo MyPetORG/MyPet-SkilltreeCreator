@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "app/store/actions/skilltree";
 
 @Component({
-  selector: 'app-slow-skill',
+  selector: 'stc-slow-skill',
   templateUrl: './slow-skill.component.html',
   styleUrls: ['./slow-skill.component.scss']
 })

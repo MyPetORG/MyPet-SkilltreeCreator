@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-control-skill',
+  selector: 'stc-control-skill',
   templateUrl: './control-skill.component.html',
   styleUrls: ['./control-skill.component.scss'],
   providers: [

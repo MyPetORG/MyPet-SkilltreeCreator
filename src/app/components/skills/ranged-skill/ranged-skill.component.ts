@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-ranged-skill',
+  selector: 'stc-ranged-skill',
   templateUrl: './ranged-skill.component.html',
   styleUrls: ['./ranged-skill.component.scss']
 })

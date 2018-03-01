@@ -8,11 +8,11 @@ import { NavigationEnd, Router } from "@angular/router";
 import { RedoAction, UndoAction } from "../../store/reducers/undoable";
 
 @Component({
-  selector: 'app-skilltree',
-  templateUrl: './skilltree.component.html',
-  styleUrls: ['./skilltree.component.scss']
+  selector: 'skilltree-creator',
+  templateUrl: './skilltree-creator.component.html',
+  styleUrls: ['./skilltree-creator.component.scss']
 })
-export class SkilltreeComponent {
+export class SkilltreeCreatorComponent {
   showSidenav$: Observable<boolean>;
   selectedSkilltree$: Observable<string | null>;
   pastStates$: Observable<any[] | null>;

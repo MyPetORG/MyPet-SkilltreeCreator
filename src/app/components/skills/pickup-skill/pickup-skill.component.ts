@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-pickup-skill',
+  selector: 'stc-pickup-skill',
   templateUrl: './pickup-skill.component.html',
   styleUrls: ['./pickup-skill.component.scss'],
   providers: [

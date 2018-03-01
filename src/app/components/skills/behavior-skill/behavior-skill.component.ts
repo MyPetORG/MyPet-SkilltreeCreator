@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-behavior-skill',
+  selector: 'stc-behavior-skill',
   templateUrl: './behavior-skill.component.html',
   styleUrls: ['./behavior-skill.component.scss'],
   providers: [

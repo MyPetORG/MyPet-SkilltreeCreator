@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-wither-skill',
+  selector: 'stc-wither-skill',
   templateUrl: './wither-skill.component.html',
   styleUrls: ['./wither-skill.component.scss']
 })

@@ -11,7 +11,7 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
-  selector: 'app-skilltree-properties',
+  selector: 'stc-skilltree-properties',
   templateUrl: './skilltree-properties.component.html',
   styleUrls: ['./skilltree-properties.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

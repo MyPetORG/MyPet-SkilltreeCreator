@@ -11,7 +11,7 @@ import * as LayoutActions from "../../store/actions/layout";
 import { ContextMenuService } from "ngx-contextmenu";
 
 @Component({
-  selector: 'app-skilltree-list',
+  selector: 'stc-skilltree-list',
   templateUrl: './skilltree-list.component.html',
   styleUrls: ['./skilltree-list.component.scss']
 })

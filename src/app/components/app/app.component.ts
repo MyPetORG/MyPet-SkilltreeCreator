@@ -5,9 +5,9 @@ import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
 
 @Component({
-  selector: 'app-root',
+  selector: 'stc-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   constructor(iconLoader: IconLoaderService,

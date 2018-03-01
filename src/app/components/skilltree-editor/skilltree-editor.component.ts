@@ -7,7 +7,7 @@ import * as LayoutActions from "../../store/actions/layout";
 import { Observable } from "rxjs/Observable";
 
 @Component({
-  selector: 'app-skilltree-editor',
+  selector: 'stc-skilltree-editor',
   templateUrl: './skilltree-editor.component.html',
   styleUrls: ['./skilltree-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

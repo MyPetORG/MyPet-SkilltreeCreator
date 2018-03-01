@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-lightning-skill',
+  selector: 'stc-lightning-skill',
   templateUrl: './lightning-skill.component.html',
   styleUrls: ['./lightning-skill.component.scss']
 })

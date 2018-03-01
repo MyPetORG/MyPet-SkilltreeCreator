@@ -14,7 +14,7 @@ import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({
-  selector: 'app-poison-skill',
+  selector: 'stc-poison-skill',
   templateUrl: './poison-skill.component.html',
   styleUrls: ['./poison-skill.component.scss']
 })
