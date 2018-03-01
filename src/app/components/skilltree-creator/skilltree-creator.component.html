@@ -4,16 +4,13 @@
                fxLayoutAlign="start center"
                [opened]="showSidenav$ | async"
                [disableClose]="true">
-    <button mat-icon-button (click)="save()">
-      <mat-icon svgIcon="save">save</mat-icon>
-    </button>
-    <button mat-icon-button (click)="closeSidenav()">
+    <button mat-icon-button (click)="closeSidenav()" disabled>
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-icon-button (click)="closeSidenav()">
+    <button mat-icon-button (click)="closeSidenav()" disabled>
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button mat-icon-button routerLink="/about" (click)="closeSidenav()">
+    <button mat-icon-button routerLink="/about" (click)="closeSidenav()" matTooltip="About">
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>
@@ -22,6 +19,9 @@
   </button>
   <button mat-button (click)="back()" *ngIf="!isRootPath">
     <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
+  </button>
+  <button mat-button (click)="save()" matTooltip="Save">
+    <mat-icon svgIcon="save">save</mat-icon>
   </button>
   <button mat-button (click)="undo()" [disabled]="(pastStates$ | async).length <= 0" matTooltip="Undo last change">
     <mat-icon svgIcon="undo">undo</mat-icon>
