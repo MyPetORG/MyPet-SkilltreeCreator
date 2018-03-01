@@ -1,8 +1,4 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
-  <mat-toolbar class="spacer-t-1em spacer-b-1em">
-    <button mat-raised-button (click)="addUpgrade(skilltree)">Add Upgrade</button>
-  </mat-toolbar>
-
   <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>

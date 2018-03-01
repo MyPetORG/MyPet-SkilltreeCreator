@@ -27,7 +27,8 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
   selectedSkillSubscription: Subscription = null;
-  @ViewChild('upgradeComponent', {read: ViewContainerRef}) upgradeComponent: ViewContainerRef;
+  @ViewChild('upgradeComponentContainer', {read: ViewContainerRef}) upgradeComponentContainer: ViewContainerRef;
+  upgradeComponent = null;
 
   constructor(private store: Store<Reducers.State>,
               private componentFactoryResolver: ComponentFactoryResolver) {
@@ -37,7 +38,7 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.selectedSkillSubscription = this.selectedSkill$.subscribe(value => {
-      this.upgradeComponent.clear();
+      this.upgradeComponentContainer.clear();
       if (value) {
         this.loadComponent(value);
       }
@@ -55,10 +56,14 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
 
   loadComponent(skill: SkillInfo) {
     let componentFactory = this.componentFactoryResolver.resolveComponentFactory(SkillUpgradeComponents[skill.id]);
-    let componentRef = this.upgradeComponent.createComponent(componentFactory);
+    this.upgradeComponent = this.upgradeComponentContainer.createComponent(componentFactory);
   }
 
   switchSkill(data) {
     this.store.dispatch(new LayoutActions.SelectSkillAction(data.value));
+  }
+
+  addUpgrade(skilltree) {
+    this.upgradeComponent.instance.addUpgrade(skilltree);
   }
 }

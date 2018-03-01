@@ -1,6 +1,8 @@
-<mat-card *ngIf="(selectedSkilltree$ | async) as skilltree" class="spacer-b-1em">
-  <mat-form-field>
-    <mat-select placeholder="Select Skill" [(ngModel)]="selectedSkill" (change)="switchSkill($event)">
+<mat-card *ngIf="(selectedSkilltree$ | async) as skilltree" class="spacer-t-1em spacer-b-1em">
+  <mat-form-field class="spacer-r-1em">
+    <mat-select placeholder="Select Skill"
+                [(ngModel)]="selectedSkill"
+                (change)="switchSkill($event)">
       <mat-select-trigger>
         <span *ngIf="selectedSkill">
           <img [src]="'assets/img/skills/' +  selectedSkill.icon" class="matl-chip__skill">
@@ -16,6 +18,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <button mat-raised-button color="primary" (click)="addUpgrade(skilltree)">Add Upgrade</button>
 </mat-card>
 
-<ng-template #upgradeComponent></ng-template>
+<ng-template #upgradeComponentContainer></ng-template>
