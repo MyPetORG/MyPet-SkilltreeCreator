@@ -95,7 +95,7 @@ export class SkilltreeListComponent {
 
   deleteSkilltree(skilltree: Skilltree) {
     this.store.dispatch(new SkilltreeActions.RemoveSkilltreeAction(skilltree));
-    this.snackBar.open(skilltree.name + " was deletec successfully.", "Skilltree", {
+    this.snackBar.open(skilltree.name + " was deleted successfully.", "Skilltree", {
       duration: 2000,
     });
   }

@@ -32,7 +32,7 @@ export class SkilltreeEffects {
 
   @Effect()
   addSkilltree$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.LOAD_SKILLTREE_SUCCESS, SkilltreeActions.ADD_SKILLTREE)
+    .ofType(SkilltreeActions.LOAD_SKILLTREE_SUCCESS, SkilltreeActions.ADD_SKILLTREE, SkilltreeActions.REMOVE_SKILLTREE)
     .withLatestFrom(this.store.select(Reducers.getSkilltrees))
     .switchMap(([action, state]) => {
       let skilltrees = [];
