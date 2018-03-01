@@ -1,5 +1,5 @@
-<mat-sidenav-container class="example-container" (backdropClick)="closeSidenav()">
-  <mat-sidenav #sidenav class="example-sidenav"
+<mat-sidenav-container (backdropClick)="closeSidenav()">
+  <mat-sidenav #sidenav class="sidenav"
                fxLayout="column"
                fxLayoutAlign="start center"
                [opened]="showSidenav$ | async"
