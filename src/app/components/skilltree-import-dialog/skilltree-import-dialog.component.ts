@@ -22,7 +22,7 @@ export class SkilltreeImportDialogComponent {
       let reader = new FileReader();
       reader.onload = (event: any) => {
         let data;
-        if (event.currentTarget.result.startsWith("data:;base64,")) { //TODO test in other browsers
+        if (event.currentTarget.result.startsWith("data:;base64,")) {
           data = window.atob(event.currentTarget.result.substring(13));
         } else if (event.currentTarget.result.startsWith("data:application/json;base64,")) {
           data = window.atob(event.currentTarget.result.substring(29));
