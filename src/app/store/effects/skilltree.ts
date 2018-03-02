@@ -19,6 +19,7 @@ import { Router } from "@angular/router";
 import * as Reducers from "../reducers";
 import { MatSnackBar } from "@angular/material";
 import { Skilltree } from "../../models/Skilltree";
+import { ImportSkilltreeAction } from "../actions/skilltree";
 
 @Injectable()
 export class SkilltreeEffects {
@@ -31,8 +32,13 @@ export class SkilltreeEffects {
   }
 
   @Effect()
-  addSkilltree$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.LOAD_SKILLTREE_SUCCESS, SkilltreeActions.ADD_SKILLTREE, SkilltreeActions.REMOVE_SKILLTREE)
+  orderSkilltree$: Observable<Action> = this.actions$
+    .ofType(
+      SkilltreeActions.LOAD_SKILLTREE_SUCCESS,
+      SkilltreeActions.ADD_SKILLTREE,
+      SkilltreeActions.REMOVE_SKILLTREE,
+      SkilltreeActions.IMPORT_SKILLTREE_SUCCESS,
+    )
     .withLatestFrom(this.store.select(Reducers.getSkilltrees))
     .switchMap(([action, state]) => {
       let skilltrees = [];
@@ -56,11 +62,65 @@ export class SkilltreeEffects {
     });
 
   @Effect()
+  importSkilltree$: Observable<Action> = this.actions$
+    .ofType(SkilltreeActions.IMPORT_SKILLTREE)
+    .withLatestFrom(this.store.select(Reducers.getSkilltrees))
+    .switchMap(([action, state]: [ImportSkilltreeAction, any]) => {
+      let skilltreeIds: string[] = [];
+      Object.keys(state).forEach(id => {
+        skilltreeIds.push(id);
+      });
+      return this.skilltreeLoader.loadSkilltree(action.skilltreeData)
+        .map(res => {
+          if (skilltreeIds.indexOf(res.id) == -1) {
+            return new SkilltreeActions.ImportSkilltreeSuccessAction(res)
+          } else {
+            return new SkilltreeActions.ImportSkilltreeFailedAction({type: "DUPLICATE", data: res.id})
+          }
+        })
+        .catch(err => {
+          return of(new SkilltreeActions.ImportSkilltreeFailedAction(err));
+        });
+    });
+
+  @Effect({dispatch: false})
+  importSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.IMPORT_SKILLTREE_FAILED),
+    tap((action: SkilltreeActions.ImportSkilltreeFailedAction) => {
+      switch (action.error.type) {
+        case "INVALID":
+          this.snackBar.open("This file is not a valid skilltree file.", "Import", {
+            duration: 2000,
+          });
+          break;
+        case "DUPLICATE":
+          this.snackBar.open("There is already a skilltree with this name: " + action.error.data, "Import", {
+            duration: 2000,
+          });
+          break;
+        default:
+          console.error(action);
+      }
+    })
+  );
+
+  @Effect({dispatch: false})
+  importSkilltreesSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.IMPORT_SKILLTREE_SUCCESS),
+    tap(() => {
+      this.snackBar.open("Skilltree imported successfully", null, {
+        duration: 2000,
+      });
+    })
+  );
+
+  @Effect()
   loadSkilltree$: Observable<Action> = this.actions$
     .ofType(SkilltreeActions.LOAD_SKILLTREE)
     .switchMap((action: SkilltreeActions.LoadSkilltreeAction) => {
-      let result = this.skilltreeLoader.loadSkilltree(action.payload);
-      return of(new SkilltreeActions.LoadSkilltreeSuccessAction(result));
+      return this.skilltreeLoader.loadSkilltree(action.payload)
+        .map((result) => new SkilltreeActions.LoadSkilltreeSuccessAction(result))
+        .catch(err => of(new SkilltreeActions.LoadSkilltreeFailedAction(err)));
     });
 
   @Effect()

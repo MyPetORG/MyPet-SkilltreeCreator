@@ -23,12 +23,14 @@ import { WitherLoader } from "../models/skills/Wither";
 import { BeaconLoader } from "../models/skills/Beacon";
 import { MobTypes } from "./MobTypes";
 import { Upgrade } from "../models/Upgrade";
+import { Observable } from "rxjs/Observable";
+import { of } from "rxjs/observable/of";
 
 export class SkilltreeLoader {
-  static loadSkilltree(data: any): Skilltree {
+  static loadSkilltree(data: any): Observable<Skilltree> {
     let name = data.getProp("name");
     if (!name || name == "") {
-      return null;
+      return Observable.throw({type: "INVALID", data: "NO ID"})
     }
     let skilltree: Skilltree = {id: data.getProp("id"), skills: {}, mobtypes: []};
     skilltree.permission = data.getProp("permission") || "";
@@ -39,7 +41,7 @@ export class SkilltreeLoader {
     skilltree.skills = SkilltreeLoader.loadSkills(data.getProp("skills"));
     skilltree.mobtypes = SkilltreeLoader.loadMobTypes(data.getProp("mobtypes"));
 
-    return skilltree;
+    return of(skilltree);
   }
 
   static loadMobTypes(data: any) {

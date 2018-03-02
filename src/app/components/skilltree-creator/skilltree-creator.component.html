@@ -4,13 +4,14 @@
                fxLayoutAlign="start center"
                [opened]="showSidenav$ | async"
                [disableClose]="true">
-    <button mat-icon-button (click)="closeSidenav()" disabled>
+    <button mat-icon-button (click)="importSkilltree()" matTooltip="Import Skilltree" matTooltipPosition="right">
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-icon-button (click)="closeSidenav()" disabled>
+    <button mat-icon-button (click)="closeSidenav()" disabled matTooltip="Not yet implemented"
+            matTooltipPosition="right">
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button mat-icon-button routerLink="/about" (click)="closeSidenav()" matTooltip="About">
+    <button mat-icon-button routerLink="/about" (click)="closeSidenav()" matTooltip="About" matTooltipPosition="right">
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>

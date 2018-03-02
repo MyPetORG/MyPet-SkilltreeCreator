@@ -87,22 +87,25 @@ import { RomanPipe } from './pipes/roman.pipe';
 import { ClipboardModule } from "ngx-clipboard";
 import { SkilltreeSaverService } from "./services/skilltree-saver.service";
 import { DndModule } from "ngx-drag-drop";
+import { SkilltreeImportDialogComponent } from "./components/skilltree-import-dialog/skilltree-import-dialog.component";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    McChatPipe,
+    KeysPipe,
+    RomanPipe,
+
     SkilltreeAddDialogComponent,
     UpgradeAddDialogComponent,
     MobTypeSelectDialogComponent,
+    SkilltreeImportDialogComponent,
+
+    AppComponent,
     SkilltreePropertiesComponent,
     SkilltreeListComponent,
     SkilltreeCreatorComponent,
     SkillEditorComponent,
     SkilltreeEditorComponent,
-
-    McChatPipe,
-    KeysPipe,
-    RomanPipe,
 
     BackpackSkillComponent,
     BeaconSkillComponent,
@@ -160,6 +163,7 @@ import { DndModule } from "ngx-drag-drop";
     SkilltreeAddDialogComponent,
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
+    SkilltreeImportDialogComponent,
 
     /** Skills **/
     BackpackSkillComponent,

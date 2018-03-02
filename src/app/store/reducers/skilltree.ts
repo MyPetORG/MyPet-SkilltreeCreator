@@ -26,6 +26,7 @@ export function reducer(state = initialState, action: skilltree.Actions): State 
   switch (action.type) {
     case skilltree.LOAD_SKILLTREE_SUCCESS:
     case skilltree.COPY_SKILLTREE:
+    case skilltree.IMPORT_SKILLTREE_SUCCESS:
     case skilltree.ADD_SKILLTREE: {
       const skilltree = action.payload;
       return adapter.addOne(skilltree, state);

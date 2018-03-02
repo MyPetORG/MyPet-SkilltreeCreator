@@ -6,6 +6,8 @@ import * as LayoutActions from "../../store/actions/layout";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { NavigationEnd, Router } from "@angular/router";
 import { RedoAction, UndoAction } from "../../store/reducers/undoable";
+import { MatDialog } from "@angular/material";
+import { SkilltreeImportDialogComponent } from "../skilltree-import-dialog/skilltree-import-dialog.component";
 
 @Component({
   selector: 'skilltree-creator',
@@ -19,7 +21,8 @@ export class SkilltreeCreatorComponent {
   futureStates$: Observable<any[] | null>;
   isRootPath: boolean = false;
 
-  constructor(private store: Store<Reducers.State>,
+  constructor(private dialog: MatDialog,
+              private store: Store<Reducers.State>,
               private router: Router) {
     this.showSidenav$ = this.store.select(Reducers.getShowSidenav);
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
@@ -56,5 +59,15 @@ export class SkilltreeCreatorComponent {
 
   redo() {
     this.store.dispatch(new RedoAction());
+  }
+
+  importSkilltree() {
+    this.store.dispatch(new LayoutActions.CloseSidenavAction());
+    let dialogRef = this.dialog.open(SkilltreeImportDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(new SkilltreeActions.ImportSkilltreeAction(result));
+      }
+    });
   }
 }
