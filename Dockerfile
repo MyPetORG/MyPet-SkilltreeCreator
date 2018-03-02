@@ -10,4 +10,4 @@ RUN ls -al
 
 RUN yarn install
 
-RUN npm run-script ng build --prod --env=plugin.prod
+RUN npm run-script ng build --prod --env=plugin --verbose
