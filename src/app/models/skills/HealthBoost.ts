@@ -15,3 +15,11 @@ export function HealthBoostLoader(data: any): HealthBoost {
   setDefault(healthBoost, "health", data.getProp("health"));
   return healthBoost;
 }
+
+export function HealthBoostSaver(data: HealthBoost) {
+  let savedData: any = {};
+  if (data.health && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.health)[1] != "0") {
+    savedData.Health = data.health;
+  }
+  return savedData;
+}

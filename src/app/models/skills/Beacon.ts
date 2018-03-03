@@ -6,50 +6,17 @@ export interface Beacon extends Upgrade {
   duration?: string;
   count?: string;
   buffs?: {
-    Absorption?: {
-      active?: null | boolean,
-      level?: string
-    },
-    FireResistance?: {
-      active?: null | boolean,
-      level?: string
-    },
-    Haste?: {
-      active?: null | boolean,
-      level?: string
-    },
-    HealthBoost?: {
-      active?: null | boolean,
-      level?: string
-    },
-    JumpBoost?: {
-      active?: null | boolean,
-      level?: string
-    },
-    Luck?: {
-      active?: null | boolean,
-      level?: string
-    },
-    NightVision?: {
-      active?: null | boolean,
-      level?: string
-    },
-    Resistance?: {
-      active?: null | boolean,
-      level?: string
-    },
-    Speed?: {
-      active?: null | boolean,
-      level?: string
-    },
-    Strength?: {
-      active?: null | boolean,
-      level?: string
-    },
-    WaterBreathing?: {
-      active?: null | boolean,
-      level?: string
-    },
+    Absorption?: string,
+    FireResistance?: string,
+    Haste?: string,
+    HealthBoost?: string,
+    JumpBoost?: string,
+    Luck?: null | boolean,
+    NightVision?: null | boolean,
+    Resistance?: string,
+    Speed?: string,
+    Strength?: string,
+    WaterBreathing?: null | boolean,
   }
 }
 
@@ -59,50 +26,17 @@ export class BeaconDefault implements Beacon {
   duration = "+0";
   count = "+0";
   buffs = {
-    Absorption: {
-      active: null,
-      level: "+0"
-    },
-    FireResistance: {
-      active: null,
-      level: "+0"
-    },
-    Haste: {
-      active: null,
-      level: "+0"
-    },
-    HealthBoost: {
-      active: null,
-      level: "+0"
-    },
-    JumpBoost: {
-      active: null,
-      level: "+0"
-    },
-    Luck: {
-      active: null,
-      level: "+0"
-    },
-    NightVision: {
-      active: null,
-      level: "+0"
-    },
-    Resistance: {
-      active: null,
-      level: "+0"
-    },
-    Speed: {
-      active: null,
-      level: "+0"
-    },
-    Strength: {
-      active: null,
-      level: "+0"
-    },
-    WaterBreathing: {
-      active: null,
-      level: "+0"
-    },
+    Absorption: "+0",
+    FireResistance: "+0",
+    Haste: "+0",
+    HealthBoost: "+0",
+    JumpBoost: "+0",
+    Luck: null,
+    NightVision: null,
+    Resistance: "+0",
+    Speed: "+0",
+    Strength: "+0",
+    WaterBreathing: null
   }
 }
 
@@ -112,39 +46,71 @@ export function BeaconLoader(data: any): Beacon {
   setDefault(beacon, "duration", data.getProp("duration"));
   setDefault(beacon, "count", data.getProp("count"));
   if (data.Buffs) {
-    setDefault(beacon.buffs.Absorption, "active", data.getProp("buffs").getProp("Absorption") ? data.getProp("buffs").getProp("Absorption").getProp("active") : null);
-    setDefault(beacon.buffs.Absorption, "level", data.getProp("buffs").getProp("Absorption") ? data.getProp("buffs").getProp("Absorption").getProp("level") : "+0");
+    setDefault(beacon.buffs, "Absorption", data.getProp("buffs").getProp("Absorption"));
+    setDefault(beacon.buffs, "FireResistance", data.getProp("buffs").getProp("FireResistance"));
+    setDefault(beacon.buffs, "Haste", data.getProp("buffs").getProp("Haste"));
+    setDefault(beacon.buffs, "HealthBoost", data.getProp("buffs").getProp("HealthBoost"));
+    setDefault(beacon.buffs, "JumpBoost", data.getProp("buffs").getProp("JumpBoost"));
+    setDefault(beacon.buffs, "Luck", data.getProp("buffs").getProp("Luck"));
+    setDefault(beacon.buffs, "NightVision", data.getProp("buffs").getProp("NightVision"));
+    setDefault(beacon.buffs, "Resistance", data.getProp("buffs").getProp("Resistance"));
+    setDefault(beacon.buffs, "Speed", data.getProp("buffs").getProp("Speed"));
+    setDefault(beacon.buffs, "Strength", data.getProp("buffs").getProp("Strength"));
+    setDefault(beacon.buffs, "WaterBreathing", data.getProp("buffs").getProp("WaterBreathing"));
+  }
+  return beacon;
+}
 
-    setDefault(beacon.buffs.FireResistance, "active", data.getProp("buffs").getProp("FireResistance") ? data.getProp("buffs").getProp("FireResistance").getProp("active") : null);
-    setDefault(beacon.buffs.FireResistance, "level", data.getProp("buffs").getProp("FireResistance") ? data.getProp("buffs").getProp("FireResistance").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.Haste, "active", data.getProp("buffs").getProp("Haste") ? data.getProp("buffs").getProp("Haste").getProp("active") : null);
-    setDefault(beacon.buffs.Haste, "level", data.getProp("buffs").getProp("Haste") ? data.getProp("buffs").getProp("Haste").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.HealthBoost, "active", data.getProp("buffs").getProp("HealthBoost") ? data.getProp("buffs").getProp("HealthBoost").getProp("active") : null);
-    setDefault(beacon.buffs.HealthBoost, "level", data.getProp("buffs").getProp("HealthBoost") ? data.getProp("buffs").getProp("HealthBoost").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.JumpBoost, "active", data.getProp("buffs").getProp("JumpBoost") ? data.getProp("buffs").getProp("JumpBoost").getProp("active") : null);
-    setDefault(beacon.buffs.JumpBoost, "level", data.getProp("buffs").getProp("JumpBoost") ? data.getProp("buffs").getProp("JumpBoost").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.Luck, "active", data.getProp("buffs").getProp("Luck") ? data.getProp("buffs").getProp("Luck").getProp("active") : null);
-    setDefault(beacon.buffs.Luck, "level", data.getProp("buffs").getProp("Luck") ? data.getProp("buffs").getProp("Luck").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.NightVision, "active", data.getProp("buffs").getProp("NightVision") ? data.getProp("buffs").getProp("NightVision").getProp("active") : null);
-    setDefault(beacon.buffs.NightVision, "level", data.getProp("buffs").getProp("NightVision") ? data.getProp("buffs").getProp("NightVision").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.Resistance, "active", data.getProp("buffs").getProp("Resistance") ? data.getProp("buffs").getProp("Resistance").getProp("active") : null);
-    setDefault(beacon.buffs.Resistance, "level", data.getProp("buffs").getProp("Resistance") ? data.getProp("buffs").getProp("Resistance").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.Speed, "active", data.getProp("buffs").getProp("Speed") ? data.getProp("buffs").getProp("Speed").getProp("active") : null);
-    setDefault(beacon.buffs.Speed, "level", data.getProp("buffs").getProp("Speed") ? data.getProp("buffs").getProp("Speed").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.Strength, "active", data.getProp("buffs").getProp("Strength") ? data.getProp("buffs").getProp("Strength").getProp("active") : null);
-    setDefault(beacon.buffs.Strength, "level", data.getProp("buffs").getProp("Strength") ? data.getProp("buffs").getProp("Strength").getProp("level") : "+0");
-
-    setDefault(beacon.buffs.WaterBreathing, "active", data.getProp("buffs").getProp("WaterBreathing") ? data.getProp("buffs").getProp("WaterBreathing").getProp("active") : null);
-    setDefault(beacon.buffs.WaterBreathing, "level", data.getProp("buffs").getProp("WaterBreathing") ? data.getProp("buffs").getProp("WaterBreathing").getProp("level") : "+0");
+export function BeaconSaver(data: Beacon) {
+  let savedData: any = {};
+  if (data.range && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.range)[1] != "0") {
+    savedData.Range = data.range;
+  }
+  if (data.duration && /[\\+\-=]?(\d+)/g.exec(data.duration)[1] != "0") {
+    savedData.Duration = data.duration;
+  }
+  if (data.count && /[\\+\-=]?(\d+)/g.exec(data.count)[1] != "0") {
+    savedData.Count = data.count;
   }
 
-  return beacon;
+  let buffs: any = {};
+  if (data.buffs.Absorption && /[\\+\-=]?(\d+)/g.exec(data.buffs.Absorption)[1] != "0") {
+    buffs.Absorption = data.buffs.Absorption;
+  }
+  if (data.buffs.FireResistance && /[\\+\-=]?(\d+)/g.exec(data.buffs.FireResistance)[1] != "0") {
+    buffs.FireResistance = data.buffs.FireResistance;
+  }
+  if (data.buffs.Haste && /[\\+\-=]?(\d+)/g.exec(data.buffs.Haste)[1] != "0") {
+    buffs.Haste = data.buffs.Haste;
+  }
+  if (data.buffs.HealthBoost && /[\\+\-=]?(\d+)/g.exec(data.buffs.HealthBoost)[1] != "0") {
+    buffs.HealthBoost = data.buffs.HealthBoost;
+  }
+  if (data.buffs.JumpBoost && /[\\+\-=]?(\d+)/g.exec(data.buffs.JumpBoost)[1] != "0") {
+    buffs.JumpBoost = data.buffs.JumpBoost;
+  }
+  if (data.buffs.Luck != null) {
+    buffs.Luck = data.buffs.Luck;
+  }
+  if (data.buffs.NightVision != null) {
+    buffs.NightVision = data.buffs.NightVision;
+  }
+  if (data.buffs.Resistance && /[\\+\-=]?(\d+)/g.exec(data.buffs.Resistance)[1] != "0") {
+    buffs.Resistance = data.buffs.Resistance;
+  }
+  if (data.buffs.Speed && /[\\+\-=]?(\d+)/g.exec(data.buffs.Speed)[1] != "0") {
+    buffs.Speed = data.buffs.Speed;
+  }
+  if (data.buffs.Strength && /[\\+\-=]?(\d+)/g.exec(data.buffs.Strength)[1] != "0") {
+    buffs.Strength = data.buffs.Strength;
+  }
+  if (data.buffs.WaterBreathing != null) {
+    buffs.WaterBreathing = data.buffs.WaterBreathing;
+  }
+
+  if (Object.keys(buffs).length > 0) {
+    savedData.buffs = buffs;
+  }
+
+  return savedData;
 }

@@ -26,6 +26,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     if (request.url.startsWith('/api')) {
       if (request.url.startsWith('/api/skilltrees/save') && request.method === 'POST') {
+        console.log(request.body);
         if (1 == 1) {
           let body = "";
           return Observable.of(new HttpResponse({status: 200, body: body}));

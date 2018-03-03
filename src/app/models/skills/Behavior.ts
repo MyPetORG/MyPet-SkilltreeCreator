@@ -28,3 +28,23 @@ export function BehaviorLoader(data: any): Behavior {
   setDefault(behavior, "raid", data.getProp("raid"));
   return behavior;
 }
+
+export function BehaviorSaver(data: Behavior): any {
+  let savedData: any = {};
+  if (data.aggro != null) {
+    savedData.Aggro = data.aggro;
+  }
+  if (data.duel != null) {
+    savedData.Dueö = data.duel;
+  }
+  if (data.farm != null) {
+    savedData.Farm = data.farm;
+  }
+  if (data.friend != null) {
+    savedData.Friend = data.friend;
+  }
+  if (data.raid != null) {
+    savedData.Raid = data.raid;
+  }
+  return savedData;
+}

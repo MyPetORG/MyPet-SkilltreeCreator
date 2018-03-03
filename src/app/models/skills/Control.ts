@@ -15,3 +15,11 @@ export function ControlLoader(data: any): Control {
   setDefault(control, "active", data.getProp("active"));
   return control;
 }
+
+export function ControlSaver(data: Control): any {
+  let savedData: any = {};
+  if (data.active != null) {
+    savedData.Active = data.active;
+  }
+  return savedData;
+}

@@ -19,3 +19,14 @@ export function BackpackLoader(data: any): Backpack {
 
   return backpack;
 }
+
+export function BackpackSaver(data: Backpack) {
+  let savedData: any = {};
+  if (data.rows && /[\\+\-=]?(\d+)/g.exec(data.rows)[1] != "0") {
+    savedData.rows = data.rows;
+  }
+  if (data.drop != null) {
+    savedData.drop = data.drop;
+  }
+  return savedData;
+}

@@ -18,3 +18,14 @@ export function PickupLoader(data: any): Pickup {
   setDefault(pickup, "exp", data.getProp("exp"));
   return pickup;
 }
+
+export function PickupSaver(data: Pickup) {
+  let savedData: any = {};
+  if (data.range && /[\\+\-=]?(\d+)/g.exec(data.range)[1] != "0") {
+    savedData.Range = data.range;
+  }
+  if (data.exp != null) {
+    savedData.Exp = data.exp;
+  }
+  return savedData;
+}

@@ -21,3 +21,17 @@ export function RangedLoader(data: any): Ranged {
   setDefault(ranged, "projectile", data.getProp("projectile"));
   return ranged;
 }
+
+export function RangedSaver(data: Ranged) {
+  let savedData: any = {};
+  if (data.damage && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
+    savedData.Damage = data.damage;
+  }
+  if (data.rate && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.rate)[1] != "0") {
+    savedData.Rate = data.rate;
+  }
+  if (data.projectile) {
+    savedData.Projectile = data.projectile;
+  }
+  return savedData;
+}

@@ -47,9 +47,9 @@ export class BeaconSkillComponent {
     }
   }
 
-  toggleBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, field) {
+  toggleBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string) {
     let changes = skilltree.skills;
-    let value = (changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff][field];
+    let value = (changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff];
     switch (value) {
       case null:
         value = true;
@@ -62,15 +62,15 @@ export class BeaconSkillComponent {
         break;
     }
     changes = JSON.parse(JSON.stringify(changes));
-    (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff][field] = value;
+    (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] = value;
     this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
   }
 
-  updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, field, value) {
+  updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, value) {
     let changes = skilltree.skills;
-    if ((changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff][field] != value) {
+    if ((changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] != value) {
       changes = JSON.parse(JSON.stringify(changes));
-      (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff][field] = value;
+      (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] = value;
       this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
     }
   }

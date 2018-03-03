@@ -31,10 +31,10 @@ export const RideSkilltree = {
     "Backpack": {
       "Upgrades": {
         "1": {
-          "rows": "=1",
+          "rows": "=1"
         },
         "%3<20": {
-          "rows": "+1",
+          "rows": "+1"
         }
       }
     },
@@ -42,9 +42,7 @@ export const RideSkilltree = {
       "Upgrades": {
         "1": {
           "Buffs": {
-            "Absorption": {
-              "active": true
-            }
+            "Absorption": "+5"
           }
         },
         "%3<20": {}

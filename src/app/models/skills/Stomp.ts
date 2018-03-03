@@ -18,3 +18,14 @@ export function StompLoader(data: any): Stomp {
   setDefault(slow, "damage", data.getProp("damage"));
   return slow;
 }
+
+export function StompSaver(data: Stomp) {
+  let savedData: any = {};
+  if (data.damage && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
+    savedData.Damage = data.damage;
+  }
+  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+    savedData.Chance = data.chance;
+  }
+  return savedData;
+}

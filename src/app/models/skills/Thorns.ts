@@ -13,8 +13,19 @@ export class ThornsDefault implements Thorns {
 }
 
 export function ThornsLoader(data: any): Thorns {
-  let slow: Thorns = Object.assign({}, new ThornsDefault);
-  setDefault(slow, "chance", data.getProp("chance"));
-  setDefault(slow, "reflection", data.getProp("reflection"));
-  return slow;
+  let thorns: Thorns = Object.assign({}, new ThornsDefault);
+  setDefault(thorns, "chance", data.getProp("chance"));
+  setDefault(thorns, "reflection", data.getProp("reflection"));
+  return thorns;
+}
+
+export function ThornsSaver(data: Thorns) {
+  let savedData: any = {};
+  if (data.reflection && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.reflection)[1] != "0") {
+    savedData.Reflection = data.reflection;
+  }
+  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+    savedData.Chance = data.chance;
+  }
+  return savedData;
 }

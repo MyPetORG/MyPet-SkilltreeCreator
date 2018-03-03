@@ -15,3 +15,11 @@ export function SprintLoader(data: any): Sprint {
   setDefault(sprint, "active", data.getProp("active"));
   return sprint;
 }
+
+export function SprintSaver(data: Sprint): any {
+  let savedData: any = {};
+  if (data.active != null) {
+    savedData.Active = data.active;
+  }
+  return savedData;
+}

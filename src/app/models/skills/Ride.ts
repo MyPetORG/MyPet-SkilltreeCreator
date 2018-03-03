@@ -21,3 +21,17 @@ export function RideLoader(data: any): Ride {
   setDefault(ride, "canFly", data.getProp("canfly"));
   return ride;
 }
+
+export function RideSaver(data: Ride) {
+  let savedData: any = {};
+  if (data.speed && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.speed)[1] != "0") {
+    savedData.Speed = data.speed;
+  }
+  if (data.jumpHeight && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.jumpHeight)[1] != "0") {
+    savedData.Speed = data.speed;
+  }
+  if (data.canFly != null) {
+    savedData.CanFly = data.canFly;
+  }
+  return savedData;
+}

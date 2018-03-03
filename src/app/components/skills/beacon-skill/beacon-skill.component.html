@@ -83,84 +83,64 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/absorption.png">
               <span mat-line style="overflow: unset !important;">
-                <mat-checkbox [checked]="upgrade.buffs.Absorption.active == true"
-                              [indeterminate]="upgrade.buffs.Absorption.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Absorption', 'active')">
                   Absorbtion
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.Absorption.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Absorption.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.Absorption" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Absorption', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'Absorption', $event.value)">
                 </mat-input-container>
             </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/fireresistance.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.FireResistance.active == true"
-                              [indeterminate]="upgrade.buffs.FireResistance.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'FireResistance', 'active')">
                   Fire Resistance
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.FireResistance.active != true">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.FireResistance.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.FireResistance" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'FireResistance', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'FireResistance', $event.value)">
                 </mat-input-container>
         </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/haste.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Haste.active == true"
-                              [indeterminate]="upgrade.buffs.Haste.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Haste', 'active')">
                   Haste
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.Haste.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Haste.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.Haste" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Haste', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'Haste', $event.value)">
                 </mat-input-container>
               </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/healthboost_2.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.HealthBoost.active == true"
-                              [indeterminate]="upgrade.buffs.HealthBoost.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'HealthBoost', 'active')">
                   Health Boost
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.HealthBoost.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.HealthBoost.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.HealthBoost" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'HealthBoost', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'HealthBoost', $event.value)">
                 </mat-input-container>
               </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/jumpboost.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.JumpBoost.active == true"
-                              [indeterminate]="upgrade.buffs.JumpBoost.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'JumpBoost', 'active')">
                   Jump Boost
-                </mat-checkbox>
-                                <mat-input-container *ngIf="upgrade.buffs.JumpBoost.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.JumpBoost.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.JumpBoost" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', $event.value)">
                 </mat-input-container>
               </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/luck.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Luck.active == true"
-                              [indeterminate]="upgrade.buffs.Luck.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Luck', 'active')">
+                <mat-checkbox [checked]="upgrade.buffs.Luck == true"
+                              [indeterminate]="upgrade.buffs.Luck == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'Luck')">
                   Luck
                 </mat-checkbox>
               </span>
@@ -168,9 +148,9 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/nightvision.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.NightVision.active == true"
-                              [indeterminate]="upgrade.buffs.NightVision.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'NightVision', 'active')">
+                <mat-checkbox [checked]="upgrade.buffs.NightVision == true"
+                              [indeterminate]="upgrade.buffs.NightVision == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'NightVision')">
                   Night Vision
                 </mat-checkbox>
               </span>
@@ -178,54 +158,42 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/resistance.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Resistance.active == true"
-                              [indeterminate]="upgrade.buffs.Resistance.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Resistance', 'active')">
                   Resistance
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.Resistance.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Resistance.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.Resistance" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Resistance', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'Resistance', $event.value)">
                 </mat-input-container>
               </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/speed.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Speed.active == true"
-                              [indeterminate]="upgrade.buffs.Speed.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Speed', 'active')">
                   Speed
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.Speed.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Speed.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.Speed" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Speed', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'Speed', $event.value)">
                 </mat-input-container>
              </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/strength.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Strength.active == true"
-                              [indeterminate]="upgrade.buffs.Strength.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Strength', 'active')">
                   Strength
-                </mat-checkbox>
-                <mat-input-container *ngIf="upgrade.buffs.Strength.active != false">
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Strength.level" type="text"
+                <mat-input-container>
+                  <input matInput placeholder="Level" [value]="upgrade.buffs.Strength" type="text"
                          pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Strength', 'level', $event.value)">
+                         (blur)="updateBuff(skilltree, upgrade, 'Strength', $event.value)">
                 </mat-input-container>
              </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/waterbreathing.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.WaterBreathing.active == true"
-                              [indeterminate]="upgrade.buffs.WaterBreathing.active == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'WaterBreathing', 'active')">
+                <mat-checkbox [checked]="upgrade.buffs.WaterBreathing == true"
+                              [indeterminate]="upgrade.buffs.WaterBreathing == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'WaterBreathing')">
                   Water Breathing
                 </mat-checkbox>
               </span>

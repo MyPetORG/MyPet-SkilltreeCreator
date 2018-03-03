@@ -15,3 +15,11 @@ export function KnockbackLoader(data: any): Knockback {
   setDefault(knockback, "chance", data.getProp("chance"));
   return knockback;
 }
+
+export function KnockbackSaver(data: Knockback) {
+  let savedData: any = {};
+  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+    savedData.Chance = data.chance;
+  }
+  return savedData;
+}

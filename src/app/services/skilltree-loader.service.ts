@@ -20,11 +20,11 @@ export class SkilltreeLoaderService {
   }
 
   loadSkilltree(data: any): Observable<Skilltree> {
-    let name = data.getProp("name");
-    if (!name || name == "") {
+    let id = data.getProp("id");
+    if (!id || id == "") {
       return Observable.throw({type: "INVALID", data: "NO ID"})
     }
-    let skilltree: Skilltree = {id: data.getProp("id"), skills: {}, mobtypes: []};
+    let skilltree: Skilltree = {id, skills: {}, mobtypes: []};
     skilltree.permission = data.getProp("permission") || "";
     skilltree.name = data.getProp("name") || skilltree.id;
     skilltree.description = data.getProp("description") || [];
@@ -110,7 +110,7 @@ export class SkilltreeLoaderService {
       levelRule.exact = [];
       let levels = rule.split(',');
       levels.forEach(l => {
-        let level = parseInt(l);
+        let level = parseInt(l.trim());
         if (!isNaN(level)) {
           levelRule.exact.push(level)
         }
