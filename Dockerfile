@@ -6,8 +6,6 @@ WORKDIR /home/node/app
 
 COPY . .
 
-RUN ls -al
-
 RUN yarn install
 
-RUN npm run-script ng build --prod --env=plugin --verbose
+RUN npm run-script build-plugin
