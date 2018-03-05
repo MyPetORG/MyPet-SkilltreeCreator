@@ -88,6 +88,8 @@ import { ClipboardModule } from "ngx-clipboard";
 import { SkilltreeSaverService } from "./services/skilltree-saver.service";
 import { DndModule } from "ngx-drag-drop";
 import { SkilltreeImportDialogComponent } from "./components/skilltree-import-dialog/skilltree-import-dialog.component";
+import { HotkeyModule } from "angular2-hotkeys";
+import { HotkeyService } from "app/services/hotkey.service";
 
 @NgModule({
   declarations: [
@@ -145,6 +147,7 @@ import { SkilltreeImportDialogComponent } from "./components/skilltree-import-di
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule, MatSliderModule,
     SatPopoverModule,
     DndModule,
+    HotkeyModule.forRoot(),
     ContextMenuModule.forRoot(),
     StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
     RouterModule.forRoot(routes),
@@ -193,6 +196,7 @@ import { SkilltreeImportDialogComponent } from "./components/skilltree-import-di
     SkilltreeSaverService,
     SkilltreeExistsGuard,
     IconLoaderService,
+    HotkeyService,
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
     {provide: reducerToken, useFactory: getReducers},
     ...environment.providers,

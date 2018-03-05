@@ -3,6 +3,7 @@ import { IconLoaderService } from "../../services/icon-loader.service";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
+import { HotkeyService } from "../../services/hotkey.service";
 
 @Component({
   selector: 'stc-root',
@@ -10,7 +11,8 @@ import { Store } from "@ngrx/store";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(iconLoader: IconLoaderService,
+  constructor(private iconLoader: IconLoaderService,
+              private hotkeyServie: HotkeyService,
               private store: Store<Reducers.State>) {
     iconLoader.load();
 
