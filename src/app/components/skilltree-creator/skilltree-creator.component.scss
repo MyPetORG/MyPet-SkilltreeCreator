@@ -1,3 +1,12 @@
 .sidenav {
   padding: 10px;
 }
+
+.top-toolbar {
+  max-width: calc(100% - 8px);
+  width: calc(100% - 8px);
+}
+
+button {
+  min-width: 80px !important;
+}

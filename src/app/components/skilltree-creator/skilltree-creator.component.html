@@ -15,21 +15,43 @@
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>
-  <button mat-button (click)="openSidenav()" *ngIf="isRootPath">
-    <mat-icon svgIcon="menu">menu</mat-icon>
-  </button>
-  <button mat-button (click)="back()" *ngIf="!isRootPath">
-    <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
-  </button>
-  <button mat-button (click)="save()" matTooltip="Save">
-    <mat-icon svgIcon="save">save</mat-icon>
-  </button>
-  <button mat-button (click)="undo()" [disabled]="(pastStates$ | async).length <= 0" matTooltip="Undo last change">
-    <mat-icon svgIcon="undo">undo</mat-icon>
-  </button>
-  <button mat-button (click)="redo()" [disabled]="(futureStates$ | async).length <= 0" matTooltip="Redo last change">
-    <mat-icon svgIcon="redo">redo</mat-icon>
-  </button>
+  <div fxLayout="row" class="top-toolbar">
+    <!--
+      TODO: https://stackblitz.com/edit/angular-hksgbx
+      fxFlex.xs="25"
+      fxFlex.gt-xs="none"
+      [ngStyle.xs]="{'padding.px': 0,'min-width': '30px'}"
+    -->
+    <button mat-button
+            (click)="openSidenav()"
+            *ngIf="isRootPath"
+            matTooltip="Menu">
+      <mat-icon svgIcon="menu">menu</mat-icon>
+    </button>
+    <button mat-button
+            (click)="back()"
+            *ngIf="!isRootPath"
+            matTooltip="Back">
+      <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
+    </button>
+    <button mat-button
+            (click)="save()"
+            matTooltip="Save">
+      <mat-icon svgIcon="save">save</mat-icon>
+    </button>
+    <button mat-button
+            (click)="undo()"
+            [disabled]="(pastStates$ | async).length <= 0"
+            matTooltip="Undo last change">
+      <mat-icon svgIcon="undo">undo</mat-icon>
+    </button>
+    <button mat-button
+            (click)="redo()"
+            [disabled]="(futureStates$ | async).length <= 0"
+            matTooltip="Redo last change">
+      <mat-icon svgIcon="redo">redo</mat-icon>
+    </button>
+  </div>
   <mat-card>
     <router-outlet></router-outlet>
   </mat-card>
