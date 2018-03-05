@@ -36,6 +36,9 @@ export const undoable = reducer => {
     //if reset action is fired, return initial state
     switch (action.type) {
       case 'UNDO':
+        if (past.length == 0) {
+          return state;
+        }
         const previous = past[past.length - 1];
         const newPast = past.slice(0, past.length - 1);
         return {
@@ -44,6 +47,9 @@ export const undoable = reducer => {
           future: [present, ...future]
         };
       case 'REDO':
+        if (future.length == 0) {
+          return state;
+        }
         const next = future[0];
         const newFuture = future.slice(1);
         return {
