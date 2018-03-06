@@ -22,6 +22,9 @@ export class SkilltreeSaverService {
       if (skilltree.permission) {
         data.Permission = skilltree.permission;
       }
+      if (skilltree.icon) {
+        data.Icon = skilltree.icon;
+      }
       if (skilltree.description) {
         data.Description = skilltree.description.slice();
       }

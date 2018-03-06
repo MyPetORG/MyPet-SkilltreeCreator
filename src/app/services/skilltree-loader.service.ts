@@ -29,6 +29,7 @@ export class SkilltreeLoaderService {
     skilltree.name = data.getProp("name") || skilltree.id;
     skilltree.description = data.getProp("description") || [];
     skilltree.order = data.getProp("order") || Number.MAX_SAFE_INTEGER;
+    skilltree.icon = data.getProp("icon") || "";
 
     skilltree.skills = this.loadSkills(data.getProp("skills"));
     skilltree.mobtypes = this.loadMobTypes(data.getProp("mobtypes"));
