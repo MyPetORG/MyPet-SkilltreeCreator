@@ -16,37 +16,36 @@
     </button>
   </mat-sidenav>
   <div fxLayout="row" class="top-toolbar">
-    <!--
-      TODO: https://stackblitz.com/edit/angular-hksgbx
-      fxFlex.xs="25"
-      fxFlex.gt-xs="none"
-      [ngStyle.xs]="{'padding.px': 0,'min-width': '30px'}"
-    -->
     <button mat-button
             (click)="openSidenav()"
+            class="toolbar-button"
             *ngIf="isRootPath"
             matTooltip="Menu">
       <mat-icon svgIcon="menu">menu</mat-icon>
     </button>
     <button mat-button
             (click)="back()"
+            class="toolbar-button"
             *ngIf="!isRootPath"
             matTooltip="Back">
       <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
     </button>
     <button mat-button
             (click)="save()"
+            class="toolbar-button"
             matTooltip="Save">
       <mat-icon svgIcon="save">save</mat-icon>
     </button>
     <button mat-button
             (click)="undo()"
+            class="toolbar-button"
             [disabled]="(pastStates$ | async).length <= 0"
             matTooltip="Undo last change">
       <mat-icon svgIcon="undo">undo</mat-icon>
     </button>
     <button mat-button
             (click)="redo()"
+            class="toolbar-button"
             [disabled]="(futureStates$ | async).length <= 0"
             matTooltip="Redo last change">
       <mat-icon svgIcon="redo">redo</mat-icon>
