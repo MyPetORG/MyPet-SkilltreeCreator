@@ -27,7 +27,7 @@
     <defaultGoal>clean package</defaultGoal>
     <resources>
       <resource>
-        <targetPath>.</targetPath>
+        <targetPath>./gui</targetPath>
         <filtering>false</filtering>
         <directory>dist</directory>
       </resource>
