@@ -25,6 +25,12 @@ export class SkilltreeSaverService {
       if (skilltree.icon) {
         data.Icon = skilltree.icon;
       }
+      if (skilltree.requiredLevel) {
+        data.RequiredLevel = skilltree.requiredLevel;
+      }
+      if (skilltree.maxLevel) {
+        data.MaxLevel = skilltree.maxLevel;
+      }
       if (skilltree.description) {
         data.Description = skilltree.description.slice();
       }
