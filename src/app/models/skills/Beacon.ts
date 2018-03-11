@@ -9,7 +9,6 @@ export interface Beacon extends Upgrade {
     Absorption?: string,
     FireResistance?: string,
     Haste?: string,
-    HealthBoost?: string,
     JumpBoost?: string,
     Luck?: null | boolean,
     NightVision?: null | boolean,
@@ -29,7 +28,6 @@ export class BeaconDefault implements Beacon {
     Absorption: "+0",
     FireResistance: "+0",
     Haste: "+0",
-    HealthBoost: "+0",
     JumpBoost: "+0",
     Luck: null,
     NightVision: null,
@@ -49,7 +47,6 @@ export function BeaconLoader(data: any): Beacon {
     setDefault(beacon.buffs, "Absorption", data.getProp("buffs").getProp("Absorption"));
     setDefault(beacon.buffs, "FireResistance", data.getProp("buffs").getProp("FireResistance"));
     setDefault(beacon.buffs, "Haste", data.getProp("buffs").getProp("Haste"));
-    setDefault(beacon.buffs, "HealthBoost", data.getProp("buffs").getProp("HealthBoost"));
     setDefault(beacon.buffs, "JumpBoost", data.getProp("buffs").getProp("JumpBoost"));
     setDefault(beacon.buffs, "Luck", data.getProp("buffs").getProp("Luck"));
     setDefault(beacon.buffs, "NightVision", data.getProp("buffs").getProp("NightVision"));
@@ -82,9 +79,6 @@ export function BeaconSaver(data: Beacon) {
   }
   if (data.buffs.Haste && /[\\+\-=]?(\d+)/g.exec(data.buffs.Haste)[1] != "0") {
     buffs.Haste = data.buffs.Haste;
-  }
-  if (data.buffs.HealthBoost && /[\\+\-=]?(\d+)/g.exec(data.buffs.HealthBoost)[1] != "0") {
-    buffs.HealthBoost = data.buffs.HealthBoost;
   }
   if (data.buffs.JumpBoost && /[\\+\-=]?(\d+)/g.exec(data.buffs.JumpBoost)[1] != "0") {
     buffs.JumpBoost = data.buffs.JumpBoost;
