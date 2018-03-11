@@ -10,7 +10,7 @@ import { DamageSaver } from "../models/skills/Damage";
 import { StompSaver } from "../models/skills/Stomp";
 import { FireSaver } from "../models/skills/Fire";
 import { ShieldSaver } from "../models/skills/Shield";
-import { HealthBoostSaver } from "../models/skills/HealthBoost";
+import { LifeSaver } from "../models/skills/Life";
 import { PoisonSaver } from "../models/skills/Poison";
 import { SprintSaver } from "../models/skills/Sprint";
 import { ThornsSaver } from "../models/skills/Thorns";
@@ -27,7 +27,7 @@ export const SkillSaver = {
   Damage: DamageSaver,
   Fire: FireSaver,
   Heal: HealSaver,
-  HealthBoost: HealthBoostSaver,
+  Life: LifeSaver,
   Knockback: KnockbackSaver,
   Lightning: LightningSaver,
   Pickup: PickupSaver,

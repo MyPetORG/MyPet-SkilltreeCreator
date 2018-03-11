@@ -4,7 +4,7 @@ import { BackpackLoader } from "../models/skills/Backpack";
 import { ControlLoader } from "../models/skills/Control";
 import { DamageLoader } from "../models/skills/Damage";
 import { HealLoader } from "../models/skills/Heal";
-import { HealthBoostLoader } from "../models/skills/HealthBoost";
+import { LifeLoader } from "../models/skills/Life";
 import { KnockbackLoader } from "../models/skills/Knockback";
 import { LightningLoader } from "../models/skills/Lightning";
 import { PickupLoader } from "../models/skills/Pickup";
@@ -27,7 +27,7 @@ export const SkillLoader = {
     Damage: DamageLoader,
     Fire: FireLoader,
     Heal: HealLoader,
-    HealthBoost: HealthBoostLoader,
+  Life: LifeLoader,
     Knockback: KnockbackLoader,
     Lightning: LightningLoader,
     Pickup: PickupLoader,

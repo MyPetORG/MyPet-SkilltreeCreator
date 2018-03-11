@@ -2,7 +2,7 @@
   <sat-popover #healthPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The boost of health the pet will gain.<br>
+        <p>The amount of extra health the pet will get.<br>
           Format: [+-=][number]<br>
           Examples:<br>
           +2<br>
@@ -13,7 +13,7 @@
     </mat-card>
   </sat-popover>
 
-  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.HealthBoost; trackBy: trackById; let i = index"
+  <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Life; trackBy: trackById; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
     <div fxLayout="column">

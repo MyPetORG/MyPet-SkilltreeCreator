@@ -30,7 +30,7 @@ import { BackpackSkillComponent } from "./components/skills/backpack-skill/backp
 import { BehaviorSkillComponent } from "./components/skills/behavior-skill/behavior-skill.component";
 import { DamageSkillComponent } from "./components/skills/damage-skill/damage-skill.component";
 import { HealSkillComponent } from "./components/skills/heal-skill/heal-skill.component";
-import { HealthBoostSkillComponent } from "./components/skills/health-boost-skill/health-boost-skill.component";
+import { LifeSkillComponent } from "./components/skills/life-skill/life-skill.component";
 import { PickupSkillComponent } from "./components/skills/pickup-skill/pickup-skill.component";
 import { RangedSkillComponent } from "./components/skills/ranged-skill/ranged-skill.component";
 import { ShieldSkillComponent } from "./components/skills/shield-skill/shield-skill.component";
@@ -116,7 +116,7 @@ import { HotkeyService } from "app/services/hotkey.service";
     DamageSkillComponent,
     FireSkillComponent,
     HealSkillComponent,
-    HealthBoostSkillComponent,
+    LifeSkillComponent,
     KnockbackSkillComponent,
     LightningSkillComponent,
     PickupSkillComponent,
@@ -176,7 +176,7 @@ import { HotkeyService } from "app/services/hotkey.service";
     DamageSkillComponent,
     FireSkillComponent,
     HealSkillComponent,
-    HealthBoostSkillComponent,
+    LifeSkillComponent,
     KnockbackSkillComponent,
     LightningSkillComponent,
     PickupSkillComponent,

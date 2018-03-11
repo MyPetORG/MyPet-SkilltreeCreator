@@ -67,10 +67,10 @@ export const Skills: SkillInfo[] = [
     icon: 'heal.png',
   },
   {
-    id: 'HealthBoost',
-    name: 'skill.HealthBoost.name',
-    description: 'skill.HealthBoost.description',
-    icon: 'healthboost.png',
+    id: 'Life',
+    name: 'skill.Life.name',
+    description: 'skill.Life.description',
+    icon: 'life.png',
   },
   {
     id: 'Knockback',

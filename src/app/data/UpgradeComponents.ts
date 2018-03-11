@@ -16,7 +16,7 @@ import { FireSkillComponent } from "../components/skills/fire-skill/fire-skill.c
 import { BackpackSkillComponent } from "../components/skills/backpack-skill/backpack-skill.component";
 import { BehaviorSkillComponent } from "../components/skills/behavior-skill/behavior-skill.component";
 import { ThornsSkillComponent } from "../components/skills/thorns-skill/thorns-skill.component";
-import { HealthBoostSkillComponent } from "../components/skills/health-boost-skill/health-boost-skill.component";
+import { LifeSkillComponent } from "../components/skills/life-skill/life-skill.component";
 import { RangedSkillComponent } from "../components/skills/ranged-skill/ranged-skill.component";
 
 export const SkillUpgradeComponents = {
@@ -27,7 +27,7 @@ export const SkillUpgradeComponents = {
   'Damage': DamageSkillComponent,
   'Fire': FireSkillComponent,
   'Heal': HealSkillComponent,
-  'HealthBoost': HealthBoostSkillComponent,
+  'Life': LifeSkillComponent,
   'Knockback': KnockbackSkillComponent,
   'Lightning': LightningSkillComponent,
   'Pickup': PickupSkillComponent,
