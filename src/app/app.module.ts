@@ -90,6 +90,7 @@ import { DndModule } from "ngx-drag-drop";
 import { SkilltreeImportDialogComponent } from "./components/skilltree-import-dialog/skilltree-import-dialog.component";
 import { HotkeyModule } from "angular2-hotkeys";
 import { HotkeyService } from "app/services/hotkey.service";
+import { WebsocketService } from "./services/websocket.service";
 
 @NgModule({
   declarations: [
@@ -197,6 +198,7 @@ import { HotkeyService } from "app/services/hotkey.service";
     SkilltreeExistsGuard,
     IconLoaderService,
     HotkeyService,
+    WebsocketService,
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
     {provide: reducerToken, useFactory: getReducers},
     ...environment.providers,

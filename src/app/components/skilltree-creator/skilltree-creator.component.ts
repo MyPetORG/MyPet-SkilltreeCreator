@@ -6,8 +6,9 @@ import * as LayoutActions from "../../store/actions/layout";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { NavigationEnd, Router } from "@angular/router";
 import { RedoAction, UndoAction } from "../../store/reducers/undoable";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeImportDialogComponent } from "../skilltree-import-dialog/skilltree-import-dialog.component";
+import { WebsocketService } from "../../services/websocket.service";
 
 @Component({
   selector: 'skilltree-creator',
@@ -23,7 +24,20 @@ export class SkilltreeCreatorComponent {
 
   constructor(private dialog: MatDialog,
               private store: Store<Reducers.State>,
+              private websocket: WebsocketService,
+              public snackBar: MatSnackBar,
               private router: Router) {
+    this.websocket.connect().subscribe(
+      (next: any) => {
+        switch (next.action) {
+          case "server_stop":
+            this.snackBar.open("The server was shut down. Changes will not be saved.", null, {
+              duration: 2000,
+            });
+            break;
+        }
+      });
+
     this.showSidenav$ = this.store.select(Reducers.getShowSidenav);
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
     this.pastStates$ = this.store.select(Reducers.getPastStates);
