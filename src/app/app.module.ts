@@ -74,7 +74,8 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatSliderModule
+  MatSliderModule,
+  MatStepperModule
 } from "@angular/material";
 import { environment } from '../environments/environment';
 import { IconLoaderService } from "./services/icon-loader.service";
@@ -90,6 +91,8 @@ import { DndModule } from "ngx-drag-drop";
 import { SkilltreeImportDialogComponent } from "./components/skilltree-import-dialog/skilltree-import-dialog.component";
 import { HotkeyModule } from "angular2-hotkeys";
 import { HotkeyService } from "app/services/hotkey.service";
+import { NbtImportService } from "./services/nbt-import.service";
+import { SkilltreeImportLegacyComponent } from "./components/skilltree-import-legacy-dialog/skilltree-import-legacy-dialog.component";
 import { WebsocketService } from "./services/websocket.service";
 
 @NgModule({
@@ -102,6 +105,7 @@ import { WebsocketService } from "./services/websocket.service";
     UpgradeAddDialogComponent,
     MobTypeSelectDialogComponent,
     SkilltreeImportDialogComponent,
+    SkilltreeImportLegacyComponent,
 
     AppComponent,
     SkilltreePropertiesComponent,
@@ -146,6 +150,7 @@ import { WebsocketService } from "./services/websocket.service";
     MatSidenavModule, MatOptionModule, MatTooltipModule, MatExpansionModule, MatButtonToggleModule, MatListModule,
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule, MatSliderModule,
+    MatStepperModule,
     SatPopoverModule,
     DndModule,
     HotkeyModule.forRoot(),
@@ -198,6 +203,7 @@ import { WebsocketService } from "./services/websocket.service";
     SkilltreeExistsGuard,
     IconLoaderService,
     HotkeyService,
+    NbtImportService,
     WebsocketService,
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
     {provide: reducerToken, useFactory: getReducers},

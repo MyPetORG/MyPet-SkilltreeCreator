@@ -1,0 +1,60 @@
+<h1 mat-dialog-title>Import Skilltree</h1>
+<div mat-dialog-content>
+  Select a legacy Skilltree-File (.st)
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <ng-template matStepperIcon="edit">
+      <mat-icon svgIcon="check">check</mat-icon>
+    </ng-template>
+    <ng-template matStepperIcon="done">
+      <mat-icon svgIcon="check">check</mat-icon>
+    </ng-template>
+    <mat-step label="Select File" [completed]="stepCompleted[0]">
+      <div class="stepper-content">
+        <button mat-raised-button color="primary" (click)="imgFileInput.click()">Select</button>
+        <input hidden type="file" #imgFileInput (change)="onSelectFile($event)"/>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <button mat-button matStepperNext [disabled]="!stepCompleted[0]">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Select Skilltrees" [completed]="stepCompleted[1]">
+      <div class="stepper-content">
+        <h1 mat-dialog-title>Select Skilltree:</h1>
+        <mat-selection-list #selectedSkilltreeNames>
+          <mat-list-option *ngFor="let name of newSkilltreeNames" [value]="name">
+            {{name}}
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="selectedSkilltreeNames.selectAll()">Select All</button>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext [disabled]="!stepCompleted[1]">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Select Mobtype" [completed]="stepCompleted[2]">
+      <div class="stepper-content">
+        <h1 mat-dialog-title>Select Mob Types:</h1>
+        <div class="mob-type-select">
+          <ul>
+            <li *ngFor="let type of types">
+              <a (click)="toggleMobType(type)">
+                <img [ngClass]="{selected: type.selected}" [src]="'assets/img/mobheads/' +  type.name + '.png'"
+                     [matTooltip]="type.name">
+              </a>
+            </li>
+          </ul>
+        </div>
+        <button mat-raised-button color="primary" (click)="selectAllMobTypes()">Select All</button>
+        <button mat-raised-button color="primary" (click)="selectNoneMobTypes()">Unselect All</button>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext [disabled]="!stepCompleted[2]" (click)="done()">Import</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

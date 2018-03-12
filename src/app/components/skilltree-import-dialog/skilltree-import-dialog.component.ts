@@ -21,23 +21,25 @@ export class SkilltreeImportDialogComponent {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = (event: any) => {
+        let base64Data = event.currentTarget.result.split(',')[1];
         let data;
-        if (event.currentTarget.result.startsWith("data:;base64,")) {
-          data = window.atob(event.currentTarget.result.substring(13));
-        } else if (event.currentTarget.result.startsWith("data:application/json;base64,")) {
-          data = window.atob(event.currentTarget.result.substring(29));
-        } else {
-          console.log(event.currentTarget);
+        try {
+          data = window.atob(base64Data);
+        } catch (e) {
           this.snackBar.open("This file is not a valid json file.", "Error", {
             duration: 2000,
           });
           return;
         }
+
         try {
           this.skilltreeData = JSON.parse(data);
           this.valid = true;
           return;
         } catch (e) {
+          this.snackBar.open("This file is not a valid json file.", "Error", {
+            duration: 2000,
+          });
         }
       };
       reader.readAsDataURL(event.target.files[0]);

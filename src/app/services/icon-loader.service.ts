@@ -26,6 +26,7 @@ export class IconLoaderService {
     this.addSvgIcon('drag_handle', 'ic_drag_handle_24px.svg');
     this.addSvgIcon('arrow_drop_down', 'ic_arrow_drop_down_24px.svg');
     this.addSvgIcon('delete', 'ic_delete_24px.svg');
+    this.addSvgIcon('check', 'ic_check_24px.svg');
   }
 
   addSvgIcon(name: string, fileName: string) {

@@ -17,6 +17,8 @@ export const IMPORT_SKILLTREE = 'IMPORT_SKILLTREE';
 export const IMPORT_SKILLTREE_SUCCESS = 'IMPORT_SKILLTREE_SUCCESS';
 export const IMPORT_SKILLTREE_FAILED = 'IMPORT_SKILLTREE_FAILED';
 
+export const IMPORT_LEGACY_SKILLTREE = 'IMPORT_LEGACY_SKILLTREE';
+
 export const ADD_SKILLTREE = 'ADD_SKILLTREE';
 export const COPY_SKILLTREE = 'COPY_SKILLTREE';
 export const REMOVE_SKILLTREE = 'REMOVE_SKILLTREE';
@@ -108,6 +110,13 @@ export class SaveSkilltreesFailedAction implements Action {
   }
 }
 
+export class ImportLegacySkilltreeAction implements Action {
+  readonly type = IMPORT_LEGACY_SKILLTREE;
+
+  constructor(public payload: Skilltree) {
+  }
+}
+
 export class ImportSkilltreeAction implements Action {
   readonly type = IMPORT_SKILLTREE;
   readonly ignoredByUndo = true;
@@ -192,6 +201,7 @@ export type Actions
   | SaveSkilltreesAction
   | SaveSkilltreesSuccessAction
   | SaveSkilltreesFailedAction
+  | ImportLegacySkilltreeAction
   | ImportSkilltreeAction
   | ImportSkilltreeSuccessAction
   | ImportSkilltreeFailedAction

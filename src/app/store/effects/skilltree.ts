@@ -38,6 +38,7 @@ export class SkilltreeEffects {
       SkilltreeActions.ADD_SKILLTREE,
       SkilltreeActions.REMOVE_SKILLTREE,
       SkilltreeActions.IMPORT_SKILLTREE_SUCCESS,
+      SkilltreeActions.IMPORT_LEGACY_SKILLTREE,
     )
     .withLatestFrom(this.store.select(Reducers.getSkilltrees))
     .switchMap(([action, state]) => {

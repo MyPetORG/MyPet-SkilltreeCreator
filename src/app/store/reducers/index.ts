@@ -66,6 +66,7 @@ export const getSelectedSkilltreeId = createSelector(getLayoutState, fromLayout.
 export const getSkilltreeState = getPresent;
 
 export const getSkilltrees = createSelector(getSkilltreeState, fromSkilltree.selectSkilltreeEntities);
+export const getSkilltreeNames = createSelector(getSkilltreeState, fromSkilltree.selectSkilltreeIds);
 
 export const getSelectedSkilltree = createSelector(
   getSkilltrees,
