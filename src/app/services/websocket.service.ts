@@ -15,7 +15,7 @@ export class WebsocketService {
     let timer = ObservableTimer.timer(1000, 2500);
     timer.subscribe(() => {
       if (this.isConnected()) {
-        this.send({type: "PING", message: Date.now()})
+        this.send({action: "PING", message: Date.now()})
       } else {
         if (this.getConnectionStatus() == WebSocket.CLOSED) {
           try {
@@ -67,9 +67,14 @@ export class WebsocketService {
     }
   }
 
-  send(json: object): void {
+  send(json: WebsocketMessage): void {
     if (this.isConnected()) {
       this.ws.send(JSON.stringify(json));
     }
   }
+}
+
+export interface WebsocketMessage {
+  action: string
+  message: any
 }
