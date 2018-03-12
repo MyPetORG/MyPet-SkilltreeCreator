@@ -35,7 +35,7 @@ export function BehaviorSaver(data: Behavior): any {
     savedData.Aggro = data.aggro;
   }
   if (data.duel != null) {
-    savedData.Dueö = data.duel;
+    savedData.Duel = data.duel;
   }
   if (data.farm != null) {
     savedData.Farm = data.farm;
