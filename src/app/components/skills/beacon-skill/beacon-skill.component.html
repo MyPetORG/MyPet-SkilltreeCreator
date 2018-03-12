@@ -94,12 +94,11 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/fireresistance.png">
               <span mat-line>
+                <mat-checkbox [checked]="upgrade.buffs.FireResistance == true"
+                              [indeterminate]="upgrade.buffs.FireResistance == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'FireResistance')">
                   Fire Resistance
-                <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.FireResistance" type="text"
-                         pattern="[+-=][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'FireResistance', $event.value)">
-                </mat-input-container>
+                </mat-checkbox>
         </span>
             </mat-list-item>
             <mat-list-item>
@@ -184,6 +183,16 @@
                               [indeterminate]="upgrade.buffs.WaterBreathing == null"
                               (click)="toggleBuff(skilltree, upgrade, 'WaterBreathing')">
                   Water Breathing
+                </mat-checkbox>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/invisibility.png">
+              <span mat-line>
+                <mat-checkbox [checked]="upgrade.buffs.Invisibility == true"
+                              [indeterminate]="upgrade.buffs.Invisibility == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'Invisibility')">
+                  Invisibility
                 </mat-checkbox>
               </span>
             </mat-list-item>

@@ -7,7 +7,7 @@ export interface Beacon extends Upgrade {
   count?: string;
   buffs?: {
     Absorption?: string,
-    FireResistance?: string,
+    FireResistance?: null | boolean,
     Haste?: string,
     JumpBoost?: string,
     Luck?: null | boolean,
@@ -16,6 +16,7 @@ export interface Beacon extends Upgrade {
     Speed?: string,
     Strength?: string,
     WaterBreathing?: null | boolean,
+    Invisibility?: null | boolean,
   }
 }
 
@@ -26,7 +27,7 @@ export class BeaconDefault implements Beacon {
   count = "+0";
   buffs = {
     Absorption: "+0",
-    FireResistance: "+0",
+    FireResistance: null,
     Haste: "+0",
     JumpBoost: "+0",
     Luck: null,
@@ -34,7 +35,8 @@ export class BeaconDefault implements Beacon {
     Resistance: "+0",
     Speed: "+0",
     Strength: "+0",
-    WaterBreathing: null
+    WaterBreathing: null,
+    Invisibility: null,
   }
 }
 
@@ -54,6 +56,7 @@ export function BeaconLoader(data: any): Beacon {
     setDefault(beacon.buffs, "Speed", data.getProp("buffs").getProp("Speed"));
     setDefault(beacon.buffs, "Strength", data.getProp("buffs").getProp("Strength"));
     setDefault(beacon.buffs, "WaterBreathing", data.getProp("buffs").getProp("WaterBreathing"));
+    setDefault(beacon.buffs, "Invisibility", data.getProp("buffs").getProp("Invisibility"));
   }
   return beacon;
 }
@@ -74,7 +77,7 @@ export function BeaconSaver(data: Beacon) {
   if (data.buffs.Absorption && /[\\+\-=]?(\d+)/g.exec(data.buffs.Absorption)[1] != "0") {
     buffs.Absorption = data.buffs.Absorption;
   }
-  if (data.buffs.FireResistance && /[\\+\-=]?(\d+)/g.exec(data.buffs.FireResistance)[1] != "0") {
+  if (data.buffs.FireResistance != null) {
     buffs.FireResistance = data.buffs.FireResistance;
   }
   if (data.buffs.Haste && /[\\+\-=]?(\d+)/g.exec(data.buffs.Haste)[1] != "0") {
@@ -100,6 +103,9 @@ export function BeaconSaver(data: Beacon) {
   }
   if (data.buffs.WaterBreathing != null) {
     buffs.WaterBreathing = data.buffs.WaterBreathing;
+  }
+  if (data.buffs.Invisibility != null) {
+    buffs.Invisibility = data.buffs.Invisibility;
   }
 
   if (Object.keys(buffs).length > 0) {
