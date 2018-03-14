@@ -53,7 +53,7 @@
 <mat-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
   <mat-input-container fxFlex="100">
     <textarea matInput placeholder="Description" (keyup)="parseTextArea()" [formControl]="description"
-              (blur)="updateDescription()"></textarea>
+              (blur)="updateDescription()" style="min-height: 150px"></textarea>
   </mat-input-container>
   <div class="codebox">
     <ul>
