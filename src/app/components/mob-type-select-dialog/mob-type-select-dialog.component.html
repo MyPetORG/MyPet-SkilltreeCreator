@@ -2,7 +2,7 @@
 <div class="mob-type-select">
   <ul>
     <li *ngFor="let type of types">
-      <a (click)="type.selected = !type.selected">
+      <a (click)="toggleType(type)">
         <img [ngClass]="{selected: type.selected}" [src]="'assets/img/mobheads/' +  type.name + '.png'"
              [matTooltip]="type.name">
       </a>
@@ -11,12 +11,7 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="selectAll()">Select All</button>
-  <button mat-raised-button (click)="selectNone()">Unselect All</button>
+  <button mat-raised-button (click)="selectAll()">All</button>
+  <button mat-raised-button (click)="selectNone()">None</button>
+  <button mat-raised-button color="primary" (click)="done()" [disabled]="selected == 0">Done</button>
 </div>
-
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="done()">Done</button>
-</div>
-
-

@@ -10,6 +10,7 @@ import { MobTypes } from "../../data/MobTypes";
 })
 export class MobTypeSelectDialogComponent implements OnInit {
   types = [];
+  selected: number = 0;
 
   constructor(public dialogRef: MatDialogRef<MobTypeSelectDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private skilltree: Skilltree) {
@@ -21,6 +22,7 @@ export class MobTypeSelectDialogComponent implements OnInit {
         name,
         selected: this.skilltree.mobtypes.indexOf(name) >= 0
       });
+      this.selected += this.skilltree.mobtypes.indexOf(name) ? 1 : 0;
     });
   }
 
@@ -32,6 +34,9 @@ export class MobTypeSelectDialogComponent implements OnInit {
 
   selectAll() {
     this.types.forEach(type => {
+      if (!type.selected) {
+        this.selected++;
+      }
       type.selected = true;
     });
   }
@@ -40,5 +45,13 @@ export class MobTypeSelectDialogComponent implements OnInit {
     this.types.forEach(type => {
       type.selected = false;
     });
+    this.selected = 0;
+  }
+
+  toggleType(type) {
+    if (!type.selected) {
+      this.selected++;
+    }
+    type.selected = !type.selected;
   }
 }
