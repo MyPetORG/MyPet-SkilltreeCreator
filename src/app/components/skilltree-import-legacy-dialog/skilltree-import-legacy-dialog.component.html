@@ -11,7 +11,7 @@
     <mat-step label="Select File" [completed]="stepCompleted[0]">
       <div class="stepper-content">
         <button mat-raised-button color="primary" (click)="imgFileInput.click()">Select</button>
-        <input hidden type="file" #imgFileInput (change)="onSelectFile($event)"/>
+        <input hidden type="file" #imgFileInput (change)="onSelectFile($event)" accept=".st"/>
       </div>
       <mat-divider></mat-divider>
       <div>
