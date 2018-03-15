@@ -79,7 +79,7 @@ import {
 } from "@angular/material";
 import { environment } from '../environments/environment';
 import { IconLoaderService } from "./services/icon-loader.service";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { storeFreeze } from "ngrx-store-freeze";
 import { FreezableRouterStateSerializer } from "./store/freezable-router";
 import { AboutComponent } from './components/about/about.component';
@@ -94,6 +94,12 @@ import { HotkeyService } from "app/services/hotkey.service";
 import { NbtImportService } from "./services/nbt-import.service";
 import { SkilltreeImportLegacyComponent } from "./components/skilltree-import-legacy-dialog/skilltree-import-legacy-dialog.component";
 import { WebsocketService } from "./services/websocket.service";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -155,6 +161,13 @@ import { WebsocketService } from "./services/websocket.service";
     DndModule,
     HotkeyModule.forRoot(),
     ContextMenuModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     StoreModule.forRoot(reducerToken, {metaReducers: !environment.production ? [storeFreeze] : []}),
     RouterModule.forRoot(routes),
     StoreRouterConnectingModule.forRoot({

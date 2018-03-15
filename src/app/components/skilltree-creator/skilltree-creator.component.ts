@@ -9,6 +9,7 @@ import { RedoAction, UndoAction } from "../../store/reducers/undoable";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeImportDialogComponent } from "../skilltree-import-dialog/skilltree-import-dialog.component";
 import { WebsocketService } from "../../services/websocket.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'skilltree-creator',
@@ -26,13 +27,16 @@ export class SkilltreeCreatorComponent {
               private store: Store<Reducers.State>,
               private websocket: WebsocketService,
               public snackBar: MatSnackBar,
-              private router: Router) {
+              private router: Router,
+              private translate: TranslateService) {
     this.websocket.connect().subscribe(
       (next: any) => {
         switch (next.action) {
           case "server_stop":
-            this.snackBar.open("The server was shut down. Changes will not be saved.", null, {
-              duration: 2000,
+            this.translate.get("COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN").subscribe((trans) => {
+              this.snackBar.open(trans, "SkilltreeCreator", {
+                duration: 2000,
+              });
             });
             break;
         }
@@ -83,5 +87,17 @@ export class SkilltreeCreatorComponent {
         this.store.dispatch(new SkilltreeActions.ImportSkilltreeAction(result));
       }
     });
+  }
+
+  lang: string = "en";
+
+  toggleLang() {
+    if (this.lang == "xx") {
+      this.translate.use('en');
+      this.lang = "en"
+    } else {
+      this.translate.use('xx');
+      this.lang = "xx"
+    }
   }
 }

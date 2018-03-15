@@ -1,23 +1,40 @@
 import { LevelRule as LR } from "../models/LevelRule";
 
 export class LevelRule {
-  static toString(rule: LR) {
+  static toKey(rule: LR): string {
     if (rule.exact && rule.exact.length > 0) {
-      return "Level: " + rule.exact.join(', ')
+      return "LEVEL_RULE_EXACT";
     } else {
-      let ret = "Every ";
-      if (rule.every == 1) {
-        ret += "level";
-      } else {
-        ret += rule.every + " levels";
+      let key = "LEVEL_RULE_EVERY";
+      if (rule.every > 1) {
+        key += "_X";
       }
+      key += "_LEVEL";
       if (rule.minimum) {
-        ret += ", starting at level " + rule.minimum;
+        key += "_START";
       }
       if (rule.limit) {
-        ret += ", ending at level " + rule.limit;
+        key += "_END";
       }
-      return ret + "."
+      return key
+    }
+  }
+
+  static toData(rule: LR): any {
+    if (rule.exact && rule.exact.length > 0) {
+      return {levels: rule.exact.join(', ')}
+    } else {
+      let data: any = {};
+      if (rule.every > 1) {
+        data.level = rule.every;
+      }
+      if (rule.minimum) {
+        data.start = rule.minimum;
+      }
+      if (rule.limit) {
+        data.start = rule.limit;
+      }
+      return data
     }
   }
 }

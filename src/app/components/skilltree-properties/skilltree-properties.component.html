@@ -1,50 +1,54 @@
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="1em">
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
     <mat-input-container>
-      <input matInput placeholder="Skilltree Name" [formControl]="id" (blur)="rename(id)"
-             [appSkilltreeDuplicate]="skilltreeNames" required pattern="[^\s]*">
+      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__SKILLTREE_NAME' | translate"
+             [formControl]="id" (blur)="rename(id)" [appSkilltreeDuplicate]="skilltreeNames" required pattern="[^\s]*">
       <mat-error *ngIf="id.errors?.skilltreeDuplicate">
-        There is already a skilltree with this name.
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
       </mat-error>
       <mat-error *ngIf="id.errors?.required">
-        Please enter a skilltree name.
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
       </mat-error>
       <mat-error *ngIf="id.errors?.pattern">
-        Whitespaces are not allowed.
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
       </mat-error>
     </mat-input-container>
     <mat-input-container>
-      <input matInput placeholder="Display Name" [formControl]="name" (blur)="update('name',name)">
+      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__DISPLAY_NAME' | translate"
+             [formControl]="name" (blur)="update('name',name)">
     </mat-input-container>
     <mat-input-container>
       <span matPrefix>MyPet.skilltree.</span>
-      <input matInput [placeholder]="!permission.value ? id.value + ' (Permission)' : 'Permission'"
-             pattern="[^\s]*"
-             [formControl]="permission" (blur)="update('permission',permission)">
+      <input matInput pattern="[^\s]*" [formControl]="permission" (blur)="update('permission',permission)"
+             [placeholder]="(!permission.value ? 'COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT_EMPTY' : 'COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT') | translate:{id: id.value} ">
       <button mat-raised-button matSuffix color="primary" ngxClipboard
               [cbContent]="'MyPet.skilltree.' + (permission.value ? permission.value : id.value)"
-              (click)="notifyCopy()" matTooltip="Copy permission to clipboard" matTooltipPosition="left">
+              (click)="notifyCopy()" matTooltipPosition="left"
+              [matTooltip]="'COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION' | translate">
         <mat-icon svgIcon="content_copy">content_copy</mat-icon>
       </button>
       <mat-error *ngIf="permission.errors?.pattern">
-        Whitespaces are not allowed.
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_WHITESPACES' | translate }}
       </mat-error>
     </mat-input-container>
   </mat-card>
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
     <mat-input-container>
-      <input matInput placeholder="Required Pet Level" [formControl]="requiredLevel"
+      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__REQUIRED_LEVEL' | translate"
+             [formControl]="requiredLevel"
              (blur)="update('requiredLevel',requiredLevel)" pattern="\d*" type="number">
       <mat-error *ngIf="requiredLevel.errors?.pattern">
-        Please enter a valid number
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
     </mat-input-container>
     <mat-input-container>
-      <input matInput placeholder="Maximum Pet Level" [formControl]="maxLevel" type="number"
+      <input matInput
+             [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__MAX_LEVEL' | translate"
+             [formControl]="maxLevel" type="number"
              (blur)="update('maxLevel',maxLevel)"
              pattern="\d*">
       <mat-error *ngIf="maxLevel.errors?.pattern">
-        Please enter a valid number
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
     </mat-input-container>
   </mat-card>
@@ -52,7 +56,9 @@
 
 <mat-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
   <mat-input-container fxFlex="100">
-    <textarea matInput placeholder="Description" (keyup)="parseTextArea()" [formControl]="description"
+    <textarea matInput
+              [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__DESCRIPTION' | translate"
+              (keyup)="parseTextArea()" [formControl]="description"
               (blur)="updateDescription()" style="min-height: 150px"></textarea>
   </mat-input-container>
   <div class="codebox">
@@ -63,5 +69,7 @@
 </mat-card>
 
 <mat-card>
-  <button mat-raised-button (click)="selectMobType()">Select MobType</button>
+  <button mat-raised-button (click)="selectMobType()">
+    {{ 'COMPONENTS__SKILLTREE_PROPERTIES__SELECT_MOB_TYPE' | translate }}
+  </button>
 </mat-card>

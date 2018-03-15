@@ -1,7 +1,9 @@
-<h1 mat-dialog-title>Add Upgrade</h1>
+<h1 mat-dialog-title>
+  {{ 'COMPONENTS__UPGRADE_ADD_DIALOG__ADD_UPGRADE' | translate }}
+</h1>
 <div mat-dialog-content>
   <mat-tab-group [(selectedIndex)]="type" [dynamicHeight]="true">
-    <mat-tab label="Fixed">
+    <mat-tab [label]="'COMPONENTS__UPGRADE_ADD_DIALOG__FIXED' | translate">
       <div fxLayout="column">
         <mat-form-field class="demo-chip-list">
           <mat-chip-list #chipList>
@@ -9,39 +11,42 @@
               {{l}}
               <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
             </mat-chip>
-            <input placeholder="Level..."
+            <input [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__LEVELS' | translate"
                    [matChipInputFor]="chipList"
                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                    (matChipInputTokenEnd)="addLevel($event)"/>
           </mat-chip-list>
         </mat-form-field>
 
-        <button mat-raised-button (click)="done()" color="primary" [disabled]="level.length == 0">Add</button>
+        <button mat-raised-button (click)="done()" color="primary" [disabled]="level.length == 0">
+          {{ 'COMPONENTS__UPGRADE_ADD_DIALOG__ADD' | translate }}
+        </button>
       </div>
     </mat-tab>
-    <mat-tab label="Dynamic">
+    <mat-tab [label]="'COMPONENTS__UPGRADE_ADD_DIALOG__DYNAMIC' | translate">
       <div fxLayout="column">
         <mat-input-container>
-          <span matPrefix>Every&nbsp;</span>
-          <input matInput placeholder="(Required)" [(ngModel)]="every" type="number" required pattern="\d+"
-                 #everyInput="ngModel">
-          <span matSuffix="">&nbsp;Level</span>
+          <span matPrefix>{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__EVERY' | translate }}&nbsp;</span>
+          <input matInput [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__REQUIRED' | translate"
+                 [(ngModel)]="every" type="number" required pattern="\d+" #everyInput="ngModel">
+          <span matSuffix="">&nbsp;{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__LEVEL' | translate }}</span>
         </mat-input-container>
 
         <mat-input-container>
-          <span matPrefix>Start from level&nbsp;</span>
-          <input matInput placeholder="(Optional)" [(ngModel)]="minimum" type="number" pattern="\d+"
-                 #minimumInput="ngModel">
+          <span matPrefix>{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__START_LEVEL' | translate }}&nbsp;</span>
+          <input matInput [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__OPTIONAL' | translate"
+                 [(ngModel)]="minimum" type="number" pattern="\d+" #minimumInput="ngModel">
         </mat-input-container>
 
         <mat-input-container>
-          <span matPrefix>Until level&nbsp;</span>
-          <input matInput placeholder="(Optional)" [(ngModel)]="limit" type="number" pattern="\d+"
-                 #limitInput="ngModel">
+          <span matPrefix>{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__UNTIL_LEVEL' | translate }}&nbsp;</span>
+          <input matInput [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__OPTIONAL' | translate"
+                 [(ngModel)]="limit" type="number" pattern="\d+" #limitInput="ngModel">
         </mat-input-container>
 
         <button mat-raised-button (click)="done()" color="primary"
-                [disabled]="everyInput.errors != null || minimumInput.errors != null || limitInput.errors != null">Add
+                [disabled]="everyInput.errors != null || minimumInput.errors != null || limitInput.errors != null">
+          {{ 'COMPONENTS__UPGRADE_ADD_DIALOG__ADD' | translate }}
         </button>
       </div>
     </mat-tab>

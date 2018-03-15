@@ -1,9 +1,9 @@
 <nav mat-tab-nav-bar>
   <a mat-tab-link [active]="(tab$ | async) == 0" (click)="switchTab(0)">
-    Skill Editor
+    {{ 'COMPONENTS__SKILLTREE_EDITOR__SKILL_EDITOR' | translate}}
   </a>
   <a mat-tab-link [active]="(tab$ | async) == 1" (click)="switchTab(1)">
-    Properties
+    {{ 'COMPONENTS__SKILLTREE_EDITOR__PROPERTIES' | translate}}
   </a>
 </nav>
 

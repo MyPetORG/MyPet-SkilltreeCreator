@@ -9,6 +9,7 @@ import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'stc-skilltree-properties',
@@ -33,6 +34,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
 
   constructor(private dialog: MatDialog,
               public snackBar: MatSnackBar,
+              private translate: TranslateService,
               private store: Store<Reducers.State>) {
     this.skilltree$ = store.select(Reducers.getSelectedSkilltree);
     this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
@@ -113,8 +115,16 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   notifyCopy() {
-    this.snackBar.open("Permission copied!", "Permission", {
-      duration: 2000,
+    this.translate.get(
+      ["COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE", "COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION"]
+    ).subscribe((trans) => {
+      this.snackBar.open(
+        trans["COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE"],
+        trans["COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION"],
+        {
+          duration: 2000,
+        }
+      );
     });
   }
 }

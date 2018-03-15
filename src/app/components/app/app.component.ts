@@ -4,6 +4,7 @@ import * as SkilltreeActions from "../../store/actions/skilltree";
 import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { HotkeyService } from "../../services/hotkey.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'stc-root',
@@ -13,8 +14,12 @@ import { HotkeyService } from "../../services/hotkey.service";
 export class AppComponent {
   constructor(private iconLoader: IconLoaderService,
               private hotkeyServie: HotkeyService,
-              private store: Store<Reducers.State>) {
+              private store: Store<Reducers.State>,
+              private translate: TranslateService) {
     iconLoader.load();
+
+    translate.setDefaultLang('en');
+    translate.use('en');
 
     this.store.dispatch(new SkilltreeActions.LoadSkilltreesAction());
 

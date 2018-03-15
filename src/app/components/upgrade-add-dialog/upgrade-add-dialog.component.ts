@@ -6,6 +6,7 @@ import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { Upgrade } from "../../models/Upgrade";
 import { isArray } from "util";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'stc-upgrade-add-dialog',
@@ -25,9 +26,10 @@ export class UpgradeAddDialogComponent implements OnDestroy {
   levelRules: LevelRule[] = [];
   levelRulessSubscription = null;
 
-  constructor(public dialogRef: MatDialogRef<UpgradeAddDialogComponent>,
+  constructor(private dialogRef: MatDialogRef<UpgradeAddDialogComponent>,
               private store: Store<Reducers.State>,
-              public snackBar: MatSnackBar,
+              private translate: TranslateService,
+              private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.levelRulessSubscription = this.store.select(Reducers.getSelectedUpgrades).subscribe(upgrades => {
@@ -63,8 +65,16 @@ export class UpgradeAddDialogComponent implements OnDestroy {
     if (!found) {
       this.dialogRef.close(newRule)
     } else {
-      this.snackBar.open("There is already a rule with these values.", "Error", {
-        duration: 2000,
+      this.translate.get(
+        ["COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED", "COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE"]
+      ).subscribe((trans) => {
+        this.snackBar.open(
+          trans["COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED"],
+          trans["COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE"],
+          {
+            duration: 2000,
+          }
+        );
       });
     }
   }

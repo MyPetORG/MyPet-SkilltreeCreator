@@ -1,21 +1,23 @@
 <mat-toolbar class="spacer-b-1em">
-  <button mat-raised-button (click)="addSkilltree()">Add Skilltree</button>
+  <button mat-raised-button (click)="addSkilltree()">
+    {{ 'COMPONENTS__SKILLTREE_LIST__ADD_SKILLTREES' | translate }}
+  </button>
 </mat-toolbar>
 
 <context-menu #skilltreeMenu>
   <ng-template contextMenuItem (execute)="selectSkilltree($event.item)">
-    Edit Skilltree Properties
+    {{ 'COMPONENTS__SKILLTREE_LIST__EDIT_PROPERTIES' | translate }}
   </ng-template>
   <ng-template contextMenuItem (execute)="editSkills($event.item)">
-    Edit Skill Upgrades
+    {{ 'COMPONENTS__SKILLTREE_LIST__EDIT_UPGRADES' | translate }}
   </ng-template>
   <ng-template contextMenuItem divider="true"></ng-template>
   <ng-template contextMenuItem (execute)="copySkilltree($event.item)">
-    Copy Skilltree
+    {{ 'COMPONENTS__SKILLTREE_LIST__COPY_SKILLTREE' | translate }}
   </ng-template>
   <ng-template contextMenuItem divider="true"></ng-template>
   <ng-template contextMenuItem let-item (execute)="deleteSkilltree($event.item)">
-    Delete {{item?.name}}
+    {{ 'COMPONENTS__SKILLTREE_LIST__DELETE_SKILLTREE' | translate:{name:item?.name} }}
   </ng-template>
 </context-menu>
 

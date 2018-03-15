@@ -30,6 +30,7 @@ import { Life } from "../../models/skills/Life";
 import { Heal } from "../../models/skills/Heal";
 import { Beacon, BeaconDefault } from "../../models/skills/Beacon";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'stc-skilltree-import-dialog',
@@ -55,6 +56,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
   constructor(public snackBar: MatSnackBar,
               private store: Store<Reducers.State>,
               public importNbt: NbtImportService,
+              private translate: TranslateService,
               private router: Router) {
     this.skilltreesSubscription = this.store.select(Reducers.getSkilltreeNames).subscribe((data: string[]) => {
       this.existingSkilltreeNames = data.slice();
@@ -95,8 +97,15 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
           }
         },
         error => {
-          this.snackBar.open("This file is not a valid legacy skilltree file.", "Error", {
-            duration: 2000,
+          this.translate.get(
+            ["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__INVALID_FILE", "COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"]
+          ).subscribe((trans) => {
+            this.snackBar.open(
+              trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__INVALID_FILE"],
+              trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"],
+              {
+                duration: 2000,
+              });
           });
           console.error(error);
         }
@@ -213,8 +222,15 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         }
       });
 
-      this.snackBar.open("Legacy skilltrees imported.", "Skilltree", {
-        duration: 2000,
+      this.translate.get(
+        ["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__SKILLTREE_IMPORTED", "COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"]
+      ).subscribe((trans) => {
+        this.snackBar.open(
+          trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__SKILLTREE_IMPORTED"],
+          trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"],
+          {
+            duration: 2000,
+          });
       });
       this.router.navigate(["/"]);
     }

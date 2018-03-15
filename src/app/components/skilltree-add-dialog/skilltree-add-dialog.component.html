@@ -1,15 +1,18 @@
-<h1 mat-dialog-title>Add Skilltree</h1>
-<div mat-dialog-content>Please enter a name.</div>
+<h1 mat-dialog-title>{{ 'COMPONENTS__SKILLTREE_ADD_DIALOG__ADD_SKILLTREE' | translate }}</h1>
+<div mat-dialog-content>{{ 'COMPONENTS__SKILLTREE_ADD_DIALOG__ENTER_NAME' | translate }}</div>
 <div mat-dialog-actions>
   <mat-input-container>
-    <input matInput placeholder="Skilltree Name" [(ngModel)]="name" [appSkilltreeDuplicate]="skilltreeNames"
+    <input matInput [placeholder]="'COMPONENTS__SKILLTREE_ADD_DIALOG__INPUT_NAME' | translate" [(ngModel)]="name"
+           [appSkilltreeDuplicate]="skilltreeNames"
            #nameInput="ngModel" required>
     <mat-error *ngIf="nameInput.errors?.skilltreeDuplicate">
-      There is already a skilltree with this name.
+      {{ 'COMPONENTS__SKILLTREE_ADD_DIALOG__ERROR_DUPLICATE' | translate}}
     </mat-error>
     <mat-error *ngIf="nameInput.errors?.required">
-      Please enter a skilltree name.
+      {{ 'COMPONENTS__SKILLTREE_ADD_DIALOG__ERROR_REQUIRE' | translate}}
     </mat-error>
   </mat-input-container>
-  <button mat-button (click)="done()" [disabled]="name.trim() == '' || nameInput.errors">Add</button>
+  <button mat-button (click)="done()" [disabled]="name.trim() == '' || nameInput.errors">
+    {{ 'COMPONENTS__SKILLTREE_ADD_DIALOG__BUTTON_ADD' | translate}}
+  </button>
 </div>

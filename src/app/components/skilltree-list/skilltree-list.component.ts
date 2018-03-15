@@ -9,6 +9,7 @@ import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Router } from "@angular/router";
 import * as LayoutActions from "../../store/actions/layout";
 import { ContextMenuService } from "ngx-contextmenu";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'stc-skilltree-list',
@@ -24,6 +25,7 @@ export class SkilltreeListComponent {
               public snackBar: MatSnackBar,
               private contextMenuService: ContextMenuService,
               private store: Store<Reducers.State>,
+              private translate: TranslateService,
               private router: Router) {
     this.skilltrees$ = this.store.select(Reducers.getSkilltrees);
     this.selectedSkilltreeId$ = this.store.select(Reducers.getSelectedSkilltreeId);
@@ -74,8 +76,16 @@ export class SkilltreeListComponent {
           skills: {},
           mobtypes: []
         }));
-        this.snackBar.open(result + " was added successfully.", "Skilltree", {
-          duration: 2000,
+        this.translate.get(
+          ["COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],
+          {id: result}
+        ).subscribe((trans) => {
+          this.snackBar.open(
+            trans["COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS"],
+            trans["COMPONENTS__SKILLTREE_LIST__SKILLTREE"], {
+              duration: 2000,
+            }
+          );
         });
       }
     });
@@ -95,8 +105,16 @@ export class SkilltreeListComponent {
 
   deleteSkilltree(skilltree: Skilltree) {
     this.store.dispatch(new SkilltreeActions.RemoveSkilltreeAction(skilltree));
-    this.snackBar.open(skilltree.name + " was deleted successfully.", "Skilltree", {
-      duration: 2000,
+    this.translate.get(
+      ["COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],
+      {id: skilltree.id}
+    ).subscribe((trans) => {
+      this.snackBar.open(
+        trans["COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS"],
+        trans["COMPONENTS__SKILLTREE_LIST__SKILLTREE"], {
+          duration: 2000,
+        }
+      );
     });
   }
 
@@ -107,8 +125,15 @@ export class SkilltreeListComponent {
         let copy: Skilltree = JSON.parse(JSON.stringify(skilltree));
         copy.id = result;
         this.store.dispatch(new SkilltreeActions.CopySkilltreeAction(copy));
-        this.snackBar.open(skilltree.name + " was copied successfully to " + result + ".", "Skilltree", {
-          duration: 2000,
+        this.translate.get(
+          ["COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],
+          {old: skilltree.id, "new": result}
+        ).subscribe((trans) => {
+          this.snackBar.open(
+            trans["COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS"],
+            trans["COMPONENTS__SKILLTREE_LIST__SKILLTREE"], {
+              duration: 2000,
+            });
         });
       }
     });

@@ -20,6 +20,7 @@ import * as Reducers from "../reducers";
 import { MatSnackBar } from "@angular/material";
 import { Skilltree } from "../../models/Skilltree";
 import { ImportSkilltreeAction } from "../actions/skilltree";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class SkilltreeEffects {
@@ -27,7 +28,8 @@ export class SkilltreeEffects {
               private skilltreeLoader: SkilltreeLoaderService,
               private skilltreeSaver: SkilltreeSaverService,
               private store: Store<Reducers.State>,
-              public snackBar: MatSnackBar,
+              private snackBar: MatSnackBar,
+              private translate: TranslateService,
               private router: Router) {
   }
 
@@ -90,14 +92,30 @@ export class SkilltreeEffects {
     tap((action: SkilltreeActions.ImportSkilltreeFailedAction) => {
       switch (action.error.type) {
         case "INVALID":
-          this.snackBar.open("This file is not a valid skilltree file.", "Import", {
-            duration: 2000,
-          });
+          this.translate.get(["EFFECT__IMPORT_SKILLTREE_FAILED__INVALID", "EFFECT__IMPORT_SKILLTREE__IMPORT"])
+            .subscribe((trans) => {
+              this.snackBar.open(
+                trans["EFFECT__IMPORT_SKILLTREE_FAILED__INVALID"],
+                trans["EFFECT__IMPORT_SKILLTREE__IMPORT"],
+                {
+                  duration: 2000,
+                }
+              );
+            });
           break;
         case "DUPLICATE":
-          this.snackBar.open("There is already a skilltree with this name: " + action.error.data, "Import", {
-            duration: 2000,
-          });
+          this.translate.get(
+            ["EFFECT__IMPORT_SKILLTREE_FAILED__DUPLICATE", "EFFECT__IMPORT_SKILLTREE__IMPORT"],
+            {id: action.error.data})
+            .subscribe((trans) => {
+              this.snackBar.open(
+                trans["EFFECT__IMPORT_SKILLTREE_FAILED__DUPLICATE"],
+                trans["EFFECT__IMPORT_SKILLTREE__IMPORT"],
+                {
+                  duration: 2000,
+                }
+              );
+            });
           break;
         default:
           console.error(action);
@@ -109,8 +127,14 @@ export class SkilltreeEffects {
   importSkilltreesSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(SkilltreeActions.IMPORT_SKILLTREE_SUCCESS),
     tap(() => {
-      this.snackBar.open("Skilltree imported successfully", null, {
-        duration: 2000,
+      this.translate.get(["EFFECT__IMPORT_SKILLTREE_SUCCESS", "EFFECT__IMPORT_SKILLTREE__IMPORT"]).subscribe((trans) => {
+        this.snackBar.open(
+          trans["EFFECT__IMPORT_SKILLTREE_SUCCESS"],
+          trans["EFFECT__IMPORT_SKILLTREE__IMPORT"],
+          {
+            duration: 2000,
+          }
+        );
       });
     })
   );
@@ -141,9 +165,10 @@ export class SkilltreeEffects {
   loadSkilltreesSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(SkilltreeActions.LOAD_SKILLTREES_SUCCESS),
     tap(() => {
-      this.snackBar.open("Skilltrees loaded successfully", null, {
-        duration: 2000,
-      });
+      this.translate.get("EFFECT__LOAD_SKILLTREE_SUCCESS").subscribe((trans) => {
+          this.snackBar.open(trans, "SkilltreeCreator", {duration: 2000,})
+        }
+      );
     })
   );
 
@@ -151,8 +176,14 @@ export class SkilltreeEffects {
   loadSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
     ofType(SkilltreeActions.LOAD_SKILLTREES_FAILED),
     tap(() => {
-      this.snackBar.open("Skilltrees loading failed!", "ERROR", {
-        duration: 2000,
+      this.translate.get(["EFFECT__LOAD_SKILLTREE_FAILED", "EFFECT__LOAD_SKILLTREE_FAILED"]).subscribe((trans) => {
+        this.snackBar.open(
+          trans["EFFECT__LOAD_SKILLTREE_FAILED"],
+          trans["EFFECT__LOAD_SKILLTREE_FAILED__ERROR"],
+          {
+            duration: 2000,
+          }
+        );
       });
     })
   );
@@ -174,9 +205,9 @@ export class SkilltreeEffects {
   @Effect({dispatch: false})
   saveSkilltreeSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(SkilltreeActions.SAVE_SKILLTREES_SUCCESS),
-    tap((action: SkilltreeActions.SaveSkilltreesSuccessAction) => {
-      this.snackBar.open("Skilltrees were saved successfully", "Success", {
-        duration: 2000,
+    tap(() => {
+      this.translate.get("EFFECT__SAVE_SKILLTREE_SUCCESS").subscribe((trans) => {
+        this.snackBar.open(trans, null, {duration: 2000});
       });
     })
   );
@@ -185,8 +216,14 @@ export class SkilltreeEffects {
   saveSkilltreeFailed$: Observable<Action> = this.actions$.pipe(
     ofType(SkilltreeActions.SAVE_SKILLTREES_FAILED),
     tap((action: SkilltreeActions.SaveSkilltreesFailedAction) => {
-      this.snackBar.open("An error occured while saving the skilltrees!", "ERROR", {
-        duration: 2000,
+      this.translate.get(["EFFECT__SAVE_SKILLTREE_FAILED", "EFFECT__SAVE_SKILLTREE_FAILED__ERROR"]).subscribe((trans) => {
+        this.snackBar.open(
+          trans["EFFECT__SAVE_SKILLTREE_FAILED"],
+          trans["EFFECT__SAVE_SKILLTREE_FAILED__ERROR"],
+          {
+            duration: 2000,
+          }
+        );
       });
       console.log("Skilltree saving failed", action.error);
     })
@@ -196,10 +233,18 @@ export class SkilltreeEffects {
   renameSkilltree$: Observable<Action> = this.actions$.pipe(
     ofType(SkilltreeActions.RENAME_SKILLTREE),
     tap((action: SkilltreeActions.RenameSkilltreeAction) => {
-      console.log("effect:", action);
       this.router.navigate(["st", action.newId]).then(() => {
-        this.snackBar.open(action.oldId + " was renamed to " + action.newId, "Skilltree", {
-          duration: 2000,
+        this.translate.get(
+          ["EFFECT__RENAME_SKILLTREE__SUCCESS", "EFFECT__RENAME_SKILLTREE__SKILLTREE"],
+          {old: action.oldId, "new": action.newId}
+        ).subscribe((trans) => {
+          this.snackBar.open(
+            trans["EFFECT__RENAME_SKILLTREE__SUCCESS"],
+            trans["EFFECT__RENAME_SKILLTREE__SKILLTREE"],
+            {
+              duration: 2000,
+            }
+          );
         });
         this.store.dispatch(new LayoutActions.SwitchTabAction(1));
       });

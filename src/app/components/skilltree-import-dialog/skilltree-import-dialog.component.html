@@ -1,7 +1,15 @@
-<h1 mat-dialog-title>Import Skilltree</h1>
-<div mat-dialog-content>Select a Skilltree-File (.json)</div>
+<h1 mat-dialog-title>
+  {{ 'COMPONENTS__SKILLTREE_IMPORT_DIALOG__TITLE' | translate }}
+</h1>
+<div mat-dialog-content>
+  {{ 'COMPONENTS__SKILLTREE_IMPORT_DIALOG__INSTRUCTIONS' | translate }}
+</div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-around center">
-  <button mat-raised-button color="primary" (click)="imgFileInput.click()">Select</button>
+  <button mat-raised-button color="primary" (click)="imgFileInput.click()">
+    {{ 'COMPONENTS__SKILLTREE_IMPORT_DIALOG__SELECT' | translate }}
+  </button>
   <input hidden type="file" #imgFileInput (change)="onSelectFile($event)" accept=".json">
-  <button mat-raised-button (click)="done()" color="primary" [disabled]="!valid">Import</button>
+  <button mat-raised-button (click)="done()" color="primary" [disabled]="!valid">
+    {{ 'COMPONENTS__SKILLTREE_IMPORT_DIALOG__IMPORT' | translate }}
+  </button>
 </div>

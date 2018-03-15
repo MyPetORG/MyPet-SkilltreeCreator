@@ -1,17 +1,19 @@
-<h1 mat-dialog-title>Select Mob Types:</h1>
+<h1 mat-dialog-title>{{ 'COMPONENTS__MOB_TYPE_SELECT_DIALOG__TITLE' | translate }}</h1>
 <div class="mob-type-select">
   <ul>
     <li *ngFor="let type of types">
       <a (click)="toggleType(type)">
         <img [ngClass]="{selected: type.selected}" [src]="'assets/img/mobheads/' +  type.name + '.png'"
-             [matTooltip]="type.name">
+             [matTooltip]="('MOB_TYPE__' + (type.name | uppercase)) | translate">
       </a>
     </li>
   </ul>
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="selectAll()">All</button>
-  <button mat-raised-button (click)="selectNone()">None</button>
-  <button mat-raised-button color="primary" (click)="done()" [disabled]="selected == 0">Done</button>
+  <button mat-raised-button (click)="selectAll()">{{ 'COMPONENTS__MOB_TYPE_SELECT_DIALOG__ALL' | translate }}</button>
+  <button mat-raised-button (click)="selectNone()">{{ 'COMPONENTS__MOB_TYPE_SELECT_DIALOG__NONE' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="done()" [disabled]="selected == 0">
+    {{ 'COMPONENTS__MOB_TYPE_SELECT_DIALOG__DONE' | translate }}
+  </button>
 </div>

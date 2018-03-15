@@ -1,7 +1,9 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Sprint; trackBy: trackById; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
-    <mat-expansion-panel-header>{{LevelRule.toString(upgrade.rule)}}</mat-expansion-panel-header>
+    <mat-expansion-panel-header>
+      {{ LevelRule.toKey(upgrade.rule) | translate:LevelRule.toData(upgrade.rule) }}
+    </mat-expansion-panel-header>
     <div fxLayout="column">
       <mat-card>
         <mat-checkbox [checked]="upgrade.active == true"

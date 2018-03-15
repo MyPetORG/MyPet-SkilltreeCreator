@@ -4,18 +4,24 @@
                fxLayoutAlign="start center"
                [opened]="showSidenav$ | async"
                [disableClose]="true">
-    <button mat-button (click)="importSkilltree()" matTooltip="Import Skilltree" matTooltipPosition="right">
+    <button mat-button (click)="importSkilltree()" matTooltipPosition="right"
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__IMPORT' | translate">
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-button routerLink="/import/legacy" (click)="closeSidenav()" matTooltip="Import Legacy Skilltree"
-            matTooltipPosition="right">
+    <button mat-button routerLink="/import/legacy" (click)="closeSidenav()" matTooltipPosition="right"
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__IMPORT_LEGACY' | translate">
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-button (click)="closeSidenav()" disabled matTooltip="Not yet implemented"
-            matTooltipPosition="right">
+    <button mat-button (click)="closeSidenav()" matTooltipPosition="right" disabled
+            [matTooltip]="'COMPONENTS__NOT_YET_IMPLEMENTED' | translate">
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button mat-button routerLink="/about" (click)="closeSidenav()" matTooltip="About" matTooltipPosition="right">
+    <button mat-button (click)="toggleLang()" matTooltipPosition="right"
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__CHANGE_LANGUAGE' | translate">
+      <mat-icon svgIcon="translate">translate</mat-icon>
+    </button>
+    <button mat-button routerLink="/about" (click)="closeSidenav()" matTooltipPosition="right"
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__ABOUT' | translate">
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
   </mat-sidenav>
@@ -24,34 +30,34 @@
             (click)="openSidenav()"
             class="toolbar-button"
             *ngIf="isRootPath"
-            matTooltip="Menu">
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__MENU' | translate">
       <mat-icon svgIcon="menu">menu</mat-icon>
     </button>
     <button mat-button
             (click)="back()"
             class="toolbar-button"
             *ngIf="!isRootPath"
-            matTooltip="Back">
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__BACK' | translate">
       <mat-icon svgIcon="arrow_back">arrow_back</mat-icon>
     </button>
     <button mat-button
             (click)="save()"
             class="toolbar-button"
-            matTooltip="Save">
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__SAVE' | translate">
       <mat-icon svgIcon="save">save</mat-icon>
     </button>
     <button mat-button
             (click)="undo()"
             class="toolbar-button"
             [disabled]="(pastStates$ | async).length <= 0"
-            matTooltip="Undo last change">
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__UNDO' | translate">
       <mat-icon svgIcon="undo">undo</mat-icon>
     </button>
     <button mat-button
             (click)="redo()"
             class="toolbar-button"
             [disabled]="(futureStates$ | async).length <= 0"
-            matTooltip="Redo last change">
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__REDO' | translate">
       <mat-icon svgIcon="redo">redo</mat-icon>
     </button>
   </div>

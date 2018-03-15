@@ -1,5 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from "@angular/material";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'stc-skilltree-import-dialog',
@@ -13,6 +14,7 @@ export class SkilltreeImportDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<SkilltreeImportDialogComponent>,
               public snackBar: MatSnackBar,
+              private translate: TranslateService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -26,8 +28,15 @@ export class SkilltreeImportDialogComponent {
         try {
           data = window.atob(base64Data);
         } catch (e) {
-          this.snackBar.open("This file is not a valid json file.", "Error", {
-            duration: 2000,
+          this.translate.get(
+            ["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE", "COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"]
+          ).subscribe((trans) => {
+            this.snackBar.open(
+              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE"],
+              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"],
+              {
+                duration: 2000,
+              });
           });
           return;
         }
@@ -37,8 +46,15 @@ export class SkilltreeImportDialogComponent {
           this.valid = true;
           return;
         } catch (e) {
-          this.snackBar.open("This file is not a valid json file.", "Error", {
-            duration: 2000,
+          this.translate.get(
+            ["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE", "COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"]
+          ).subscribe((trans) => {
+            this.snackBar.open(
+              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE"],
+              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"],
+              {
+                duration: 2000,
+              });
           });
         }
       };
