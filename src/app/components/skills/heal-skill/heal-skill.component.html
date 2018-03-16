@@ -39,7 +39,7 @@
                  (blur)="update(skilltree, upgrade, 'timer', $event.srcElement.value)">
           <span matSuffix>sec</span>
         </mat-input-container>
-        <button mat-icon-button [satPopoverAnchorFor]="timerPopover" (click)="timerPopover.toggle()">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="timerPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
@@ -50,7 +50,7 @@
                  (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value)">
           <span matSuffix>health</span>
         </mat-input-container>
-        <button mat-icon-button [satPopoverAnchorFor]="healthPopover" (click)="healthPopover.toggle()">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="healthPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>

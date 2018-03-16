@@ -39,7 +39,7 @@
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
           <span matSuffix>%</span>
         </mat-input-container>
-        <button mat-icon-button [satPopoverAnchorFor]="chancePopover" (click)="chancePopover.toggle()">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
@@ -50,7 +50,7 @@
                  (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value)">
           <span matSuffix>%</span>
         </mat-input-container>
-        <button mat-icon-button [satPopoverAnchorFor]="reflectionPopover" (click)="reflectionPopover.toggle()">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="reflectionPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>

@@ -53,7 +53,7 @@
                    (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
             <span matSuffix>meters</span>
           </mat-input-container>
-          <button mat-icon-button [satPopoverAnchorFor]="rangePopover" (click)="rangePopover.toggle()">
+          <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
           </button>
         </mat-card>
@@ -64,7 +64,7 @@
                    (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
             <span matSuffix>sec</span>
           </mat-input-container>
-          <button mat-icon-button [satPopoverAnchorFor]="durationPopover" (click)="durationPopover.toggle()">
+          <button mat-icon-button [stcDynamicPopoverAnchorFor]="durationPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
           </button>
         </mat-card>
@@ -75,7 +75,7 @@
                    (blur)="update(skilltree, upgrade, 'count', $event.srcElement.value)">
             <span matSuffix>buffs</span>
           </mat-input-container>
-          <button mat-icon-button [satPopoverAnchorFor]="countPopover" (click)="countPopover.toggle()">
+          <button mat-icon-button [stcDynamicPopoverAnchorFor]="countPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
           </button>
         </mat-card>

@@ -26,7 +26,7 @@
                  (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
           <span matSuffix>meters</span>
         </mat-input-container>
-        <button mat-icon-button [satPopoverAnchorFor]="rangePopover" (click)="rangePopover.toggle()">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>

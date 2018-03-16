@@ -49,7 +49,6 @@ import { RouterStateSerializer, StoreRouterConnectingModule } from "@ngrx/router
 import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltree-editor.component";
 import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./store/effects/skilltree";
-import { SatPopoverModule } from "@ncstate/sat-popover";
 import {
   MatBadgeModule,
   MatButtonModule,
@@ -96,6 +95,8 @@ import { SkilltreeImportLegacyComponent } from "./components/skilltree-import-le
 import { WebsocketService } from "./services/websocket.service";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { DynamicPopoverAnchorDirective } from './directives/dynamic-popover-anchor.directive';
+import { SatPopoverModule } from "./util/popover/popover.module";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -143,6 +144,7 @@ export function createTranslateLoader(http: HttpClient) {
     AboutComponent,
 
     SkilltreeDuplicateDirective,
+    DynamicPopoverAnchorDirective,
   ],
   imports: [
     BrowserModule,
