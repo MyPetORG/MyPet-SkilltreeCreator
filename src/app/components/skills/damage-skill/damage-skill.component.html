@@ -1,5 +1,5 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
-  <sat-popover #damagePopover xAlign="after" yAlign="center">
+  <sat-popover #damagePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
         <p>The amount of damage the pet will cause with melee attacks.<br>
