@@ -1,5 +1,5 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
-  <sat-popover #chancePopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #chancePopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__KNOCKBACK__CHANCE_POPUP' | translate"></mat-card-content>

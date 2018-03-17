@@ -1,26 +1,27 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
-  <sat-popover #speedPopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #speedPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__SPEED_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
-  <sat-popover #jumpHeightPopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #jumpHeightPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
-  <sat-popover #flyLimitPopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #flyLimitPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
-  <sat-popover #flyRegenRatePopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #flyRegenRatePopover xAlign="after" yAlign="center" hasBackdrop
+               backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_POPUP' | translate"></mat-card-content>

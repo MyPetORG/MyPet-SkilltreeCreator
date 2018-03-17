@@ -1,19 +1,19 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
-  <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BEACON__DURATION_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
-  <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BEACON__NUMBER_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
-  <sat-popover #countPopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #countPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BEACON__RANGE_POPUP' | translate"></mat-card-content>

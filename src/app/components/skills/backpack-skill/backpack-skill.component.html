@@ -1,5 +1,5 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
-  <sat-popover #rowsPopover xAlign="after" yAlign="center" hasBackdrop>
+  <sat-popover #rowsPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BACKPACK__ROWS_POPUP' | translate"></mat-card-content>
     </mat-card>
