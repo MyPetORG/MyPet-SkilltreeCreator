@@ -1,4 +1,4 @@
-declare var APP_VERSION: string;
+import { APP_VERSION } from "../version";
 
 export const environment = {
   production: true,

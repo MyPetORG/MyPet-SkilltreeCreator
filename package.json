@@ -7,7 +7,7 @@
     "build": "ng build",
     "build-plugin": "ng build --prod --env=plugin",
     "lint": "ng lint",
-    "pre-build": "node -e \"console.log('APP_VERSION = \\'' + process.env.npm_package_version.substring(0,process.env.npm_package_version.lastIndexOf('.')) + '-b' + (process.env.npm_config_BUILD || '0') +'\\';')\" > src/version.js"
+    "pre-build": "node -e \"console.log('export const APP_VERSION = \\'' + process.env.npm_package_version.substring(0,process.env.npm_package_version.lastIndexOf('.')) + '-b' + (process.env.npm_config_BUILD || '0') +'\\';')\" > src/version.ts"
   },
   "private": true,
   "dependencies": {
