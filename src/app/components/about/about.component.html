@@ -1,4 +1,16 @@
 <mat-toolbar>{{ 'COMPONENTS__ABOUT' | translate }}</mat-toolbar>
+<div>
+  <p class="bold">MyPet - SkilltreeCreator</p>
+  <p>Version: {{ version }}</p>
+  <p>&copy; <span class="bold">Keyle</span> 2017 - {{ getYear() }}</p>
+  <p>
+    Developed with
+    <span style="color: red">❤</span>
+    in
+    <img alt="Germany" src="/assets/img/de.svg" matTooltip="Germany" matTooltipPosition="right">
+  </p>
+</div>
+<mat-toolbar>{{ 'COMPONENTS__LIBRARIES' | translate }}</mat-toolbar>
 <mat-list role="list">
   <mat-list-item>
     <h4 mat-line class="bold">Angular</h4>

@@ -19,7 +19,9 @@
       "styles": [
         "ressources/styles/style.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "version.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

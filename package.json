@@ -1,15 +1,13 @@
 {
   "name": "skilltree-creator",
-  "version": "0.0.0",
-  "license": "MIT",
+  "version": "3.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
     "build": "ng build",
     "build-plugin": "ng build --prod --env=plugin",
-    "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "pre-build": "node -e \"console.log('APP_VERSION = \\'' + process.env.npm_package_version.substring(0,process.env.npm_package_version.lastIndexOf('.')) + '-b' + (process.env.npm_config_BUILD || '0') +'\\';')\" > src/version.js"
   },
   "private": true,
   "dependencies": {
