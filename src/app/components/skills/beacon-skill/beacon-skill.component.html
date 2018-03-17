@@ -2,39 +2,21 @@
   <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The duration the beacon buffs will last.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +5<br>
-          -13<br>
-          =1
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BEACON__DURATION_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The range the beacon buffs will be distributed.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +5<br>
-          -13<br>
-          =1
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BEACON__NUMBER_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #countPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The amount of buffs the owner of the pet can select at once.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +5<br>
-          -13<br>
-          =1
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BEACON__RANGE_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -48,10 +30,12 @@
       <div fxLayout="column">
         <mat-card>
           <mat-input-container>
-            <input matInput placeholder="Buff Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
+            <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__RANGE_PREFIX' | translate }}</span>
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__RANGE' | translate"
+                   [value]="upgrade.range ? upgrade.range : 0" type="text"
                    pattern="[+-=][0-9]+(\.[0-9]+)?"
                    (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
-            <span matSuffix>meters</span>
+            <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__RANGE_SUFFIX' | translate }}</span>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -59,10 +43,12 @@
         </mat-card>
         <mat-card>
           <mat-input-container>
-            <input matInput placeholder="Duration" [value]="upgrade.duration ? upgrade.duration : 0" type="text"
+            <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__DURATION_PREFIX' | translate }}</span>
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__DURATION' | translate"
+                   [value]="upgrade.duration ? upgrade.duration : 0" type="text"
                    pattern="[+-=][0-9]+"
                    (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
-            <span matSuffix>sec</span>
+            <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__DURATION_SUFFIX' | translate }}</span>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="durationPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -70,10 +56,12 @@
         </mat-card>
         <mat-card>
           <mat-input-container>
-            <input matInput placeholder="Buff Count" [value]="upgrade.count ? upgrade.count : 0" type="text"
+            <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__NUMBER_PREFIX' | translate }}</span>
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__NUMBER' | translate"
+                   [value]="upgrade.count ? upgrade.count : 0" type="text"
                    pattern="[+-=][0-9]+(\.[0-9]+)?"
                    (blur)="update(skilltree, upgrade, 'count', $event.srcElement.value)">
-            <span matSuffix>buffs</span>
+            <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__NUMBER_SUFFIX' | translate }}</span>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="countPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -85,9 +73,10 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/absorption.png">
               <span mat-line style="overflow: unset !important;">
-                  Absorbtion
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__ABSORPTION' | translate }}
                 <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Absorption" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
+                         [value]="upgrade.buffs.Absorption" type="text"
                          pattern="[+-=][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Absorption', $event.value)">
                 </mat-input-container>
@@ -99,16 +88,17 @@
                 <mat-checkbox [checked]="upgrade.buffs.FireResistance == true"
                               [indeterminate]="upgrade.buffs.FireResistance == null"
                               (click)="toggleBuff(skilltree, upgrade, 'FireResistance')">
-                  Fire Resistance
+                  {{ 'COMPONENTS__SKILLS__BEACON__BUFF__FIRE_RESISTANCE' | translate }}
                 </mat-checkbox>
         </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/haste.png">
               <span mat-line>
-                  Haste
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__HASTE' | translate }}
                 <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Haste" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
+                         [value]="upgrade.buffs.Haste" type="text"
                          pattern="[+-=][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Haste', $event.value)">
                 </mat-input-container>
@@ -117,9 +107,10 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/jumpboost.png">
               <span mat-line>
-                  Jump Boost
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__JUMP_BOOST' | translate }}
                 <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.JumpBoost" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
+                         [value]="upgrade.buffs.JumpBoost" type="text"
                          pattern="[+-=][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', $event.value)">
                 </mat-input-container>
@@ -131,7 +122,7 @@
                 <mat-checkbox [checked]="upgrade.buffs.Luck == true"
                               [indeterminate]="upgrade.buffs.Luck == null"
                               (click)="toggleBuff(skilltree, upgrade, 'Luck')">
-                  Luck
+                  {{ 'COMPONENTS__SKILLS__BEACON__BUFF__LUCK' | translate }}
                 </mat-checkbox>
               </span>
             </mat-list-item>
@@ -141,16 +132,17 @@
                 <mat-checkbox [checked]="upgrade.buffs.NightVision == true"
                               [indeterminate]="upgrade.buffs.NightVision == null"
                               (click)="toggleBuff(skilltree, upgrade, 'NightVision')">
-                  Night Vision
+                  {{ 'COMPONENTS__SKILLS__BEACON__BUFF__NIGHT_VISION' | translate }}
                 </mat-checkbox>
               </span>
             </mat-list-item>
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/resistance.png">
               <span mat-line>
-                  Resistance
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__RESISTANCE' | translate }}
                 <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Resistance" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
+                         [value]="upgrade.buffs.Resistance" type="text"
                          pattern="[+-=][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Resistance', $event.value)">
                 </mat-input-container>
@@ -159,9 +151,10 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/speed.png">
               <span mat-line>
-                  Speed
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__SPEED' | translate }}
                 <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Speed" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
+                         [value]="upgrade.buffs.Speed" type="text"
                          pattern="[+-=][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Speed', $event.value)">
                 </mat-input-container>
@@ -170,9 +163,10 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/strength.png">
               <span mat-line>
-                  Strength
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__STRENGTH' | translate }}
                 <mat-input-container>
-                  <input matInput placeholder="Level" [value]="upgrade.buffs.Strength" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
+                         [value]="upgrade.buffs.Strength" type="text"
                          pattern="[+-=][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Strength', $event.value)">
                 </mat-input-container>
@@ -184,7 +178,7 @@
                 <mat-checkbox [checked]="upgrade.buffs.WaterBreathing == true"
                               [indeterminate]="upgrade.buffs.WaterBreathing == null"
                               (click)="toggleBuff(skilltree, upgrade, 'WaterBreathing')">
-                  Water Breathing
+                  {{ 'COMPONENTS__SKILLS__BEACON__BUFF__WATER_BREATING' | translate }}
                 </mat-checkbox>
               </span>
             </mat-list-item>
@@ -194,7 +188,7 @@
                 <mat-checkbox [checked]="upgrade.buffs.Invisibility == true"
                               [indeterminate]="upgrade.buffs.Invisibility == null"
                               (click)="toggleBuff(skilltree, upgrade, 'Invisibility')">
-                  Invisibility
+                  {{ 'COMPONENTS__SKILLS__BEACON__BUFF__INVISIBILITY' | translate }}
                 </mat-checkbox>
               </span>
             </mat-list-item>
@@ -204,7 +198,7 @@
       <mat-action-row>
         <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
           <mat-icon svgIcon="delete">delete</mat-icon>
-          Delete
+          {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
         </button>
       </mat-action-row>
     </mat-expansion-panel>

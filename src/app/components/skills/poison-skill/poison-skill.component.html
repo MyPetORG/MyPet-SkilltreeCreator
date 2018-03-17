@@ -2,26 +2,14 @@
   <sat-popover #chancePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The chance the pet will poison it's target on hit.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__POISON__CHANCE_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #durationPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The duration the target will be poisioned.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__POISON__DURATION_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -34,10 +22,12 @@
     <div fxLayout="column">
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__POISON__CHANCE_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__POISON__CHANCE' | translate"
+                 [value]="upgrade.chance ? upgrade.chance : 0" type="text"
                  pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
-          <span matSuffix>%</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__POISON__CHANCE_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -45,10 +35,12 @@
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Duration" [value]="upgrade.duration ? upgrade.duration : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__POISON__DURATION_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__POISON__DURATION' | translate"
+                 [value]="upgrade.duration ? upgrade.duration : 0" type="text"
                  pattern="[+-=][0-9]+"
                  (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
-          <span matSuffix>sec</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__POISON__DURATION_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="durationPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -58,7 +50,7 @@
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

@@ -2,26 +2,14 @@
   <sat-popover #chancePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The chance at which damage is reflected from the owner to the pet.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__SHIELD__CHANCE_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #reflectionPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The percentage of the damage that will be reflected to the pet.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -34,10 +22,12 @@
     <div fxLayout="column">
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__CHANCE' | translate"
+                 [value]="upgrade.chance ? upgrade.chance : 0" type="text"
                  pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
-          <span matSuffix>%</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -45,10 +35,12 @@
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Reflection" [value]="upgrade.reflection ? upgrade.reflection : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED' | translate"
+                 [value]="upgrade.reflection ? upgrade.reflection : 0" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value)">
-          <span matSuffix>%</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="reflectionPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -58,7 +50,7 @@
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

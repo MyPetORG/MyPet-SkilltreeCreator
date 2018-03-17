@@ -2,54 +2,28 @@
   <sat-popover #speedPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The speed at which the owner can ride the pet.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__SPEED_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #jumpHeightPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>How high the pet can jump.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #flyLimitPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>Limit how long the pet can fly.<br>
-          Setting it to 0 will disable the limit.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #flyRegenRatePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>Only needed when the fly limit is active.<br>
-          How fast the pet can fly again.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -62,9 +36,12 @@
     <div fxLayout="column">
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Speed" [value]="upgrade.speed ? upgrade.speed : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__SPEED' | translate"
+                 [value]="upgrade.speed ? upgrade.speed : 0" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value)">
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="speedPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -72,10 +49,12 @@
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Jump Height" [value]="upgrade.jumpHeight ? upgrade.jumpHeight : '+0'" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT' | translate"
+                 [value]="upgrade.jumpHeight ? upgrade.jumpHeight : '+0'" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value)">
-          <span matSuffix>Blocks</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="jumpHeightPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -85,17 +64,19 @@
         <mat-checkbox [checked]="upgrade.canFly == true"
                       [indeterminate]="upgrade.canFly == null"
                       (click)="toggle(skilltree, upgrade, 'canFly')"
-                      [matTooltip]="upgrade.canFly == true ? 'Yes' : (upgrade.canFly == false ? 'No' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.canFly == true ? 'COMPONENTS__SKILLS__YES' : (upgrade.canFly == false ? 'COMPONENTS__SKILLS__NO' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Can Fly?
+          {{ 'COMPONENTS__SKILLS__RIDE__CAN_FLY' | translate }}
         </mat-checkbox>
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Fly Limit" [value]="upgrade.flyLimit ? upgrade.flyLimit : '+0'" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT' | translate"
+                 [value]="upgrade.flyLimit ? upgrade.flyLimit : '+0'" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'flyLimit', $event.srcElement.value)">
-          <span matSuffix>Meters</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyLimitPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -103,11 +84,13 @@
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Fly Regen Rate" [value]="upgrade.flyRegenRate ? upgrade.flyRegenRate : '+0'"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate"
+                 [value]="upgrade.flyRegenRate ? upgrade.flyRegenRate : '+0'"
                  type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'flyRegenRate', $event.srcElement.value)">
-          <span matSuffix>Meters/Tick</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyRegenRatePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -117,7 +100,7 @@
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

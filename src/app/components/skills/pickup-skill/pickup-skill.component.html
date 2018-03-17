@@ -2,13 +2,7 @@
   <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The range where blocks will be picked up by the pet.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__PICKUP__RANGE_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -21,10 +15,12 @@
     <div fxLayout="column">
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__PICKUP__RANGE_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__PICKUP__RANGE' | translate"
+                 [value]="upgrade.range ? upgrade.range : 0" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
-          <span matSuffix>meters</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__PICKUP__RANGE_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -34,16 +30,16 @@
         <mat-checkbox [checked]="upgrade.exp == true"
                       [indeterminate]="upgrade.exp == null"
                       (click)="toggle(skilltree, upgrade, 'exp')"
-                      [matTooltip]="upgrade.exp == true ? 'Yes' : (upgrade.exp == false ? 'No' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.exp == true ? 'COMPONENTS__SKILLS__YES' : (upgrade.exp == false ? 'COMPONENTS__SKILLS__NO' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Can pick up exp?
+          {{ 'COMPONENTS__SKILLS__PICKUP__EXP' | translate }}
         </mat-checkbox>
       </mat-card>
     </div>
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

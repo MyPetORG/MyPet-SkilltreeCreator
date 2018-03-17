@@ -2,26 +2,14 @@
   <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The range the pet will start shooting.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RANGED__RANGE_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #ratePopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The rate at which the pet will shot.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RANGED__RATE_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -32,12 +20,15 @@
       {{ LevelRule.toKey(upgrade.rule) | translate:LevelRule.toData(upgrade.rule) }}
     </mat-expansion-panel-header>
     <div fxLayout="column">
+      <!-- TODO DAMAGE!!! -->
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Range" [value]="upgrade.range ? upgrade.range : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RANGE_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RANGE' | translate"
+                 [value]="upgrade.range ? upgrade.range : 0" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
-          <span matSuffix>meters</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RANGE_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -45,10 +36,12 @@
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Rate of fire" [value]="upgrade.rate ? upgrade.rate : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RATE' | translate"
+                 [value]="upgrade.rate ? upgrade.rate : 0" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'rate', $event.srcElement.value)">
-          <span matSuffix> x 50ms delay = shots/second</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="ratePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -56,14 +49,27 @@
       </mat-card>
       <mat-card>
         <mat-form-field>
-          <mat-select placeholder="Projectile" [value]="upgrade.projectile|| 'Arrow'"
+          <mat-select [placeholder]="'COMPONENTS__SKILLS__RANGED__PROJECTILE' | translate"
+                      [value]="upgrade.projectile|| 'Arrow'"
                       (change)="update(skilltree, upgrade, 'projectile', $event.value)">
-            <mat-option value="Arrow">Arrow</mat-option>
-            <mat-option value="Snowball">Snowball</mat-option>
-            <mat-option value="Fireball">Fireball</mat-option>
-            <mat-option value="LargeFireball">Large Fireball</mat-option>
-            <mat-option value="WitherSkull">Wither Skull</mat-option>
-            <mat-option value="Egg">Egg</mat-option>
+            <mat-option value="Arrow">
+              {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__ARROW' | translate }}
+            </mat-option>
+            <mat-option value="Snowball">
+              {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__SNOWBALL' | translate }}
+            </mat-option>
+            <mat-option value="Fireball">
+              {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__FIREBALL' | translate }}
+            </mat-option>
+            <mat-option value="LargeFireball">
+              {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__LARGE_FIREBALL' | translate }}
+            </mat-option>
+            <mat-option value="WitherSkull">
+              {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__WITHER_SKULL' | translate }}
+            </mat-option>
+            <mat-option value="Egg">
+              {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__EGG' | translate }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </mat-card>
@@ -71,7 +77,7 @@
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

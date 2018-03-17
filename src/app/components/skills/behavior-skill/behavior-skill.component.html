@@ -9,52 +9,52 @@
         <mat-checkbox [checked]="upgrade.friend == true"
                       [indeterminate]="upgrade.friend == null"
                       (click)="toggle(skilltree, upgrade, 'friend')"
-                      [matTooltip]="upgrade.friend == true ? 'Activated' : (upgrade.friend == false ? 'Deactivated' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.friend == true ? 'COMPONENTS__SKILLS__ACTIVATE' : (upgrade.friend == false ? 'COMPONENTS__SKILLS__DEACTIVATE' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Friendly Mode
+          {{ 'COMPONENTS__SKILLS__BEHAVIOR__FRIENDLY' | translate }}
         </mat-checkbox>
       </mat-card>
       <mat-card>
         <mat-checkbox [checked]="upgrade.aggro == true"
                       [indeterminate]="upgrade.aggro == null"
                       (click)="toggle(skilltree, upgrade, 'aggro')"
-                      [matTooltip]="upgrade.aggro == true ? 'Activated' : (upgrade.aggro == false ? 'Deactivated' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.aggro == true ? 'COMPONENTS__SKILLS__ACTIVATE' : (upgrade.aggro == false ? 'COMPONENTS__SKILLS__DEACTIVATE' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Aggressive Mode
+          {{ 'COMPONENTS__SKILLS__BEHAVIOR__AGGRESSIVE' | translate }}
         </mat-checkbox>
       </mat-card>
       <mat-card>
         <mat-checkbox [checked]="upgrade.farm == true"
                       [indeterminate]="upgrade.farm == null"
                       (click)="toggle(skilltree, upgrade, 'farm')"
-                      [matTooltip]="upgrade.farm == true ? 'Activated' : (upgrade.farm == false ? 'Deactivated' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.farm == true ? 'COMPONENTS__SKILLS__ACTIVATE' : (upgrade.farm == false ? 'COMPONENTS__SKILLS__DEACTIVATE' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Farm Mode
+          {{ 'COMPONENTS__SKILLS__BEHAVIOR__FARM' | translate }}
         </mat-checkbox>
       </mat-card>
       <mat-card>
         <mat-checkbox [checked]="upgrade.raid == true"
                       [indeterminate]="upgrade.raid == null"
                       (click)="toggle(skilltree, upgrade, 'raid')"
-                      [matTooltip]="upgrade.raid == true ? 'Activated' : (upgrade.raid == false ? 'Deactivated' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.raid == true ? 'COMPONENTS__SKILLS__ACTIVATE' : (upgrade.raid == false ? 'COMPONENTS__SKILLS__DEACTIVATE' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Raid Mode
+          {{ 'COMPONENTS__SKILLS__BEHAVIOR__RAID' | translate }}
         </mat-checkbox>
       </mat-card>
       <mat-card>
         <mat-checkbox [checked]="upgrade.duel == true"
                       [indeterminate]="upgrade.duel == null"
                       (click)="toggle(skilltree, upgrade, 'duel')"
-                      [matTooltip]="upgrade.duel == true ? 'Activated' : (upgrade.duel == false ? 'Deactivated' : 'Don\'t change')"
+                      [matTooltip]="(upgrade.duel == true ? 'COMPONENTS__SKILLS__ACTIVATE' : (upgrade.duel == false ? 'COMPONENTS__SKILLS__DEACTIVATE' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                       matTooltipPosition="right">
-          Duel Mode
+          {{ 'COMPONENTS__SKILLS__BEHAVIOR__DUEL' | translate }}
         </mat-checkbox>
       </mat-card>
     </div>
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

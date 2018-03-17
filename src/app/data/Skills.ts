@@ -26,8 +26,8 @@ export interface SkillInfo {
 export const Skills: SkillInfo[] = [
   {
     id: 'Backpack',
-    name: 'SKILL_NAME__FIRE',
-    description: 'SKILL_DESCRIPTION__FIRE',
+    name: 'SKILL_NAME__BACKPACK',
+    description: 'SKILL_DESCRIPTION__BACKPACK',
     icon: 'backpack.png',
   },
   {

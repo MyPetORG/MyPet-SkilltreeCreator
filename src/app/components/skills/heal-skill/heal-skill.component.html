@@ -2,26 +2,14 @@
   <sat-popover #timerPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The time between healing.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
   <sat-popover #healthPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
       <mat-card-content>
-        <p>The amount of health the pet will heal.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__HEAL__HEALTH_POPUP' | translate"></mat-card-content>
       </mat-card-content>
     </mat-card>
   </sat-popover>
@@ -34,10 +22,11 @@
     <div fxLayout="column">
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Timer" [value]="upgrade.timer ? upgrade.timer : 0" type="text"
-                 pattern="[+-=][0-9]+"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__TIMER' | translate"
+                 [value]="upgrade.timer ? upgrade.timer : 0" type="text" pattern="[+-=][0-9]+"
                  (blur)="update(skilltree, upgrade, 'timer', $event.srcElement.value)">
-          <span matSuffix>sec</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="timerPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -45,10 +34,12 @@
       </mat-card>
       <mat-card>
         <mat-input-container>
-          <input matInput placeholder="Added Health" [value]="upgrade.health ? upgrade.health : 0" type="text"
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__HEALTH' | translate"
+                 [value]="upgrade.health ? upgrade.health : 0" type="text"
                  pattern="[+-=][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value)">
-          <span matSuffix>health</span>
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_SUFFIX' | translate }}</span>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="healthPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -58,7 +49,7 @@
     <mat-action-row>
       <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
         <mat-icon svgIcon="delete">delete</mat-icon>
-        Delete
+        {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>
   </mat-expansion-panel>

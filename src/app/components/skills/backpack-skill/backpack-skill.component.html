@@ -1,15 +1,7 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
   <sat-popover #rowsPopover xAlign="after" yAlign="center" hasBackdrop>
     <mat-card>
-      <mat-card-content>
-        <p>The number of rows the inventory will have.<br>
-          Format: [+-=][number]<br>
-          Examples:<br>
-          +2<br>
-          -3<br>
-          =6
-        </p>
-      </mat-card-content>
+      <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__BACKPACK__ROWS_POPUP' | translate"></mat-card-content>
     </mat-card>
   </sat-popover>
 
@@ -22,10 +14,11 @@
       <div fxLayout="column">
         <mat-card>
           <mat-input-container>
-            <input matInput placeholder="Rows" [value]="upgrade.rows ? upgrade.rows : 0" type="text"
+            <span matPrefix>{{ 'COMPONENTS__SKILLS__BACKPACK__ROWS_PREFIX' | translate }}</span>
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BACKPACK__ROWS' | translate" [value]="upgrade.rows ? upgrade.rows : 0" type="text"
                    pattern="[+-=][0-9]+"
                    (blur)="update(skilltree, upgrade, 'rows', $event.srcElement.value)">
-            <span matSuffix>rows</span>
+            <span matSuffix>{{ 'COMPONENTS__SKILLS__BACKPACK__ROWS_SUFFIX' | translate }}</span>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="rowsPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -35,16 +28,16 @@
           <mat-checkbox [checked]="upgrade.drop == true"
                         [indeterminate]="upgrade.drop == null"
                         (click)="toggle(skilltree, upgrade, 'drop')"
-                        [matTooltip]="upgrade.drop == true ? 'Yes' : (upgrade.drop == false ? 'No' : 'Don\'t change')"
+                        [matTooltip]="(upgrade.drop == true ? 'COMPONENTS__SKILLS__YES' : (upgrade.drop == false ? 'COMPONENTS__SKILLS__NO' : 'COMPONENTS__SKILLS__DONT_CHANGE')) | translate"
                         matTooltipPosition="right">
-            Drop content on death?
+            {{ 'COMPONENTS__SKILLS__BACKPACK__DROP_DEATH' | translate }}
           </mat-checkbox>
         </mat-card>
       </div>
       <mat-action-row>
         <button mat-raised-button color="primary" (click)="deleteRule(skilltree, upgrade)">
           <mat-icon svgIcon="delete">delete</mat-icon>
-          Delete
+          {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
         </button>
       </mat-action-row>
     </mat-expansion-panel>
