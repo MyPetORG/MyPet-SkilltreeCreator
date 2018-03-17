@@ -21,6 +21,7 @@ export class SkilltreeCreatorComponent {
   selectedSkilltree$: Observable<string | null>;
   pastStates$: Observable<any[] | null>;
   futureStates$: Observable<any[] | null>;
+  premium$: Observable<boolean>;
   isRootPath: boolean = false;
 
   constructor(private dialog: MatDialog,
@@ -46,6 +47,7 @@ export class SkilltreeCreatorComponent {
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
     this.pastStates$ = this.store.select(Reducers.getPastStates);
     this.futureStates$ = this.store.select(Reducers.getFutureStates);
+    this.premium$ = this.store.select(Reducers.getPremium);
 
     this.router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
@@ -64,6 +66,10 @@ export class SkilltreeCreatorComponent {
 
   closeSidenav() {
     this.store.dispatch(new LayoutActions.CloseSidenavAction());
+  }
+
+  togglePremium() {
+    this.store.dispatch(new LayoutActions.TogglePremiumAction());
   }
 
   save() {

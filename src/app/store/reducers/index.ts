@@ -57,6 +57,7 @@ export const getLayoutState = (state: State) => state.layout;
 
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
 export const getTab = createSelector(getLayoutState, fromLayout.getTab);
+export const getPremium = createSelector(getLayoutState, fromLayout.getPremium);
 export const getSelectedSkill = createSelector(getLayoutState, fromLayout.getSelectedSkill);
 export const getSelectedSkilltreeId = createSelector(getLayoutState, fromLayout.getSelectedSkilltreeId);
 

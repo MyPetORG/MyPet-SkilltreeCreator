@@ -28,6 +28,7 @@ export class IconLoaderService {
     this.addSvgIcon('delete', 'ic_delete_24px.svg');
     this.addSvgIcon('check', 'ic_check_24px.svg');
     this.addSvgIcon('translate', 'ic_translate_24px.svg');
+    this.addSvgIcon('star', 'ic_star_24px.svg');
   }
 
   addSvgIcon(name: string, fileName: string) {

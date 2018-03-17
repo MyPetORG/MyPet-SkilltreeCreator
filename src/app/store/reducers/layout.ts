@@ -5,6 +5,7 @@ import { SkillInfo, Skills } from "../../data/Skills";
 export interface State {
   showSidenav: boolean;
   tab: number;
+  premium: boolean;
   skill: SkillInfo;
   selectedSkilltreeId: string
 }
@@ -12,6 +13,7 @@ export interface State {
 const initialState: State = {
   showSidenav: false,
   tab: 0,
+  premium: true,
   skill: Skills[0],
   selectedSkilltreeId: null,
 };
@@ -33,6 +35,11 @@ export function reducer(state = initialState, action: layout.Actions): State {
         tab: action.payload
       });
 
+    case layout.TOGGLE_PREMIUM:
+      return Object.assign({}, state, {
+        premium: !state.premium
+      });
+
     case layout.SELECT_SKILL:
       return Object.assign({}, state, {
         skill: action.payload
@@ -51,5 +58,6 @@ export function reducer(state = initialState, action: layout.Actions): State {
 
 export const getShowSidenav = (state: State) => state.showSidenav;
 export const getTab = (state: State) => state.tab;
+export const getPremium = (state: State) => state.premium;
 export const getSelectedSkill = (state: State) => state.skill;
 export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltreeId;
