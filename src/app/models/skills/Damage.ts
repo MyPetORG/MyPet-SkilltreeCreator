@@ -18,7 +18,7 @@ export function DamageLoader(data: any): Damage {
 
 export function DamageSaver(data: Damage) {
   let savedData: any = {};
-  if (data.damage && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
+  if (data.damage && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
     savedData.Damage = data.damage;
   }
   return savedData;

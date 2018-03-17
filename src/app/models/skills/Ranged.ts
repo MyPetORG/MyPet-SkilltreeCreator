@@ -24,10 +24,10 @@ export function RangedLoader(data: any): Ranged {
 
 export function RangedSaver(data: Ranged) {
   let savedData: any = {};
-  if (data.damage && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
+  if (data.damage && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
     savedData.Damage = data.damage;
   }
-  if (data.rate && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.rate)[1] != "0") {
+  if (data.rate && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.rate)[1] != "0") {
     savedData.Rate = data.rate;
   }
   if (data.projectile) {

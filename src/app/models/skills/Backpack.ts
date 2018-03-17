@@ -22,7 +22,7 @@ export function BackpackLoader(data: any): Backpack {
 
 export function BackpackSaver(data: Backpack) {
   let savedData: any = {};
-  if (data.rows && /[\\+\-=]?(\d+)/g.exec(data.rows)[1] != "0") {
+  if (data.rows && /[\\+\-]?(\d+)/g.exec(data.rows)[1] != "0") {
     savedData.rows = data.rows;
   }
   if (data.drop != null) {

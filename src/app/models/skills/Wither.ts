@@ -21,10 +21,10 @@ export function WitherLoader(data: any): Wither {
 
 export function WitherSaver(data: Wither) {
   let savedData: any = {};
-  if (data.duration && /[\\+\-=]?(\d+)/g.exec(data.duration)[1] != "0") {
+  if (data.duration && /[\\+\-]?(\d+)/g.exec(data.duration)[1] != "0") {
     savedData.Duration = data.duration;
   }
-  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
     savedData.Chance = data.chance;
   }
   return savedData;

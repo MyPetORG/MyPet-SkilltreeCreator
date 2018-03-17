@@ -18,7 +18,7 @@ export function KnockbackLoader(data: any): Knockback {
 
 export function KnockbackSaver(data: Knockback) {
   let savedData: any = {};
-  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
     savedData.Chance = data.chance;
   }
   return savedData;

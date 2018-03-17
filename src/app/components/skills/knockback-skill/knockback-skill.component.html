@@ -18,7 +18,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__KNOCKBACK__CHANCE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__KNOCKBACK__CHANCE' | translate"
                  [value]="upgrade.chance ? upgrade.chance : 0" type="text"
-                 pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
+                 pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__KNOCKBACK__CHANCE_SUFFIX' | translate }}</span>
         </mat-input-container>

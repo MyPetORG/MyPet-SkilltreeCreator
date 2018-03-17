@@ -26,7 +26,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RANGE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RANGE' | translate"
                  [value]="upgrade.range ? upgrade.range : 0" type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RANGE_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -39,7 +39,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RATE' | translate"
                  [value]="upgrade.rate ? upgrade.rate : 0" type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'rate', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_SUFFIX' | translate }}</span>
         </mat-input-container>

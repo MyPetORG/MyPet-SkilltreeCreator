@@ -18,7 +18,7 @@ export function LifeLoader(data: any): Life {
 
 export function LifeSaver(data: Life) {
   let savedData: any = {};
-  if (data.health && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.health)[1] != "0") {
+  if (data.health && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.health)[1] != "0") {
     savedData.Health = data.health;
   }
   return savedData;

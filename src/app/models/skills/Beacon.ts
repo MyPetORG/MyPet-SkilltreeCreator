@@ -63,27 +63,27 @@ export function BeaconLoader(data: any): Beacon {
 
 export function BeaconSaver(data: Beacon) {
   let savedData: any = {};
-  if (data.range && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.range)[1] != "0") {
+  if (data.range && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.range)[1] != "0") {
     savedData.Range = data.range;
   }
-  if (data.duration && /[\\+\-=]?(\d+)/g.exec(data.duration)[1] != "0") {
+  if (data.duration && /[\\+\-]?(\d+)/g.exec(data.duration)[1] != "0") {
     savedData.Duration = data.duration;
   }
-  if (data.count && /[\\+\-=]?(\d+)/g.exec(data.count)[1] != "0") {
+  if (data.count && /[\\+\-]?(\d+)/g.exec(data.count)[1] != "0") {
     savedData.Count = data.count;
   }
 
   let buffs: any = {};
-  if (data.buffs.Absorption && /[\\+\-=]?(\d+)/g.exec(data.buffs.Absorption)[1] != "0") {
+  if (data.buffs.Absorption && /[\\+\-]?(\d+)/g.exec(data.buffs.Absorption)[1] != "0") {
     buffs.Absorption = data.buffs.Absorption;
   }
   if (data.buffs.FireResistance != null) {
     buffs.FireResistance = data.buffs.FireResistance;
   }
-  if (data.buffs.Haste && /[\\+\-=]?(\d+)/g.exec(data.buffs.Haste)[1] != "0") {
+  if (data.buffs.Haste && /[\\+\-]?(\d+)/g.exec(data.buffs.Haste)[1] != "0") {
     buffs.Haste = data.buffs.Haste;
   }
-  if (data.buffs.JumpBoost && /[\\+\-=]?(\d+)/g.exec(data.buffs.JumpBoost)[1] != "0") {
+  if (data.buffs.JumpBoost && /[\\+\-]?(\d+)/g.exec(data.buffs.JumpBoost)[1] != "0") {
     buffs.JumpBoost = data.buffs.JumpBoost;
   }
   if (data.buffs.Luck != null) {
@@ -92,13 +92,13 @@ export function BeaconSaver(data: Beacon) {
   if (data.buffs.NightVision != null) {
     buffs.NightVision = data.buffs.NightVision;
   }
-  if (data.buffs.Resistance && /[\\+\-=]?(\d+)/g.exec(data.buffs.Resistance)[1] != "0") {
+  if (data.buffs.Resistance && /[\\+\-]?(\d+)/g.exec(data.buffs.Resistance)[1] != "0") {
     buffs.Resistance = data.buffs.Resistance;
   }
-  if (data.buffs.Speed && /[\\+\-=]?(\d+)/g.exec(data.buffs.Speed)[1] != "0") {
+  if (data.buffs.Speed && /[\\+\-]?(\d+)/g.exec(data.buffs.Speed)[1] != "0") {
     buffs.Speed = data.buffs.Speed;
   }
-  if (data.buffs.Strength && /[\\+\-=]?(\d+)/g.exec(data.buffs.Strength)[1] != "0") {
+  if (data.buffs.Strength && /[\\+\-]?(\d+)/g.exec(data.buffs.Strength)[1] != "0") {
     buffs.Strength = data.buffs.Strength;
   }
   if (data.buffs.WaterBreathing != null) {

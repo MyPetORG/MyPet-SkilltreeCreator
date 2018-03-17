@@ -24,7 +24,7 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__LIGHTNING__CHANCE_PREFIX' | translate }}</span>
           <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : 0" type="text"
-                 pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
+                 pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIGHTNING__CHANCE_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -37,7 +37,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__LIGHTNING__DAMAGE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__LIGHTNING__DAMAGE' | translate"
                  [value]="upgrade.damage ? upgrade.damage : 0"
-                 type="text" pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 type="text" pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIGHTNING__DAMAGE_SUFFIX' | translate }}</span>
         </mat-input-container>

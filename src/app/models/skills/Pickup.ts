@@ -21,7 +21,7 @@ export function PickupLoader(data: any): Pickup {
 
 export function PickupSaver(data: Pickup) {
   let savedData: any = {};
-  if (data.range && /[\\+\-=]?(\d+)/g.exec(data.range)[1] != "0") {
+  if (data.range && /[\\+\-]?(\d+)/g.exec(data.range)[1] != "0") {
     savedData.Range = data.range;
   }
   if (data.exp != null) {

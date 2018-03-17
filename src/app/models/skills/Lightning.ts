@@ -21,10 +21,10 @@ export function LightningLoader(data: any): Lightning {
 
 export function LightningSaver(data: Lightning) {
   let savedData: any = {};
-  if (data.damage && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
+  if (data.damage && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
     savedData.Damage = data.damage;
   }
-  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
     savedData.Chance = data.chance;
   }
   return savedData;

@@ -21,10 +21,10 @@ export function ThornsLoader(data: any): Thorns {
 
 export function ThornsSaver(data: Thorns) {
   let savedData: any = {};
-  if (data.reflection && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.reflection)[1] != "0") {
+  if (data.reflection && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.reflection)[1] != "0") {
     savedData.Reflection = data.reflection;
   }
-  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
     savedData.Chance = data.chance;
   }
   return savedData;

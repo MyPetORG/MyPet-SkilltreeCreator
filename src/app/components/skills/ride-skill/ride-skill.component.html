@@ -40,7 +40,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__SPEED' | translate"
                  [value]="upgrade.speed ? upgrade.speed : 0" type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -53,7 +53,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT' | translate"
                  [value]="upgrade.jumpHeight ? upgrade.jumpHeight : '+0'" type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -75,7 +75,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT' | translate"
                  [value]="upgrade.flyLimit ? upgrade.flyLimit : '+0'" type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'flyLimit', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -89,7 +89,7 @@
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate"
                  [value]="upgrade.flyRegenRate ? upgrade.flyRegenRate : '+0'"
                  type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'flyRegenRate', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate }}</span>
         </mat-input-container>

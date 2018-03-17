@@ -25,7 +25,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__CHANCE' | translate"
                  [value]="upgrade.chance ? upgrade.chance : 0" type="text"
-                 pattern="[+-=](?:[0-9]|[1-9][0-9]|100)"
+                 pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -38,7 +38,7 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED' | translate"
                  [value]="upgrade.reflection ? upgrade.reflection : 0" type="text"
-                 pattern="[+-=][0-9]+(\.[0-9]+)?"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_SUFFIX' | translate }}</span>
         </mat-input-container>

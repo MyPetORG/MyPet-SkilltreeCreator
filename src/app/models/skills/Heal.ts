@@ -21,10 +21,10 @@ export function HealLoader(data: any): Heal {
 
 export function HealSaver(data: Heal) {
   let savedData: any = {};
-  if (data.health && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.health)[1] != "0") {
+  if (data.health && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.health)[1] != "0") {
     savedData.Health = data.health;
   }
-  if (data.timer && /[\\+\-=]?(\d+)/g.exec(data.timer)[1] != "0") {
+  if (data.timer && /[\\+\-]?(\d+)/g.exec(data.timer)[1] != "0") {
     savedData.Timer = data.timer;
   }
   return savedData;

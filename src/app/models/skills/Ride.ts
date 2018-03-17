@@ -30,16 +30,16 @@ export function RideLoader(data: any): Ride {
 
 export function RideSaver(data: Ride) {
   let savedData: any = {};
-  if (data.speed && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.speed)[1] != "0") {
+  if (data.speed && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.speed)[1] != "0") {
     savedData.Speed = data.speed;
   }
-  if (data.jumpHeight && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.jumpHeight)[1] != "0") {
+  if (data.jumpHeight && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.jumpHeight)[1] != "0") {
     savedData.JumpHeight = data.jumpHeight;
   }
-  if (data.flyLimit && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.flyLimit)[1] != "0") {
+  if (data.flyLimit && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.flyLimit)[1] != "0") {
     savedData.FlyLimit = data.flyLimit;
   }
-  if (data.flyRegenRate && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.flyRegenRate)[1] != "0") {
+  if (data.flyRegenRate && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.flyRegenRate)[1] != "0") {
     savedData.FlyRegenRate = data.flyRegenRate;
   }
   if (data.canFly != null) {

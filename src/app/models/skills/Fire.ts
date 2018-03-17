@@ -21,10 +21,10 @@ export function FireLoader(data: any): Fire {
 
 export function FireSaver(data: Fire) {
   let savedData: any = {};
-  if (data.duration && /[\\+\-=]?(\d+)/g.exec(data.duration)[1] != "0") {
+  if (data.duration && /[\\+\-]?(\d+)/g.exec(data.duration)[1] != "0") {
     savedData.Duration = data.duration;
   }
-  if (data.chance && /[\\+\-=]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
     savedData.Chance = data.chance;
   }
   return savedData;

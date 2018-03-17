@@ -33,7 +33,7 @@
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__RANGE_PREFIX' | translate }}</span>
             <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__RANGE' | translate"
                    [value]="upgrade.range ? upgrade.range : 0" type="text"
-                   pattern="[+-=][0-9]+(\.[0-9]+)?"
+                   pattern="[+-][0-9]+(\.[0-9]+)?"
                    (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__RANGE_SUFFIX' | translate }}</span>
           </mat-input-container>
@@ -46,7 +46,7 @@
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__DURATION_PREFIX' | translate }}</span>
             <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__DURATION' | translate"
                    [value]="upgrade.duration ? upgrade.duration : 0" type="text"
-                   pattern="[+-=][0-9]+"
+                   pattern="[+-][0-9]+"
                    (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__DURATION_SUFFIX' | translate }}</span>
           </mat-input-container>
@@ -59,7 +59,7 @@
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__NUMBER_PREFIX' | translate }}</span>
             <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__NUMBER' | translate"
                    [value]="upgrade.count ? upgrade.count : 0" type="text"
-                   pattern="[+-=][0-9]+(\.[0-9]+)?"
+                   pattern="[+-][0-9]+(\.[0-9]+)?"
                    (blur)="update(skilltree, upgrade, 'count', $event.srcElement.value)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__NUMBER_SUFFIX' | translate }}</span>
           </mat-input-container>
@@ -77,7 +77,7 @@
                 <mat-input-container>
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
                          [value]="upgrade.buffs.Absorption" type="text"
-                         pattern="[+-=][0-9]+"
+                         pattern="[+-][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Absorption', $event.value)">
                 </mat-input-container>
             </span>
@@ -99,7 +99,7 @@
                 <mat-input-container>
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
                          [value]="upgrade.buffs.Haste" type="text"
-                         pattern="[+-=][0-9]+"
+                         pattern="[+-][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Haste', $event.value)">
                 </mat-input-container>
               </span>
@@ -111,7 +111,7 @@
                 <mat-input-container>
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
                          [value]="upgrade.buffs.JumpBoost" type="text"
-                         pattern="[+-=][0-9]+"
+                         pattern="[+-][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', $event.value)">
                 </mat-input-container>
               </span>
@@ -143,7 +143,7 @@
                 <mat-input-container>
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
                          [value]="upgrade.buffs.Resistance" type="text"
-                         pattern="[+-=][0-9]+"
+                         pattern="[+-][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Resistance', $event.value)">
                 </mat-input-container>
               </span>
@@ -155,7 +155,7 @@
                 <mat-input-container>
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
                          [value]="upgrade.buffs.Speed" type="text"
-                         pattern="[+-=][0-9]+"
+                         pattern="[+-][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Speed', $event.value)">
                 </mat-input-container>
              </span>
@@ -167,7 +167,7 @@
                 <mat-input-container>
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
                          [value]="upgrade.buffs.Strength" type="text"
-                         pattern="[+-=][0-9]+"
+                         pattern="[+-][0-9]+"
                          (blur)="updateBuff(skilltree, upgrade, 'Strength', $event.value)">
                 </mat-input-container>
              </span>
