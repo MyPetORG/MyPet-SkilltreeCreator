@@ -24,7 +24,7 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__TIMER' | translate"
-                 [value]="upgrade.timer ? upgrade.timer : 0" type="text" pattern="[+-][0-9]+"
+                 [value]="upgrade.timer ? upgrade.timer : '+0'" type="text" pattern="[+-][0-9]+"
                  (blur)="update(skilltree, upgrade, 'timer', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_SUFFIX' | translate }}</span>
         </mat-input-container>
@@ -36,7 +36,7 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__HEALTH' | translate"
-                 [value]="upgrade.health ? upgrade.health : 0" type="text"
+                 [value]="upgrade.health ? upgrade.health : '+0'" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_SUFFIX' | translate }}</span>

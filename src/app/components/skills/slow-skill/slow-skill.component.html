@@ -24,7 +24,7 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SLOW__CHANCE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SLOW__CHANCE' | translate"
-                 [value]="upgrade.chance ? upgrade.chance : 0" type="text"
+                 [value]="upgrade.chance ? upgrade.chance : '+0'" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SLOW__CHANCE_SUFFIX' | translate }}</span>
@@ -37,7 +37,7 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SLOW__DURATION_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SLOW__DURATION' | translate"
-                 [value]="upgrade.duration ? upgrade.duration : 0" type="text"
+                 [value]="upgrade.duration ? upgrade.duration : '+0'" type="text"
                  pattern="[+-][0-9]+"
                  (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SLOW__DURATION_SUFFIX' | translate }}</span>
