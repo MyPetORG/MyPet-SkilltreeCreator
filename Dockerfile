@@ -9,5 +9,5 @@ COPY . .
 
 RUN yarn install
 
-RUN npm run-script pre-build --build=$build
+RUN npm run-script pre-build --BUILD=$build
 RUN npm run-script build-plugin
