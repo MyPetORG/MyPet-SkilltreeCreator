@@ -1,4 +1,11 @@
 <div *ngIf="selectedSkilltree$ | async as skilltree">
+  <sat-popover #damagePopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__RANGED__DAMAGE_POPUP' | translate"></mat-card-content>
+      </mat-card-content>
+    </mat-card>
+  </sat-popover>
   <sat-popover #rangePopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
@@ -20,17 +27,15 @@
       {{ LevelRule.toKey(upgrade.rule) | translate:LevelRule.toData(upgrade.rule) }}
     </mat-expansion-panel-header>
     <div fxLayout="column">
-      <!-- TODO DAMAGE!!! -->
       <mat-card>
         <mat-input-container>
-          <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RANGE_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RANGE' | translate"
-                 [value]="upgrade.range ? upgrade.range : 0" type="text"
-                 pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
-          <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RANGE_SUFFIX' | translate }}</span>
+          <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__DAMAGE_PREFIX' | translate }}</span>
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__DAMAGE' | translate"
+                 [value]="upgrade.damage" type="text" pattern="[+-][0-9]+(\.[0-9]+)?"
+                 (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value)">
+          <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__DAMAGE_SUFFIX' | translate }}</span>
         </mat-input-container>
-        <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="damagePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
@@ -38,7 +43,7 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RATE' | translate"
-                 [value]="upgrade.rate ? upgrade.rate : 0" type="text"
+                 [value]="upgrade.rate ? upgrade.rate : '+0'" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
                  (blur)="update(skilltree, upgrade, 'rate', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_SUFFIX' | translate }}</span>
