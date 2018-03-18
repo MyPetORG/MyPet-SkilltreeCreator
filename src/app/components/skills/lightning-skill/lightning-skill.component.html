@@ -23,7 +23,8 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__LIGHTNING__CHANCE_PREFIX' | translate }}</span>
-          <input matInput placeholder="Chance" [value]="upgrade.chance ? upgrade.chance : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIGHTNING__CHANCE' | translate"
+                 [value]="upgrade.chance ? upgrade.chance : '+0'" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIGHTNING__CHANCE_SUFFIX' | translate }}</span>
