@@ -23,6 +23,7 @@ export class SkilltreeCreatorComponent {
   futureStates$: Observable<any[] | null>;
   premium$: Observable<boolean>;
   isRootPath: boolean = false;
+  firstPremiumToggle: boolean = true;
 
   constructor(private dialog: MatDialog,
               private store: Store<Reducers.State>,
@@ -39,6 +40,12 @@ export class SkilltreeCreatorComponent {
                 duration: 2000,
               });
             });
+            break;
+          case "toggle_premium":
+            if (this.firstPremiumToggle) {
+              this.firstPremiumToggle = false;
+              this.togglePremium();
+            }
             break;
         }
       });
