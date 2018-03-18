@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__DUPLICATE_SKILLTREE' | translate }}</h1>
+<div mat-dialog-content>{{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ENTER_NAME' | translate }}</div>
+<div mat-dialog-actions>
+  <mat-input-container>
+    <input matInput [placeholder]="'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__NAME' | translate" [(ngModel)]="name"
+           [appSkilltreeDuplicate]="skilltreeNames"
+           #nameInput="ngModel" required>
+    <mat-error *ngIf="nameInput.errors?.skilltreeDuplicate">
+      {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_DUPLICATE' | translate}}
+    </mat-error>
+    <mat-error *ngIf="nameInput.errors?.required">
+      {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_REQUIRE' | translate}}
+    </mat-error>
+  </mat-input-container>
+  <button mat-button (click)="done()" [disabled]="name.trim() == '' || nameInput.errors">
+    {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__DONE' | translate}}
+  </button>
+</div>

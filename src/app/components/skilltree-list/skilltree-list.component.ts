@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import * as LayoutActions from "../../store/actions/layout";
 import { ContextMenuService } from "ngx-contextmenu";
 import { TranslateService } from "@ngx-translate/core";
+import { SkilltreeDuplicateDialogComponent } from "../skilltree-duplicate-dialog/skilltree-duplicate-dialog.component";
 
 @Component({
   selector: 'stc-skilltree-list',
@@ -119,7 +120,7 @@ export class SkilltreeListComponent {
   }
 
   copySkilltree(skilltree: Skilltree) {
-    let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
+    let dialogRef = this.dialog.open(SkilltreeDuplicateDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         let copy: Skilltree = JSON.parse(JSON.stringify(skilltree));

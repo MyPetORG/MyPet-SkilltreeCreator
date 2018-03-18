@@ -97,6 +97,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { DynamicPopoverAnchorDirective } from './directives/dynamic-popover-anchor.directive';
 import { SatPopoverModule } from "./util/popover/popover.module";
+import { SkilltreeDuplicateDialogComponent } from "./components/skilltree-duplicate-dialog/skilltree-duplicate-dialog.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -109,6 +110,7 @@ export function createTranslateLoader(http: HttpClient) {
     RomanPipe,
 
     SkilltreeAddDialogComponent,
+    SkilltreeDuplicateDialogComponent,
     UpgradeAddDialogComponent,
     MobTypeSelectDialogComponent,
     SkilltreeImportDialogComponent,
@@ -185,6 +187,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,
+    SkilltreeDuplicateDialogComponent,
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
     SkilltreeImportDialogComponent,
