@@ -74,7 +74,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatSliderModule,
-  MatStepperModule
+  MatStepperModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher
 } from "@angular/material";
 import { environment } from '../environments/environment';
 import { IconLoaderService } from "./services/icon-loader.service";
@@ -225,6 +225,7 @@ export function createTranslateLoader(http: HttpClient) {
     WebsocketService,
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
     {provide: reducerToken, useFactory: getReducers},
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     ...environment.providers,
   ],
   bootstrap: [AppComponent]
