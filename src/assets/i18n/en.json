@@ -1,8 +1,8 @@
 {
   "COMPONENTS__NOT_YET_IMPLEMENTED": "Not yet implemented",
 
-  "COMPONENTS__ABOUT": "About",
-  "COMPONENTS__LIBRARIES": "Used Libraries",
+  "COMPONENTS__ABOUT__ABOUT": "About",
+  "COMPONENTS__ABOUT__LIBRARIES": "Used Libraries",
 
   "COMPONENTS__MOB_TYPE_SELECT_DIALOG__TITLE": "Select Mob Types:",
   "COMPONENTS__MOB_TYPE_SELECT_DIALOG__ALL": "All",
