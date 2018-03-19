@@ -38,11 +38,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__SPEED' | translate"
-                 [value]="upgrade.speed ? upgrade.speed : '+0'" type="text"
-                 pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value)">
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__SPEED' | translate" type="text"
+                 pattern="[+-][0-9]+"
+                 [name]="'speed_' + i" #modelSpeed="ngModel"
+                 [ngModel]="upgrade.speed ? upgrade.speed : '+0'"
+                 (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value, modelSpeed)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelSpeed.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="speedPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -51,11 +55,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT' | translate"
-                 [value]="upgrade.jumpHeight ? upgrade.jumpHeight : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value)">
+                 [name]="'jump_height_' + i" #modelJumpHeight="ngModel"
+                 [ngModel]="upgrade.jumpHeight ? upgrade.jumpHeight : '+0'"
+                 (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value, modelJumpHeight)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelJumpHeight.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="jumpHeightPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -73,11 +81,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT' | translate"
-                 [value]="upgrade.flyLimit ? upgrade.flyLimit : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'flyLimit', $event.srcElement.value)">
+                 [name]="'fly_limit_' + i" #modelFlyLimit="ngModel"
+                 [ngModel]="upgrade.flyLimit ? upgrade.flyLimit : '+0'"
+                 (blur)="update(skilltree, upgrade, 'flyLimit', $event.srcElement.value, modelFlyLimit)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelFlyLimit.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyLimitPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -86,12 +98,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate"
-                 [value]="upgrade.flyRegenRate ? upgrade.flyRegenRate : '+0'"
-                 type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'flyRegenRate', $event.srcElement.value)">
+                 [name]="'fly_regen_rate_' + i" #modelFlyRegenRate="ngModel"
+                 [ngModel]="upgrade.flyRegenRate ? upgrade.flyRegenRate : '+0'"
+                 (blur)="update(skilltree, upgrade, 'flyRegenRate', $event.srcElement.value, modelFlyRegenRate)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelFlyRegenRate.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyRegenRatePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>

@@ -23,11 +23,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__CHANCE' | translate"
-                 [value]="upgrade.chance ? upgrade.chance : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__CHANCE' | translate" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
-                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
+                 [name]="'chance_' + i" #modelChance="ngModel"
+                 [ngModel]="upgrade.chance ? upgrade.chance : '+0'"
+                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value, modelChance)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelChance.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -38,9 +42,14 @@
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED' | translate"
                  [value]="upgrade.reflection ? upgrade.reflection : '+0'" type="text"
-                 pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value)">
+                 pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
+                 [name]="'reflection_' + i" #modelReflection="ngModel"
+                 [ngModel]="upgrade.reflection ? upgrade.reflection : '+0'"
+                 (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value, modelReflection)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelReflection.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="reflectionPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>

@@ -15,11 +15,14 @@
         <mat-card>
           <mat-input-container>
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BACKPACK__ROWS_PREFIX' | translate }}</span>
-            <input matInput [placeholder]="'COMPONENTS__SKILLS__BACKPACK__ROWS' | translate"
-                   [value]="upgrade.rows ? upgrade.rows : '+0'" type="text"
-                   pattern="[+-][0-9]+"
-                   (blur)="update(skilltree, upgrade, 'rows', $event.srcElement.value)">
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BACKPACK__ROWS' | translate" type="text"
+                   pattern="[+-][0-9]"
+                   [name]="'rows_' + i" [ngModel]="upgrade.rows ? upgrade.rows : '+0'" #modelRows="ngModel"
+                   (blur)="update(skilltree, upgrade, 'rows', $event.srcElement.value, modelRows)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BACKPACK__ROWS_SUFFIX' | translate }}</span>
+            <mat-error *ngIf="modelRows.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-9]'} }}
+            </mat-error>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="rowsPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>

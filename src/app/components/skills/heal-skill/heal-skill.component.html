@@ -23,10 +23,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__TIMER' | translate"
-                 [value]="upgrade.timer ? upgrade.timer : '+0'" type="text" pattern="[+-][0-9]+"
-                 (blur)="update(skilltree, upgrade, 'timer', $event.srcElement.value)">
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__TIMER' | translate" type="text"
+                 pattern="[+-][0-9]+"
+                 [name]="'timer_' + i" #modelTimer="ngModel"
+                 [ngModel]="upgrade.timer ? upgrade.timer : '+0'"
+                 (blur)="update(skilltree, upgrade, 'timer', $event.srcElement.value, modelTimer)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelTimer.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="timerPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -35,11 +40,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__HEALTH' | translate"
-                 [value]="upgrade.health ? upgrade.health : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__HEAL__HEALTH' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value)">
+                 [name]="'health_' + i" #modelHealth="ngModel"
+                 [ngModel]="upgrade.health ? upgrade.health : '+0'"
+                 (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value, modelHealth)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelHealth.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="healthPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>

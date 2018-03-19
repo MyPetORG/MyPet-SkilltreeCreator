@@ -31,11 +31,15 @@
         <mat-card>
           <mat-input-container>
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__RANGE_PREFIX' | translate }}</span>
-            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__RANGE' | translate"
-                   [value]="upgrade.range ? upgrade.range : '+0'" type="text"
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__RANGE' | translate" type="text"
                    pattern="[+-][0-9]+(\.[0-9]+)?"
-                   (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
+                   [name]="'range_' + i" #modelRange="ngModel"
+                   [ngModel]="upgrade.range ? upgrade.range : '+0'"
+                   (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value, modelRange)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__RANGE_SUFFIX' | translate }}</span>
+            <mat-error *ngIf="modelRange.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            </mat-error>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -44,11 +48,15 @@
         <mat-card>
           <mat-input-container>
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__DURATION_PREFIX' | translate }}</span>
-            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__DURATION' | translate"
-                   [value]="upgrade.duration ? upgrade.duration : '+0'" type="text"
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__DURATION' | translate" type="text"
                    pattern="[+-][0-9]+"
-                   (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
+                   [name]="'duration_' + i" #modelDuration="ngModel"
+                   [ngModel]="upgrade.duration ? upgrade.duration : '+0'"
+                   (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value, modelDuration)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__DURATION_SUFFIX' | translate }}</span>
+            <mat-error *ngIf="modelDuration.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="durationPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -57,11 +65,15 @@
         <mat-card>
           <mat-input-container>
             <span matPrefix>{{ 'COMPONENTS__SKILLS__BEACON__NUMBER_PREFIX' | translate }}</span>
-            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__NUMBER' | translate"
-                   [value]="upgrade.count ? upgrade.count : '+0'" type="text"
+            <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__NUMBER' | translate" type="text"
                    pattern="[+-][0-9]+(\.[0-9]+)?"
-                   (blur)="update(skilltree, upgrade, 'count', $event.srcElement.value)">
+                   [name]="'number_' + i" #modelNumber="ngModel"
+                   [ngModel]="upgrade.count ? upgrade.count : '+0'"
+                   (blur)="update(skilltree, upgrade, 'count', $event.srcElement.value, modelNumber)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BEACON__NUMBER_SUFFIX' | translate }}</span>
+            <mat-error *ngIf="modelNumber.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            </mat-error>
           </mat-input-container>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="countPopover">
             <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -75,10 +87,14 @@
               <span mat-line style="overflow: unset !important;">
                 {{ 'COMPONENTS__SKILLS__BEACON__BUFF__ABSORPTION' | translate }}
                 <mat-input-container>
-                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
-                         [value]="upgrade.buffs.Absorption" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Absorption', $event.value)">
+                         [name]="'buff_absoption_' + i" #modelBuffAbsorption="ngModel"
+                         [ngModel]="upgrade.buffs.Absorption ? upgrade.buffs.Absorption : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'Absorption', $event.value, modelBuffAbsorption)">
+            <mat-error *ngIf="modelBuffAbsorption.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
                 </mat-input-container>
             </span>
             </mat-list-item>
@@ -97,10 +113,14 @@
               <span mat-line>
                 {{ 'COMPONENTS__SKILLS__BEACON__BUFF__HASTE' | translate }}
                 <mat-input-container>
-                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
-                         [value]="upgrade.buffs.Haste" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Haste', $event.value)">
+                         [name]="'buff_haste_' + i" #modelBuffHaste="ngModel"
+                         [ngModel]="upgrade.buffs.Haste ? upgrade.buffs.Haste : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'Haste', $event.value, modelBuffHaste)">
+            <mat-error *ngIf="modelBuffHaste.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
                 </mat-input-container>
               </span>
             </mat-list-item>
@@ -109,10 +129,14 @@
               <span mat-line>
                 {{ 'COMPONENTS__SKILLS__BEACON__BUFF__JUMP_BOOST' | translate }}
                 <mat-input-container>
-                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
-                         [value]="upgrade.buffs.JumpBoost" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', $event.value)">
+                         [name]="'buff_jump_boost_' + i" #modelBuffJumpBoost="ngModel"
+                         [ngModel]="upgrade.buffs.JumpBoost ? upgrade.buffs.JumpBoost : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', $event.value, modelBuffJumpBoost)">
+            <mat-error *ngIf="modelBuffJumpBoost.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
                 </mat-input-container>
               </span>
             </mat-list-item>
@@ -141,10 +165,14 @@
               <span mat-line>
                 {{ 'COMPONENTS__SKILLS__BEACON__BUFF__RESISTANCE' | translate }}
                 <mat-input-container>
-                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
-                         [value]="upgrade.buffs.Resistance" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Resistance', $event.value)">
+                         [name]="'buff_resistance_' + i" #modelBuffResistance="ngModel"
+                         [ngModel]="upgrade.buffs.Resistance ? upgrade.buffs.Resistance : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'Resistance', $event.value, modelBuffResistance)">
+            <mat-error *ngIf="modelBuffResistance.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
                 </mat-input-container>
               </span>
             </mat-list-item>
@@ -153,10 +181,14 @@
               <span mat-line>
                 {{ 'COMPONENTS__SKILLS__BEACON__BUFF__SPEED' | translate }}
                 <mat-input-container>
-                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
-                         [value]="upgrade.buffs.Speed" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Speed', $event.value)">
+                         [name]="'buff_speed_' + i" #modelBuffSpeed="ngModel"
+                         [ngModel]="upgrade.buffs.Speed ? upgrade.buffs.Speed : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'Speed', $event.value, modelBuffSpeed)">
+            <mat-error *ngIf="modelBuffSpeed.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
                 </mat-input-container>
              </span>
             </mat-list-item>
@@ -165,10 +197,14 @@
               <span mat-line>
                 {{ 'COMPONENTS__SKILLS__BEACON__BUFF__STRENGTH' | translate }}
                 <mat-input-container>
-                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate"
-                         [value]="upgrade.buffs.Strength" type="text"
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
-                         (blur)="updateBuff(skilltree, upgrade, 'Strength', $event.value)">
+                         [name]="'buff_strength_' + i" #modelBuffStrength="ngModel"
+                         [ngModel]="upgrade.buffs.Strength ? upgrade.buffs.Strength : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'Strength', $event.value, modelBuffStrength)">
+            <mat-error *ngIf="modelBuffStrength.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
                 </mat-input-container>
              </span>
             </mat-list-item>

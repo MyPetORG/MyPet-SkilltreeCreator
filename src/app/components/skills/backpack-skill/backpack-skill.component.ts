@@ -38,7 +38,10 @@ export class BackpackSkillComponent {
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
   }
 
-  update(skilltree: Skilltree, upgrade: Upgrade, field, value) {
+  update(skilltree: Skilltree, upgrade: Upgrade, field, value, model) {
+    if (model.errors) {
+      return;
+    }
     let changes = skilltree.skills;
     if (changes.Backpack[changes.Backpack.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));

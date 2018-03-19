@@ -38,7 +38,10 @@ export class BeaconSkillComponent {
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
   }
 
-  update(skilltree: Skilltree, upgrade: Upgrade, field, value) {
+  update(skilltree: Skilltree, upgrade: Upgrade, field, value, model) {
+    if (model.errors) {
+      return;
+    }
     let changes = skilltree.skills;
     if (changes.Beacon[changes.Beacon.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
@@ -66,7 +69,10 @@ export class BeaconSkillComponent {
     this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
   }
 
-  updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, value) {
+  updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, value, model) {
+    if (model.errors) {
+      return;
+    }
     let changes = skilltree.skills;
     if ((changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] != value) {
       changes = JSON.parse(JSON.stringify(changes));

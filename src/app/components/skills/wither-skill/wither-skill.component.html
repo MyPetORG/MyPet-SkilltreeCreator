@@ -23,11 +23,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__WITHER__CHANCE_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__WITHER__CHANCE' | translate"
-                 [value]="upgrade.chance ? upgrade.chance : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__WITHER__CHANCE' | translate" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
-                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
+                 [name]="'chance_' + i" #modelChance="ngModel"
+                 [ngModel]="upgrade.chance ? upgrade.chance : '+0'"
+                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value, modelChance)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__WITHER__CHANCE_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelChance.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -36,11 +40,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__WITHER__DURATION_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__WITHER__DURATION' | translate"
-                 [value]="upgrade.duration ? upgrade.duration : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__WITHER__DURATION' | translate" type="text"
                  pattern="[+-][0-9]+"
-                 (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value)">
+                 [name]="'duration_' + i" #modelDuration="ngModel"
+                 [ngModel]="upgrade.duration ? upgrade.duration : '+0'"
+                 (blur)="update(skilltree, upgrade, 'duration', $event.srcElement.value, modelDuration)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__WITHER__DURATION_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelDuration.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="durationPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>

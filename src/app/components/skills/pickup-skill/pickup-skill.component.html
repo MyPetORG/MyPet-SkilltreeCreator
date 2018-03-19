@@ -16,11 +16,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__PICKUP__RANGE_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__PICKUP__RANGE' | translate"
-                 [value]="upgrade.range ? upgrade.range : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__PICKUP__RANGE' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value)">
+                 [name]="'range_' + i" #modelRange="ngModel"
+                 [ngModel]="upgrade.range ? upgrade.range : '+0'"
+                 (blur)="update(skilltree, upgrade, 'range', $event.srcElement.value, modelRange)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__PICKUP__RANGE_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelRange.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="rangePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>

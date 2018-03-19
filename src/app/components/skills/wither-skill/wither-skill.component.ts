@@ -35,7 +35,10 @@ export class WitherSkillComponent {
     this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
   }
 
-  update(skilltree: Skilltree, upgrade: Upgrade, field, value) {
+  update(skilltree: Skilltree, upgrade: Upgrade, field, value, model) {
+    if (model.errors) {
+      return;
+    }
     let changes = skilltree.skills;
     if (changes.Wither[changes.Wither.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));

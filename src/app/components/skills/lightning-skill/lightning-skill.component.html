@@ -23,11 +23,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__LIGHTNING__CHANCE_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIGHTNING__CHANCE' | translate"
-                 [value]="upgrade.chance ? upgrade.chance : '+0'" type="text"
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIGHTNING__CHANCE' | translate" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
-                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value)">
+                 [name]="'chance_' + i" #modelChance="ngModel"
+                 [ngModel]="upgrade.chance ? upgrade.chance : '+0'"
+                 (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value, modelChance)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIGHTNING__CHANCE_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelChance.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
@@ -36,11 +40,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__LIGHTNING__DAMAGE_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIGHTNING__DAMAGE' | translate"
-                 [value]="upgrade.damage ? upgrade.damage : 0"
-                 type="text" pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value)">
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIGHTNING__DAMAGE' | translate" type="text"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
+                 [name]="'damage_' + i" #modelDamage="ngModel"
+                 [ngModel]="upgrade.damage ? upgrade.damage : '+0'"
+                 (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value, modelDamage)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIGHTNING__DAMAGE_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelDamage.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="damagePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>

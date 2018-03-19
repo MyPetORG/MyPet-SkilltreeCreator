@@ -16,11 +16,15 @@
       <mat-card>
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__LIFE_HEALTH_PREFIX' | translate }}</span>
-          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIFE_HEALTH' | translate"
-                 [value]="upgrade.health ? upgrade.health : 0"
-                 type="text" pattern="[+-][0-9]+(\.[0-9]+)?"
-                 (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value)">
+          <input matInput [placeholder]="'COMPONENTS__SKILLS__LIFE_HEALTH' | translate" type="text"
+                 pattern="[+-][0-9]+(\.[0-9]+)?"
+                 [name]="'health_' + i" #modelHealth="ngModel"
+                 [ngModel]="upgrade.health ? upgrade.health : '+0'"
+                 (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value, modelHealth)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIFE_HEALTH_SUFFIX' | translate }}</span>
+          <mat-error *ngIf="modelHealth.errors?.pattern">
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+          </mat-error>
         </mat-input-container>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="healthPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
