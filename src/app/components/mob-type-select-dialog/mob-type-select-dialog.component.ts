@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { Skilltree } from "../../models/Skilltree";
-import { MobTypes } from "../../data/MobTypes";
+import { Skilltree } from "../../models/skilltree";
+import { MobTypes } from "../../data/mob-types";
 
 @Component({
   selector: 'stc-mob-type-select-dialog',

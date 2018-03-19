@@ -1,10 +1,10 @@
 import { Component, Inject, OnDestroy } from "@angular/core";
 import { MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar } from "@angular/material";
-import { LevelRule } from "../../models/LevelRule";
+import { LevelRule } from "../../models/level-rule";
 import { COMMA, ENTER, SPACE } from "@angular/cdk/keycodes";
 import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
-import { Upgrade } from "../../models/Upgrade";
+import { Upgrade } from "../../models/upgrade";
 import { isArray } from "util";
 import { TranslateService } from "@ngx-translate/core";
 

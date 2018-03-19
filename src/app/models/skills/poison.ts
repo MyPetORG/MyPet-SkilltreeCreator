@@ -1,25 +1,25 @@
-import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../upgrade";
 import { setDefault } from "../../util/helpers";
 
-export interface Fire extends Upgrade {
+export interface Poison extends Upgrade {
   chance?: string;
   duration?: string;
 }
 
-export class FireDefault implements Fire {
+export class PoisonDefault implements Poison {
   id = getNewUpgradeID();
   chance = "+0";
   duration = "+0";
 }
 
-export function FireLoader(data: any): Fire {
-  let fire: Fire = Object.assign({}, new FireDefault);
-  setDefault(fire, "chance", data.getProp("chance"));
-  setDefault(fire, "duration", data.getProp("duration"));
-  return fire;
+export function PoisonLoader(data: any): Poison {
+  let poison: Poison = Object.assign({}, new PoisonDefault);
+  setDefault(poison, "chance", data.getProp("chance"));
+  setDefault(poison, "duration", data.getProp("duration"));
+  return poison;
 }
 
-export function FireSaver(data: Fire) {
+export function PoisonSaver(data: Poison) {
   let savedData: any = {};
   if (data.duration && /[\\+\-]?(\d+)/g.exec(data.duration)[1] != "0") {
     savedData.Duration = data.duration;

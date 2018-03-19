@@ -1,5 +1,5 @@
 import * as layout from "../actions/layout";
-import { SkillInfo, Skills } from "../../data/Skills";
+import { SkillInfo, Skills } from "../../data/skills";
 
 
 export interface State {

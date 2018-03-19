@@ -3,8 +3,8 @@ import * as fromRouter from "@ngrx/router-store";
 import { ActionReducerMap } from "@ngrx/store";
 import * as fromLayout from "./layout";
 import * as fromSkilltree from "./skilltree";
-import { Skilltree } from "../../models/Skilltree";
-import { SkillInfo } from "../../data/Skills";
+import { Skilltree } from "../../models/skilltree";
+import { SkillInfo } from "../../data/skills";
 import * as fromUndoable from "./undoable";
 import { InjectionToken } from "@angular/core";
 

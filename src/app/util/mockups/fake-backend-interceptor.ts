@@ -14,7 +14,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
-import { BeaconSkilltree, RideSkilltree } from "./ExampleSkilltrees";
+import { BeaconSkilltree, RideSkilltree } from "./example-skilltrees";
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {

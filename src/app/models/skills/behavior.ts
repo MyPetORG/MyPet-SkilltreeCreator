@@ -1,4 +1,4 @@
-import { getNewUpgradeID, Upgrade } from "../Upgrade";
+import { getNewUpgradeID, Upgrade } from "../upgrade";
 import { setDefault } from "../../util/helpers";
 
 export interface Behavior extends Upgrade {

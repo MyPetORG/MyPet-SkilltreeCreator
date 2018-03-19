@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Skilltree } from "../models/Skilltree";
-import { SkillLoader } from "../data/SkillLoader";
+import { Skilltree } from "../models/skilltree";
+import { SkillLoader } from "../data/skill-loader";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { Skills } from "../data/Skills";
-import { LevelRule } from "../models/LevelRule";
-import { Upgrade } from "../models/Upgrade";
+import { Skills } from "../data/skills";
+import { LevelRule } from "../models/level-rule";
+import { Upgrade } from "../models/upgrade";
 import { of } from "rxjs/observable/of";
-import { MobTypes } from "../data/MobTypes";
+import { MobTypes } from "../data/mob-types";
 
 @Injectable()
 export class SkilltreeLoaderService {

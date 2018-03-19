@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Skilltree } from "../../models/Skilltree";
+import { Skilltree } from "../../models/skilltree";
 
 export const LOAD_SKILLTREE = 'LOAD_SKILLTREE';
 export const LOAD_SKILLTREE_SUCCESS = 'LOAD_SKILLTREE_SUCCESS';

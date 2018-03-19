@@ -2,15 +2,15 @@ import { Component } from "@angular/core";
 import { MAT_CHECKBOX_CLICK_ACTION, MatDialog } from "@angular/material";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { Skill } from "../../../models/Skill";
-import { Backpack, BackpackDefault } from "app/models/skills/Backpack";
+import { Skill } from "../../../models/skill";
+import { Backpack, BackpackDefault } from "app/models/skills/backpack";
 import { LevelRule } from "../../../util/helpers";
-import { Skilltree } from "../../../models/Skilltree";
+import { Skilltree } from "../../../models/skilltree";
 import { Observable } from "rxjs/Observable";
-import { SkillInfo } from "../../../data/Skills";
+import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../../store/reducers/index";
-import { Upgrade } from "../../../models/Upgrade";
+import { Upgrade } from "../../../models/upgrade";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 
 @Component({

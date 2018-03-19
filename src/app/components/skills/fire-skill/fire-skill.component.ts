@@ -1,15 +1,15 @@
 import { Component } from "@angular/core";
 import { StateService } from "../../../services/state.service";
 import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { Skill } from "../../../models/Skill";
+import { Skill } from "../../../models/skill";
 import { LevelRule } from "../../../util/helpers";
-import { Fire, FireDefault } from "../../../models/skills/Fire";
+import { Fire, FireDefault } from "../../../models/skills/fire";
 import { MatDialog } from "@angular/material";
-import { Skilltree } from "../../../models/Skilltree";
-import { Upgrade } from "../../../models/Upgrade";
+import { Skilltree } from "../../../models/skilltree";
+import { Upgrade } from "../../../models/upgrade";
 import { Observable } from "rxjs/Observable";
 import * as Reducers from "../../../store/reducers";
-import { SkillInfo } from "../../../data/Skills";
+import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
 

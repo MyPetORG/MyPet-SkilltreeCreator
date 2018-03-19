@@ -1,5 +1,5 @@
 import * as skilltree from "../actions/skilltree";
-import { Skilltree } from "../../models/Skilltree";
+import { Skilltree } from "../../models/skilltree";
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 
 

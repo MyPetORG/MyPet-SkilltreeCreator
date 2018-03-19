@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Skilltree } from "../models/Skilltree";
+import { Skilltree } from "../models/skilltree";
 import { HttpClient } from "@angular/common/http";
-import { LevelRule } from "../models/LevelRule";
-import { Upgrade } from "../models/Upgrade";
-import { SkillSaver } from "../data/SkillSaver";
+import { LevelRule } from "../models/level-rule";
+import { Upgrade } from "../models/upgrade";
+import { SkillSaver } from "../data/skill-saver";
 
 @Injectable()
 export class SkilltreeSaverService {

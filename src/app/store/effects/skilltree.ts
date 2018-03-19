@@ -18,7 +18,7 @@ import * as LayoutActions from "../actions/layout";
 import { Router } from "@angular/router";
 import * as Reducers from "../reducers";
 import { MatSnackBar } from "@angular/material";
-import { Skilltree } from "../../models/Skilltree";
+import { Skilltree } from "../../models/skilltree";
 import { ImportSkilltreeAction } from "../actions/skilltree";
 import { TranslateService } from "@ngx-translate/core";
 

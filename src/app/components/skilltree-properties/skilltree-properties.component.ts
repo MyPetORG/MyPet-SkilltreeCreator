@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
-import { Skilltree } from "../../models/Skilltree";
+import { Skilltree } from "../../models/skilltree";
 import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
 import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { FormControl } from "@angular/forms";

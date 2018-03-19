@@ -1,4 +1,4 @@
-import { LevelRule as LR } from "../models/LevelRule";
+import { LevelRule as LR } from "../models/level-rule";
 
 export class LevelRule {
   static toKey(rule: LR): string {

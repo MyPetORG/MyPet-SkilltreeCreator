@@ -1,4 +1,4 @@
-import { LevelRule } from "./LevelRule";
+import { LevelRule } from "./level-rule";
 
 let upgradeID = 0;
 

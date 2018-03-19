@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { SkillInfo } from "../../data/Skills";
+import { SkillInfo } from "../../data/skills";
 
 export const OPEN_SIDENAV = 'OPEN_SIDENAV';
 export const CLOSE_SIDENAV = 'CLOSE_SIDENAV';

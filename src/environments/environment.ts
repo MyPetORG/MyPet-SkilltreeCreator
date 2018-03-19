@@ -1,4 +1,4 @@
-import { fakeBackendProvider } from "../app/util/mockups/FakeBackendInterceptor";
+import { fakeBackendProvider } from "../app/util/mockups/fake-backend-interceptor";
 import { APP_VERSION } from "../version";
 
 export const environment = {

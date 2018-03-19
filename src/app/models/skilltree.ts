@@ -1,4 +1,4 @@
-import { Upgrade } from "./Upgrade";
+import { Upgrade } from "./upgrade";
 
 export interface Skilltree {
   id: string;

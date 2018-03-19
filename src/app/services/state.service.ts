@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Skill } from "../models/Skill";
-import { Upgrade } from "../models/Upgrade";
+import { Skill } from "../models/skill";
+import { Upgrade } from "../models/upgrade";
 
 @Injectable()
 export class StateService {
