@@ -17,7 +17,8 @@
   "COMPONENTS__SKILLTREE_ADD_DIALOG__INPUT_NAME": "Skilltree Name",
   "COMPONENTS__SKILLTREE_ADD_DIALOG__BUTTON_ADD": "Add",
   "COMPONENTS__SKILLTREE_ADD_DIALOG__ERROR_DUPLICATE": "There is already a skilltree with this name.",
-  "COMPONENTS__SKILLTREE_ADD_DIALOG__ERROR_REQUIRE": "Please enter a skilltree name.",
+  "COMPONENTS__SKILLTREE_ADD_DIALOG__ERROR_REQUIRED": "Please enter a skilltree name.",
+  "COMPONENTS__SKILLTREE_ADD_DIALOG__ERROR_INVALID_ID": "Please enter a valid skilltree name.",
 
   "COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__DUPLICATE_SKILLTREE": "Duplicate Skilltree",
   "COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ENTER_NAME": "Please enter the name of the duplicate.",
@@ -25,6 +26,7 @@
   "COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__DONE": "Done",
   "COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_DUPLICATE": "There is already a skilltree with this name.",
   "COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_REQUIRE": "Please enter a valid skilltree name.",
+  "COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_INVALID_ID": "Please enter a valid skilltree name.",
 
   "COMPONENTS__SKILLTREE_EDITOR__SKILL_EDITOR": "Skill Editor",
   "COMPONENTS__SKILLTREE_EDITOR__PROPERTIES": "Properties",

@@ -24,6 +24,9 @@ export class SkilltreeLoaderService {
     if (!id || id == "") {
       return Observable.throw({type: "INVALID", data: "NO ID"})
     }
+    if (!id.match(/^[a-zA-Z0-9.-_]+$/)) {
+      return Observable.throw({type: "INVALID", data: "INVALID ID"})
+    }
     let skilltree: Skilltree = {id, skills: {}, mobtypes: []};
     skilltree.permission = data.getProp("permission") || "";
     skilltree.name = data.getProp("name") || skilltree.id;

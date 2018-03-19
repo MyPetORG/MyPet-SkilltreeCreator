@@ -4,12 +4,16 @@
   <mat-input-container>
     <input matInput [placeholder]="'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__NAME' | translate" [(ngModel)]="name"
            [appSkilltreeDuplicate]="skilltreeNames"
+           pattern="[a-zA-Z0-9.-_]*"
            #nameInput="ngModel" required>
     <mat-error *ngIf="nameInput.errors?.skilltreeDuplicate">
       {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_DUPLICATE' | translate}}
     </mat-error>
     <mat-error *ngIf="nameInput.errors?.required">
-      {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_REQUIRE' | translate}}
+      {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_REQUIRED' | translate}}
+    </mat-error>
+    <mat-error *ngIf="nameInput.errors?.pattern">
+      {{ 'COMPONENTS__SKILLTREE_DUPLICATE_DIALOG__ERROR_INVALID_ID' | translate}}
     </mat-error>
   </mat-input-container>
   <button mat-button (click)="done()" [disabled]="name.trim() == '' || nameInput.errors">
