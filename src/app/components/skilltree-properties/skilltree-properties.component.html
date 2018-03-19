@@ -1,16 +1,17 @@
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="1em">
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
     <mat-input-container>
-      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__SKILLTREE_NAME' | translate"
-             [formControl]="id" (blur)="rename(id)" [appSkilltreeDuplicate]="skilltreeNames" required pattern="[^\s]*">
+      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__SKILLTREE_ID' | translate"
+             [formControl]="id" (blur)="rename(id)" [appSkilltreeDuplicate]="skilltreeNames" required
+             pattern="[a-zA-Z0-9.-_]*">
       <mat-error *ngIf="id.errors?.skilltreeDuplicate">
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
       </mat-error>
       <mat-error *ngIf="id.errors?.required">
-        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_REQUIRED' | translate }}
       </mat-error>
       <mat-error *ngIf="id.errors?.pattern">
-        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
+        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_INVALID' | translate }}
       </mat-error>
     </mat-input-container>
     <mat-input-container>
