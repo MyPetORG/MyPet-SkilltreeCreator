@@ -7,6 +7,7 @@ export const SWITCH_TAB = 'SWITCH_TAB';
 export const TOGGLE_PREMIUM = 'TOGGLE_PREMIUM';
 export const SELECT_SKILL = 'SELECT_SKILL';
 export const SELECT_SKILLTREE = 'SELECT_SKILLTREE';
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 
 
 export class OpenSidenavAction implements Action {
@@ -45,10 +46,18 @@ export class SelectSkilltreeAction implements Action {
   }
 }
 
+export class ChangeLanguageAction implements Action {
+  readonly type = CHANGE_LANGUAGE;
+
+  constructor(public payload: string) {
+  }
+}
+
 export type Actions
   = OpenSidenavAction
   | CloseSidenavAction
   | SwitchTabAction
   | TogglePremiumAction
   | SelectSkillAction
-  | SelectSkilltreeAction;
+  | SelectSkilltreeAction
+  | ChangeLanguageAction;

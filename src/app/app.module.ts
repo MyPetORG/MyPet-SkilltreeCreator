@@ -98,6 +98,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { DynamicPopoverAnchorDirective } from './directives/dynamic-popover-anchor.directive';
 import { SatPopoverModule } from "./util/popover/popover.module";
 import { SkilltreeDuplicateDialogComponent } from "./components/skilltree-duplicate-dialog/skilltree-duplicate-dialog.component";
+import { LayoutEffects } from "app/store/effects/layout";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -182,7 +183,8 @@ export function createTranslateLoader(http: HttpClient) {
       logOnly: !environment.production,
     }),
     EffectsModule.forRoot([
-      SkilltreeEffects
+      SkilltreeEffects,
+      LayoutEffects,
     ]),
   ],
   entryComponents: [

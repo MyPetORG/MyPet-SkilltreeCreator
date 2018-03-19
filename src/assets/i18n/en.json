@@ -281,6 +281,7 @@
   "LEVEL_RULE_EVERY_X_LEVEL_START": "Every {{level}} level, starting at level {{start}}",
   "LEVEL_RULE_EVERY_X_LEVEL_START_END": "Every {{level}} level, starting at level {{start}}, ending at level {{end}}",
 
+  "EFFECT__CHANGE_LANGUAGE": "Changed language to {{lang}}.",
   "EFFECT__IMPORT_SKILLTREE__IMPORT": "Import",
   "EFFECT__IMPORT_SKILLTREE_FAILED__INVALID": "This file is not a valid skilltree file.",
   "EFFECT__IMPORT_SKILLTREE_FAILED__DUPLICATE": "There is already a skilltree with this id: {{id}}",

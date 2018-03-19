@@ -16,8 +16,9 @@
             [matTooltip]="'COMPONENTS__NOT_YET_IMPLEMENTED' | translate">
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button mat-button (click)="toggleLang()" matTooltipPosition="right"
-            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__CHANGE_LANGUAGE' | translate">
+    <button *ngIf="language$ | async as lang" mat-button (click)="toggleLang(lang)" matTooltipPosition="right"
+            [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__CHANGE_LANGUAGE' | translate"
+            [disabled]="languages.length <= 1">
       <mat-icon svgIcon="translate">translate</mat-icon>
     </button>
     <button *ngIf="!(premium$ | async)" style="color: red"

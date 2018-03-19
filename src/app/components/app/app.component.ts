@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
 import { IconLoaderService } from "../../services/icon-loader.service";
 import * as SkilltreeActions from "../../store/actions/skilltree";
+import * as LayoutActions from "../../store/actions/layout";
 import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { HotkeyService } from "../../services/hotkey.service";
 import { TranslateService } from "@ngx-translate/core";
+import { languages } from "../../data/languages";
 
 @Component({
   selector: 'stc-root',
@@ -19,8 +21,8 @@ export class AppComponent {
     iconLoader.load();
 
     translate.setDefaultLang('en');
-    translate.use('en');
 
+    this.store.dispatch(new LayoutActions.ChangeLanguageAction(languages[0].key));
     this.store.dispatch(new SkilltreeActions.LoadSkilltreesAction());
 
     /*

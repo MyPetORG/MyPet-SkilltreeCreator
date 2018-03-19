@@ -10,6 +10,7 @@ import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeImportDialogComponent } from "../skilltree-import-dialog/skilltree-import-dialog.component";
 import { WebsocketService } from "../../services/websocket.service";
 import { TranslateService } from "@ngx-translate/core";
+import { languages } from "../../data/languages";
 
 @Component({
   selector: 'skilltree-creator',
@@ -22,8 +23,10 @@ export class SkilltreeCreatorComponent {
   pastStates$: Observable<any[] | null>;
   futureStates$: Observable<any[] | null>;
   premium$: Observable<boolean>;
+  language$: Observable<string>;
   isRootPath: boolean = false;
   firstPremiumToggle: boolean = true;
+  languages = languages;
 
   constructor(private dialog: MatDialog,
               private store: Store<Reducers.State>,
@@ -55,6 +58,7 @@ export class SkilltreeCreatorComponent {
     this.pastStates$ = this.store.select(Reducers.getPastStates);
     this.futureStates$ = this.store.select(Reducers.getFutureStates);
     this.premium$ = this.store.select(Reducers.getPremium);
+    this.language$ = this.store.select(Reducers.getLanguage);
 
     this.router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
@@ -102,15 +106,10 @@ export class SkilltreeCreatorComponent {
     });
   }
 
-  lang: string = "en";
-
-  toggleLang() {
-    if (this.lang == "xx") {
-      this.translate.use('en');
-      this.lang = "en"
-    } else {
-      this.translate.use('xx');
-      this.lang = "xx"
-    }
+  toggleLang(current: string) {
+    let index = languages.findIndex(lang => lang.key.toLowerCase() == current.toLowerCase());
+    index = (index + 1) % languages.length;
+    let nextLanguage = languages[index];
+    this.store.dispatch(new LayoutActions.ChangeLanguageAction(nextLanguage.key));
   }
 }

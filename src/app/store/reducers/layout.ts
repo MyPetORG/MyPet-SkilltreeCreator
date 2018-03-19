@@ -8,6 +8,7 @@ export interface State {
   premium: boolean;
   skill: SkillInfo;
   selectedSkilltreeId: string
+  language: string
 }
 
 const initialState: State = {
@@ -16,6 +17,7 @@ const initialState: State = {
   premium: true,
   skill: Skills[0],
   selectedSkilltreeId: null,
+  language: "",
 };
 
 export function reducer(state = initialState, action: layout.Actions): State {
@@ -51,6 +53,12 @@ export function reducer(state = initialState, action: layout.Actions): State {
       });
     }
 
+    case layout.CHANGE_LANGUAGE: {
+      return Object.assign({}, state, {
+        language: action.payload
+      });
+    }
+
     default:
       return state;
   }
@@ -61,3 +69,4 @@ export const getTab = (state: State) => state.tab;
 export const getPremium = (state: State) => state.premium;
 export const getSelectedSkill = (state: State) => state.skill;
 export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltreeId;
+export const getLanguage = (state: State) => state.language;
