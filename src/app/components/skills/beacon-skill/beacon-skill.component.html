@@ -90,8 +90,8 @@
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
                          [name]="'buff_absoption_' + i" #modelBuffAbsorption="ngModel"
-                         [ngModel]="upgrade.buffs.Absorption ? upgrade.buffs.Absorption : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'Absorption', $event.value, modelBuffAbsorption)">
+                         [ngModel]="upgrade.buffs.absorption ? upgrade.buffs.absorption : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'absorption', $event.value, modelBuffAbsorption)">
             <mat-error *ngIf="modelBuffAbsorption.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -101,9 +101,9 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/fireresistance.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.FireResistance == true"
-                              [indeterminate]="upgrade.buffs.FireResistance == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'FireResistance')">
+                <mat-checkbox [checked]="upgrade.buffs.fireResistance == true"
+                              [indeterminate]="upgrade.buffs.fireResistance == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'fireResistance')">
                   {{ 'COMPONENTS__SKILLS__BEACON__BUFF__FIRE_RESISTANCE' | translate }}
                 </mat-checkbox>
         </span>
@@ -116,8 +116,8 @@
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
                          [name]="'buff_haste_' + i" #modelBuffHaste="ngModel"
-                         [ngModel]="upgrade.buffs.Haste ? upgrade.buffs.Haste : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'Haste', $event.value, modelBuffHaste)">
+                         [ngModel]="upgrade.buffs.haste ? upgrade.buffs.haste : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'haste', $event.value, modelBuffHaste)">
             <mat-error *ngIf="modelBuffHaste.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -132,8 +132,8 @@
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
                          [name]="'buff_jump_boost_' + i" #modelBuffJumpBoost="ngModel"
-                         [ngModel]="upgrade.buffs.JumpBoost ? upgrade.buffs.JumpBoost : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'JumpBoost', $event.value, modelBuffJumpBoost)">
+                         [ngModel]="upgrade.buffs.jumpBoost ? upgrade.buffs.jumpBoost : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'jumpBoost', $event.value, modelBuffJumpBoost)">
             <mat-error *ngIf="modelBuffJumpBoost.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -143,9 +143,9 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/luck.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Luck == true"
-                              [indeterminate]="upgrade.buffs.Luck == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Luck')">
+                <mat-checkbox [checked]="upgrade.buffs.luck == true"
+                              [indeterminate]="upgrade.buffs.luck == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'luck')">
                   {{ 'COMPONENTS__SKILLS__BEACON__BUFF__LUCK' | translate }}
                 </mat-checkbox>
               </span>
@@ -153,9 +153,9 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/nightvision.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.NightVision == true"
-                              [indeterminate]="upgrade.buffs.NightVision == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'NightVision')">
+                <mat-checkbox [checked]="upgrade.buffs.nightVision == true"
+                              [indeterminate]="upgrade.buffs.nightVision == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'nightVision')">
                   {{ 'COMPONENTS__SKILLS__BEACON__BUFF__NIGHT_VISION' | translate }}
                 </mat-checkbox>
               </span>
@@ -168,8 +168,8 @@
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
                          [name]="'buff_resistance_' + i" #modelBuffResistance="ngModel"
-                         [ngModel]="upgrade.buffs.Resistance ? upgrade.buffs.Resistance : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'Resistance', $event.value, modelBuffResistance)">
+                         [ngModel]="upgrade.buffs.resistance ? upgrade.buffs.resistance : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'resistance', $event.value, modelBuffResistance)">
             <mat-error *ngIf="modelBuffResistance.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -184,8 +184,8 @@
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
                          [name]="'buff_speed_' + i" #modelBuffSpeed="ngModel"
-                         [ngModel]="upgrade.buffs.Speed ? upgrade.buffs.Speed : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'Speed', $event.value, modelBuffSpeed)">
+                         [ngModel]="upgrade.buffs.speed ? upgrade.buffs.speed : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'speed', $event.value, modelBuffSpeed)">
             <mat-error *ngIf="modelBuffSpeed.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -200,8 +200,8 @@
                   <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
                          pattern="[+-][0-9]+"
                          [name]="'buff_strength_' + i" #modelBuffStrength="ngModel"
-                         [ngModel]="upgrade.buffs.Strength ? upgrade.buffs.Strength : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'Strength', $event.value, modelBuffStrength)">
+                         [ngModel]="upgrade.buffs.strength ? upgrade.buffs.strength : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'strength', $event.value, modelBuffStrength)">
             <mat-error *ngIf="modelBuffStrength.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -211,9 +211,9 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/waterbreathing.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.WaterBreathing == true"
-                              [indeterminate]="upgrade.buffs.WaterBreathing == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'WaterBreathing')">
+                <mat-checkbox [checked]="upgrade.buffs.waterBreathing == true"
+                              [indeterminate]="upgrade.buffs.waterBreathing == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'waterBreathing')">
                   {{ 'COMPONENTS__SKILLS__BEACON__BUFF__WATER_BREATING' | translate }}
                 </mat-checkbox>
               </span>
@@ -221,9 +221,9 @@
             <mat-list-item>
               <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/invisibility.png">
               <span mat-line>
-                <mat-checkbox [checked]="upgrade.buffs.Invisibility == true"
-                              [indeterminate]="upgrade.buffs.Invisibility == null"
-                              (click)="toggleBuff(skilltree, upgrade, 'Invisibility')">
+                <mat-checkbox [checked]="upgrade.buffs.invisibility == true"
+                              [indeterminate]="upgrade.buffs.invisibility == null"
+                              (click)="toggleBuff(skilltree, upgrade, 'invisibility')">
                   {{ 'COMPONENTS__SKILLS__BEACON__BUFF__INVISIBILITY' | translate }}
                 </mat-checkbox>
               </span>

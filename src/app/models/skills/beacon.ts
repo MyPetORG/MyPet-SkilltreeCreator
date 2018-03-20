@@ -6,17 +6,17 @@ export interface Beacon extends Upgrade {
   duration?: string;
   count?: string;
   buffs?: {
-    Absorption?: string,
-    FireResistance?: null | boolean,
-    Haste?: string,
-    JumpBoost?: string,
-    Luck?: null | boolean,
-    NightVision?: null | boolean,
-    Resistance?: string,
-    Speed?: string,
-    Strength?: string,
-    WaterBreathing?: null | boolean,
-    Invisibility?: null | boolean,
+    absorption?: string,
+    fireResistance?: null | boolean,
+    haste?: string,
+    jumpBoost?: string,
+    luck?: null | boolean,
+    nightVision?: null | boolean,
+    resistance?: string,
+    speed?: string,
+    strength?: string,
+    waterBreathing?: null | boolean,
+    invisibility?: null | boolean,
   }
 }
 
@@ -26,17 +26,17 @@ export class BeaconDefault implements Beacon {
   duration = "+0";
   count = "+0";
   buffs = {
-    Absorption: "+0",
-    FireResistance: null,
-    Haste: "+0",
-    JumpBoost: "+0",
-    Luck: null,
-    NightVision: null,
-    Resistance: "+0",
-    Speed: "+0",
-    Strength: "+0",
-    WaterBreathing: null,
-    Invisibility: null,
+    absorption: "+0",
+    fireResistance: null,
+    haste: "+0",
+    jumpBoost: "+0",
+    luck: null,
+    nightVision: null,
+    resistance: "+0",
+    speed: "+0",
+    strength: "+0",
+    waterBreathing: null,
+    invisibility: null,
   }
 }
 
@@ -45,18 +45,19 @@ export function BeaconLoader(data: any): Beacon {
   setDefault(beacon, "range", data.getProp("range"));
   setDefault(beacon, "duration", data.getProp("duration"));
   setDefault(beacon, "count", data.getProp("count"));
-  if (data.Buffs) {
-    setDefault(beacon.buffs, "Absorption", data.getProp("buffs").getProp("Absorption"));
-    setDefault(beacon.buffs, "FireResistance", data.getProp("buffs").getProp("FireResistance"));
-    setDefault(beacon.buffs, "Haste", data.getProp("buffs").getProp("Haste"));
-    setDefault(beacon.buffs, "JumpBoost", data.getProp("buffs").getProp("JumpBoost"));
-    setDefault(beacon.buffs, "Luck", data.getProp("buffs").getProp("Luck"));
-    setDefault(beacon.buffs, "NightVision", data.getProp("buffs").getProp("NightVision"));
-    setDefault(beacon.buffs, "Resistance", data.getProp("buffs").getProp("Resistance"));
-    setDefault(beacon.buffs, "Speed", data.getProp("buffs").getProp("Speed"));
-    setDefault(beacon.buffs, "Strength", data.getProp("buffs").getProp("Strength"));
-    setDefault(beacon.buffs, "WaterBreathing", data.getProp("buffs").getProp("WaterBreathing"));
-    setDefault(beacon.buffs, "Invisibility", data.getProp("buffs").getProp("Invisibility"));
+  if (data.getProp("buffs")) {
+    let buffs = data.getProp("buffs");
+    setDefault(beacon.buffs, "absorption", buffs.getProp("absorption"));
+    setDefault(beacon.buffs, "fireResistance", buffs.getProp("fireresistance"));
+    setDefault(beacon.buffs, "haste", buffs.getProp("haste"));
+    setDefault(beacon.buffs, "jumpBoost", buffs.getProp("jumpboost"));
+    setDefault(beacon.buffs, "luck", buffs.getProp("luck"));
+    setDefault(beacon.buffs, "nightVision", buffs.getProp("nightvision"));
+    setDefault(beacon.buffs, "resistance", buffs.getProp("resistance"));
+    setDefault(beacon.buffs, "speed", buffs.getProp("speed"));
+    setDefault(beacon.buffs, "strength", buffs.getProp("strength"));
+    setDefault(beacon.buffs, "waterBreathing", buffs.getProp("waterbreathing"));
+    setDefault(beacon.buffs, "invisibility", buffs.getProp("invisibility"));
   }
   return beacon;
 }
@@ -74,38 +75,38 @@ export function BeaconSaver(data: Beacon) {
   }
 
   let buffs: any = {};
-  if (data.buffs.Absorption && /[\\+\-]?(\d+)/g.exec(data.buffs.Absorption)[1] != "0") {
-    buffs.Absorption = data.buffs.Absorption;
+  if (data.buffs.absorption && /[\\+\-]?(\d+)/g.exec(data.buffs.absorption)[1] != "0") {
+    buffs.Absorption = data.buffs.absorption;
   }
-  if (data.buffs.FireResistance != null) {
-    buffs.FireResistance = data.buffs.FireResistance;
+  if (data.buffs.fireResistance != null) {
+    buffs.FireResistance = data.buffs.fireResistance;
   }
-  if (data.buffs.Haste && /[\\+\-]?(\d+)/g.exec(data.buffs.Haste)[1] != "0") {
-    buffs.Haste = data.buffs.Haste;
+  if (data.buffs.haste && /[\\+\-]?(\d+)/g.exec(data.buffs.haste)[1] != "0") {
+    buffs.Haste = data.buffs.haste;
   }
-  if (data.buffs.JumpBoost && /[\\+\-]?(\d+)/g.exec(data.buffs.JumpBoost)[1] != "0") {
-    buffs.JumpBoost = data.buffs.JumpBoost;
+  if (data.buffs.jumpBoost && /[\\+\-]?(\d+)/g.exec(data.buffs.jumpBoost)[1] != "0") {
+    buffs.JumpBoost = data.buffs.jumpBoost;
   }
-  if (data.buffs.Luck != null) {
-    buffs.Luck = data.buffs.Luck;
+  if (data.buffs.luck != null) {
+    buffs.Luck = data.buffs.luck;
   }
-  if (data.buffs.NightVision != null) {
-    buffs.NightVision = data.buffs.NightVision;
+  if (data.buffs.nightVision != null) {
+    buffs.NightVision = data.buffs.nightVision;
   }
-  if (data.buffs.Resistance && /[\\+\-]?(\d+)/g.exec(data.buffs.Resistance)[1] != "0") {
-    buffs.Resistance = data.buffs.Resistance;
+  if (data.buffs.resistance && /[\\+\-]?(\d+)/g.exec(data.buffs.resistance)[1] != "0") {
+    buffs.Resistance = data.buffs.resistance;
   }
-  if (data.buffs.Speed && /[\\+\-]?(\d+)/g.exec(data.buffs.Speed)[1] != "0") {
-    buffs.Speed = data.buffs.Speed;
+  if (data.buffs.speed && /[\\+\-]?(\d+)/g.exec(data.buffs.speed)[1] != "0") {
+    buffs.Speed = data.buffs.speed;
   }
-  if (data.buffs.Strength && /[\\+\-]?(\d+)/g.exec(data.buffs.Strength)[1] != "0") {
-    buffs.Strength = data.buffs.Strength;
+  if (data.buffs.strength && /[\\+\-]?(\d+)/g.exec(data.buffs.strength)[1] != "0") {
+    buffs.Strength = data.buffs.strength;
   }
-  if (data.buffs.WaterBreathing != null) {
-    buffs.WaterBreathing = data.buffs.WaterBreathing;
+  if (data.buffs.waterBreathing != null) {
+    buffs.WaterBreathing = data.buffs.waterBreathing;
   }
-  if (data.buffs.Invisibility != null) {
-    buffs.Invisibility = data.buffs.Invisibility;
+  if (data.buffs.invisibility != null) {
+    buffs.Invisibility = data.buffs.invisibility;
   }
 
   if (Object.keys(buffs).length > 0) {
