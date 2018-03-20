@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Shield extends Upgrade {
   chance?: string;
@@ -14,8 +14,8 @@ export class ShieldDefault implements Shield {
 
 export function ShieldLoader(data: any): Shield {
   let shield: Shield = Object.assign({}, new ShieldDefault);
-  setDefault(shield, "chance", data.getProp("chance"));
-  setDefault(shield, "redirect", data.getProp("redirect"));
+  shield.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  shield.redirect = matchOrDefault(data.getPropAs("redirect", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
   return shield;
 }
 

@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Damage extends Upgrade {
   damage?: string;
@@ -12,7 +12,7 @@ export class DamageDefault implements Damage {
 
 export function DamageLoader(data: any): Damage {
   let damage: Damage = Object.assign({}, new DamageDefault);
-  setDefault(damage, "damage", data.getProp("damage"));
+  damage.damage = matchOrDefault(data.getPropAs("damage", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
   return damage;
 }
 

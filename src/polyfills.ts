@@ -67,7 +67,7 @@ import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scro
  */
 
 Object.defineProperty(Object.prototype, "getProp", {
-  value: function (prop) {
+  value: function (prop: string) {
     let key, self = this;
     for (key in self) {
       if (key.toLowerCase() == prop.toLowerCase()) {
@@ -76,6 +76,32 @@ Object.defineProperty(Object.prototype, "getProp", {
     }
   },
   //this keeps jquery happy
+  enumerable: false
+});
+
+Object.defineProperty(Object.prototype, "getPropAs", {
+  value: function (prop: string, type: string) {
+    let value: any = this.getProp(prop);
+    switch (type.toLowerCase()) {
+      case "int":
+      case "integer":
+        let num = Number(value);
+        num = ~~num;
+        return num;
+      case "number":
+        return Number(value);
+      case "string":
+        return "" + value;
+      case "boolean|null":
+      case "bool|null":
+        return value == true || value == false ? value : null;
+      case "boolean":
+      case "bool":
+        return !!value;
+      default:
+        return value;
+    }
+  },
   enumerable: false
 });
 

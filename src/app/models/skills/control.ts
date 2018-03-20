@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Control extends Upgrade {
   active?: boolean | null;
@@ -12,7 +12,7 @@ export class ControlDefault implements Control {
 
 export function ControlLoader(data: any): Control {
   let control: Control = Object.assign({}, new ControlDefault);
-  setDefault(control, "active", data.getProp("active"));
+  control.active = data.getPropAs("active", "bool|null");
   return control;
 }
 

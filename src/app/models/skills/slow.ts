@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Slow extends Upgrade {
   chance?: string;
@@ -14,8 +14,8 @@ export class SlowDefault implements Slow {
 
 export function SlowLoader(data: any): Slow {
   let slow: Slow = Object.assign({}, new SlowDefault);
-  setDefault(slow, "chance", data.getProp("chance"));
-  setDefault(slow, "duration", data.getProp("duration"));
+  slow.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  slow.duration = matchOrDefault(data.getPropAs("duration", "string"), /[+-][0-9]+/, "+0");
   return slow;
 }
 

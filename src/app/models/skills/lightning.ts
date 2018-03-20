@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Lightning extends Upgrade {
   chance?: string;
@@ -16,6 +16,8 @@ export function LightningLoader(data: any): Lightning {
   let lightning: Lightning = Object.assign({}, new LightningDefault);
   setDefault(lightning, "chance", data.getProp("chance"));
   setDefault(lightning, "damage", data.getProp("damage"));
+  lightning.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  lightning.damage = matchOrDefault(data.getPropAs("damage", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
   return lightning;
 }
 

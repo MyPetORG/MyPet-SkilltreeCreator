@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Thorns extends Upgrade {
   chance?: string;
@@ -14,8 +14,8 @@ export class ThornsDefault implements Thorns {
 
 export function ThornsLoader(data: any): Thorns {
   let thorns: Thorns = Object.assign({}, new ThornsDefault);
-  setDefault(thorns, "chance", data.getProp("chance"));
-  setDefault(thorns, "reflection", data.getProp("reflection"));
+  thorns.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  thorns.reflection = matchOrDefault(data.getPropAs("reflection", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
   return thorns;
 }
 

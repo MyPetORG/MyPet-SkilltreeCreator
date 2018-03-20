@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Ride extends Upgrade {
   canFly?: boolean | null;
@@ -20,11 +20,11 @@ export class RideDefault implements Ride {
 
 export function RideLoader(data: any): Ride {
   let ride: Ride = Object.assign({}, new RideDefault);
-  setDefault(ride, "speed", data.getProp("speed"));
-  setDefault(ride, "jumpHeight", data.getProp("jumpheight"));
-  setDefault(ride, "flyLimit", data.getProp("flylimit"));
-  setDefault(ride, "flyRegenRate", data.getProp("flyregenrate"));
-  setDefault(ride, "canFly", data.getProp("canfly"));
+  ride.speed = matchOrDefault(data.getPropAs("speed", "string"), /[+-][0-9]+/, "+0");
+  ride.jumpHeight = matchOrDefault(data.getPropAs("jumpHeight", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  ride.flyLimit = matchOrDefault(data.getPropAs("flyLimit", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  ride.flyRegenRate = matchOrDefault(data.getPropAs("flyRegenRate", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  ride.canFly = data.getPropAs("canFly", "bool|null");
   return ride;
 }
 

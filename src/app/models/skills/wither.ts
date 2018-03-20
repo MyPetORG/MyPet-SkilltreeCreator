@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Wither extends Upgrade {
   chance?: string;
@@ -13,10 +13,10 @@ export class WitherDefault implements Wither {
 }
 
 export function WitherLoader(data: any): Wither {
-  let slow: Wither = Object.assign({}, new WitherDefault);
-  setDefault(slow, "chance", data.getProp("chance"));
-  setDefault(slow, "duration", data.getProp("duration"));
-  return slow;
+  let wither: Wither = Object.assign({}, new WitherDefault);
+  wither.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  wither.duration = matchOrDefault(data.getPropAs("duration", "string"), /[+-][0-9]+/, "+0");
+  return wither;
 }
 
 export function WitherSaver(data: Wither) {

@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Life extends Upgrade {
   health?: string;
@@ -12,7 +12,7 @@ export class LifeDefault implements Life {
 
 export function LifeLoader(data: any): Life {
   let life: Life = Object.assign({}, new LifeDefault);
-  setDefault(life, "health", data.getProp("health"));
+  life.health = matchOrDefault(data.getPropAs("health", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
   return life;
 }
 

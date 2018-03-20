@@ -31,13 +31,17 @@ export class SkilltreeLoaderService {
     skilltree.permission = data.getProp("permission") || "";
     skilltree.name = data.getProp("name") || skilltree.id;
     skilltree.description = data.getProp("description") || [];
-    skilltree.order = data.getProp("order") || Number.MAX_SAFE_INTEGER;
-    skilltree.requiredLevel = data.getProp("requiredLevel") || 0;
-    skilltree.maxLevel = data.getProp("maxLevel") || 0;
+    skilltree.order = data.getPropAs("order", "int") || Number.MAX_SAFE_INTEGER;
+    skilltree.requiredLevel = data.getPropAs("requiredLevel", "int") || 0;
+    skilltree.maxLevel = data.getPropAs("maxLevel", "int") || 0;
     skilltree.icon = data.getProp("icon") || "";
 
-    skilltree.skills = this.loadSkills(data.getProp("skills"));
-    skilltree.mobtypes = this.loadMobTypes(data.getProp("mobtypes"));
+    try {
+      skilltree.skills = this.loadSkills(data.getProp("skills"));
+      skilltree.mobtypes = this.loadMobTypes(data.getProp("mobtypes"));
+    } catch (e) {
+      return Observable.throw({type: "INVALID", data: e})
+    }
 
     return of(skilltree);
   }
@@ -46,8 +50,12 @@ export class SkilltreeLoaderService {
     let types = [];
     if (Array.isArray(data)) {
       data.forEach(name => {
-        if (MobTypes.indexOf(name) >= 0) {
-          types.push(name)
+        let index = MobTypes.findIndex(type => {
+          console.log(type.toLowerCase(), name.toLowerCase(), type.toLowerCase() == name.toLowerCase());
+          return type.toLowerCase() == name.toLowerCase()
+        });
+        if (index >= 0) {
+          types.push(MobTypes[index]);
         }
       })
     }
@@ -59,12 +67,17 @@ export class SkilltreeLoaderService {
     Skills.forEach(skillInfo => {
       if (data[skillInfo.id]) {
         skills[skillInfo.id] = [];
-        Object.keys(data[skillInfo.id].getProp("upgrades")).forEach(key => {
-          let rule = this.loadLevelRule(key);
-          let upgrade = SkillLoader[skillInfo.id](data[skillInfo.id].getProp("upgrades")[key]);
-          upgrade.rule = rule;
-          skills[skillInfo.id].push(upgrade);
-        });
+        let upgrades = data[skillInfo.id].getProp("upgrades");
+        if (upgrades === Object(upgrades)) {
+          Object.keys(upgrades).forEach(key => {
+            let rule = this.loadLevelRule(key);
+            if (rule) {
+              let upgrade = SkillLoader[skillInfo.id](data[skillInfo.id].getProp("upgrades")[key]);
+              upgrade.rule = rule;
+              skills[skillInfo.id].push(upgrade);
+            }
+          });
+        }
       }
     });
     return skills;
@@ -120,7 +133,10 @@ export class SkilltreeLoaderService {
         if (!isNaN(level)) {
           levelRule.exact.push(level)
         }
-      })
+      });
+      if (levelRule.exact.length == 0) {
+        return null;
+      }
     }
     return levelRule;
   }

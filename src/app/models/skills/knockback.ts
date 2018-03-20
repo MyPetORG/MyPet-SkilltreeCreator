@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Knockback extends Upgrade {
   chance?: string;
@@ -12,7 +12,7 @@ export class KnockbackDefault implements Knockback {
 
 export function KnockbackLoader(data: any): Knockback {
   let knockback: Knockback = Object.assign({}, new KnockbackDefault);
-  setDefault(knockback, "chance", data.getProp("chance"));
+  knockback.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
   return knockback;
 }
 

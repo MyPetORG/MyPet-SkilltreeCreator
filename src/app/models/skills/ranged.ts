@@ -1,5 +1,14 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
+
+export const Projectiles: string[] = [
+  "Arrow",
+  "Snowball",
+  "Fireball",
+  "LargeFireball",
+  "WitherSkull",
+  "Egg",
+];
 
 export interface Ranged extends Upgrade {
   damage?: string;
@@ -16,9 +25,14 @@ export class RangedDefault implements Ranged {
 
 export function RangedLoader(data: any): Ranged {
   let ranged: Ranged = Object.assign({}, new RangedDefault);
-  setDefault(ranged, "damage", data.getProp("damage"));
-  setDefault(ranged, "rate", data.getProp("rate"));
-  setDefault(ranged, "projectile", data.getProp("projectile"));
+  ranged.damage = matchOrDefault(data.getPropAs("damage", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  ranged.rate = matchOrDefault(data.getPropAs("rate", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  let projectile = data.getPropAs("projectile", "string").toLowerCase();
+  Projectiles.forEach(p => {
+    if (p.toLowerCase() == projectile) {
+      ranged.projectile = p;
+    }
+  });
   return ranged;
 }
 

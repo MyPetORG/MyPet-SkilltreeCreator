@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Stomp extends Upgrade {
   chance?: string;
@@ -13,10 +13,10 @@ export class StompDefault implements Stomp {
 }
 
 export function StompLoader(data: any): Stomp {
-  let slow: Stomp = Object.assign({}, new StompDefault);
-  setDefault(slow, "chance", data.getProp("chance"));
-  setDefault(slow, "damage", data.getProp("damage"));
-  return slow;
+  let stomp: Stomp = Object.assign({}, new StompDefault);
+  stomp.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  stomp.damage = matchOrDefault(data.getPropAs("damage", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  return stomp;
 }
 
 export function StompSaver(data: Stomp) {

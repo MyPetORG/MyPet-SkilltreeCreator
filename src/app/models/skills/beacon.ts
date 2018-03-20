@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Beacon extends Upgrade {
   range?: string;
@@ -42,22 +42,22 @@ export class BeaconDefault implements Beacon {
 
 export function BeaconLoader(data: any): Beacon {
   let beacon: Beacon = new BeaconDefault;
-  setDefault(beacon, "range", data.getProp("range"));
-  setDefault(beacon, "duration", data.getProp("duration"));
-  setDefault(beacon, "count", data.getProp("count"));
+  beacon.range = matchOrDefault(data.getPropAs("range", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  beacon.duration = matchOrDefault(data.getPropAs("duration", "string"), /[+-][0-9]+/, "+0");
+  beacon.count = matchOrDefault(data.getPropAs("count", "string"), /[+-][0-9]+/, "+0");
   if (data.getProp("buffs")) {
     let buffs = data.getProp("buffs");
-    setDefault(beacon.buffs, "absorption", buffs.getProp("absorption"));
-    setDefault(beacon.buffs, "fireResistance", buffs.getProp("fireresistance"));
-    setDefault(beacon.buffs, "haste", buffs.getProp("haste"));
-    setDefault(beacon.buffs, "jumpBoost", buffs.getProp("jumpboost"));
-    setDefault(beacon.buffs, "luck", buffs.getProp("luck"));
-    setDefault(beacon.buffs, "nightVision", buffs.getProp("nightvision"));
-    setDefault(beacon.buffs, "resistance", buffs.getProp("resistance"));
-    setDefault(beacon.buffs, "speed", buffs.getProp("speed"));
-    setDefault(beacon.buffs, "strength", buffs.getProp("strength"));
-    setDefault(beacon.buffs, "waterBreathing", buffs.getProp("waterbreathing"));
-    setDefault(beacon.buffs, "invisibility", buffs.getProp("invisibility"));
+    beacon.buffs.absorption = matchOrDefault(buffs.getPropAs("absorption", "string"), /[+-][0-9]+/, "+0");
+    beacon.buffs.fireResistance = buffs.getPropAs("fireResistance", "bool|null");
+    beacon.buffs.haste = matchOrDefault(buffs.getPropAs("haste", "string"), /[+-][0-9]+/, "+0");
+    beacon.buffs.jumpBoost = matchOrDefault(buffs.getPropAs("jumpBoost", "string"), /[+-][0-9]+/, "+0");
+    beacon.buffs.luck = buffs.getPropAs("luck", "bool|null");
+    beacon.buffs.nightVision = buffs.getPropAs("nightVision", "bool|null");
+    beacon.buffs.resistance = matchOrDefault(buffs.getPropAs("resistance", "string"), /[+-][0-9]+/, "+0");
+    beacon.buffs.speed = matchOrDefault(buffs.getPropAs("speed", "string"), /[+-][0-9]+/, "+0");
+    beacon.buffs.strength = matchOrDefault(buffs.getPropAs("strength", "string"), /[+-][0-9]+/, "+0");
+    beacon.buffs.waterBreathing = buffs.getPropAs("waterBreathing", "bool|null");
+    beacon.buffs.invisibility = buffs.getPropAs("invisibility", "bool|null");
   }
   return beacon;
 }

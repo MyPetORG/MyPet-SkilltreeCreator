@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Backpack extends Upgrade {
   rows?: string;
@@ -14,8 +14,8 @@ export class BackpackDefault implements Backpack {
 
 export function BackpackLoader(data: any): Backpack {
   let backpack: Backpack = Object.assign({}, new BackpackDefault);
-  setDefault(backpack, "rows", data.getProp("rows"));
-  setDefault(backpack, "drop", data.getProp("drop"));
+  backpack.rows = matchOrDefault(data.getPropAs("rows", "string"), /[+\\-][0-9]/, "+0");
+  backpack.drop = data.getPropAs("drop", "bool|null");
 
   return backpack;
 }

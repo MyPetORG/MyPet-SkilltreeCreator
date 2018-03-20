@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Fire extends Upgrade {
   chance?: string;
@@ -14,8 +14,8 @@ export class FireDefault implements Fire {
 
 export function FireLoader(data: any): Fire {
   let fire: Fire = Object.assign({}, new FireDefault);
-  setDefault(fire, "chance", data.getProp("chance"));
-  setDefault(fire, "duration", data.getProp("duration"));
+  fire.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  fire.duration = matchOrDefault(data.getPropAs("duration", "string"), /[+-][0-9]+/, "+0");
   return fire;
 }
 

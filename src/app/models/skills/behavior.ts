@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Behavior extends Upgrade {
   friend?: boolean | null;
@@ -21,11 +21,11 @@ export class BehaviorDefault implements Behavior {
 
 export function BehaviorLoader(data: any): Behavior {
   let behavior: Behavior = Object.assign({}, new BehaviorDefault);
-  setDefault(behavior, "aggro", data.getProp("aggro"));
-  setDefault(behavior, "duel", data.getProp("duel"));
-  setDefault(behavior, "farm", data.getProp("farm"));
-  setDefault(behavior, "friend", data.getProp("friend"));
-  setDefault(behavior, "raid", data.getProp("raid"));
+  behavior.aggro = data.getPropAs("aggro", "bool|null");
+  behavior.duel = data.getPropAs("duel", "bool|null");
+  behavior.farm = data.getPropAs("farm", "bool|null");
+  behavior.friend = data.getPropAs("friend", "bool|null");
+  behavior.raid = data.getPropAs("raid", "bool|null");
   return behavior;
 }
 

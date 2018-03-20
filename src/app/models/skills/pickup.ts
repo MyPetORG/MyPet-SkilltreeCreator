@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Pickup extends Upgrade {
   range?: string;
@@ -14,8 +14,8 @@ export class PickupDefault implements Pickup {
 
 export function PickupLoader(data: any): Pickup {
   let pickup: Pickup = Object.assign({}, new PickupDefault);
-  setDefault(pickup, "range", data.getProp("range"));
-  setDefault(pickup, "exp", data.getProp("exp"));
+  pickup.range = matchOrDefault(data.getPropAs("range", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
+  pickup.exp = data.getPropAs("exp", "bool|null");
   return pickup;
 }
 

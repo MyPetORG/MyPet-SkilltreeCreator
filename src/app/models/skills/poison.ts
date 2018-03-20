@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Poison extends Upgrade {
   chance?: string;
@@ -14,8 +14,8 @@ export class PoisonDefault implements Poison {
 
 export function PoisonLoader(data: any): Poison {
   let poison: Poison = Object.assign({}, new PoisonDefault);
-  setDefault(poison, "chance", data.getProp("chance"));
-  setDefault(poison, "duration", data.getProp("duration"));
+  poison.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
+  poison.duration = matchOrDefault(data.getPropAs("duration", "string"), /[+-][0-9]+/, "+0");
   return poison;
 }
 

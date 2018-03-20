@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { setDefault } from "../../util/helpers";
+import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Heal extends Upgrade {
   timer?: string;
@@ -14,8 +14,8 @@ export class HealDefault implements Heal {
 
 export function HealLoader(data: any): Heal {
   let heal: Heal = Object.assign({}, new HealDefault);
-  setDefault(heal, "timer", data.getProp("timer"));
-  setDefault(heal, "health", data.getProp("health"));
+  heal.timer = matchOrDefault(data.getPropAs("timer", "string"), /[+-][0-9]+/, "+0");
+  heal.health = matchOrDefault(data.getPropAs("health", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
   return heal;
 }
 
