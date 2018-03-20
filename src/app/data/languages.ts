@@ -4,7 +4,7 @@ export const languages = [
     name: "English"
   },
   {
-    key: "xx",
-    name: "XXX"
+    key: "de",
+    name: "Deutsch"
   },
 ];

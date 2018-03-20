@@ -32,7 +32,7 @@ export class LevelRule {
         data.start = rule.minimum;
       }
       if (rule.limit) {
-        data.start = rule.limit;
+        data.end = rule.limit;
       }
       return data
     }
