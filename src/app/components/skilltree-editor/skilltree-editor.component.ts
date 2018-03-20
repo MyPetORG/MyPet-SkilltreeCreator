@@ -5,7 +5,9 @@ import { Subscription } from "rxjs/Subscription";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
 import { Observable } from "rxjs/Observable";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-editor',
   templateUrl: './skilltree-editor.component.html',
@@ -34,8 +36,6 @@ export class SkilltreeEditorComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.actionsSubscription.unsubscribe();
-    this.skilltreeSubscription.unsubscribe();
   }
 
   switchTab(tab: number) {

@@ -31,7 +31,9 @@ import { Heal } from "../../models/skills/heal";
 import { Beacon, BeaconDefault } from "../../models/skills/beacon";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-import-dialog',
   templateUrl: './skilltree-import-legacy-dialog.component.html',
@@ -78,9 +80,6 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    if (this.skilltreesSubscription) {
-      this.skilltreesSubscription.unsubscribe();
-    }
   }
 
   onSelectFile(event) {

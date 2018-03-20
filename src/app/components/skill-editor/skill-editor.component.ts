@@ -14,7 +14,9 @@ import { Store } from "@ngrx/store";
 import * as LayoutActions from "../../store/actions/layout";
 import { SkillUpgradeComponents } from "../../data/upgrade-components";
 import { Subscription } from "rxjs/Subscription";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'stc-skill-editor',
   templateUrl: './skill-editor.component.html',
@@ -51,9 +53,6 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.selectedSkillSubscription) {
-      this.selectedSkillSubscription.unsubscribe();
-    }
   }
 
   loadComponent(skill: SkillInfo) {

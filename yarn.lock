@@ -3434,6 +3434,10 @@ ngrx-store-freeze@^0.2.1:
   dependencies:
     deep-freeze-strict "^1.1.1"
 
+ngx-auto-unsubscribe@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-auto-unsubscribe/-/ngx-auto-unsubscribe-2.3.0.tgz#b129b4984e4a4ee9aaf21109328fa012f90ab754"
+
 ngx-clipboard@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/ngx-clipboard/-/ngx-clipboard-10.0.0.tgz#1facba48db2ffe72f0f7975a50ad6abe1429373a"

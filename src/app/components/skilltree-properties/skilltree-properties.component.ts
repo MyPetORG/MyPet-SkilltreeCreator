@@ -10,7 +10,9 @@ import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { TranslateService } from "@ngx-translate/core";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-properties',
   templateUrl: './skilltree-properties.component.html',
@@ -64,10 +66,6 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.skilltreeSubscription.unsubscribe();
-    if (this.skilltreeNamesSubscription) {
-      this.skilltreeNamesSubscription.unsubscribe();
-    }
   }
 
   parseTextArea() {

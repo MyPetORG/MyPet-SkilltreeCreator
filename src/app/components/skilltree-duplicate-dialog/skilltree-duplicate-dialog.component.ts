@@ -2,7 +2,9 @@ import { Component, Inject, OnDestroy } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-duplicate-dialog',
   templateUrl: './skilltree-duplicate-dialog.component.html',
@@ -32,8 +34,5 @@ export class SkilltreeDuplicateDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.skilltreeNamesSubscription) {
-      this.skilltreeNamesSubscription.unsubscribe();
-    }
   }
 }

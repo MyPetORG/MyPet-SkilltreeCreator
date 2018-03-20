@@ -7,7 +7,9 @@ import { Store } from "@ngrx/store";
 import { Upgrade } from "../../models/upgrade";
 import { isArray } from "util";
 import { TranslateService } from "@ngx-translate/core";
+import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'stc-upgrade-add-dialog',
   templateUrl: './upgrade-add-dialog.component.html',
@@ -43,9 +45,6 @@ export class UpgradeAddDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.levelRulessSubscription) {
-      this.levelRulessSubscription.unsubscribe();
-    }
   }
 
   done() {
