@@ -49,13 +49,36 @@ export class SkilltreeLoaderService {
   loadMobTypes(data: any) {
     let types = [];
     if (Array.isArray(data)) {
+      if (data.length == 0) {
+        return MobTypes.slice();
+      }
+      if (data.findIndex(name => name.substr(0, 1) != "-") == -1) {
+        types = MobTypes.slice();
+      }
       data.forEach(name => {
-        let index = MobTypes.findIndex(type => {
-          console.log(type.toLowerCase(), name.toLowerCase(), type.toLowerCase() == name.toLowerCase());
-          return type.toLowerCase() == name.toLowerCase()
-        });
-        if (index >= 0) {
-          types.push(MobTypes[index]);
+        if (name == "*") {
+          types = MobTypes.slice();
+        } else {
+          let negative = false;
+          if (name.substr(0, 1) == "-") {
+            negative = true;
+            name = name.substr(1);
+          }
+          let index = MobTypes.findIndex(type => {
+            return type.toLowerCase() == name.toLowerCase()
+          });
+          if (index >= 0) {
+            let typesIndex = types.indexOf(MobTypes[index]);
+            if (negative) {
+              if (typesIndex >= 0) {
+                types.splice(typesIndex, 1)
+              }
+            } else {
+              if (typesIndex == -1) {
+                types.push(MobTypes[index]);
+              }
+            }
+          }
         }
       })
     }

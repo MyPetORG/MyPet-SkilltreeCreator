@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { LevelRule } from "../models/level-rule";
 import { Upgrade } from "../models/upgrade";
 import { SkillSaver } from "../data/skill-saver";
+import { MobTypes } from "../data/mob-types";
 
 @Injectable()
 export class SkilltreeSaverService {
@@ -34,7 +35,7 @@ export class SkilltreeSaverService {
       if (skilltree.description) {
         data.Description = skilltree.description.slice();
       }
-      data.MobTypes = skilltree.mobtypes.slice(0);
+      data.MobTypes = this.saveMobTypes(skilltree.mobtypes.slice(0));
 
       data.Skills = {};
       this.saveSkills(data.Skills, skilltree.skills);
@@ -78,5 +79,17 @@ export class SkilltreeSaverService {
       rule += ">" + levelRule.minimum;
     }
     return rule;
+  }
+
+  saveMobTypes(mobtypes: string[]): string[] {
+    if (mobtypes.length == MobTypes.length) {
+      return ["*"]
+    }
+    if (mobtypes.length >= ~~(MobTypes.length * 0.75)) {
+      let negativeTypes = MobTypes.filter(type => mobtypes.indexOf(type) == -1);
+      negativeTypes.forEach((type, index) => negativeTypes[index] = "-" + type);
+      return negativeTypes;
+    }
+    return mobtypes;
   }
 }
