@@ -242,45 +242,33 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         let beacon: Beacon = new BeaconDefault();
 
         if (skill.range) {
-          if (skill.addset_range.value == "add") {
-            beacon.range = skill.range.value >= 0 ? "+" + skill.range.value : "" + skill.range.value
-          } else {
-            beacon.range = "=" + skill.range.value;
-          }
+          beacon.range = skill.range.value >= 0 ? "+" + skill.range.value : "" + skill.range.value;
         }
         if (skill.duration) {
-          if (skill.addset_duration.value == "add") {
-            beacon.duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value
-          } else {
-            beacon.duration = "=" + skill.duration.value;
-          }
+          beacon.duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value;
         }
         if (skill.selection_count) {
-          if (skill.addset_selection_count.value == "add") {
-            beacon.count = skill.selection_count.value >= 0 ? "+" + skill.selection_count.value : "" + skill.selection_count.value
-          } else {
-            beacon.count = "=" + skill.selection_count.value;
-          }
+          beacon.count = skill.selection_count.value >= 0 ? "+" + skill.selection_count.value : "" + skill.selection_count.value;
         }
 
         let buffs: any = {};
         if (skill.buff_absorption_enable && skill.buff_absorption_level) {
-          buffs.Absorption = "=" + skill.buff_absorption_level.value
+          buffs.Absorption = "+" + skill.buff_absorption_level.value;
         }
         if (skill.buff_resistance_enable && skill.buff_resistance_level) {
-          buffs.Resistance = "=" + skill.buff_resistance_level.value
+          buffs.Resistance = "+" + skill.buff_resistance_level.value;
         }
         if (skill.buff_jump_boost_enable && skill.buff_jump_boost_level) {
-          buffs.JumpBoost = "=" + skill.buff_jump_boost_level.value
+          buffs.JumpBoost = "+" + skill.buff_jump_boost_level.value;
         }
         if (skill.buff_strength_enable && skill.buff_strength_level) {
-          buffs.Strength = "=" + skill.buff_strength_level.value
+          buffs.Strength = "+" + skill.buff_strength_level.value;
         }
         if (skill.buff_haste_enable && skill.buff_haste_level) {
-          buffs.Haste = "=" + skill.buff_haste_level.value
+          buffs.Haste = "+" + skill.buff_haste_level.value;
         }
         if (skill.buff_speed_boost_enable && skill.buff_speed_boost_level) {
-          buffs.Speed = "=" + skill.buff_speed_boost_level.value
+          buffs.Speed = "+" + skill.buff_speed_boost_level.value;
         }
         if (skill.buff_luck_enable) {
           buffs.Luck = skill.buff_luck_enable.value;
@@ -315,214 +303,82 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         return {aggro, duel, farm, friend, raid} as Behavior;
       }
       case "Control": {
-        let active = true;
-        return {active} as Control;
+        return {active: true} as Control;
       }
       case "Damage": {
-        let damage;
-        if (skill.addset_damage.value == "add") {
-          damage = skill.damage_double.value >= 0 ? "+" + skill.damage_double.value : "" + skill.damage_double.value
-        } else {
-          damage = "=" + skill.damage_double.value;
-        }
+        let damage = skill.damage_double.value >= 0 ? "+" + skill.damage_double.value : "" + skill.damage_double.value;
         return {damage} as Damage;
       }
       case "Fire": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let duration;
-        if (skill.addset_duration.value == "add") {
-          duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value
-        } else {
-          duration = "=" + skill.duration.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value;
         return {chance, duration} as Fire;
       }
       case "Heal": {
-        let health;
-        if (skill.addset_hp.value == "add") {
-          health = skill.hp_double.value >= 0 ? "+" + skill.hp_double.value : "" + skill.hp_double.value
-        } else {
-          health = "=" + skill.hp_double.value;
-        }
-        let timer;
-        if (skill.addset_time.value == "add") {
-          timer = skill.time.value >= 0 ? "+" + skill.time.value : "" + skill.time.value
-        } else {
-          timer = "=" + skill.time.value;
-        }
+        let health = skill.hp_double.value >= 0 ? "+" + skill.hp_double.value : "" + skill.hp_double.value;
+        let timer = skill.time.value >= 0 ? "+" + skill.time.value : "" + skill.time.value;
         return {health, timer} as Heal;
       }
       case "Life": {
-        let health;
-        if (skill.addset_hp.value == "add") {
-          health = skill.hp_double.value >= 0 ? "+" + skill.hp_double.value : "" + skill.hp_double.value
-        } else {
-          health = "=" + skill.hp_double.value;
-        }
+        let health = skill.hp_double.value >= 0 ? "+" + skill.hp_double.value : "" + skill.hp_double.value;
         return {health} as Life;
       }
       case "Knockback": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
         return {chance} as Knockback;
       }
       case "Lightning": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let damage;
-        if (skill.addset_damage.value == "add") {
-          damage = skill.damage_double.value >= 0 ? "+" + skill.damage_double.value : "" + skill.damage_double.value
-        } else {
-          damage = "=" + skill.damage_double.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let damage = skill.damage_double.value >= 0 ? "+" + skill.damage_double.value : "" + skill.damage_double.value;
         return {chance, damage} as Lightning;
       }
       case "Pickup": {
-        let range;
-        if (skill.addset_range.value == "add") {
-          range = skill.range.value >= 0 ? "+" + skill.range.value : "" + skill.range.value
-        } else {
-          range = "=" + skill.range.value;
-        }
+        let range = skill.range.value >= 0 ? "+" + skill.range.value : "" + skill.range.value;
         let exp = skill.exp_pickup.value == 1;
         return {range, exp} as Pickup;
       }
       case "Poison": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let duration;
-        if (skill.addset_duration.value == "add") {
-          duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value
-        } else {
-          duration = "=" + skill.duration.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value;
         return {chance, duration} as Poison;
       }
       case "Ranged": {
-        let damage;
-        if (skill.addset_damage.value == "add") {
-          damage = skill.damage_double.value >= 0 ? "+" + skill.damage_double.value : "" + skill.damage_double.value
-        } else {
-          damage = "=" + skill.damage_double.value;
-        }
-        let rate;
-        if (skill.addset_rateoffire.value == "add") {
-          rate = skill.rateoffire.value >= 0 ? "+" + skill.rateoffire.value : "" + skill.rateoffire.value
-        } else {
-          rate = "=" + skill.rateoffire.value;
-        }
+        let damage = skill.damage_double.value >= 0 ? "+" + skill.damage_double.value : "" + skill.damage_double.value;
+        let rate = skill.rateoffire.value >= 0 ? "+" + skill.rateoffire.value : "" + skill.rateoffire.value;
         let projectile = skill.projectile.value;
         return {damage, rate, projectile} as Ranged;
       }
       case "Ride": {
-        let jumpHeight;
-        if (skill.addset_jump_height.value == "add") {
-          jumpHeight = skill.jump_height.value >= 0 ? "+" + skill.jump_height.value : "" + skill.jump_height.value
-        } else {
-          jumpHeight = "=" + skill.jump_height.value;
-        }
-        let speed;
-        if (skill.addset_speed.value == "add") {
-          speed = skill.speed_percent.value >= 0 ? "+" + skill.speed_percent.value : "" + skill.speed_percent.value
-        } else {
-          speed = "=" + skill.speed_percent.value;
-        }
+        let jumpHeight = skill.jump_height.value >= 0 ? "+" + skill.jump_height.value : "" + skill.jump_height.value;
+        let speed = skill.speed_percent.value >= 0 ? "+" + skill.speed_percent.value : "" + skill.speed_percent.value;
         return {jumpHeight, speed} as Ride;
       }
       case "Shield": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let redirect;
-        if (skill.addset_redirection.value == "add") {
-          redirect = skill.redirection.value >= 0 ? "+" + skill.redirection.value : "" + skill.redirection.value
-        } else {
-          redirect = "=" + skill.redirection.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let redirect = skill.redirection.value >= 0 ? "+" + skill.redirection.value : "" + skill.redirection.value;
         return {chance, redirect} as Shield;
       }
       case "Slow": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let duration;
-        if (skill.addset_duration.value == "add") {
-          duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value
-        } else {
-          duration = "=" + skill.duration.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value;
         return {chance, duration} as Slow;
       }
       case "Sprint": {
-        let active = true;
-        return {active} as Sprint;
+        return {active: true} as Sprint;
       }
       case "Stomp": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let damage;
-        if (skill.addset_damage.value == "add") {
-          damage = skill.damage.value >= 0 ? "+" + skill.damage.value : "" + skill.damage.value
-        } else {
-          damage = "=" + skill.damage.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let damage = skill.damage.value >= 0 ? "+" + skill.damage.value : "" + skill.damage.value;
         return {chance, damage} as Stomp;
       }
       case "Thorns": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let reflection;
-        if (skill.addset_reflection.value == "add") {
-          reflection = skill.reflection.value >= 0 ? "+" + skill.reflection.value : "" + skill.reflection.value
-        } else {
-          reflection = "=" + skill.reflection.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let reflection = skill.reflection.value >= 0 ? "+" + skill.reflection.value : "" + skill.reflection.value;
         return {chance, reflection} as Thorns;
       }
       case "Wither": {
-        let chance;
-        if (skill.addset_chance.value == "add") {
-          chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value
-        } else {
-          chance = "=" + skill.chance.value;
-        }
-        let duration;
-        if (skill.addset_duration.value == "add") {
-          duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value
-        } else {
-          duration = "=" + skill.duration.value;
-        }
+        let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
+        let duration = skill.duration.value >= 0 ? "+" + skill.duration.value : "" + skill.duration.value;
         return {chance, duration} as Wither;
       }
     }
