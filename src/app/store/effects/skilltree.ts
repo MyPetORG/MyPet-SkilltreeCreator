@@ -44,25 +44,29 @@ export class SkilltreeEffects {
       SkilltreeActions.IMPORT_LEGACY_SKILLTREE,
     )
     .withLatestFrom(this.store.select(Reducers.getSkilltrees))
-    .switchMap(([action, state]) => {
-      let skilltrees = [];
-      Object.keys(state).forEach(id => {
-        skilltrees.push(JSON.parse(JSON.stringify(state[id])));
-      });
-      skilltrees.sort((a, b) => {
-        return a.order - b.order;
-      });
-      let index = 0;
-      skilltrees.forEach((st) => {
-        st.order = index++;
-      });
-      let changes: { id: string, changes: { order: number } }[] = [];
-      skilltrees.forEach((st) => {
-        if (st.order != state[st.id].order) {
-          changes.push({id: st.id, changes: {order: st.order}})
-        }
-      });
-      return of(new SkilltreeActions.UpdateSkilltreeOrderAction(changes));
+    .withLatestFrom(this.store.select(Reducers.isLoaded))
+    .switchMap(([[action, state], loaded]) => {
+      if (loaded) {
+        let skilltrees = [];
+        Object.keys(state).forEach(id => {
+          skilltrees.push(JSON.parse(JSON.stringify(state[id])));
+        });
+        skilltrees.sort((a, b) => {
+          return a.order - b.order;
+        });
+        let index = 0;
+        skilltrees.forEach((st) => {
+          st.order = index++;
+        });
+        let changes: { id: string, changes: { order: number } }[] = [];
+        skilltrees.forEach((st) => {
+          if (st.order != state[st.id].order) {
+            changes.push({id: st.id, changes: {order: st.order}})
+          }
+        });
+        return of(new SkilltreeActions.UpdateSkilltreeOrderAction(changes));
+      }
+      return Observable.empty();
     });
 
   @Effect()
