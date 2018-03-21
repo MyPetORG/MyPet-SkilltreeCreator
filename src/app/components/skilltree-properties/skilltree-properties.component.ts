@@ -32,6 +32,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   description = new FormControl();
   requiredLevel = new FormControl();
   maxLevel = new FormControl();
+  icon = new FormControl();
   _description: string[] = [];
 
   constructor(private dialog: MatDialog,
@@ -52,6 +53,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
           this.description.setValue(skilltree.description.join("\n"));
           this._description = skilltree.description;
         }
+        this.icon.setValue(skilltree.icon);
         this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id));
       }
     });

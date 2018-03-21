@@ -52,6 +52,19 @@
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
     </mat-input-container>
+    <mat-input-container>
+      <input matInput
+             [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__ICON' | translate"
+             [formControl]="icon" type="text"
+             (blur)="update('icon',icon)"
+             stcIconCheck>
+      <mat-error *ngIf="icon.errors?.iconCheck">
+        {{ icon.errors.iconCheck.message | translate }}
+      </mat-error>
+      <mat-error *ngIf="icon.errors?.iconCheck">
+        {{ icon.errors?.iconCheck?.error }}
+      </mat-error>
+    </mat-input-container>
   </mat-card>
 </div>
 

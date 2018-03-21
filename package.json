@@ -44,6 +44,7 @@
     "reselect": "^3.0.1",
     "rxjs": "^5.5.6",
     "web-animations-js": "^2.3.1",
+    "xregexp": "^4.1.1",
     "zone.js": "^0.8.20"
   },
   "devDependencies": {

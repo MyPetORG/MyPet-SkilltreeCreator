@@ -4,7 +4,7 @@ export interface Skilltree {
   id: string;
   name?: string;
   order?: number
-  icon?: number
+  icon?: string
   description?: string[];
   permission?: string;
   skills: { [name: string]: Upgrade[] };
