@@ -14,7 +14,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
-import { BeaconSkilltree, RideSkilltree } from "./example-skilltrees";
+import { CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree } from "./example-skilltrees";
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -36,7 +36,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
 
       if (request.url.startsWith('/api/skilltrees') && request.method === 'GET') {
-        return Observable.of(new HttpResponse({status: 200, body: [RideSkilltree, BeaconSkilltree]}));
+        return Observable.of(new HttpResponse({
+          status: 200,
+          body: [CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree]
+        }));
       }
     }
 
