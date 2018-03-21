@@ -91,7 +91,7 @@ import { SkilltreeImportDialogComponent } from "./components/skilltree-import-di
 import { HotkeyModule } from "angular2-hotkeys";
 import { HotkeyService } from "app/services/hotkey.service";
 import { NbtImportService } from "./services/nbt-import.service";
-import { SkilltreeImportLegacyComponent } from "./components/skilltree-import-legacy-dialog/skilltree-import-legacy-dialog.component";
+import { SkilltreeImportLegacyComponent } from "./components/skilltree-import-legacy/skilltree-import-legacy.component";
 import { WebsocketService } from "./services/websocket.service";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";

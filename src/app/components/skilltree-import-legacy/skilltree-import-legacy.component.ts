@@ -35,9 +35,9 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
 @AutoUnsubscribe()
 @Component({
-  selector: 'stc-skilltree-import-dialog',
-  templateUrl: './skilltree-import-legacy-dialog.component.html',
-  styleUrls: ['./skilltree-import-legacy-dialog.component.scss']
+  selector: 'stc-skilltree-import-legacy',
+  templateUrl: './skilltree-import-legacy.component.html',
+  styleUrls: ['./skilltree-import-legacy.component.scss']
 })
 export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
 
