@@ -5,7 +5,10 @@ export const RideSkilltree = {
   "Description": [
     "Ride your pet"
   ],
-  "Icon": "minecraft:stained_hardened_clay 1 4 {}",
+  "Icon": {
+    "Material": "minecraft:stained_hardened_clay",
+    "Data": 1,
+  },
   "MaxLevel": 10,
   "RequiredLevel": 0,
   "Permission": "RideA",
@@ -57,7 +60,10 @@ export const BeaconSkilltree = {
   "Description": [
     "Beacon Beacon Beacon"
   ],
-  "Icon": "minecraft:stained_hardened_clay 1 4 {}",
+  "Icon": {
+    "Material": "minecraft:stained_hardened_clay",
+    "Glowing": true
+  },
   "MaxLevel": 10,
   "RequiredLevel": 0,
   "Permission": "BeaconA",
