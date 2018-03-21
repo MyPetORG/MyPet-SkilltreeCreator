@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Skilltree } from "../models/skilltree";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LevelRule } from "../models/level-rule";
 import { Upgrade } from "../models/upgrade";
 import { SkillSaver } from "../data/skill-saver";
@@ -43,7 +43,9 @@ export class SkilltreeSaverService {
       savedSkilltrees.push(data);
     });
 
-    return this.http.post("/api/skilltrees/save", savedSkilltrees);
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post("/api/skilltrees/save", savedSkilltrees, {headers});
   }
 
   saveSkills(data: any, skills: { [name: string]: Upgrade[] }) {
