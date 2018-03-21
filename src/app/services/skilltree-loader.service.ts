@@ -34,7 +34,11 @@ export class SkilltreeLoaderService {
     skilltree.order = data.getPropAs("order", "int") || Number.MAX_SAFE_INTEGER;
     skilltree.requiredLevel = data.getPropAs("requiredLevel", "int") || 0;
     skilltree.maxLevel = data.getPropAs("maxLevel", "int") || 0;
-    skilltree.icon = data.getProp("icon") || "";
+    let icon: any = data.getProp("icon") || {};
+    skilltree.icon = {};
+    skilltree.icon.material = icon.getPropAs("material", "string") || "";
+    skilltree.icon.data = icon.getPropAs("data", "int") || 0;
+    skilltree.icon.glowing = icon.getPropAs("glowing", "bool") || false;
 
     try {
       skilltree.skills = this.loadSkills(data.getProp("skills"));

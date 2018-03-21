@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>
+  {{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__TITLE' | translate }}
+</h1>
+<div mat-dialog-content>
+  <div fxLayout="column">
+    <mat-input-container>
+      <mat-label>{{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__MATERIAL' | translate }}</mat-label>
+      <input matInput placeholder="minecraft:sapling" [(ngModel)]="material" type="text" #materialInput="ngModel">
+    </mat-input-container>
+
+    <mat-input-container>
+      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__DATA' | translate"
+             [(ngModel)]="data" type="number" pattern="\d+" #dataInput="ngModel" min="0">
+    </mat-input-container>
+
+    <mat-checkbox [(ngModel)]="glowing" class="spacer-b-1em">
+      {{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__GLOWING' | translate }}
+    </mat-checkbox>
+
+    <button mat-raised-button (click)="done()" color="primary">
+      {{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__DONE' | translate }}
+    </button>
+  </div>
+</div>
+

@@ -190,7 +190,19 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
             skilltree.requiredLevel = skilltreeData.RequiredLevel.value;
           }
           if (skilltreeData.Description) {
-            skilltree.description = skilltreeData.Description.value.value.slice()
+            skilltree.description = skilltreeData.Description.value.value.slice();
+          }
+          if (skilltreeData.IconItem) {
+            skilltree.icon = {};
+            if (skilltreeData.IconItem.value.id) {
+              skilltree.icon.material = "" + skilltreeData.IconItem.value.id.value;
+            }
+            if (skilltreeData.IconItem.value.Damage) {
+              skilltree.icon.data = skilltreeData.IconItem.value.Damage.value;
+            }
+            if (skilltreeData.IconItem.value.tag && skilltreeData.IconItem.value.tag.value.ench) {
+              skilltree.icon.glowing = true;
+            }
           }
           skilltreeData.Level.value.value.forEach(l => {
             let level = l.Level.value;

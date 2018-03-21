@@ -1,3 +1,12 @@
+<mat-toolbar class="spacer-b-1em" fxLayout="row wrap" fxLayoutGap="1em" role="toolbar">
+  <button mat-raised-button (click)="selectMobType()">
+    {{ 'COMPONENTS__SKILLTREE_PROPERTIES__SELECT_MOB_TYPE' | translate }}
+  </button>
+  <button mat-raised-button (click)="changeIcon()">
+    {{ 'COMPONENTS__SKILLTREE_PROPERTIES__CHANGE_ICON' | translate }}
+  </button>
+</mat-toolbar>
+
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="1em">
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
     <mat-input-container>
@@ -52,19 +61,6 @@
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
     </mat-input-container>
-    <mat-input-container>
-      <input matInput
-             [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__ICON' | translate"
-             [formControl]="icon" type="text"
-             (blur)="update('icon',icon)"
-             stcIconCheck>
-      <mat-error *ngIf="icon.errors?.iconCheck">
-        {{ icon.errors.iconCheck.message | translate }}
-      </mat-error>
-      <mat-error *ngIf="icon.errors?.iconCheck">
-        {{ icon.errors?.iconCheck?.error }}
-      </mat-error>
-    </mat-input-container>
   </mat-card>
 </div>
 
@@ -80,10 +76,4 @@
       <li *ngFor="let line of _description" [innerHTML]="line | mcChat"></li>
     </ul>
   </div>
-</mat-card>
-
-<mat-card>
-  <button mat-raised-button (click)="selectMobType()">
-    {{ 'COMPONENTS__SKILLTREE_PROPERTIES__SELECT_MOB_TYPE' | translate }}
-  </button>
 </mat-card>

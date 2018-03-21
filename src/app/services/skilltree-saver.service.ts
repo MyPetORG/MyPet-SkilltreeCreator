@@ -24,7 +24,17 @@ export class SkilltreeSaverService {
         data.Permission = skilltree.permission;
       }
       if (skilltree.icon) {
-        data.Icon = skilltree.icon;
+        let icon: any = {};
+        if (skilltree.icon.material) {
+          icon.Material = skilltree.icon.material;
+        }
+        if (skilltree.icon.data && skilltree.icon.data != 0) {
+          icon.Data = skilltree.icon.data;
+        }
+        if (skilltree.icon.glowing) {
+          icon.Glowing = skilltree.icon.glowing;
+        }
+        data.Icon = icon;
       }
       if (skilltree.requiredLevel) {
         data.RequiredLevel = skilltree.requiredLevel;

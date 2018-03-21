@@ -99,8 +99,8 @@ import { DynamicPopoverAnchorDirective } from './directives/dynamic-popover-anch
 import { SatPopoverModule } from "./util/popover/popover.module";
 import { SkilltreeDuplicateDialogComponent } from "./components/skilltree-duplicate-dialog/skilltree-duplicate-dialog.component";
 import { LayoutEffects } from "app/store/effects/layout";
-import { SkilltreeIconCheckDirective } from './directives/skilltree-icon-check.directive';
 import { RouterEffects } from "./store/effects/router";
+import { SkilltreeChangeIconDialogComponent } from "./components/skilltree-change-icon-dialog/skilltree-change-icon-dialog.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -117,7 +117,7 @@ export function createTranslateLoader(http: HttpClient) {
     UpgradeAddDialogComponent,
     MobTypeSelectDialogComponent,
     SkilltreeImportDialogComponent,
-    SkilltreeImportLegacyComponent,
+    SkilltreeChangeIconDialogComponent,
 
     AppComponent,
     SkilltreePropertiesComponent,
@@ -125,6 +125,7 @@ export function createTranslateLoader(http: HttpClient) {
     SkilltreeCreatorComponent,
     SkillEditorComponent,
     SkilltreeEditorComponent,
+    SkilltreeImportLegacyComponent,
 
     BackpackSkillComponent,
     BeaconSkillComponent,
@@ -150,7 +151,6 @@ export function createTranslateLoader(http: HttpClient) {
 
     SkilltreeDuplicateDirective,
     DynamicPopoverAnchorDirective,
-    SkilltreeIconCheckDirective,
   ],
   imports: [
     BrowserModule,
@@ -197,6 +197,7 @@ export function createTranslateLoader(http: HttpClient) {
     MobTypeSelectDialogComponent,
     UpgradeAddDialogComponent,
     SkilltreeImportDialogComponent,
+    SkilltreeChangeIconDialogComponent,
 
     /** Skills **/
     BackpackSkillComponent,

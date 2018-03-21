@@ -11,6 +11,7 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import { TranslateService } from "@ngx-translate/core";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
+import { SkilltreeChangeIconDialogComponent } from "../skilltree-change-icon-dialog/skilltree-change-icon-dialog.component";
 
 @AutoUnsubscribe()
 @Component({
@@ -32,7 +33,6 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   description = new FormControl();
   requiredLevel = new FormControl();
   maxLevel = new FormControl();
-  icon = new FormControl();
   _description: string[] = [];
 
   constructor(private dialog: MatDialog,
@@ -53,7 +53,6 @@ export class SkilltreePropertiesComponent implements OnDestroy {
           this.description.setValue(skilltree.description.join("\n"));
           this._description = skilltree.description;
         }
-        this.icon.setValue(skilltree.icon);
         this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id));
       }
     });
@@ -86,6 +85,20 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         });
         this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
           changes: {mobtypes},
+          id: this.skilltree.id
+        }));
+      }
+    });
+  }
+
+  changeIcon() {
+    let conf = new MatDialogConfig();
+    conf.data = this.skilltree.icon;
+    let dialogRef = this.dialog.open(SkilltreeChangeIconDialogComponent, conf);
+    dialogRef.afterClosed().subscribe(icon => {
+      if (icon) {
+        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
+          changes: {icon},
           id: this.skilltree.id
         }));
       }
