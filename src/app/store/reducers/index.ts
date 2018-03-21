@@ -61,6 +61,7 @@ export const getPremium = createSelector(getLayoutState, fromLayout.getPremium);
 export const getSelectedSkill = createSelector(getLayoutState, fromLayout.getSelectedSkill);
 export const getSelectedSkilltreeId = createSelector(getLayoutState, fromLayout.getSelectedSkilltreeId);
 export const getLanguage = createSelector(getLayoutState, fromLayout.getLanguage);
+export const isLoaded = createSelector(getLayoutState, fromLayout.isLoaded);
 
 /**
  * Skilltree Reducers

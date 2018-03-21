@@ -16,23 +16,15 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 })
 export class SkilltreeEditorComponent implements OnDestroy {
   actionsSubscription: Subscription;
-  skilltreeSubscription: Subscription;
   tab$: Observable<number>;
 
   constructor(private store: Store<Reducers.State>,
-              private route: ActivatedRoute,
-              private router: Router) {
+              private route: ActivatedRoute) {
     this.actionsSubscription = route.params
       .map(params => params.id)
       .map(id => new LayoutActions.SelectSkilltreeAction(id))
       .subscribe(store);
     this.tab$ = this.store.select(Reducers.getTab);
-
-    this.skilltreeSubscription = store.select(Reducers.getSelectedSkilltree).subscribe(value => {
-      if (!value) {
-        this.router.navigate(["/"]);
-      }
-    });
   }
 
   ngOnDestroy() {

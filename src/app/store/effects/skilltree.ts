@@ -162,32 +162,34 @@ export class SkilltreeEffects {
         .catch(err => of(new SkilltreeActions.LoadSkilltreesFailedAction(err)));
     });
 
-  @Effect({dispatch: false})
-  loadSkilltreesSuccess$: Observable<Action> = this.actions$.pipe(
-    ofType(SkilltreeActions.LOAD_SKILLTREES_SUCCESS),
-    tap(() => {
-      this.translate.get("EFFECT__LOAD_SKILLTREE_SUCCESS").subscribe((trans) => {
-          this.snackBar.open(trans, "SkilltreeCreator", {duration: 2000,})
-        }
-      );
-    })
-  );
-
-  @Effect({dispatch: false})
-  loadSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
-    ofType(SkilltreeActions.LOAD_SKILLTREES_FAILED),
-    tap(() => {
-      this.translate.get(["EFFECT__LOAD_SKILLTREE_FAILED", "EFFECT__LOAD_SKILLTREE_FAILED"]).subscribe((trans) => {
-        this.snackBar.open(
-          trans["EFFECT__LOAD_SKILLTREE_FAILED"],
-          trans["EFFECT__LOAD_SKILLTREE_FAILED__ERROR"],
-          {
-            duration: 2000,
+  @Effect()
+  loadSkilltreesSuccess$: Observable<Action> = this.actions$
+    .ofType(SkilltreeActions.LOAD_SKILLTREES_SUCCESS)
+    .map(() => {
+        this.translate.get("EFFECT__LOAD_SKILLTREE_SUCCESS").subscribe((trans) => {
+            this.snackBar.open(trans, "SkilltreeCreator", {duration: 2000,})
           }
         );
-      });
-    })
-  );
+        return new LayoutActions.AppLoadedAction();
+      }
+    );
+
+  @Effect()
+  loadSkilltreesFailed$: Observable<Action> = this.actions$
+    .ofType(SkilltreeActions.LOAD_SKILLTREES_FAILED)
+    .map(() => {
+        this.translate.get(["EFFECT__LOAD_SKILLTREE_FAILED", "EFFECT__LOAD_SKILLTREE_FAILED"]).subscribe((trans) => {
+          this.snackBar.open(
+            trans["EFFECT__LOAD_SKILLTREE_FAILED"],
+            trans["EFFECT__LOAD_SKILLTREE_FAILED__ERROR"],
+            {
+              duration: 2000,
+            }
+          );
+        });
+        return new LayoutActions.AppLoadedAction();
+      }
+    );
 
   @Effect()
   saveSkilltree$: Observable<Action> = this.actions$

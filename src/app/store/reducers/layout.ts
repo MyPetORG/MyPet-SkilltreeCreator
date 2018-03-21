@@ -3,6 +3,7 @@ import { SkillInfo, Skills } from "../../data/skills";
 
 
 export interface State {
+  loaded: boolean;
   showSidenav: boolean;
   tab: number;
   premium: boolean;
@@ -12,6 +13,7 @@ export interface State {
 }
 
 const initialState: State = {
+  loaded: false,
   showSidenav: false,
   tab: 0,
   premium: true,
@@ -59,6 +61,12 @@ export function reducer(state = initialState, action: layout.Actions): State {
       });
     }
 
+    case layout.APP_LOADED: {
+      return Object.assign({}, state, {
+        loaded: true
+      });
+    }
+
     default:
       return state;
   }
@@ -70,3 +78,4 @@ export const getPremium = (state: State) => state.premium;
 export const getSelectedSkill = (state: State) => state.skill;
 export const getSelectedSkilltreeId = (state: State) => state.selectedSkilltreeId;
 export const getLanguage = (state: State) => state.language;
+export const isLoaded = (state: State) => state.loaded;
