@@ -84,7 +84,6 @@ export class SkilltreeCreatorComponent {
   }
 
   save() {
-    this.store.dispatch(new LayoutActions.CloseSidenavAction());
     this.store.dispatch(new SkilltreeActions.SaveSkilltreesAction());
   }
 
@@ -97,7 +96,7 @@ export class SkilltreeCreatorComponent {
   }
 
   importSkilltree() {
-    this.store.dispatch(new LayoutActions.CloseSidenavAction());
+    this.closeSidenav();
     let dialogRef = this.dialog.open(SkilltreeImportDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
