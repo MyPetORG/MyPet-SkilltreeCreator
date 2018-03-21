@@ -19,11 +19,7 @@ export class AppComponent {
               private store: Store<Reducers.State>,
               private translate: TranslateService) {
     iconLoader.load();
-
     translate.setDefaultLang('en');
-
-    this.store.dispatch(new LayoutActions.ChangeLanguageAction(languages[0].key));
-    this.store.dispatch(new SkilltreeActions.LoadSkilltreesAction());
 
     /*
     //TODO logic to filter if there are actually any changes

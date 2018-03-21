@@ -14,6 +14,8 @@ import * as LayoutActions from "../actions/layout";
 import { MatSnackBar } from "@angular/material";
 import { TranslateService } from "@ngx-translate/core";
 import { languages } from "../../data/languages";
+import { defer } from "rxjs/observable/defer";
+import { of } from "rxjs/observable/of";
 
 @Injectable()
 export class LayoutEffects {
@@ -23,7 +25,7 @@ export class LayoutEffects {
   }
 
   @Effect({dispatch: false})
-  importSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
+  changeLanguage$: Observable<Action> = this.actions$.pipe(
     ofType(LayoutActions.CHANGE_LANGUAGE),
     tap((action: LayoutActions.ChangeLanguageAction) => {
       let lang = languages.find(lang => lang.key.toLowerCase() == action.payload.toLowerCase());
@@ -37,4 +39,8 @@ export class LayoutEffects {
       }
     })
   );
+
+  @Effect() init$: Observable<LayoutActions.ChangeLanguageAction> = defer(() => {
+    return of(new LayoutActions.ChangeLanguageAction(languages[0].key));
+  });
 }

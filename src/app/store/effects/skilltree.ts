@@ -21,6 +21,7 @@ import { MatSnackBar } from "@angular/material";
 import { Skilltree } from "../../models/skilltree";
 import { ImportSkilltreeAction } from "../actions/skilltree";
 import { TranslateService } from "@ngx-translate/core";
+import { defer } from "rxjs/observable/defer";
 
 @Injectable()
 export class SkilltreeEffects {
@@ -250,4 +251,8 @@ export class SkilltreeEffects {
       });
     })
   );
+
+  @Effect() init$: Observable<SkilltreeActions.LoadSkilltreesAction> = defer(() => {
+    return of(new SkilltreeActions.LoadSkilltreesAction());
+  });
 }
