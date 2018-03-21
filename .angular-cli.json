@@ -24,7 +24,8 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
-        "plugin": "environments/environment.plugin.ts"
+        "plugin": "environments/environment.plugin.ts",
+        "proxy": "environments/environment.proxy.ts"
       }
     }
   ],

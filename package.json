@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve --pc proxy.conf.json --env=proxy --open",
     "build": "ng build",
     "build-plugin": "ng build --prod --env=plugin",
     "lint": "ng lint",
