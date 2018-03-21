@@ -31,9 +31,11 @@ export class LayoutEffects {
       let lang = languages.find(lang => lang.key.toLowerCase() == action.payload.toLowerCase());
       if (lang) {
         this.translate.get("EFFECT__CHANGE_LANGUAGE", {lang: lang.name}).subscribe((trans) => {
-          this.snackBar.open(
-            trans, "SkilltreeCreator", {duration: 2000}
-          );
+          if (trans != 'EFFECT__CHANGE_LANGUAGE') {
+            this.snackBar.open(
+              trans, "SkilltreeCreator", {duration: 2000}
+            );
+          }
         });
         this.translate.use(lang.key);
       }
