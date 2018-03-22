@@ -35,20 +35,23 @@ export class SkilltreeCreatorComponent {
               private router: Router,
               private translate: TranslateService) {
     this.websocket.connect().subscribe(
-      (next: any) => {
-        switch (next.action) {
-          case "server_stop":
+      (packet: any) => {
+        switch (packet.action) {
+          case "SERVER_STOP":
             this.translate.get("COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN").subscribe((trans) => {
               this.snackBar.open(trans, "SkilltreeCreator", {
                 duration: 2000,
               });
             });
             break;
-          case "toggle_premium":
+          case "TOGGLE_PREMIUM":
             if (this.firstPremiumToggle) {
               this.firstPremiumToggle = false;
               this.togglePremium();
             }
+            break;
+          case "CHANGE_LANGUAGE":
+            this.store.dispatch(new LayoutActions.ChangeLanguageAction(packet.data));
             break;
         }
       });

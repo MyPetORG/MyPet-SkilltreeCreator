@@ -8,14 +8,14 @@ import { Subscriber } from "rxjs/Subscriber";
 export class WebsocketService {
 
   private ws: WebSocket;
-  private obs: Observable<string>;
+  private readonly obs: Observable<string>;
   _obs: Subscriber<string> = null;
 
   constructor() {
     let timer = ObservableTimer.timer(1000, 2500);
     timer.subscribe(() => {
       if (this.isConnected()) {
-        this.send({action: "PING", message: Date.now()})
+        this.send({action: "PING", data: Date.now()})
       } else {
         if (this.getConnectionStatus() == WebSocket.CLOSED) {
           try {
@@ -76,5 +76,5 @@ export class WebsocketService {
 
 export interface WebsocketMessage {
   action: string
-  message: any
+  data: any
 }
