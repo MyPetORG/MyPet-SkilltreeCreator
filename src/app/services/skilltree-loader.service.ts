@@ -20,7 +20,7 @@ export class SkilltreeLoaderService {
   }
 
   loadSkilltree(data: any): Observable<Skilltree> {
-    let id = data.getProp("id");
+    let id = data.getProp("ID");
     if (!id || id == "") {
       return Observable.throw({type: "INVALID", data: "NO ID"})
     }
@@ -28,25 +28,25 @@ export class SkilltreeLoaderService {
       return Observable.throw({type: "INVALID", data: "INVALID ID"})
     }
     let skilltree: Skilltree = {id, skills: {}, mobtypes: [], messages: []};
-    skilltree.permission = data.getProp("permission") || "";
-    skilltree.name = data.getProp("name") || skilltree.id;
-    skilltree.description = data.getProp("description") || [];
-    skilltree.order = data.getPropAs("order", "int");
+    skilltree.permission = data.getProp("Permission") || "";
+    skilltree.name = data.getProp("Name") || skilltree.id;
+    skilltree.description = data.getProp("Description") || [];
+    skilltree.order = data.getPropAs("Order", "int");
     if (!skilltree.order && skilltree.order != 0) {
       skilltree.order = Number.MAX_SAFE_INTEGER;
     }
-    skilltree.requiredLevel = data.getPropAs("requiredLevel", "int") || 0;
-    skilltree.maxLevel = data.getPropAs("maxLevel", "int") || 0;
-    let icon: any = data.getProp("icon") || {};
+    skilltree.requiredLevel = data.getPropAs("RequiredLevel", "int") || 0;
+    skilltree.maxLevel = data.getPropAs("MaxLevel", "int") || 0;
+    let icon: any = data.getProp("Icon") || {};
     skilltree.icon = {};
-    skilltree.icon.material = icon.getPropAs("material", "string") || "";
-    skilltree.icon.data = icon.getPropAs("data", "int") || 0;
-    skilltree.icon.glowing = icon.getPropAs("glowing", "bool") || false;
+    skilltree.icon.material = icon.getPropAs("Material", "string") || "";
+    skilltree.icon.data = icon.getPropAs("Data", "int") || 0;
+    skilltree.icon.glowing = icon.getPropAs("Glowing", "bool") || false;
 
     try {
-      skilltree.skills = this.loadSkills(data.getProp("skills"));
-      skilltree.mobtypes = this.loadMobTypes(data.getProp("mobtypes"));
-      skilltree.messages = this.loadMessages(data.getProp("Notifications"));
+      skilltree.skills = this.loadSkills(data.getProp("Skills"));
+      skilltree.mobtypes = this.loadMobTypes(data.getProp("MobTypes"));
+      skilltree.messages = this.loadNotifications(data.getProp("Notifications"));
     } catch (e) {
       return Observable.throw({type: "INVALID", data: e})
     }
@@ -54,7 +54,7 @@ export class SkilltreeLoaderService {
     return of(skilltree);
   }
 
-  loadMessages(data: any) {
+  loadNotifications(data: any) {
     let messages: { rule: LevelRule, content: string }[] = [];
     if (data === Object(data)) {
       Object.keys(data).forEach(key => {
@@ -111,12 +111,12 @@ export class SkilltreeLoaderService {
     Skills.forEach(skillInfo => {
       if (data[skillInfo.id]) {
         skills[skillInfo.id] = [];
-        let upgrades = data[skillInfo.id].getProp("upgrades");
+        let upgrades = data[skillInfo.id].getProp("Upgrades");
         if (upgrades === Object(upgrades)) {
           Object.keys(upgrades).forEach(key => {
             let rule = this.loadLevelRule(key);
             if (rule) {
-              let upgrade = SkillLoader[skillInfo.id](data[skillInfo.id].getProp("upgrades")[key]);
+              let upgrade = SkillLoader[skillInfo.id](upgrades[key]);
               upgrade.rule = rule;
               skills[skillInfo.id].push(upgrade);
             }

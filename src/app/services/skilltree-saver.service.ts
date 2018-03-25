@@ -49,7 +49,7 @@ export class SkilltreeSaverService {
 
       data.Skills = {};
       this.saveSkills(data.Skills, skilltree.skills);
-      this.saveMessages(data, skilltree.messages);
+      this.saveNotifications(data, skilltree.messages);
 
       savedSkilltrees.push(data);
     });
@@ -59,7 +59,7 @@ export class SkilltreeSaverService {
     return this.http.post("/api/skilltrees/save", savedSkilltrees, {headers});
   }
 
-  saveMessages(data: any, messages: { rule: LevelRule, content: string }[]) {
+  saveNotifications(data: any, messages: { rule: LevelRule, content: string }[]) {
     let dataMessages: any = {};
     messages.forEach(message => {
       let rule = this.saveLevelRule(message.rule);

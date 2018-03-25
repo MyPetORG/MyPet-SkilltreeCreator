@@ -145,7 +145,7 @@
   "COMPONENTS__SKILLS__BACKPACK__ROWS": "Reihen",
   "COMPONENTS__SKILLS__BACKPACK__ROWS_SUFFIX": "Reihen",
   "COMPONENTS__SKILLS__BACKPACK__ROWS_PREFIX": "",
-  "COMPONENTS__SKILLS__BACKPACK__ROWS_POPUP": "<p>Die Anzahl an Reichen die das Inventar hat.<br>  Format: [+-][Nummer]<br>Beispiele:<br>+2<br>-3</p>",
+  "COMPONENTS__SKILLS__BACKPACK__ROWS_POPUP": "<p>Die Anzahl an Reihen die das Inventar hat.<br>  Format: [+-][Nummer]<br>Beispiele:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__BACKPACK__DROP_DEATH": "Inhalt bei Tod fallen lassen?",
   "COMPONENTS__SKILLS__BEHAVIOR__FRIENDLY": "Freundlicher Modus",
   "COMPONENTS__SKILLS__BEHAVIOR__AGGRESSIVE": "Aggressiver Modus",
