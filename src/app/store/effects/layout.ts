@@ -30,22 +30,19 @@ export class LayoutEffects {
   }
 
   @Effect({dispatch: false})
-  changeLanguage$: Observable<[Action, string]> = this.actions$.pipe(
+  changeLanguage$: Observable<Action> = this.actions$.pipe(
     ofType(LayoutActions.CHANGE_LANGUAGE),
-    withLatestFrom(this.store.select(Reducers.getLanguage)),
-    tap(([action, langKey]: [LayoutActions.ChangeLanguageAction, string]) => {
+    tap((action: LayoutActions.ChangeLanguageAction) => {
       let lang = languages.find(lang => lang.key.toLowerCase() == action.payload.toLowerCase());
-      if (lang && langKey != lang.key) {
-        this.translate.get("EFFECT__CHANGE_LANGUAGE", {lang: lang.name}).subscribe((trans) => {
-          if (trans != 'EFFECT__CHANGE_LANGUAGE') {
-            this.snackBar.open(
-              trans, "SkilltreeCreator", {duration: 2000}
-            );
-          }
-        });
-        this.translate.use(lang.key);
-        this.websocket.send({action: "CHANGE_LANGUAGE", data: lang.key})
-      }
+      this.translate.get("EFFECT__CHANGE_LANGUAGE", {lang: lang.name}).subscribe((trans) => {
+        if (trans != 'EFFECT__CHANGE_LANGUAGE') {
+          this.snackBar.open(
+            trans, "SkilltreeCreator", {duration: 2000}
+          );
+        }
+      });
+      this.translate.use(lang.key);
+      this.websocket.send({action: "CHANGE_LANGUAGE", data: lang.key})
     })
   );
 
