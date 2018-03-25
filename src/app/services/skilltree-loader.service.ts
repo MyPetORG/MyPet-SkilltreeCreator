@@ -27,7 +27,7 @@ export class SkilltreeLoaderService {
     if (!id.match(/^[a-zA-Z0-9.-_]+$/)) {
       return Observable.throw({type: "INVALID", data: "INVALID ID"})
     }
-    let skilltree: Skilltree = {id, skills: {}, mobtypes: []};
+    let skilltree: Skilltree = {id, skills: {}, mobtypes: [], messages: []};
     skilltree.permission = data.getProp("permission") || "";
     skilltree.name = data.getProp("name") || skilltree.id;
     skilltree.description = data.getProp("description") || [];
@@ -46,11 +46,25 @@ export class SkilltreeLoaderService {
     try {
       skilltree.skills = this.loadSkills(data.getProp("skills"));
       skilltree.mobtypes = this.loadMobTypes(data.getProp("mobtypes"));
+      skilltree.messages = this.loadMessages(data.getProp("Notifications"));
     } catch (e) {
       return Observable.throw({type: "INVALID", data: e})
     }
 
     return of(skilltree);
+  }
+
+  loadMessages(data: any) {
+    let messages: { rule: LevelRule, content: string }[] = [];
+    if (data === Object(data)) {
+      Object.keys(data).forEach(key => {
+        let rule = this.loadLevelRule(key);
+        if (rule) {
+          messages.push({rule, content: data[key]});
+        }
+      });
+    }
+    return messages;
   }
 
   loadMobTypes(data: any) {

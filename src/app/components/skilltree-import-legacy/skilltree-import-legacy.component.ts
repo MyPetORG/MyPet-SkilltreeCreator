@@ -174,7 +174,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         let id = this.renamedSkilltrees[name];
         if (this.selectedNewSkilltreeNames.indexOf(id) != -1) {
           console.log(skilltreeData);
-          let skilltree: Skilltree = {id, skills: {}, mobtypes: mobTypes.slice()};
+          let skilltree: Skilltree = {id, skills: {}, mobtypes: mobTypes.slice(), messages: []};
 
           skilltree.order = skilltreeData.Place.value;
           if (skilltreeData.Permission) {
@@ -206,6 +206,11 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
           }
           skilltreeData.Level.value.value.forEach(l => {
             let level = l.Level.value;
+
+            if (l.Message) {
+              let rule: LevelRule = {exact: [level]};
+              skilltree.messages.push({rule, content: l.Message.value});
+            }
 
             l.Skills.value.value.forEach(s => {
               let skillname = s.Name.value;

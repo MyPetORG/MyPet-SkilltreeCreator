@@ -49,6 +49,7 @@ export class SkilltreeSaverService {
 
       data.Skills = {};
       this.saveSkills(data.Skills, skilltree.skills);
+      this.saveMessages(data, skilltree.messages);
 
       savedSkilltrees.push(data);
     });
@@ -56,6 +57,17 @@ export class SkilltreeSaverService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
     return this.http.post("/api/skilltrees/save", savedSkilltrees, {headers});
+  }
+
+  saveMessages(data: any, messages: { rule: LevelRule, content: string }[]) {
+    let dataMessages: any = {};
+    messages.forEach(message => {
+      let rule = this.saveLevelRule(message.rule);
+      dataMessages[rule] = message.content;
+    });
+    if (Object.keys(dataMessages).length > 0) {
+      data.Notifications = dataMessages;
+    }
   }
 
   saveSkills(data: any, skills: { [name: string]: Upgrade[] }) {
@@ -84,11 +96,11 @@ export class SkilltreeSaverService {
       return levelRule.exact.join(',');
     }
     let rule = "%" + levelRule.every;
-    if (levelRule.limit) {
-      rule += "<" + levelRule.limit;
-    }
     if (levelRule.minimum) {
       rule += ">" + levelRule.minimum;
+    }
+    if (levelRule.limit) {
+      rule += "<" + levelRule.limit;
     }
     return rule;
   }

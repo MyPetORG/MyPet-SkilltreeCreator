@@ -1,4 +1,5 @@
 import { Upgrade } from "./upgrade";
+import { LevelRule } from "./level-rule";
 
 export interface Skilltree {
   id: string
@@ -15,4 +16,5 @@ export interface Skilltree {
   mobtypes: string[]
   requiredLevel?: number
   maxLevel?: number
+  messages: { rule: LevelRule, content: string }[]
 }

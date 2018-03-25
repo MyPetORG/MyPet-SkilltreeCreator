@@ -5,8 +5,12 @@
   <a mat-tab-link [active]="(tab$ | async) == 1" (click)="switchTab(1)">
     {{ 'COMPONENTS__SKILLTREE_EDITOR__PROPERTIES' | translate}}
   </a>
+  <a mat-tab-link [active]="(tab$ | async) == 2" (click)="switchTab(2)">
+    {{ 'COMPONENTS__SKILLTREE_EDITOR__LEVELUP_NOTIFICATIONS' | translate}}
+  </a>
 </nav>
 
 <stc-skill-editor *ngIf="(tab$ | async) == 0"></stc-skill-editor>
 <stc-skilltree-properties *ngIf="(tab$ | async) == 1"></stc-skilltree-properties>
+<stc-levelup-notifications *ngIf="(tab$ | async) == 2"></stc-levelup-notifications>
 

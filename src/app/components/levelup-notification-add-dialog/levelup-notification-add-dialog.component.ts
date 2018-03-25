@@ -11,11 +11,11 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
 @AutoUnsubscribe()
 @Component({
-  selector: 'stc-levelup-message-add-dialog',
-  templateUrl: './upgrade-add-dialog.component.html',
-  styleUrls: ['./upgrade-add-dialog.component.scss']
+  selector: 'stc-levelup-notification-add-dialog',
+  templateUrl: './levelup-notification-add-dialog.component.html',
+  styleUrls: ['./levelup-notification-add-dialog.component.scss']
 })
-export class UpgradeAddDialogComponent implements OnDestroy {
+export class LevelupNotificationAddDialogComponent implements OnDestroy {
 
   type: number = 0;
   level: number[] = [];
@@ -28,17 +28,17 @@ export class UpgradeAddDialogComponent implements OnDestroy {
   levelRules: LevelRule[] = [];
   levelRulessSubscription = null;
 
-  constructor(private dialogRef: MatDialogRef<UpgradeAddDialogComponent>,
+  constructor(private dialogRef: MatDialogRef<LevelupNotificationAddDialogComponent>,
               private store: Store<Reducers.State>,
               private translate: TranslateService,
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.levelRulessSubscription = this.store.select(Reducers.getSelectedUpgrades).subscribe(upgrades => {
+    this.levelRulessSubscription = this.store.select(Reducers.getSelectedSkilltree).subscribe(skilltree => {
       this.levelRules = [];
-      if (upgrades) {
-        upgrades.forEach((upgrade: Upgrade) => {
-          this.levelRules.push(upgrade.rule);
+      if (skilltree) {
+        skilltree.messages.forEach((message) => {
+          this.levelRules.push(message.rule);
         })
       }
     });
@@ -65,11 +65,14 @@ export class UpgradeAddDialogComponent implements OnDestroy {
       this.dialogRef.close(newRule)
     } else {
       this.translate.get(
-        ["COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED", "COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE"]
+        [
+          "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED",
+          "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__UPGRADE"
+        ]
       ).subscribe((trans) => {
         this.snackBar.open(
-          trans["COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED"],
-          trans["COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE"],
+          trans["COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED"],
+          trans["COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__UPGRADE"],
           {
             duration: 2000,
           }
@@ -94,8 +97,8 @@ export class UpgradeAddDialogComponent implements OnDestroy {
     }
   }
 
-  removeLevel(fruit: any): void {
-    let index = this.level.indexOf(fruit);
+  removeLevel(level: any): void {
+    let index = this.level.indexOf(level);
 
     if (index >= 0) {
       this.level.splice(index, 1);

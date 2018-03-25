@@ -1,0 +1,62 @@
+<h1 mat-dialog-title>
+  {{ 'COMPONENTS__UPGRADE_ADD_DIALOG__ADD_UPGRADE' | translate }}
+</h1>
+<div mat-dialog-content>
+  <mat-tab-group [(selectedIndex)]="type" [dynamicHeight]="true">
+    <mat-tab [label]="'COMPONENTS__UPGRADE_ADD_DIALOG__FIXED' | translate">
+      <div fxLayout="column">
+        <mat-form-field class="demo-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let l of level" (remove)="removeLevel(l)" [selectable]="false">
+              {{l}}
+              <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
+            </mat-chip>
+            <input [placeholder]="'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__LEVELS' | translate"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   (matChipInputTokenEnd)="addLevel($event)"/>
+          </mat-chip-list>
+        </mat-form-field>
+
+        <button mat-raised-button (click)="done()" color="primary" [disabled]="level.length == 0">
+          {{ 'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ADD' | translate }}
+        </button>
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__DYNAMIC' | translate">
+      <div fxLayout="column">
+        <mat-input-container>
+          <span matPrefix class="interaction-none">
+            {{ 'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__EVERY' | translate }}&nbsp;
+          </span>
+          <input matInput [placeholder]="'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__REQUIRED' | translate"
+                 [(ngModel)]="every" type="number" required pattern="\d+" #everyInput="ngModel">
+          <span matSuffix class="interaction-none">
+            &nbsp;{{ 'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__LEVEL' | translate }}
+          </span>
+        </mat-input-container>
+
+        <mat-input-container>
+          <span matPrefix class="interaction-none">
+            {{ 'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__START_LEVEL' | translate }}&nbsp;
+          </span>
+          <input matInput [placeholder]="'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__OPTIONAL' | translate"
+                 [(ngModel)]="minimum" type="number" pattern="\d+" #minimumInput="ngModel">
+        </mat-input-container>
+
+        <mat-input-container>
+          <span matPrefix class="interaction-none">
+            {{ 'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__UNTIL_LEVEL' | translate }}&nbsp;
+          </span>
+          <input matInput [placeholder]="'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__OPTIONAL' | translate"
+                 [(ngModel)]="limit" type="number" pattern="\d+" #limitInput="ngModel">
+        </mat-input-container>
+
+        <button mat-raised-button (click)="done()" color="primary"
+                [disabled]="everyInput.errors != null || minimumInput.errors != null || limitInput.errors != null">
+          {{ 'COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ADD' | translate }}
+        </button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

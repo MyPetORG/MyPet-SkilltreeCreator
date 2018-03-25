@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class McChatPipe implements PipeTransform {
 
   transform(value: string): string {
-    return this.minecraft(this.mypet(value));
+    return value != null ? this.minecraft(this.mypet(value)) : null;
   }
 
   minecraft(text) {

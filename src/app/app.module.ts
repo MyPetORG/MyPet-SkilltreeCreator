@@ -101,6 +101,8 @@ import { SkilltreeDuplicateDialogComponent } from "./components/skilltree-duplic
 import { LayoutEffects } from "app/store/effects/layout";
 import { RouterEffects } from "./store/effects/router";
 import { SkilltreeChangeIconDialogComponent } from "./components/skilltree-change-icon-dialog/skilltree-change-icon-dialog.component";
+import { LevelupNotificationsComponent } from './components/levelup-notifications/levelup-notifications.component';
+import { LevelupNotificationAddDialogComponent } from "./components/levelup-notification-add-dialog/levelup-notification-add-dialog.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -118,6 +120,7 @@ export function createTranslateLoader(http: HttpClient) {
     MobTypeSelectDialogComponent,
     SkilltreeImportDialogComponent,
     SkilltreeChangeIconDialogComponent,
+    LevelupNotificationAddDialogComponent,
 
     AppComponent,
     SkilltreePropertiesComponent,
@@ -126,6 +129,7 @@ export function createTranslateLoader(http: HttpClient) {
     SkillEditorComponent,
     SkilltreeEditorComponent,
     SkilltreeImportLegacyComponent,
+    LevelupNotificationsComponent,
 
     BackpackSkillComponent,
     BeaconSkillComponent,
@@ -198,6 +202,7 @@ export function createTranslateLoader(http: HttpClient) {
     UpgradeAddDialogComponent,
     SkilltreeImportDialogComponent,
     SkilltreeChangeIconDialogComponent,
+    LevelupNotificationAddDialogComponent,
 
     /** Skills **/
     BackpackSkillComponent,

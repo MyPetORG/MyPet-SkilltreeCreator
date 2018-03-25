@@ -75,7 +75,8 @@ export class SkilltreeListComponent {
           name: result,
           order: Number.MAX_SAFE_INTEGER,
           skills: {},
-          mobtypes: []
+          mobtypes: [],
+          messages: [],
         }));
         this.translate.get(
           ["COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],

@@ -35,3 +35,11 @@ mat-expansion-panel-header.mat-expanded, mat-expansion-panel-header.mat-expanded
 .mat-raised-button.mat-primary:disabled, .mat-fab.mat-primary:disabled, .mat-mini-fab.mat-primary:disabled {
   color: inherit !important;
 }
+
+.interaction-none {
+  cursor: default;
+}
+
+.interaction-click {
+  cursor: pointer;
+}
