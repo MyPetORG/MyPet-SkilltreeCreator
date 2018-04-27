@@ -3,6 +3,7 @@
   "project": {
     "name": "skilltree-creator"
   },
+  "packageManager": "yarn",
   "apps": [
     {
       "root": "src",
