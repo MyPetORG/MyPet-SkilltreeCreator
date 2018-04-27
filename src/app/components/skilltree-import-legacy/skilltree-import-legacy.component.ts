@@ -367,7 +367,11 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
       case "Ride": {
         let jumpHeight = skill.jump_height.value >= 0 ? "+" + skill.jump_height.value : "" + skill.jump_height.value;
         let speed = skill.speed_percent.value >= 0 ? "+" + skill.speed_percent.value : "" + skill.speed_percent.value;
-        return {jumpHeight, speed} as Ride;
+        let active = null;
+        if (jumpHeight != "+0" || speed != "+0") {
+          active = true;
+        }
+        return {jumpHeight, speed, active} as Ride;
       }
       case "Shield": {
         let chance = skill.chance.value >= 0 ? "+" + skill.chance.value : "" + skill.chance.value;
