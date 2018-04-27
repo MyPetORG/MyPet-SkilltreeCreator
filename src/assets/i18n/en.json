@@ -243,6 +243,7 @@
   "COMPONENTS__SKILLS__PICKUP__RANGE_POPUP": "<p>The range where blocks will be picked up by the pet.<br>Format: [+-][number]<br>Examples:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__PICKUP__EXP": "Can pick up exp?",
   "COMPONENTS__SKILLS__SPRINT__ACTIVE": "Active?",
+  "COMPONENTS__SKILLS__RIDE__ACTIVE": "Active?",
   "COMPONENTS__SKILLS__RIDE__FLY_REGEN": "Fly Regen Rate",
   "COMPONENTS__SKILLS__RIDE__FLY_REGEN_PREFIX": "",
   "COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX": "meters/tick",

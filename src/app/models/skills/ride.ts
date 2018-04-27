@@ -1,7 +1,8 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault, setDefault } from "../../util/helpers";
+import { matchOrDefault } from "../../util/helpers";
 
 export interface Ride extends Upgrade {
+  active?: boolean | null;
   canFly?: boolean | null;
   speed?: string;
   jumpHeight?: string;
@@ -11,6 +12,7 @@ export interface Ride extends Upgrade {
 
 export class RideDefault implements Ride {
   id = getNewUpgradeID();
+  active = null;
   canFly = null;
   speed = "+0";
   jumpHeight = "+0";
@@ -20,6 +22,7 @@ export class RideDefault implements Ride {
 
 export function RideLoader(data: any): Ride {
   let ride: Ride = Object.assign({}, new RideDefault);
+  ride.active = data.getPropAs("active", "bool|null");
   ride.speed = matchOrDefault(data.getPropAs("speed", "string"), /[+-][0-9]+/, "+0");
   ride.jumpHeight = matchOrDefault(data.getPropAs("jumpHeight", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
   ride.flyLimit = matchOrDefault(data.getPropAs("flyLimit", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
@@ -30,6 +33,9 @@ export function RideLoader(data: any): Ride {
 
 export function RideSaver(data: Ride) {
   let savedData: any = {};
+  if (data.active != null) {
+    savedData.Active = data.active;
+  }
   if (data.speed && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.speed)[1] != "0") {
     savedData.Speed = data.speed;
   }
