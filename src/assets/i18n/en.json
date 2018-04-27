@@ -349,6 +349,7 @@
   "MOB_TYPE__OCELOT": "Ocelot",
   "MOB_TYPE__PARROT": "Parrot",
   "MOB_TYPE__PIG": "Pig",
+  "MOB_TYPE__PIGZOMBIE": "Zombie Pigman",
   "MOB_TYPE__POLARBEAR": "PolarBear",
   "MOB_TYPE__RABBIT": "Rabbit",
   "MOB_TYPE__SHEEP": "Sheep",
@@ -369,7 +370,6 @@
   "MOB_TYPE__WOLF": "Wolf",
   "MOB_TYPE__ZOMBIE": "Zombie",
   "MOB_TYPE__ZOMBIEHORSE": "Zombie Horse",
-  "MOB_TYPE__ZOMBIEPIGMAN": "Zombie Pigman",
   "MOB_TYPE__ZOMBIEVILLAGER": "Zombie Villager",
 
   "SKILL_NAME__BACKPACK": "Backpack",

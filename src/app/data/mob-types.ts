@@ -45,6 +45,6 @@ export const MobTypes = [
   'Wolf',
   'Zombie',
   'ZombieHorse',
-  'ZombiePigman',
+  'PigZombie',
   'ZombieVillager',
 ];
