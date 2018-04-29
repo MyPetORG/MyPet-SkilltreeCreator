@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault, setDefault } from "../../util/helpers";
+import { matchOrDefault } from "../../util/helpers";
 
 export interface Beacon extends Upgrade {
   range?: string;
@@ -110,7 +110,7 @@ export function BeaconSaver(data: Beacon) {
   }
 
   if (Object.keys(buffs).length > 0) {
-    savedData.buffs = buffs;
+    savedData.Buffs = buffs;
   }
 
   return savedData;
