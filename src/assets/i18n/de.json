@@ -382,14 +382,14 @@
   "SKILL_NAME__LIFE": "Leben",
   "SKILL_NAME__KNOCKBACK": "Rückstoß",
   "SKILL_NAME__LIGHTNING": "Blitz",
-  "SKILL_NAME__PICKUP": "Ausheben",
+  "SKILL_NAME__PICKUP": "Aufheben",
   "SKILL_NAME__POISON": "Gift",
-  "SKILL_NAME__RANGED": "Fernkamp",
+  "SKILL_NAME__RANGED": "Fernkampf",
   "SKILL_NAME__RIDE": "Reiten",
   "SKILL_NAME__SHIELD": "Schild",
   "SKILL_NAME__SLOW": "Verlangsamen",
   "SKILL_NAME__SPRINT": "Sprint",
-  "SKILL_NAME__STOMP": "Stampen",
+  "SKILL_NAME__STOMP": "Stampfen",
   "SKILL_NAME__THORNS": "Dornen",
   "SKILL_NAME__WITHER": "Verkrüppeln"
 }
