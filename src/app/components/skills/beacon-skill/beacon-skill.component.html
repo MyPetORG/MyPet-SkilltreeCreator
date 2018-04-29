@@ -228,6 +228,22 @@
                 </mat-checkbox>
               </span>
             </mat-list-item>
+            <mat-list-item>
+              <img mat-list-avatar class="skill-icon" src="assets/img/skills/beacon/regeneration.png">
+              <span mat-line>
+                {{ 'COMPONENTS__SKILLS__BEACON__BUFF__REGENERATION' | translate }}
+                <mat-input-container>
+                  <input matInput [placeholder]="'COMPONENTS__SKILLS__BEACON__BUFF_LEVEL' | translate" type="text"
+                         pattern="[+-][0-9]+"
+                         [name]="'buff_regeneration_' + i" #modelBuffRegeneration="ngModel"
+                         [ngModel]="upgrade.buffs.regeneration ? upgrade.buffs.regeneration : '+0'"
+                         (blur)="updateBuff(skilltree, upgrade, 'regeneration', $event.target.value, modelBuffRegeneration)">
+            <mat-error *ngIf="modelBuffRegeneration.errors?.pattern">
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            </mat-error>
+                </mat-input-container>
+             </span>
+            </mat-list-item>
           </mat-list>
         </mat-card>
       </div>

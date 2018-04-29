@@ -17,6 +17,7 @@ export interface Beacon extends Upgrade {
     strength?: string,
     waterBreathing?: null | boolean,
     invisibility?: null | boolean,
+    regeneration?: string,
   }
 }
 
@@ -37,6 +38,7 @@ export class BeaconDefault implements Beacon {
     strength: "+0",
     waterBreathing: null,
     invisibility: null,
+    regeneration: "+0",
   }
 }
 
@@ -58,6 +60,7 @@ export function BeaconLoader(data: any): Beacon {
     beacon.buffs.strength = matchOrDefault(buffs.getPropAs("strength", "string"), /[+-][0-9]+/, "+0");
     beacon.buffs.waterBreathing = buffs.getPropAs("waterBreathing", "bool|null");
     beacon.buffs.invisibility = buffs.getPropAs("invisibility", "bool|null");
+    beacon.buffs.regeneration = matchOrDefault(buffs.getPropAs("regeneration", "string"), /[+-][0-9]+/, "+0");
   }
   return beacon;
 }
@@ -107,6 +110,9 @@ export function BeaconSaver(data: Beacon) {
   }
   if (data.buffs.invisibility != null) {
     buffs.Invisibility = data.buffs.invisibility;
+  }
+  if (data.buffs.regeneration && /[\\+\-]?(\d+)/g.exec(data.buffs.regeneration)[1] != "0") {
+    buffs.Regeneration = data.buffs.regeneration;
   }
 
   if (Object.keys(buffs).length > 0) {
