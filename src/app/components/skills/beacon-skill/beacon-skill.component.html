@@ -91,7 +91,7 @@
                          pattern="[+-][0-9]+"
                          [name]="'buff_absoption_' + i" #modelBuffAbsorption="ngModel"
                          [ngModel]="upgrade.buffs.absorption ? upgrade.buffs.absorption : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'absorption', $event.value, modelBuffAbsorption)">
+                         (blur)="updateBuff(skilltree, upgrade, 'absorption', $event.target.value, modelBuffAbsorption)">
             <mat-error *ngIf="modelBuffAbsorption.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -117,7 +117,7 @@
                          pattern="[+-][0-9]+"
                          [name]="'buff_haste_' + i" #modelBuffHaste="ngModel"
                          [ngModel]="upgrade.buffs.haste ? upgrade.buffs.haste : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'haste', $event.value, modelBuffHaste)">
+                         (blur)="updateBuff(skilltree, upgrade, 'haste', $event.target.value, modelBuffHaste)">
             <mat-error *ngIf="modelBuffHaste.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -133,7 +133,7 @@
                          pattern="[+-][0-9]+"
                          [name]="'buff_jump_boost_' + i" #modelBuffJumpBoost="ngModel"
                          [ngModel]="upgrade.buffs.jumpBoost ? upgrade.buffs.jumpBoost : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'jumpBoost', $event.value, modelBuffJumpBoost)">
+                         (blur)="updateBuff(skilltree, upgrade, 'jumpBoost', $event.target.value, modelBuffJumpBoost)">
             <mat-error *ngIf="modelBuffJumpBoost.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -169,7 +169,7 @@
                          pattern="[+-][0-9]+"
                          [name]="'buff_resistance_' + i" #modelBuffResistance="ngModel"
                          [ngModel]="upgrade.buffs.resistance ? upgrade.buffs.resistance : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'resistance', $event.value, modelBuffResistance)">
+                         (blur)="updateBuff(skilltree, upgrade, 'resistance', $event.target.value, modelBuffResistance)">
             <mat-error *ngIf="modelBuffResistance.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -185,7 +185,7 @@
                          pattern="[+-][0-9]+"
                          [name]="'buff_speed_' + i" #modelBuffSpeed="ngModel"
                          [ngModel]="upgrade.buffs.speed ? upgrade.buffs.speed : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'speed', $event.value, modelBuffSpeed)">
+                         (blur)="updateBuff(skilltree, upgrade, 'speed', $event.target.value, modelBuffSpeed)">
             <mat-error *ngIf="modelBuffSpeed.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
@@ -201,7 +201,7 @@
                          pattern="[+-][0-9]+"
                          [name]="'buff_strength_' + i" #modelBuffStrength="ngModel"
                          [ngModel]="upgrade.buffs.strength ? upgrade.buffs.strength : '+0'"
-                         (blur)="updateBuff(skilltree, upgrade, 'strength', $event.value, modelBuffStrength)">
+                         (blur)="updateBuff(skilltree, upgrade, 'strength', $event.target.value, modelBuffStrength)">
             <mat-error *ngIf="modelBuffStrength.errors?.pattern">
               {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
             </mat-error>
