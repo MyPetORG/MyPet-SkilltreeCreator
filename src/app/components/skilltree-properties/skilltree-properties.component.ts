@@ -93,7 +93,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
 
   changeIcon() {
     let conf = new MatDialogConfig();
-    conf.data = this.skilltree.icon;
+    conf.data = this.skilltree.icon || {};
     let dialogRef = this.dialog.open(SkilltreeChangeIconDialogComponent, conf);
     dialogRef.afterClosed().subscribe(icon => {
       if (icon) {
