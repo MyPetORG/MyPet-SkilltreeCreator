@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault, setDefault } from "../../util/helpers";
+import { matchOrDefault } from "../../util/helpers";
 
 export interface Shield extends Upgrade {
   chance?: string;
@@ -21,10 +21,10 @@ export function ShieldLoader(data: any): Shield {
 
 export function ShieldSaver(data: Shield) {
   let savedData: any = {};
-  if (data.redirect && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.redirect)[1] != "0") {
+  if (data.redirect && /[\\+\-]?(\d+)/g.exec(data.redirect)[1] != "0") {
     savedData.Redirect = data.redirect;
   }
-  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+)/g.exec(data.chance)[1] != "0") {
     savedData.Chance = data.chance;
   }
   return savedData;

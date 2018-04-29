@@ -6,7 +6,7 @@
       </mat-card-content>
     </mat-card>
   </sat-popover>
-  <sat-popover #reflectionPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
+  <sat-popover #redirectionPopover xAlign="after" yAlign="center" hasBackdrop backdropClass="cdk-overlay-dark-backdrop">
     <mat-card>
       <mat-card-content>
         <mat-card-content [innerHTML]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED_POPUP' | translate"></mat-card-content>
@@ -41,17 +41,17 @@
         <mat-input-container>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED' | translate"
-                 [value]="upgrade.reflection ? upgrade.reflection : '+0'" type="text"
+                 [value]="upgrade.redirect ? upgrade.redirect : '+0'" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
-                 [name]="'reflection_' + i" #modelReflection="ngModel"
-                 [ngModel]="upgrade.reflection ? upgrade.reflection : '+0'"
-                 (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value, modelReflection)">
+                 [name]="'redirection_' + i" #modelRedirection="ngModel"
+                 [ngModel]="upgrade.redirect ? upgrade.redirect : '+0'"
+                 (blur)="update(skilltree, upgrade, 'redirect', $event.srcElement.value, modelRedirection)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_SUFFIX' | translate }}</span>
-          <mat-error *ngIf="modelReflection.errors?.pattern">
+          <mat-error *ngIf="modelRedirection.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
           </mat-error>
         </mat-input-container>
-        <button mat-icon-button [stcDynamicPopoverAnchorFor]="reflectionPopover">
+        <button mat-icon-button [stcDynamicPopoverAnchorFor]="redirectionPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
