@@ -1,19 +1,15 @@
+import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpResponse,
-  HttpHandler,
+  HTTP_INTERCEPTORS,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
-  HTTP_INTERCEPTORS
+  HttpRequest,
+  HttpResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/materialize';
-import 'rxjs/add/operator/dematerialize';
+
+
 import { CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree } from "./example-skilltrees";
 
 @Injectable()
@@ -29,14 +25,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         console.log(request.body);
         let fail = false;
         if (fail) {
-          return Observable.throw('ERROR');
+          return observableThrowError('ERROR');
         } else {
-          return Observable.of(new HttpResponse({status: 200, body: {message: "DONE"}}));
+          return observableOf(new HttpResponse({status: 200, body: {message: "DONE"}}));
         }
       }
 
       if (request.url.startsWith('/api/skilltrees') && request.method === 'GET') {
-        return Observable.of(new HttpResponse({
+        return observableOf(new HttpResponse({
           status: 200,
           body: [CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree]
         }));

@@ -9,11 +9,10 @@ import {
 import { SkillInfo, Skills } from "../../data/skills";
 import { Skilltree } from "../../models/skilltree";
 import * as Reducers from "../../store/reducers/index";
-import { Observable } from "rxjs/Observable";
+import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 import * as LayoutActions from "../../store/actions/layout";
 import { SkillUpgradeComponents } from "../../data/upgrade-components";
-import { Subscription } from "rxjs/Subscription";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
 @AutoUnsubscribe()

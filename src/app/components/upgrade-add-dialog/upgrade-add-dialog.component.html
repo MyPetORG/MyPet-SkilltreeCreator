@@ -7,7 +7,7 @@
       <div fxLayout="column">
         <mat-form-field class="demo-chip-list">
           <mat-chip-list #chipList>
-            <mat-chip *ngFor="let l of level" (remove)="removeLevel(l)" [selectable]="false">
+            <mat-chip *ngFor="let l of level" (removed)="removeLevel(l)" [selectable]="false">
               {{l}}
               <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
             </mat-chip>
@@ -25,24 +25,24 @@
     </mat-tab>
     <mat-tab [label]="'COMPONENTS__UPGRADE_ADD_DIALOG__DYNAMIC' | translate">
       <div fxLayout="column">
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__EVERY' | translate }}&nbsp;</span>
           <input matInput [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__REQUIRED' | translate"
                  [(ngModel)]="every" type="number" required pattern="\d+" #everyInput="ngModel">
           <span matSuffix="">&nbsp;{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__LEVEL' | translate }}</span>
-        </mat-input-container>
+        </mat-form-field>
 
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__START_LEVEL' | translate }}&nbsp;</span>
           <input matInput [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__OPTIONAL' | translate"
                  [(ngModel)]="minimum" type="number" pattern="\d+" #minimumInput="ngModel">
-        </mat-input-container>
+        </mat-form-field>
 
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__UPGRADE_ADD_DIALOG__UNTIL_LEVEL' | translate }}&nbsp;</span>
           <input matInput [placeholder]="'COMPONENTS__UPGRADE_ADD_DIALOG__OPTIONAL' | translate"
                  [(ngModel)]="limit" type="number" pattern="\d+" #limitInput="ngModel">
-        </mat-input-container>
+        </mat-form-field>
 
         <button mat-raised-button (click)="done()" color="primary"
                 [disabled]="everyInput.errors != null || minimumInput.errors != null || limitInput.errors != null">

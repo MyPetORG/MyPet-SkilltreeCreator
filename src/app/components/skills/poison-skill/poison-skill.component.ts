@@ -7,7 +7,7 @@ import { Poison, PoisonDefault } from "../../../models/skills/poison";
 import { Skill } from "../../../models/skill";
 import { Skilltree } from "../../../models/skilltree";
 import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import * as Reducers from "../../../store/reducers";
 import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";

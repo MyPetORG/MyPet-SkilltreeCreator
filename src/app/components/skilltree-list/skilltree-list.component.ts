@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/skilltree";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";

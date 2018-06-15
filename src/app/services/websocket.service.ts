@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable as ObservableTimer } from 'rxjs/Rx';
 import { environment } from "../../environments/environment";
-import { Observable } from "rxjs/Observable";
-import { Subscriber } from "rxjs/Subscriber";
+import { Observable, Subscriber } from "rxjs";
 
 @Injectable()
 export class WebsocketService {

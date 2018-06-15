@@ -7,7 +7,7 @@ import { LevelRule } from "../../../util/helpers";
 import { Pickup, PickupDefault } from "app/models/skills/pickup";
 import { Skilltree } from "../../../models/skilltree";
 import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import * as Reducers from "../../../store/reducers";
 import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";

@@ -6,7 +6,7 @@ import { Skill } from "../../../models/skill";
 import { Backpack, BackpackDefault } from "app/models/skills/backpack";
 import { LevelRule } from "../../../util/helpers";
 import { Skilltree } from "../../../models/skilltree";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";
 import * as Reducers from "../../../store/reducers/index";

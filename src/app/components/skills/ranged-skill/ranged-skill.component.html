@@ -28,7 +28,7 @@
     </mat-expansion-panel-header>
     <div fxLayout="column">
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__DAMAGE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__DAMAGE' | translate"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
@@ -39,13 +39,13 @@
           <mat-error *ngIf="modelDamage.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="damagePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RANGED__RATE' | translate" type="text"
                  pattern="[+-][0-9]+"
@@ -56,7 +56,7 @@
           <mat-error *ngIf="modelRate.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="ratePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
@@ -65,7 +65,7 @@
         <mat-form-field>
           <mat-select [placeholder]="'COMPONENTS__SKILLS__RANGED__PROJECTILE' | translate"
                       [value]="upgrade.projectile|| 'Arrow'"
-                      (change)="update(skilltree, upgrade, 'projectile', $event.value, {})">
+                      (selectionChange)="update(skilltree, upgrade, 'projectile', $event.value, {})">
             <mat-option value="Arrow">
               {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__ARROW' | translate }}
             </mat-option>

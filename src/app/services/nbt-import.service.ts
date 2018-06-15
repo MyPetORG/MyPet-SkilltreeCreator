@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import "pako";
-import * as nbt from "nbt/nbt.js";
-import { Observable } from "rxjs/Observable";
-import { Subscriber } from "rxjs/Subscriber";
+import { Observable, Subscriber } from "rxjs";
+import { NBT } from "../util/libs/nbt";
 
 @Injectable()
 export class NbtImportService {
@@ -39,7 +38,7 @@ export class NbtImportService {
 
   import(data: any, callback: any) {
     data = this.base64ToArrayBuffer(data);
-    nbt.parse(data, (e, d) => {
+    NBT.parse(data, (e, d) => {
       callback(d, e)
     });
   }

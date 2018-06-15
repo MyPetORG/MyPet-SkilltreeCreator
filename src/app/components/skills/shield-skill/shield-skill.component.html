@@ -21,7 +21,7 @@
     </mat-expansion-panel-header>
     <div fxLayout="column">
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__CHANCE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__CHANCE' | translate" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
@@ -32,13 +32,13 @@
           <mat-error *ngIf="modelChance.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__SHIELD__REDIRECTED_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__SHIELD__REDIRECTED' | translate"
                  [value]="upgrade.redirect ? upgrade.redirect : '+0'" type="text"
@@ -50,7 +50,7 @@
           <mat-error *ngIf="modelRedirection.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="redirectionPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>

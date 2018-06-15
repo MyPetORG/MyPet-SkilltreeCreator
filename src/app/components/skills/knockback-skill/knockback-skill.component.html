@@ -14,7 +14,7 @@
     </mat-expansion-panel-header>
     <div fxLayout="column">
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__KNOCKBACK__CHANCE_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__KNOCKBACK__CHANCE' | translate" type="text"
                  pattern="[+-](?:[0-9]|[1-9][0-9]|100)"
@@ -25,7 +25,7 @@
           <mat-error *ngIf="modelChance.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>

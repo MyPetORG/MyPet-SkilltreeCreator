@@ -3,15 +3,15 @@
 </h1>
 <div mat-dialog-content>
   <div fxLayout="column">
-    <mat-input-container>
+    <mat-form-field>
       <mat-label>{{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__MATERIAL' | translate }}</mat-label>
       <input matInput placeholder="minecraft:sapling" [(ngModel)]="material" type="text" #materialInput="ngModel">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container>
+    <mat-form-field>
       <input matInput [placeholder]="'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__DATA' | translate"
              [(ngModel)]="data" type="number" pattern="\d+" #dataInput="ngModel" min="0">
-    </mat-input-container>
+    </mat-form-field>
 
     <mat-checkbox [(ngModel)]="glowing" class="spacer-b-1em">
       {{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__GLOWING' | translate }}

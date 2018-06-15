@@ -7,7 +7,7 @@ import { Skill } from "../../../models/skill";
 import { Lightning, LightningDefault } from "../../../models/skills/lightning";
 import { Skilltree } from "../../../models/skilltree";
 import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import * as Reducers from "../../../store/reducers";
 import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";

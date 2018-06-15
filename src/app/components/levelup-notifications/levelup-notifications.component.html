@@ -18,7 +18,7 @@
         {{ LevelRule.toKey(message.rule) | translate:LevelRule.toData(message.rule) }}
       </mat-expansion-panel-header>
       <div fxLayout="column" style="padding-top: 1.25em;">
-        <mat-input-container>
+        <mat-form-field>
           <input matInput [placeholder]="'COMPONENTS__LEVELUP_NOTIFICATIONS__MESSAGE' | translate" type="text"
                  [name]="'message_' + i" #modelMessage="ngModel"
                  [ngModel]="message.content"
@@ -26,7 +26,7 @@
           <mat-icon matSuffix svgIcon="info_outline" [stcDynamicPopoverAnchorFor]="messagePopover"
                     class="interaction-click">info_outline
           </mat-icon>
-        </mat-input-container>
+        </mat-form-field>
         <div class="codebox interaction-none">
           <ul>
             <li [innerHTML]="replace(modelMessage.value) | mcChat"></li>

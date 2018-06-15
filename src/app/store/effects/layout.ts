@@ -1,11 +1,5 @@
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/skip';
-import 'rxjs/add/operator/takeUntil';
 import "rxjs/add/operator/withLatestFrom";
-import { Observable } from 'rxjs/Observable';
+import { defer, Observable, of } from 'rxjs';
 import { tap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -14,8 +8,6 @@ import * as LayoutActions from "../actions/layout";
 import { MatSnackBar } from "@angular/material";
 import { TranslateService } from "@ngx-translate/core";
 import { languages } from "../../data/languages";
-import { defer } from "rxjs/observable/defer";
-import { of } from "rxjs/observable/of";
 import { WebsocketService } from "../../services/websocket.service";
 
 @Injectable()

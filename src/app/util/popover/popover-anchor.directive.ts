@@ -1,17 +1,6 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  OnDestroy,
-  Output,
-  ViewContainerRef
-} from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { merge } from 'rxjs/observable/merge';
-import { tap } from 'rxjs/operators/tap';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { merge, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { SatPopover } from './popover.component';
 import { getInvalidPopoverError } from './popover.errors';

@@ -2,7 +2,7 @@
   <mat-form-field class="spacer-r-1em">
     <mat-select [placeholder]="'COMPONENTS__SKILL_EDITOR__SELECT_SKILL' | translate"
                 [(ngModel)]="selectedSkill"
-                (change)="switchSkill($event)">
+                (selectionChange)="switchSkill($event)">
       <mat-select-trigger>
         <span *ngIf="selectedSkill">
           <img [src]="'assets/img/skills/' +  selectedSkill.icon" class="matl-chip__skill">

@@ -9,7 +9,7 @@
 
 <div fxLayout.gt-md="row wrap" fxLayout.lt-md="column" fxLayoutGap="1em">
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
-    <mat-input-container>
+    <mat-form-field>
       <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__SKILLTREE_ID' | translate"
              [formControl]="id" (blur)="rename(id)" [appSkilltreeDuplicate]="skilltreeNames" required
              pattern="[a-zA-Z0-9.-_]*">
@@ -22,12 +22,12 @@
       <mat-error *ngIf="id.errors?.pattern">
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_INVALID' | translate }}
       </mat-error>
-    </mat-input-container>
-    <mat-input-container>
+    </mat-form-field>
+    <mat-form-field>
       <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__DISPLAY_NAME' | translate"
              [formControl]="name" (blur)="update('name',name)">
-    </mat-input-container>
-    <mat-input-container>
+    </mat-form-field>
+    <mat-form-field>
       <span matPrefix>MyPet.skilltree.</span>
       <input matInput pattern="[^\s]*" [formControl]="permission" (blur)="update('permission',permission)"
              [placeholder]="(!permission.value ? 'COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT_EMPTY' : 'COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT') | translate:{id: id.value} ">
@@ -40,18 +40,18 @@
       <mat-error *ngIf="permission.errors?.pattern">
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_WHITESPACES' | translate }}
       </mat-error>
-    </mat-input-container>
+    </mat-form-field>
   </mat-card>
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
-    <mat-input-container>
+    <mat-form-field>
       <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__REQUIRED_LEVEL' | translate"
              [formControl]="requiredLevel"
              (blur)="update('requiredLevel',requiredLevel)" pattern="\d*" type="number">
       <mat-error *ngIf="requiredLevel.errors?.pattern">
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
-    </mat-input-container>
-    <mat-input-container>
+    </mat-form-field>
+    <mat-form-field>
       <input matInput
              [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__MAX_LEVEL' | translate"
              [formControl]="maxLevel" type="number"
@@ -60,17 +60,17 @@
       <mat-error *ngIf="maxLevel.errors?.pattern">
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
-    </mat-input-container>
+    </mat-form-field>
   </mat-card>
 </div>
 
 <mat-card fxLayout="column" class="spacer-b-1em spacer-t-1em">
-  <mat-input-container fxFlex="100">
+  <mat-form-field fxFlex="100">
     <textarea matInput
               [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__DESCRIPTION' | translate"
               (keyup)="parseTextArea()" [formControl]="description"
               (blur)="updateDescription()" style="min-height: 150px"></textarea>
-  </mat-input-container>
+  </mat-form-field>
   <div class="codebox">
     <ul>
       <li *ngFor="let line of _description" [innerHTML]="line | mcChat"></li>

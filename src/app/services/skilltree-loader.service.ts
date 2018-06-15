@@ -1,12 +1,11 @@
+import { Observable, of, throwError as observableThrowError } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Skilltree } from "../models/skilltree";
 import { SkillLoader } from "../data/skill-loader";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
 import { Skills } from "../data/skills";
 import { LevelRule } from "../models/level-rule";
 import { Upgrade } from "../models/upgrade";
-import { of } from "rxjs/observable/of";
 import { MobTypes } from "../data/mob-types";
 
 @Injectable()
@@ -22,10 +21,10 @@ export class SkilltreeLoaderService {
   loadSkilltree(data: any): Observable<Skilltree> {
     let id = data.getProp("ID");
     if (!id || id == "") {
-      return Observable.throw({type: "INVALID", data: "NO ID"})
+      return observableThrowError({type: "INVALID", data: "NO ID"});
     }
     if (!id.match(/^[a-zA-Z0-9.-_]+$/)) {
-      return Observable.throw({type: "INVALID", data: "INVALID ID"})
+      return observableThrowError({type: "INVALID", data: "INVALID ID"});
     }
     let skilltree: Skilltree = {id, skills: {}, mobtypes: [], messages: []};
     skilltree.permission = data.getProp("Permission") || "";
@@ -48,7 +47,7 @@ export class SkilltreeLoaderService {
       skilltree.mobtypes = this.loadMobTypes(data.getProp("MobTypes"));
       skilltree.messages = this.loadNotifications(data.getProp("Notifications"));
     } catch (e) {
-      return Observable.throw({type: "INVALID", data: e})
+      return observableThrowError({type: "INVALID", data: e});
     }
 
     return of(skilltree);

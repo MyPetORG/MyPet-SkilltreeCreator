@@ -6,7 +6,7 @@ import { Skill } from "../../../models/skill";
 import { LevelRule } from "../../../util/helpers";
 import { Skilltree } from "../../../models/skilltree";
 import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { Behavior, BehaviorDefault } from "../../../models/skills/behavior";
 import * as Reducers from "../../../store/reducers";
 import { SkillInfo } from "../../../data/skills";

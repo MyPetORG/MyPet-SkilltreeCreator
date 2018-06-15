@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { BehaviorSubject, Observable } from "rxjs";
 import { Skill } from "../models/skill";
 import { Upgrade } from "../models/upgrade";
 

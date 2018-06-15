@@ -7,7 +7,7 @@ import { LevelRule } from "../../../util/helpers";
 import { Shield, ShieldDefault } from "../../../models/skills/shield";
 import { Skilltree } from "../../../models/skilltree";
 import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import * as Reducers from "../../../store/reducers";
 import { SkillInfo } from "../../../data/skills";
 import { Store } from "@ngrx/store";

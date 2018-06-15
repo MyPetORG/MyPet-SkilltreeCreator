@@ -45,7 +45,7 @@
         </mat-checkbox>
       </mat-card>
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__SPEED' | translate" type="text"
                  pattern="[+-][0-9]+"
@@ -56,13 +56,13 @@
           <mat-error *ngIf="modelSpeed.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="speedPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
@@ -73,7 +73,7 @@
           <mat-error *ngIf="modelJumpHeight.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="jumpHeightPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
@@ -88,7 +88,7 @@
         </mat-checkbox>
       </mat-card>
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_LIMIT' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
@@ -99,13 +99,13 @@
           <mat-error *ngIf="modelFlyLimit.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyLimitPopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>
       </mat-card>
       <mat-card>
-        <mat-input-container>
+        <mat-form-field>
           <span matPrefix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_PREFIX' | translate }}</span>
           <input matInput [placeholder]="'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate" type="text"
                  pattern="[+-][0-9]+(\.[0-9]+)?"
@@ -116,7 +116,7 @@
           <mat-error *ngIf="modelFlyRegenRate.errors?.pattern">
             {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
           </mat-error>
-        </mat-input-container>
+        </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyRegenRatePopover">
           <mat-icon svgIcon="info_outline">info_outline</mat-icon>
         </button>

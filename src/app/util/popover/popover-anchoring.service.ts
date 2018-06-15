@@ -1,37 +1,26 @@
-import {
-  ElementRef,
-  Injectable,
-  NgZone,
-  OnDestroy,
-  Optional,
-  ViewContainerRef
-} from '@angular/core';
+import { ElementRef, Injectable, NgZone, OnDestroy, Optional, ViewContainerRef } from '@angular/core';
 import {
   ConnectedPositionStrategy,
   HorizontalConnectionPos,
   Overlay,
-  OverlayRef,
   OverlayConfig,
+  OverlayRef,
   ScrollStrategy,
   VerticalConnectionPos,
 } from '@angular/cdk/overlay';
-import { Directionality, Direction } from '@angular/cdk/bidi';
+import { Direction, Directionality } from '@angular/cdk/bidi';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { take } from 'rxjs/operators/take';
-import { filter } from 'rxjs/operators/filter';
-import { tap } from 'rxjs/operators/tap';
+import { Subject, Subscription } from 'rxjs';
+import { filter, take, takeUntil, tap } from 'rxjs/operators';
 
 import {
   SatPopover,
   SatPopoverHorizontalAlign,
-  SatPopoverVerticalAlign,
   SatPopoverScrollStrategy,
+  SatPopoverVerticalAlign,
 } from './popover.component';
-import { PopoverNotificationService, NotificationAction } from './notification.service';
+import { NotificationAction, PopoverNotificationService } from './notification.service';
 
 /**
  * Configuration provided by the popover for the anchoring service

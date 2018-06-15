@@ -4,7 +4,7 @@ import { NbtImportService } from "../../services/nbt-import.service";
 import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
 import { Skilltree } from "../../models/skilltree";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 import { MobTypes } from "../../data/mob-types";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { LevelRule } from "../../models/level-rule";
