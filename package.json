@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --configuration=proxy --open",
     "build": "ng build",
-    "build-plugin": "ng build --prod --configuration=plugin",
+    "build-plugin": "ng build --prod --configuration=plugin --no-progress",
     "lint": "ng lint",
     "pre-build": "node -e \"console.log('export const APP_VERSION = \\'' + process.env.npm_package_version.substring(0,process.env.npm_package_version.lastIndexOf('.')) + '-b' + (process.env.npm_config_BUILD || '0') +'\\';')\" > src/version.ts"
   },
