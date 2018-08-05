@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault, setDefault } from "../../util/helpers";
+import { matchOrDefault } from "../../util/helpers";
 
 export const Projectiles: string[] = [
   "Arrow",
@@ -8,6 +8,9 @@ export const Projectiles: string[] = [
   "LargeFireball",
   "WitherSkull",
   "Egg",
+  "DragonFireball",
+  "Trident",
+  "EnderPearl",
 ];
 
 export interface Ranged extends Upgrade {
