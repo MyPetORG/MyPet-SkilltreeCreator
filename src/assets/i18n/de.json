@@ -309,9 +309,11 @@
   "LEVEL_RULE_EVERY_LEVEL": "Jedes Level",
   "LEVEL_RULE_EVERY_LEVEL_START": "Jedes Level ab Level {{start}}",
   "LEVEL_RULE_EVERY_LEVEL_START_END": "Jedes Level ab Level {{start}} bis Level {{end}}",
+  "LEVEL_RULE_EVERY_LEVEL_END": "Jedes Level bis Level {{end}}",
   "LEVEL_RULE_EVERY_X_LEVEL": "Jedes {{level}}. Level",
   "LEVEL_RULE_EVERY_X_LEVEL_START": "Jedes {{level}}. Level ab Level {{start}}",
   "LEVEL_RULE_EVERY_X_LEVEL_START_END": "Jedes {{level}}. Level ab Level {{start}} bis Level {{end}}",
+  "LEVEL_RULE_EVERY_X_LEVEL_END": "Jedes {{level}}. Level bis Level {{end}}",
 
   "EFFECT__CHANGE_LANGUAGE": "Sprache zu {{lang}} geändert.",
   "EFFECT__IMPORT_SKILLTREE__IMPORT": "Import",
