@@ -39,7 +39,6 @@ export class SkilltreeLoaderService {
     let icon: any = data.getProp("Icon") || {};
     skilltree.icon = {};
     skilltree.icon.material = icon.getPropAs("Material", "string") || "";
-    skilltree.icon.data = icon.getPropAs("Data", "int") || 0;
     skilltree.icon.glowing = icon.getPropAs("Glowing", "bool") || false;
 
     try {

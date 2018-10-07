@@ -7,7 +7,6 @@ export interface Skilltree {
   order?: number
   icon?: {
     material?: string
-    data?: number
     glowing?: boolean
   }
   description?: string[]

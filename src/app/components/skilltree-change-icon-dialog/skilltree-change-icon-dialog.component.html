@@ -4,13 +4,9 @@
 <div mat-dialog-content>
   <div fxLayout="column">
     <mat-form-field>
-      <mat-label>{{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__MATERIAL' | translate }}</mat-label>
-      <input matInput placeholder="minecraft:sapling" [(ngModel)]="material" type="text" #materialInput="ngModel">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput [placeholder]="'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__DATA' | translate"
-             [(ngModel)]="data" type="number" pattern="\d+" #dataInput="ngModel" min="0">
+      <mat-label>{{ 'COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__MATERIAL' | translate }} (1.13+)</mat-label>
+      <span matPrefix>minecraft:</span>
+      <input matInput placeholder="sapling" [(ngModel)]="material" type="text" #materialInput="ngModel">
     </mat-form-field>
 
     <mat-checkbox [(ngModel)]="glowing" class="spacer-b-1em">

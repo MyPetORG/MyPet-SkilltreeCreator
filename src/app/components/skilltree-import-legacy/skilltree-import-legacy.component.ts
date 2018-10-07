@@ -197,9 +197,6 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
             if (skilltreeData.IconItem.value.id) {
               skilltree.icon.material = "" + skilltreeData.IconItem.value.id.value;
             }
-            if (skilltreeData.IconItem.value.Damage) {
-              skilltree.icon.data = skilltreeData.IconItem.value.Damage.value;
-            }
             if (skilltreeData.IconItem.value.tag && skilltreeData.IconItem.value.tag.value.ench) {
               skilltree.icon.glowing = true;
             }
