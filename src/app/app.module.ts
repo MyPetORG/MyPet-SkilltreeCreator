@@ -50,6 +50,7 @@ import { SkilltreeEditorComponent } from "./components/skilltree-editor/skilltre
 import { EffectsModule } from "@ngrx/effects";
 import { SkilltreeEffects } from "./store/effects/skilltree";
 import {
+  ErrorStateMatcher,
   MatBadgeModule,
   MatButtonModule,
   MatButtonToggleModule,
@@ -68,17 +69,18 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatSidenavModule,
+  MatSliderModule,
   MatSlideToggleModule,
   MatSnackBarModule,
+  MatStepperModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatSliderModule,
-  MatStepperModule, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher
+  ShowOnDirtyErrorStateMatcher
 } from "@angular/material";
 import { environment } from '../environments/environment';
 import { IconLoaderService } from "./services/icon-loader.service";
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { storeFreeze } from "ngrx-store-freeze";
 import { FreezableRouterStateSerializer } from "./store/freezable-router";
 import { AboutComponent } from './components/about/about.component';
@@ -86,7 +88,6 @@ import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.di
 import { RomanPipe } from './pipes/roman.pipe';
 import { ClipboardModule } from "ngx-clipboard";
 import { SkilltreeSaverService } from "./services/skilltree-saver.service";
-import { DndModule } from "ngx-drag-drop";
 import { SkilltreeImportDialogComponent } from "./components/skilltree-import-dialog/skilltree-import-dialog.component";
 import { HotkeyModule } from "angular2-hotkeys";
 import { HotkeyService } from "app/services/hotkey.service";
@@ -103,6 +104,7 @@ import { RouterEffects } from "./store/effects/router";
 import { SkilltreeChangeIconDialogComponent } from "./components/skilltree-change-icon-dialog/skilltree-change-icon-dialog.component";
 import { LevelupNotificationsComponent } from './components/levelup-notifications/levelup-notifications.component';
 import { LevelupNotificationAddDialogComponent } from "./components/levelup-notification-add-dialog/levelup-notification-add-dialog.component";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -169,8 +171,8 @@ export function createTranslateLoader(http: HttpClient) {
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule, MatSliderModule,
     MatStepperModule,
+    DragDropModule,
     SatPopoverModule,
-    DndModule,
     HotkeyModule.forRoot(),
     ContextMenuModule.forRoot(),
     TranslateModule.forRoot({

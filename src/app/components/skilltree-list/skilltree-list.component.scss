@@ -15,14 +15,11 @@
   background-color: whitesmoke;
 }
 
-.dndList {
-  transition: all .3s ease;
+.cdk-drop-dragging, .cdk-drag, .draggable-item, .cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.dndDraggingSource {
-  display: none !important;
-}
-
-.dndPlaceholder {
-  background-color: #C8E6C9 !important;
+.cdk-drag-placeholder {
+  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.2) !important;
 }

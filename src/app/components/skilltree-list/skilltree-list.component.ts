@@ -11,6 +11,7 @@ import * as LayoutActions from "../../store/actions/layout";
 import { ContextMenuService } from "ngx-contextmenu";
 import { TranslateService } from "@ngx-translate/core";
 import { SkilltreeDuplicateDialogComponent } from "../skilltree-duplicate-dialog/skilltree-duplicate-dialog.component";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'stc-skilltree-list',
@@ -42,24 +43,21 @@ export class SkilltreeListComponent {
     this.store.dispatch(new LayoutActions.SelectSkilltreeAction(null));
   }
 
-  drag(event) {
-    let newIndex = event.index;
-    let skilltree = event.data;
-    let oldIndex = this.skilltrees.findIndex((st) => {
-      return skilltree.id == st.id;
-    });
+  drag(event: CdkDragDrop<Skilltree[]>) {
+    console.log(event);
+    let newIndex = event.currentIndex;
+    let oldIndex = event.previousIndex;
 
-    if (oldIndex == 0 && newIndex == 1) {
+    if (oldIndex == newIndex) {
       return;
     }
 
-    this.skilltrees.splice(oldIndex, 1);
-    this.skilltrees.splice(newIndex, 0, skilltree);
+    moveItemInArray(this.skilltrees, oldIndex, newIndex);
 
     let changes: { id: string, changes: { order: number } }[] = [];
     this.skilltrees.forEach((st, index) => {
       if (st.order != index) {
-        changes.push({id: st.id, changes: {order: index}})
+        changes.push({id: st.id, changes: {order: index}});
       }
     });
 

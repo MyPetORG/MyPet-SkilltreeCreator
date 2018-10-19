@@ -24,23 +24,22 @@
 <mat-card class="no-padding">
   <mat-nav-list dense
                 fxLayout="column"
-                dndDropzone
-                (dndDrop)="drag($event)"
+                cdkDropList
+                (cdkDropListDropped)="drag($event)"
                 class="dndList">
-    <mat-list-item dndPlaceholderRef
-                   class="dndPlaceholder">
-    </mat-list-item>
+
     <mat-list-item *ngFor="let skilltree of skilltrees"
                    (click)="editSkills(skilltree)"
                    (contextmenu)="onContextMenu($event, skilltree, skilltreeMenu)"
                    [contextMenu]="skilltreeMenu"
                    [contextMenuSubject]="skilltree"
-                   [dndDraggable]="skilltree"
-                   dndEffectAllowed="move">
+                   cdkDrag
+                   [cdkDragData]="skilltree"
+                   class="draggable-item">
 
-      <mat-icon mat-list-icon dndHandle class="handle" svgIcon="drag_handle">drag_handle</mat-icon>
+      <mat-icon mat-list-icon cdkDragHandle class="handle" svgIcon="drag_handle">drag_handle</mat-icon>
 
-      <img mat-list-avatar dndDragImageRef src="assets/img/mobheads/All.png">
+      <span *cdkDragPreview></span>
 
       <h3 mat-line> {{skilltree.name}} </h3>
       <p mat-line>
