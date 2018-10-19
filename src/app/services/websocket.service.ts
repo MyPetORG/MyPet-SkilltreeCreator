@@ -28,7 +28,7 @@ export class WebsocketService {
 
     this.obs = new Observable(observer => this._obs = observer);
 
-    window.onunload = function () {
+    window.onunload = () => {
       this.close();
     };
   }

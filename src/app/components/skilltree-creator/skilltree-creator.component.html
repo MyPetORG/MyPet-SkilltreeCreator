@@ -4,34 +4,34 @@
                fxLayoutAlign="start center"
                [opened]="showSidenav$ | async"
                [disableClose]="true">
-    <button mat-button (click)="importSkilltree()" matTooltipPosition="right"
+    <button mat-icon-button (click)="importSkilltree()" matTooltipPosition="right"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__IMPORT' | translate">
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-button routerLink="/import/legacy" (click)="closeSidenav()" matTooltipPosition="right"
+    <button mat-icon-button routerLink="/import/legacy" (click)="closeSidenav()" matTooltipPosition="right"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__IMPORT_LEGACY' | translate">
       <mat-icon svgIcon="input">input</mat-icon>
     </button>
-    <button mat-button (click)="closeSidenav()" matTooltipPosition="right" disabled
+    <button mat-icon-button (click)="closeSidenav()" matTooltipPosition="right" disabled
             [matTooltip]="'COMPONENTS__NOT_YET_IMPLEMENTED' | translate">
       <mat-icon svgIcon="cloud_upload">cloud upload</mat-icon>
     </button>
-    <button *ngIf="language$ | async as lang" mat-button (click)="toggleLang(lang)" matTooltipPosition="right"
+    <button *ngIf="language$ | async as lang" mat-icon-button (click)="toggleLang(lang)" matTooltipPosition="right"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__CHANGE_LANGUAGE' | translate"
             [disabled]="languages.length <= 1">
       <mat-icon svgIcon="translate">translate</mat-icon>
     </button>
     <button *ngIf="!(premium$ | async)" style="color: red"
-            mat-button (click)="togglePremium()" matTooltipPosition="right"
+            mat-icon-button (click)="togglePremium()" matTooltipPosition="right"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__PREMIUM_ENABLE' | translate">
       <mat-icon svgIcon="star">star</mat-icon>
     </button>
     <button *ngIf="premium$ | async" style="color: green"
-            mat-button (click)="togglePremium()" matTooltipPosition="right"
+            mat-icon-button (click)="togglePremium()" matTooltipPosition="right"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__PREMIUM_DISABLE' | translate">
       <mat-icon svgIcon="star">star</mat-icon>
     </button>
-    <button mat-button routerLink="/about" (click)="closeSidenav()" matTooltipPosition="right"
+    <button mat-icon-button routerLink="/about" (click)="closeSidenav()" matTooltipPosition="right"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__ABOUT' | translate">
       <mat-icon svgIcon="info_outline">info_outline</mat-icon>
     </button>
