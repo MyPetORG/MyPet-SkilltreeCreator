@@ -44,7 +44,6 @@ export class SkilltreeListComponent {
   }
 
   drag(event: CdkDragDrop<Skilltree[]>) {
-    console.log(event);
     let newIndex = event.currentIndex;
     let oldIndex = event.previousIndex;
 

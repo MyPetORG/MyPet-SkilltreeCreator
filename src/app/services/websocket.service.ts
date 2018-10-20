@@ -43,15 +43,17 @@ export class WebsocketService {
 
   connect(): Observable<string> {
     if (!this.isConnected()) {
-      this.ws = new WebSocket("ws://" + environment.websocketUrl + "/websocket");
-      this.ws.onmessage = (event) => {
-        try {
-          let jsonData = JSON.parse(event.data);
-          this._obs.next(jsonData)
-        } catch (e) {
-          console.error(e)
-        }
-      };
+      if (environment.websocketUrl) {
+        this.ws = new WebSocket("ws://" + environment.websocketUrl + "/websocket");
+        this.ws.onmessage = (event) => {
+          try {
+            let jsonData = JSON.parse(event.data);
+            this._obs.next(jsonData);
+          } catch (e) {
+            console.error(e);
+          }
+        };
+      }
     }
     return this.getData();
   }
