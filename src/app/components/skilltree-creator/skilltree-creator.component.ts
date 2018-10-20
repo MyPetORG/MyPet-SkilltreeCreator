@@ -38,11 +38,10 @@ export class SkilltreeCreatorComponent {
       (packet: any) => {
         switch (packet.action) {
           case "SERVER_STOP":
-            this.translate.get("COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN").subscribe((trans) => {
-              this.snackBar.open(trans, "SkilltreeCreator", {
-                duration: 2000,
+            this.translate.get("COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN")
+              .subscribe((trans) => {
+                this.snackBar.open(trans, null, {duration: 2000,});
               });
-            });
             break;
           case "TOGGLE_PREMIUM":
             if (this.firstPremiumToggle) {

@@ -92,20 +92,14 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
           if (this.nbtData != null) {
             this.stepCompleted[0] = true;
             this.loadNewSkilltreeNames();
-            this.stepper.next()
+            this.stepper.next();
           }
         },
         error => {
-          this.translate.get(
-            ["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__INVALID_FILE", "COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"]
-          ).subscribe((trans) => {
-            this.snackBar.open(
-              trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__INVALID_FILE"],
-              trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"],
-              {
-                duration: 2000,
-              });
-          });
+          this.translate.get("COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__INVALID_FILE")
+            .subscribe((trans) => {
+              this.snackBar.open(trans, null, {duration: 2000,});
+            });
           console.error(error);
         }
       );
@@ -126,7 +120,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         let oldName = skilltree.Name.value;
         let newName = oldName;
         if (this.existingSkilltreeNames.indexOf(newName) != -1) {
-          newName = oldName + "-legacy"
+          newName = oldName + "-legacy";
         }
         if (this.existingSkilltreeNames.indexOf(newName) != -1) {
           newName = oldName + "-legacy-" + Date.now();
@@ -227,7 +221,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
               let upgrade: Upgrade = this.importSkillData(skillname, s.Properties.value);
               upgrade.rule = rule;
 
-              skilltree.skills[skillname].push(upgrade)
+              skilltree.skills[skillname].push(upgrade);
             });
           });
 
@@ -235,16 +229,10 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         }
       });
 
-      this.translate.get(
-        ["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__SKILLTREE_IMPORTED", "COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"]
-      ).subscribe((trans) => {
-        this.snackBar.open(
-          trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__SKILLTREE_IMPORTED"],
-          trans["COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__IMPORT"],
-          {
-            duration: 2000,
-          });
-      });
+      this.translate.get("COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__SKILLTREE_IMPORTED")
+        .subscribe((trans) => {
+          this.snackBar.open(trans, null, {duration: 2000,});
+        });
       this.router.navigate(["/"]);
     }
   }

@@ -4,7 +4,6 @@ import { LevelRule } from "../../models/level-rule";
 import { COMMA, ENTER, SPACE } from "@angular/cdk/keycodes";
 import * as Reducers from "../../store/reducers";
 import { Store } from "@ngrx/store";
-import { Upgrade } from "../../models/upgrade";
 import { isArray } from "util";
 import { TranslateService } from "@ngx-translate/core";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
@@ -39,7 +38,7 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
       if (skilltree) {
         skilltree.messages.forEach((message) => {
           this.levelRules.push(message.rule);
-        })
+        });
       }
     });
   }
@@ -62,22 +61,12 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
       return this.compareLevelRule(rule, newRule);
     });
     if (!found) {
-      this.dialogRef.close(newRule)
+      this.dialogRef.close(newRule);
     } else {
-      this.translate.get(
-        [
-          "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED",
-          "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__UPGRADE"
-        ]
-      ).subscribe((trans) => {
-        this.snackBar.open(
-          trans["COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED"],
-          trans["COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__UPGRADE"],
-          {
-            duration: 2000,
-          }
-        );
-      });
+      this.translate.get("COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED")
+        .subscribe((trans) => {
+          this.snackBar.open(trans, null, {duration: 2000,});
+        });
     }
   }
 

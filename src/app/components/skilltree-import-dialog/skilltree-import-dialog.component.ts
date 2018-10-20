@@ -28,16 +28,10 @@ export class SkilltreeImportDialogComponent {
         try {
           data = window.atob(base64Data);
         } catch (e) {
-          this.translate.get(
-            ["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE", "COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"]
-          ).subscribe((trans) => {
-            this.snackBar.open(
-              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE"],
-              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"],
-              {
-                duration: 2000,
-              });
-          });
+          this.translate.get("COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE")
+            .subscribe((trans) => {
+              this.snackBar.open(trans, null, {duration: 2000,});
+            });
           return;
         }
 
@@ -46,16 +40,10 @@ export class SkilltreeImportDialogComponent {
           this.valid = true;
           return;
         } catch (e) {
-          this.translate.get(
-            ["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE", "COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"]
-          ).subscribe((trans) => {
-            this.snackBar.open(
-              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE"],
-              trans["COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR"],
-              {
-                duration: 2000,
-              });
-          });
+          this.translate.get("COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE")
+            .subscribe((trans) => {
+              this.snackBar.open(trans, null, {duration: 2000,});
+            });
         }
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -64,7 +52,7 @@ export class SkilltreeImportDialogComponent {
 
   done() {
     if (this.valid) {
-      this.dialogRef.close(this.skilltreeData)
+      this.dialogRef.close(this.skilltreeData);
     }
   }
 }

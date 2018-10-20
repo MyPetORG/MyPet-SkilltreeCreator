@@ -127,16 +127,9 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   notifyCopy() {
-    this.translate.get(
-      ["COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE", "COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION"]
-    ).subscribe((trans) => {
-      this.snackBar.open(
-        trans["COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE"],
-        trans["COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION"],
-        {
-          duration: 2000,
-        }
-      );
-    });
+    this.translate.get("COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE")
+      .subscribe((trans) => {
+        this.snackBar.open(trans, null, {duration: 2000,});
+      });
   }
 }

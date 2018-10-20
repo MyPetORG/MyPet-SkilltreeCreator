@@ -39,7 +39,7 @@ export class UpgradeAddDialogComponent implements OnDestroy {
       if (upgrades) {
         upgrades.forEach((upgrade: Upgrade) => {
           this.levelRules.push(upgrade.rule);
-        })
+        });
       }
     });
   }
@@ -62,18 +62,11 @@ export class UpgradeAddDialogComponent implements OnDestroy {
       return this.compareLevelRule(rule, newRule);
     });
     if (!found) {
-      this.dialogRef.close(newRule)
+      this.dialogRef.close(newRule);
     } else {
-      this.translate.get(
-        ["COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED", "COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE"]
-      ).subscribe((trans) => {
-        this.snackBar.open(
-          trans["COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED"],
-          trans["COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE"],
-          {
-            duration: 2000,
-          }
-        );
+      this.translate.get("COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED")
+        .subscribe((trans) => {
+          this.snackBar.open(trans, null, {duration: 2000,});
       });
     }
   }

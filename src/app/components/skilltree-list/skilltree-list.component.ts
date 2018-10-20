@@ -76,15 +76,10 @@ export class SkilltreeListComponent {
           messages: [],
         }));
         this.translate.get(
-          ["COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],
+          "COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS",
           {id: result}
         ).subscribe((trans) => {
-          this.snackBar.open(
-            trans["COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS"],
-            trans["COMPONENTS__SKILLTREE_LIST__SKILLTREE"], {
-              duration: 2000,
-            }
-          );
+          this.snackBar.open(trans, null, {duration: 2000,});
         });
       }
     });
@@ -105,15 +100,10 @@ export class SkilltreeListComponent {
   deleteSkilltree(skilltree: Skilltree) {
     this.store.dispatch(new SkilltreeActions.RemoveSkilltreeAction(skilltree));
     this.translate.get(
-      ["COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],
+      "COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS",
       {id: skilltree.id}
     ).subscribe((trans) => {
-      this.snackBar.open(
-        trans["COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS"],
-        trans["COMPONENTS__SKILLTREE_LIST__SKILLTREE"], {
-          duration: 2000,
-        }
-      );
+      this.snackBar.open(trans, null, {duration: 2000,});
     });
   }
 
@@ -125,14 +115,10 @@ export class SkilltreeListComponent {
         copy.id = result;
         this.store.dispatch(new SkilltreeActions.CopySkilltreeAction(copy));
         this.translate.get(
-          ["COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS", "COMPONENTS__SKILLTREE_LIST__SKILLTREE"],
+          "COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS",
           {old: skilltree.id, "new": result}
         ).subscribe((trans) => {
-          this.snackBar.open(
-            trans["COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS"],
-            trans["COMPONENTS__SKILLTREE_LIST__SKILLTREE"], {
-              duration: 2000,
-            });
+          this.snackBar.open(trans, null, {duration: 2000,});
         });
       }
     });

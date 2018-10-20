@@ -36,7 +36,6 @@
   "COMPONENTS__SKILLTREE_IMPORT_DIALOG__INSTRUCTIONS": "Select a Skilltree-File (.json)",
   "COMPONENTS__SKILLTREE_IMPORT_DIALOG__SELECT": "Select",
   "COMPONENTS__SKILLTREE_IMPORT_DIALOG__IMPORT": "Import",
-  "COMPONENTS__SKILLTREE_IMPORT_DIALOG__ERROR": "Error",
   "COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE": "This file is not a valid json file.",
 
   "COMPONENTS__SKILLTREE_IMPORT_LEGACY__TITLE": "Import Skilltree",
@@ -63,7 +62,6 @@
   "COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS": "{{id}} was added successfully.",
   "COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS": "{{id}} was deleted successfully.",
   "COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS": "{{old}} was copied successfully to {{new}}.",
-  "COMPONENTS__SKILLTREE_LIST__SKILLTREE": "Skilltree",
 
   "COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE": "There is already a skilltree with this ID.",
   "COMPONENTS__SKILLTREE_PROPERTIES__ERROR_REQUIRED": "Please enter a skilltree ID.",
@@ -79,7 +77,6 @@
   "COMPONENTS__SKILLTREE_PROPERTIES__CHANGE_ICON": "Change Icon",
   "COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION": "Copy permission to clipboard",
   "COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE": "Permission copied!",
-  "COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION": "Permission",
   "COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT_EMPTY": "{{id}} (Permission)",
   "COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT": "Permission",
 
@@ -108,7 +105,6 @@
   "COMPONENTS__UPGRADE_ADD_DIALOG__DYNAMIC": "Dynamic",
   "COMPONENTS__UPGRADE_ADD_DIALOG__FIXED": "Fixed",
   "COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED": "There is already a rule with these values.",
-  "COMPONENTS__UPGRADE_ADD_DIALOG__UPGRADE": "Upgrade",
 
   "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ADD_UPGRADE": "Add Upgrade",
   "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__LEVEL": "Level",
@@ -122,7 +118,6 @@
   "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__DYNAMIC": "Dynamic",
   "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__FIXED": "Fixed",
   "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED": "There is already a rule with these values.",
-  "COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__UPGRADE": "Upgrade",
 
   "COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__TITLE": "Change Skilltree Icon",
   "COMPONENTS__SKILLTREE_CHANGE_ICON_DIALOG__MATERIAL": "Material",
@@ -316,18 +311,14 @@
   "LEVEL_RULE_EVERY_X_LEVEL_END": "Every {{level}} level, ending at level {{end}}",
 
   "EFFECT__CHANGE_LANGUAGE": "Changed language to {{lang}}.",
-  "EFFECT__IMPORT_SKILLTREE__IMPORT": "Import",
   "EFFECT__IMPORT_SKILLTREE_FAILED__INVALID": "This file is not a valid skilltree file.",
   "EFFECT__IMPORT_SKILLTREE_FAILED__DUPLICATE": "There is already a skilltree with this id: {{id}}",
   "EFFECT__IMPORT_SKILLTREE_SUCCESS": "Skilltree imported successfully.",
   "EFFECT__LOAD_SKILLTREE_SUCCESS": "Skilltrees loaded successfully.",
   "EFFECT__LOAD_SKILLTREE_FAILED": "Skilltrees loading failed!",
-  "EFFECT__LOAD_SKILLTREE_FAILED__ERROR": "Error",
   "EFFECT__SAVE_SKILLTREE_SUCCESS": "Skilltrees saved!",
   "EFFECT__SAVE_SKILLTREE_FAILED": "An error occured while saving the skilltrees!",
-  "EFFECT__SAVE_SKILLTREE_FAILED__ERROR": "Error",
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} was renamed to {{new}}",
-  "EFFECT__RENAME_SKILLTREE__SKILLTREE": "Skilltree",
 
   "MOB_TYPE__BAT": "Bat",
   "MOB_TYPE__BLAZE": "Blaze",

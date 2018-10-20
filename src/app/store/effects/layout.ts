@@ -23,15 +23,14 @@ export class LayoutEffects {
     ofType(LayoutActions.CHANGE_LANGUAGE),
     tap((action: LayoutActions.ChangeLanguageAction) => {
       let lang = languages.find(lang => lang.key.toLowerCase() == action.payload.toLowerCase());
-      this.translate.get("EFFECT__CHANGE_LANGUAGE", {lang: lang.name}).subscribe((trans) => {
-        if (trans != 'EFFECT__CHANGE_LANGUAGE') {
-          this.snackBar.open(
-            trans, "SkilltreeCreator", {duration: 2000}
-          );
-        }
-      });
+      this.translate.get("EFFECT__CHANGE_LANGUAGE", {lang: lang.name})
+        .subscribe((trans) => {
+          if (trans != 'EFFECT__CHANGE_LANGUAGE') {
+            this.snackBar.open(trans, null, {duration: 2000});
+          }
+        });
       this.translate.use(lang.key);
-      this.websocket.send({action: "CHANGE_LANGUAGE", data: lang.key})
+      this.websocket.send({action: "CHANGE_LANGUAGE", data: lang.key});
     })
   );
 
