@@ -32,7 +32,7 @@ export class McChatPipe implements PipeTransform {
         if (classes != '') {
           classes += ' ';
         }
-        classes += 'mc_style_' + openStyles[i]
+        classes += 'mc_style_' + openStyles[i];
       }
       return classes;
     };

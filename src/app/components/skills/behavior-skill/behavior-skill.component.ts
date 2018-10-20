@@ -79,7 +79,7 @@ export class BehaviorSkillComponent {
 
           let behavior: Behavior = Object.assign({rule: result}, new BehaviorDefault);
           changes.skills.Behavior.push(behavior);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

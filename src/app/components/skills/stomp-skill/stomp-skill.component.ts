@@ -60,7 +60,7 @@ export class StompSkillComponent {
 
           let stomp: Stomp = Object.assign({rule: result}, new StompDefault);
           changes.skills.Stomp.push(stomp);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

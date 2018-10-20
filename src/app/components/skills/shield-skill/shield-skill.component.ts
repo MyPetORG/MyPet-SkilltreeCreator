@@ -60,7 +60,7 @@ export class ShieldSkillComponent {
 
           let shield: Shield = Object.assign({rule: result}, new ShieldDefault);
           changes.skills.Shield.push(shield);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

@@ -60,7 +60,7 @@ export class FireSkillComponent {
 
           let fire: Fire = Object.assign({rule: result}, new FireDefault);
           changes.skills.Fire.push(fire);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

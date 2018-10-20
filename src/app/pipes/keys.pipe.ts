@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class KeysPipe implements PipeTransform {
   transform(value: any, args: any[] = null): any {
-    console.log("keys", value, Object.keys(value))
+    console.log("keys", value, Object.keys(value));
     return Object.keys(value);
   }
 }

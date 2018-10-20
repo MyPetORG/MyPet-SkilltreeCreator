@@ -61,7 +61,7 @@ export const undoable = reducer => {
         // Delegate handling the action to the passed reducer
         const newPresent = reducer(present, action);
         if (present === newPresent) {
-          return state
+          return state;
         }
         // IGNORED actions
         if (action.ignoredByUndo) {
@@ -69,13 +69,13 @@ export const undoable = reducer => {
             past: [...state.past],
             present: newPresent,
             future: [...state.future]
-          }
+          };
         }
         return {
           past: [...past, present],
           present: newPresent,
           future: []
-        }
+        };
     }
-  }
+  };
 };

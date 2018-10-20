@@ -22,7 +22,7 @@ export class NbtImportService {
       try {
         this.import(data, (d, e) => {
           if (e) {
-            sub.error(e)
+            sub.error(e);
           } else {
             sub.next(d);
             sub.complete();
@@ -39,7 +39,7 @@ export class NbtImportService {
   import(data: any, callback: any) {
     data = this.base64ToArrayBuffer(data);
     NBT.parse(data, (e, d) => {
-      callback(d, e)
+      callback(d, e);
     });
   }
 

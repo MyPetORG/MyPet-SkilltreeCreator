@@ -21,7 +21,7 @@ export class RouterEffects {
   importSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
     ofType('ROUTER_CANCEL'),
     tap((action: Action) => {
-      this.router.navigate(["/"])
+      this.router.navigate(["/"]);
     })
   );
 }

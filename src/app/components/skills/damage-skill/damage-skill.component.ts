@@ -60,7 +60,7 @@ export class DamageSkillComponent {
 
           let damage: Damage = Object.assign({rule: result}, new DamageDefault);
           changes.skills.Damage.push(damage);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

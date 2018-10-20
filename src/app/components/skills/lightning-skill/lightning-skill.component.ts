@@ -60,7 +60,7 @@ export class LightningSkillComponent {
 
           let lightning: Lightning = Object.assign({rule: result}, new LightningDefault);
           changes.skills.Lightning.push(lightning);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

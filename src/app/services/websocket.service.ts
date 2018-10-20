@@ -14,7 +14,7 @@ export class WebsocketService {
     let timer = ObservableTimer.timer(1000, 2500);
     timer.subscribe(() => {
       if (this.isConnected()) {
-        this.send({action: "PING", data: Date.now()})
+        this.send({action: "PING", data: Date.now()});
       } else {
         if (this.getConnectionStatus() == WebSocket.CLOSED) {
           try {

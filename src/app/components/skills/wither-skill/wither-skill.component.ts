@@ -60,7 +60,7 @@ export class WitherSkillComponent {
 
           let wither: Wither = Object.assign({rule: result}, new WitherDefault);
           changes.skills.Wither.push(wither);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

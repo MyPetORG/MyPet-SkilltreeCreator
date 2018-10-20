@@ -60,7 +60,7 @@ export class RangedSkillComponent {
 
           let ranged: Ranged = Object.assign({rule: result}, new RangedDefault);
           changes.skills.Ranged.push(ranged);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

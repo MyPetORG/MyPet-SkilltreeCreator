@@ -1,5 +1,4 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault, setDefault } from "../../util/helpers";
 
 export interface Sprint extends Upgrade {
   active?: boolean | null;

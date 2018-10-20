@@ -79,7 +79,7 @@ export class ControlSkillComponent {
 
           let control: Control = Object.assign({rule: result}, new ControlDefault);
           changes.skills.Control.push(control);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

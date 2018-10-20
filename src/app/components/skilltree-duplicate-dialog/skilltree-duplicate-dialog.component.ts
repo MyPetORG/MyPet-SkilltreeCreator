@@ -22,16 +22,16 @@ export class SkilltreeDuplicateDialogComponent implements OnDestroy {
 
     this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
       .subscribe(skilltrees => {
-      this.skilltreeNames = [];
-      Object.keys(skilltrees).forEach(id => {
-        this.skilltreeNames.push(id);
-      })
-    });
+        this.skilltreeNames = [];
+        Object.keys(skilltrees).forEach(id => {
+          this.skilltreeNames.push(id);
+        });
+      });
 
   }
 
   done() {
-    this.dialogRef.close(this.name)
+    this.dialogRef.close(this.name);
   }
 
   ngOnDestroy(): void {

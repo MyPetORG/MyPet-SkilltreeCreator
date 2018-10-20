@@ -94,7 +94,7 @@ export class BeaconSkillComponent {
 
           let beacon: Beacon = Object.assign({rule: result}, new BeaconDefault);
           changes.skills.Beacon.push(beacon);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

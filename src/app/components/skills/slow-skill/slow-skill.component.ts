@@ -60,7 +60,7 @@ export class SlowSkillComponent {
 
           let slow: Slow = Object.assign({rule: result}, new SlowDefault);
           changes.skills.Slow.push(slow);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

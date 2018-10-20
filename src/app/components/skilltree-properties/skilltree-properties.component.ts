@@ -57,13 +57,13 @@ export class SkilltreePropertiesComponent implements OnDestroy {
     });
     this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
       .subscribe(skilltrees => {
-      this.skilltreeNames = [];
-      Object.keys(skilltrees).forEach(id => {
-        if (this.id.value != id) {
-          this.skilltreeNames.push(id);
-        }
+        this.skilltreeNames = [];
+        Object.keys(skilltrees).forEach(id => {
+          if (this.id.value != id) {
+            this.skilltreeNames.push(id);
+          }
+        });
       });
-    });
   }
 
   ngOnDestroy() {

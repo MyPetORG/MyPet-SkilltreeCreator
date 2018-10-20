@@ -62,8 +62,8 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
               private router: Router) {
     this.skilltreesSubscription = this.store.pipe(select(Reducers.getSkilltreeNames))
       .subscribe((data: string[]) => {
-      this.existingSkilltreeNames = data.slice();
-    });
+        this.existingSkilltreeNames = data.slice();
+      });
 
     MobTypes.forEach(name => {
       this.types.push({

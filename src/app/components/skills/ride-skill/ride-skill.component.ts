@@ -82,7 +82,7 @@ export class RideSkillComponent {
 
           let ride: Ride = Object.assign({rule: result}, new RideDefault);
           changes.skills.Ride.push(ride);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

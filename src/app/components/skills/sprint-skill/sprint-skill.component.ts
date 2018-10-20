@@ -79,7 +79,7 @@ export class SprintSkillComponent {
 
           let sprint: Sprint = Object.assign({rule: result}, new SprintDefault);
           changes.skills.Sprint.push(sprint);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

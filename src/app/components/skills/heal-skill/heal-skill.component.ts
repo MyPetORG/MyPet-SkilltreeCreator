@@ -60,7 +60,7 @@ export class HealSkillComponent {
 
           let heal: Heal = Object.assign({rule: result}, new HealDefault);
           changes.skills.Heal.push(heal);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

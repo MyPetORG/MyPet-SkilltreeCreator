@@ -60,7 +60,7 @@ export class LifeSkillComponent {
 
           let life: Life = Object.assign({rule: result}, new LifeDefault);
           changes.skills.Life.push(life);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

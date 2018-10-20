@@ -82,7 +82,7 @@ export class PickupSkillComponent {
 
           let pickup: Pickup = Object.assign({rule: result}, new PickupDefault);
           changes.skills.Pickup.push(pickup);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

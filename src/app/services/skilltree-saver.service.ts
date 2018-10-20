@@ -104,7 +104,7 @@ export class SkilltreeSaverService {
 
   saveMobTypes(mobtypes: string[]): string[] {
     if (mobtypes.length == MobTypes.length) {
-      return ["*"]
+      return ["*"];
     }
     if (mobtypes.length >= ~~(MobTypes.length * 0.75)) {
       let negativeTypes = MobTypes.filter(type => mobtypes.indexOf(type) == -1);

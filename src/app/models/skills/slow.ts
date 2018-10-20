@@ -1,5 +1,5 @@
 import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault, setDefault } from "../../util/helpers";
+import { matchOrDefault } from "../../util/helpers";
 
 export interface Slow extends Upgrade {
   chance?: string;

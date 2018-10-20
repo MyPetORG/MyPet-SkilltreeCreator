@@ -36,13 +36,13 @@ export class UpgradeAddDialogComponent implements OnDestroy {
 
     this.levelRulessSubscription = this.store.pipe(select(Reducers.getSelectedUpgrades))
       .subscribe(upgrades => {
-      this.levelRules = [];
-      if (upgrades) {
-        upgrades.forEach((upgrade: Upgrade) => {
-          this.levelRules.push(upgrade.rule);
-        });
-      }
-    });
+        this.levelRules = [];
+        if (upgrades) {
+          upgrades.forEach((upgrade: Upgrade) => {
+            this.levelRules.push(upgrade.rule);
+          });
+        }
+      });
   }
 
   ngOnDestroy(): void {
@@ -68,7 +68,7 @@ export class UpgradeAddDialogComponent implements OnDestroy {
       this.translate.get("COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED")
         .subscribe((trans) => {
           this.snackBar.open(trans, null, {duration: 2000,});
-      });
+        });
     }
   }
 

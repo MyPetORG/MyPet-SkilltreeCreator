@@ -39,7 +39,7 @@ export class BeaconDefault implements Beacon {
     waterBreathing: null,
     invisibility: null,
     regeneration: "+0",
-  }
+  };
 }
 
 export function BeaconLoader(data: any): Beacon {

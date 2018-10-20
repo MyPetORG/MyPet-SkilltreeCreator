@@ -60,7 +60,7 @@ export class ThornsSkillComponent {
 
           let thorns: Thorns = Object.assign({rule: result}, new ThornsDefault);
           changes.skills.Thorns.push(thorns);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

@@ -32,7 +32,7 @@ export class LevelupNotificationsComponent {
           let changes = {messages: JSON.parse(JSON.stringify(skilltree.messages))};
           changes.messages.push({rule: result, content: ""});
 
-          this.store.dispatch(new UpdateSkilltreeInfoAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeInfoAction({changes, id: skilltree.id}));
         }
       });
     }

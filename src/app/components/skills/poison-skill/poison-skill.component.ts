@@ -60,7 +60,7 @@ export class PoisonSkillComponent {
 
           let poison: Poison = Object.assign({rule: result}, new PoisonDefault);
           changes.skills.Poison.push(poison);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

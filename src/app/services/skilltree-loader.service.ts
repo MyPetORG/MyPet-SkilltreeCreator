@@ -84,13 +84,13 @@ export class SkilltreeLoaderService {
             name = name.substr(1);
           }
           let index = MobTypes.findIndex(type => {
-            return type.toLowerCase() == name.toLowerCase()
+            return type.toLowerCase() == name.toLowerCase();
           });
           if (index >= 0) {
             let typesIndex = types.indexOf(MobTypes[index]);
             if (negative) {
               if (typesIndex >= 0) {
-                types.splice(typesIndex, 1)
+                types.splice(typesIndex, 1);
               }
             } else {
               if (typesIndex == -1) {
@@ -99,7 +99,7 @@ export class SkilltreeLoaderService {
             }
           }
         }
-      })
+      });
     }
     return types;
   }
@@ -173,7 +173,7 @@ export class SkilltreeLoaderService {
       levels.forEach(l => {
         let level = parseInt(l.trim());
         if (!isNaN(level)) {
-          levelRule.exact.push(level)
+          levelRule.exact.push(level);
         }
       });
       if (levelRule.exact.length == 0) {

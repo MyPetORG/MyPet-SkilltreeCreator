@@ -29,7 +29,7 @@ export class MobTypeSelectDialogComponent implements OnInit {
   done() {
     this.dialogRef.close(this.types.filter(type => {
       return type.selected;
-    }))
+    }));
   }
 
   selectAll() {

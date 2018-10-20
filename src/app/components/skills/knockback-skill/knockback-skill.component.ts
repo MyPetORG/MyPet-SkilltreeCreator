@@ -60,7 +60,7 @@ export class KnockbackSkillComponent {
 
           let knockback: Knockback = Object.assign({rule: result}, new KnockbackDefault);
           changes.skills.Knockback.push(knockback);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }

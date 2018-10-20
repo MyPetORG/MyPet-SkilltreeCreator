@@ -82,7 +82,7 @@ export class BackpackSkillComponent {
 
           let backpack: Backpack = Object.assign({rule: result}, new BackpackDefault);
           changes.skills.Backpack.push(backpack);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}))
+          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
         }
       });
     }
