@@ -9,23 +9,23 @@ import { SkilltreeImportLegacyComponent } from "./components/skilltree-import-le
 export const routes: Routes = [
   {
     path: '',
-    component: SkilltreeListComponent
+    component: SkilltreeListComponent,
   },
   {
     path: 'st/:id',
     canActivate: [SkilltreeExistsGuard],
-    component: SkilltreeEditorComponent
+    component: SkilltreeEditorComponent,
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'import/legacy',
-    component: SkilltreeImportLegacyComponent
+    component: SkilltreeImportLegacyComponent,
   },
   {
     path: '**',
-    component: SkilltreeListComponent
+    component: SkilltreeListComponent,
   }
 ];
