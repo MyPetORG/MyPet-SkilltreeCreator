@@ -8,7 +8,7 @@ import { LevelRule } from "../../../util/helpers";
 import { Skilltree } from "../../../models/skilltree";
 import { Observable } from "rxjs";
 import { SkillInfo } from "../../../data/skills";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../../store/reducers/index";
 import { Upgrade } from "../../../models/upgrade";
 import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
@@ -33,9 +33,9 @@ export class BackpackSkillComponent {
   constructor(private state: StateService,
               private dialog: MatDialog,
               private store: Store<Reducers.State>) {
-    this.upgrades$ = this.store.select(Reducers.getSelectedUpgrades);
-    this.selectedSkill$ = this.store.select(Reducers.getSelectedSkill);
-    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
+    this.upgrades$ = this.store.pipe(select(Reducers.getSelectedUpgrades));
+    this.selectedSkill$ = this.store.pipe(select(Reducers.getSelectedSkill));
+    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
   }
 
   update(skilltree: Skilltree, upgrade: Upgrade, field, value, model) {

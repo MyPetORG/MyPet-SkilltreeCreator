@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar } from "@
 import { LevelRule } from "../../models/level-rule";
 import { COMMA, ENTER, SPACE } from "@angular/cdk/keycodes";
 import * as Reducers from "../../store/reducers";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import { Upgrade } from "../../models/upgrade";
 import { isArray } from "util";
 import { TranslateService } from "@ngx-translate/core";
@@ -34,7 +34,8 @@ export class UpgradeAddDialogComponent implements OnDestroy {
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.levelRulessSubscription = this.store.select(Reducers.getSelectedUpgrades).subscribe(upgrades => {
+    this.levelRulessSubscription = this.store.pipe(select(Reducers.getSelectedUpgrades))
+      .subscribe(upgrades => {
       this.levelRules = [];
       if (upgrades) {
         upgrades.forEach((upgrade: Upgrade) => {

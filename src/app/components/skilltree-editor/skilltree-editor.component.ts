@@ -1,7 +1,7 @@
 import { map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
@@ -24,7 +24,7 @@ export class SkilltreeEditorComponent implements OnDestroy {
       map(params => params.id),
       map(id => new LayoutActions.SelectSkilltreeAction(id)),)
       .subscribe(store);
-    this.tab$ = this.store.select(Reducers.getTab);
+    this.tab$ = this.store.pipe(select(Reducers.getTab));
   }
 
   ngOnDestroy() {

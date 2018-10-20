@@ -4,7 +4,7 @@ import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type
 import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { FormControl } from "@angular/forms";
 import "rxjs/add/operator/distinctUntilChanged";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Observable, Subscription } from "rxjs";
@@ -38,7 +38,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
               public snackBar: MatSnackBar,
               private translate: TranslateService,
               private store: Store<Reducers.State>) {
-    this.skilltree$ = store.select(Reducers.getSelectedSkilltree);
+    this.skilltree$ = store.pipe(select(Reducers.getSelectedSkilltree));
     this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
       if (skilltree) {
         this.skilltree = skilltree;
@@ -55,7 +55,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id));
       }
     });
-    this.skilltreeNamesSubscription = this.store.select(Reducers.getSkilltrees).subscribe(skilltrees => {
+    this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
+      .subscribe(skilltrees => {
       this.skilltreeNames = [];
       Object.keys(skilltrees).forEach(id => {
         if (this.id.value != id) {

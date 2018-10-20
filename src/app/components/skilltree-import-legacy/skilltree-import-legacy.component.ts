@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatSelectionList, MatSnackBar, MatStepper } from "@angular/material";
 import { NbtImportService } from "../../services/nbt-import.service";
 import * as Reducers from "../../store/reducers";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import { Skilltree } from "../../models/skilltree";
 import { Subscription } from "rxjs";
 import { MobTypes } from "../../data/mob-types";
@@ -60,7 +60,8 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
               public importNbt: NbtImportService,
               private translate: TranslateService,
               private router: Router) {
-    this.skilltreesSubscription = this.store.select(Reducers.getSkilltreeNames).subscribe((data: string[]) => {
+    this.skilltreesSubscription = this.store.pipe(select(Reducers.getSkilltreeNames))
+      .subscribe((data: string[]) => {
       this.existingSkilltreeNames = data.slice();
     });
 

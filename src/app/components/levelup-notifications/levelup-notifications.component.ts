@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from "rxjs";
 import { Skilltree } from "../../models/skilltree";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers";
 import { LevelRule } from "../../util/helpers";
 import { UpdateSkilltreeInfoAction } from "../../store/actions/skilltree";
@@ -21,7 +21,7 @@ export class LevelupNotificationsComponent {
 
   constructor(private store: Store<Reducers.State>,
               private dialog: MatDialog) {
-    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
+    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
   }
 
   addRule(skilltree: Skilltree) {

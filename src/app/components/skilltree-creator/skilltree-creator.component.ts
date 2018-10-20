@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
 import * as SkilltreeActions from "../../store/actions/skilltree";
@@ -55,12 +55,12 @@ export class SkilltreeCreatorComponent {
         }
       });
 
-    this.showSidenav$ = this.store.select(Reducers.getShowSidenav);
-    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltreeId);
-    this.pastStates$ = this.store.select(Reducers.getPastStates);
-    this.futureStates$ = this.store.select(Reducers.getFutureStates);
-    this.premium$ = this.store.select(Reducers.getPremium);
-    this.language$ = this.store.select(Reducers.getLanguage);
+    this.showSidenav$ = this.store.pipe(select(Reducers.getShowSidenav));
+    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltreeId));
+    this.pastStates$ = this.store.pipe(select(Reducers.getPastStates));
+    this.futureStates$ = this.store.pipe(select(Reducers.getFutureStates));
+    this.premium$ = this.store.pipe(select(Reducers.getPremium));
+    this.language$ = this.store.pipe(select(Reducers.getLanguage));
 
     this.router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {

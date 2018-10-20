@@ -10,7 +10,7 @@ import { SkillInfo, Skills } from "../../data/skills";
 import { Skilltree } from "../../models/skilltree";
 import * as Reducers from "../../store/reducers/index";
 import { Observable, Subscription } from "rxjs";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as LayoutActions from "../../store/actions/layout";
 import { SkillUpgradeComponents } from "../../data/upgrade-components";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
@@ -34,9 +34,9 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
 
   constructor(private store: Store<Reducers.State>,
               private componentFactoryResolver: ComponentFactoryResolver) {
-    this.selectedSkill$ = this.store.select(Reducers.getSelectedSkill);
-    this.selectedSkilltree$ = this.store.select(Reducers.getSelectedSkilltree);
-    this.premium$ = this.store.select(Reducers.getPremium);
+    this.selectedSkill$ = this.store.pipe(select(Reducers.getSelectedSkill));
+    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
+    this.premium$ = this.store.pipe(select(Reducers.getPremium));
   }
 
   ngAfterViewInit(): void {

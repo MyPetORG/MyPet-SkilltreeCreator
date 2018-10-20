@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 
@@ -20,17 +20,18 @@ export class SkilltreeAddDialogComponent implements OnDestroy {
               private store: Store<Reducers.State>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.skilltreeNamesSubscription = this.store.select(Reducers.getSkilltrees).subscribe(skilltrees => {
-      this.skilltreeNames = [];
-      Object.keys(skilltrees).forEach(id => {
-        this.skilltreeNames.push(id);
-      })
-    });
+    this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
+      .subscribe(skilltrees => {
+        this.skilltreeNames = [];
+        Object.keys(skilltrees).forEach(id => {
+          this.skilltreeNames.push(id);
+        });
+      });
 
   }
 
   done() {
-    this.dialogRef.close(this.name)
+    this.dialogRef.close(this.name);
   }
 
   ngOnDestroy(): void {

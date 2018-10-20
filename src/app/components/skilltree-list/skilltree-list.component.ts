@@ -3,7 +3,7 @@ import { MatDialog, MatSnackBar } from "@angular/material";
 import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
 import { Skilltree } from "../../models/skilltree";
 import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { Router } from "@angular/router";
@@ -29,8 +29,8 @@ export class SkilltreeListComponent {
               private store: Store<Reducers.State>,
               private translate: TranslateService,
               private router: Router) {
-    this.skilltrees$ = this.store.select(Reducers.getSkilltrees);
-    this.selectedSkilltreeId$ = this.store.select(Reducers.getSelectedSkilltreeId);
+    this.skilltrees$ = this.store.pipe(select(Reducers.getSkilltrees));
+    this.selectedSkilltreeId$ = this.store.pipe(select(Reducers.getSelectedSkilltreeId));
     this.skilltrees$.subscribe(skilltrees => {
       this.skilltrees = [];
       Object.keys(skilltrees).forEach(id => {

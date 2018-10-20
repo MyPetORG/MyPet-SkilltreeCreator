@@ -6,7 +6,7 @@ import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators'
 import "rxjs/add/operator/withLatestFrom";
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import * as SkilltreeActions from "../actions/skilltree";
 import { ImportSkilltreeAction } from "../actions/skilltree";
 import { SkilltreeLoaderService } from "../../services/skilltree-loader.service";
@@ -30,61 +30,61 @@ export class SkilltreeEffects {
   }
 
   @Effect()
-  orderSkilltree$: Observable<Action> = this.actions$
-    .ofType(
+  orderSkilltree$: Observable<Action> = this.actions$.pipe(
+    ofType(
       SkilltreeActions.LOAD_SKILLTREE_SUCCESS,
       SkilltreeActions.ADD_SKILLTREE,
       SkilltreeActions.REMOVE_SKILLTREE,
       SkilltreeActions.IMPORT_SKILLTREE_SUCCESS,
       SkilltreeActions.IMPORT_LEGACY_SKILLTREE,
-    ).pipe(
-      withLatestFrom(this.store.select(Reducers.getSkilltrees)),
-      withLatestFrom(this.store.select(Reducers.isLoaded)),
-      switchMap(([[action, state], loaded]) => {
-        if (loaded) {
-          let skilltrees = [];
-          Object.keys(state).forEach(id => {
-            skilltrees.push(JSON.parse(JSON.stringify(state[id])));
-          });
-          skilltrees.sort((a, b) => {
-            return a.order - b.order;
-          });
-          let index = 0;
-          skilltrees.forEach((st) => {
-            st.order = index++;
-          });
-          let changes: { id: string, changes: { order: number } }[] = [];
-          skilltrees.forEach((st) => {
-            if (st.order != state[st.id].order) {
-              changes.push({id: st.id, changes: {order: st.order}});
-            }
-          });
-          return of(new SkilltreeActions.UpdateSkilltreeOrderAction(changes));
-        }
-        return observableEmpty();
-      }),);
+    ),
+    withLatestFrom(this.store.pipe(select(Reducers.getSkilltrees))),
+    withLatestFrom(this.store.pipe(select(Reducers.isLoaded))),
+    switchMap(([[action, state], loaded]) => {
+      if (loaded) {
+        let skilltrees = [];
+        Object.keys(state).forEach(id => {
+          skilltrees.push(JSON.parse(JSON.stringify(state[id])));
+        });
+        skilltrees.sort((a, b) => {
+          return a.order - b.order;
+        });
+        let index = 0;
+        skilltrees.forEach((st) => {
+          st.order = index++;
+        });
+        let changes: { id: string, changes: { order: number } }[] = [];
+        skilltrees.forEach((st) => {
+          if (st.order != state[st.id].order) {
+            changes.push({id: st.id, changes: {order: st.order}});
+          }
+        });
+        return of(new SkilltreeActions.UpdateSkilltreeOrderAction(changes));
+      }
+      return observableEmpty();
+    }),);
 
   @Effect()
-  importSkilltree$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.IMPORT_SKILLTREE).pipe(
-      withLatestFrom(this.store.select(Reducers.getSkilltrees)),
-      switchMap(([action, state]: [ImportSkilltreeAction, any]) => {
-        let skilltreeIds: string[] = [];
-        Object.keys(state).forEach(id => {
-          skilltreeIds.push(id);
-        });
-        return this.skilltreeLoader.loadSkilltree(action.skilltreeData).pipe(
-          map(res => {
-            if (skilltreeIds.indexOf(res.id) == -1) {
-              return new SkilltreeActions.ImportSkilltreeSuccessAction(res);
-            } else {
-              return new SkilltreeActions.ImportSkilltreeFailedAction({type: "DUPLICATE", data: res.id});
-            }
-          }),
-          catchError(err => {
-            return of(new SkilltreeActions.ImportSkilltreeFailedAction(err));
-          }),);
-      }),);
+  importSkilltree$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.IMPORT_SKILLTREE),
+    withLatestFrom(this.store.pipe(select(Reducers.getSkilltrees))),
+    switchMap(([action, state]: [ImportSkilltreeAction, any]) => {
+      let skilltreeIds: string[] = [];
+      Object.keys(state).forEach(id => {
+        skilltreeIds.push(id);
+      });
+      return this.skilltreeLoader.loadSkilltree(action.skilltreeData).pipe(
+        map(res => {
+          if (skilltreeIds.indexOf(res.id) == -1) {
+            return new SkilltreeActions.ImportSkilltreeSuccessAction(res);
+          } else {
+            return new SkilltreeActions.ImportSkilltreeFailedAction({type: "DUPLICATE", data: res.id});
+          }
+        }),
+        catchError(err => {
+          return of(new SkilltreeActions.ImportSkilltreeFailedAction(err));
+        }),);
+    }),);
 
   @Effect({dispatch: false})
   importSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
@@ -118,70 +118,70 @@ export class SkilltreeEffects {
       this.translate.get("EFFECT__IMPORT_SKILLTREE_SUCCESS")
         .subscribe((trans) => {
           this.snackBar.open(trans, null, {duration: 2000,});
-      });
+        });
     })
   );
 
   @Effect()
-  loadSkilltree$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.LOAD_SKILLTREE).pipe(
-      switchMap((action: SkilltreeActions.LoadSkilltreeAction) => {
-        return this.skilltreeLoader.loadSkilltree(action.payload).pipe(
-          map((result) => new SkilltreeActions.LoadSkilltreeSuccessAction(result)),
-          catchError(err => of(new SkilltreeActions.LoadSkilltreeFailedAction(err))),);
-      }));
+  loadSkilltree$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.LOAD_SKILLTREE),
+    switchMap((action: SkilltreeActions.LoadSkilltreeAction) => {
+      return this.skilltreeLoader.loadSkilltree(action.payload).pipe(
+        map((result) => new SkilltreeActions.LoadSkilltreeSuccessAction(result)),
+        catchError(err => of(new SkilltreeActions.LoadSkilltreeFailedAction(err))),);
+    }));
 
   @Effect()
-  loadSkilltrees$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.LOAD_SKILLTREES).pipe(
-      switchMap(() => {
-        return this.skilltreeLoader.loadSkilltrees().pipe(
-          map(res => res as any[]),
-          map(res => {
-            res.forEach(st => this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st)));
-            return new SkilltreeActions.LoadSkilltreesSuccessAction();
-          }),
-          catchError(err => of(new SkilltreeActions.LoadSkilltreesFailedAction(err))),);
-      }));
+  loadSkilltrees$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.LOAD_SKILLTREES),
+    switchMap(() => {
+      return this.skilltreeLoader.loadSkilltrees().pipe(
+        map(res => res as any[]),
+        map(res => {
+          res.forEach(st => this.store.dispatch(new SkilltreeActions.LoadSkilltreeAction(st)));
+          return new SkilltreeActions.LoadSkilltreesSuccessAction();
+        }),
+        catchError(err => of(new SkilltreeActions.LoadSkilltreesFailedAction(err))),);
+    }));
 
   @Effect()
-  loadSkilltreesSuccess$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.LOAD_SKILLTREES_SUCCESS).pipe(
-      map(() => {
-          this.translate.get("EFFECT__LOAD_SKILLTREE_SUCCESS")
-            .subscribe((trans) => {
-                this.snackBar.open(trans, null, {duration: 2000,});
-              }
-            );
-          return new LayoutActions.AppLoadedAction();
-        }
-      ));
-
-  @Effect()
-  loadSkilltreesFailed$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.LOAD_SKILLTREES_FAILED).pipe(
-      map(() => {
-          this.translate.get("EFFECT__LOAD_SKILLTREE_FAILED")
-            .subscribe((trans) => {
+  loadSkilltreesSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.LOAD_SKILLTREES_SUCCESS),
+    map(() => {
+        this.translate.get("EFFECT__LOAD_SKILLTREE_SUCCESS")
+          .subscribe((trans) => {
               this.snackBar.open(trans, null, {duration: 2000,});
-            });
-          return new LayoutActions.AppLoadedAction();
-        }
-      ));
+            }
+          );
+        return new LayoutActions.AppLoadedAction();
+      }
+    ));
 
   @Effect()
-  saveSkilltree$: Observable<Action> = this.actions$
-    .ofType(SkilltreeActions.SAVE_SKILLTREES).pipe(
-      withLatestFrom(this.store.select(Reducers.getSkilltrees)),
-      switchMap(([action, state]) => {
-        let skilltrees: Skilltree[] = [];
-        Object.keys(state).forEach(id => {
-          skilltrees.push(state[id]);
-        });
-        return this.skilltreeSaver.saveSkilltrees(skilltrees).pipe(
-          map(res => new SkilltreeActions.SaveSkilltreesSuccessAction(res)),
-          catchError(err => of(new SkilltreeActions.SaveSkilltreesFailedAction(err))),);
-      }),);
+  loadSkilltreesFailed$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.LOAD_SKILLTREES_FAILED),
+    map(() => {
+        this.translate.get("EFFECT__LOAD_SKILLTREE_FAILED")
+          .subscribe((trans) => {
+            this.snackBar.open(trans, null, {duration: 2000,});
+          });
+        return new LayoutActions.AppLoadedAction();
+      }
+    ));
+
+  @Effect()
+  saveSkilltree$: Observable<Action> = this.actions$.pipe(
+    ofType(SkilltreeActions.SAVE_SKILLTREES),
+    withLatestFrom(this.store.pipe(select(Reducers.getSkilltrees))),
+    switchMap(([action, state]) => {
+      let skilltrees: Skilltree[] = [];
+      Object.keys(state).forEach(id => {
+        skilltrees.push(state[id]);
+      });
+      return this.skilltreeSaver.saveSkilltrees(skilltrees).pipe(
+        map(res => new SkilltreeActions.SaveSkilltreesSuccessAction(res)),
+        catchError(err => of(new SkilltreeActions.SaveSkilltreesFailedAction(err))),);
+    }),);
 
   @Effect({dispatch: false})
   saveSkilltreeSuccess$: Observable<Action> = this.actions$.pipe(
@@ -189,8 +189,8 @@ export class SkilltreeEffects {
     tap(() => {
       this.translate.get("EFFECT__SAVE_SKILLTREE_SUCCESS")
         .subscribe((trans) => {
-        this.snackBar.open(trans, null, {duration: 2000});
-      });
+          this.snackBar.open(trans, null, {duration: 2000});
+        });
     })
   );
 
@@ -201,7 +201,7 @@ export class SkilltreeEffects {
       this.translate.get("EFFECT__SAVE_SKILLTREE_FAILED")
         .subscribe((trans) => {
           this.snackBar.open(trans, null, {duration: 2000,});
-      });
+        });
       console.log("Skilltree saving failed", action.error);
     })
   );

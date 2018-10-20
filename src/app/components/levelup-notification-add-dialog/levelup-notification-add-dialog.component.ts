@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar } from "@
 import { LevelRule } from "../../models/level-rule";
 import { COMMA, ENTER, SPACE } from "@angular/cdk/keycodes";
 import * as Reducers from "../../store/reducers";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import { isArray } from "util";
 import { TranslateService } from "@ngx-translate/core";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
@@ -33,7 +33,7 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.levelRulessSubscription = this.store.select(Reducers.getSelectedSkilltree).subscribe(skilltree => {
+    this.levelRulessSubscription = this.store.pipe(select(Reducers.getSelectedSkilltree)).subscribe(skilltree => {
       this.levelRules = [];
       if (skilltree) {
         skilltree.messages.forEach((message) => {
