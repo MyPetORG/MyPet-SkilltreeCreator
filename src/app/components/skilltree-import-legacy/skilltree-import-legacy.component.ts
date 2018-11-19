@@ -255,37 +255,37 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
 
         let buffs: any = {};
         if (skill.buff_absorption_enable && skill.buff_absorption_level) {
-          buffs.Absorption = "+" + skill.buff_absorption_level.value;
+          buffs.absorption = "+" + skill.buff_absorption_level.value;
         }
         if (skill.buff_resistance_enable && skill.buff_resistance_level) {
-          buffs.Resistance = "+" + skill.buff_resistance_level.value;
+          buffs.resistance = "+" + skill.buff_resistance_level.value;
         }
         if (skill.buff_jump_boost_enable && skill.buff_jump_boost_level) {
-          buffs.JumpBoost = "+" + skill.buff_jump_boost_level.value;
+          buffs.jumpBoost = "+" + skill.buff_jump_boost_level.value;
         }
         if (skill.buff_strength_enable && skill.buff_strength_level) {
-          buffs.Strength = "+" + skill.buff_strength_level.value;
+          buffs.strength = "+" + skill.buff_strength_level.value;
         }
         if (skill.buff_haste_enable && skill.buff_haste_level) {
-          buffs.Haste = "+" + skill.buff_haste_level.value;
+          buffs.haste = "+" + skill.buff_haste_level.value;
         }
         if (skill.buff_speed_boost_enable && skill.buff_speed_boost_level) {
-          buffs.Speed = "+" + skill.buff_speed_boost_level.value;
+          buffs.speed = "+" + skill.buff_speed_boost_level.value;
         }
         if (skill.buff_luck_enable) {
-          buffs.Luck = skill.buff_luck_enable.value;
+          buffs.luck = skill.buff_luck_enable.value == 1;
         }
         if (skill.buff_night_vision_enable) {
-          buffs.NightVision = skill.buff_night_vision_enable.value;
+          buffs.nightVision = skill.buff_night_vision_enable.value == 1;
         }
         if (skill.buff_invisibility_enable) {
-          buffs.NightVision = skill.buff_invisibility_enable.value;
+          buffs.invisibility = skill.buff_invisibility_enable.value == 1;
         }
         if (skill.buff_water_breathing_enable) {
-          buffs.WaterBreathing = skill.buff_water_breathing_enable.value;
+          buffs.waterBreathing = skill.buff_water_breathing_enable.value == 1;
         }
         if (skill.buff_fire_resistance_enable) {
-          buffs.FireResistance = skill.buff_fire_resistance_enable.value;
+          buffs.fireResistance = skill.buff_fire_resistance_enable.value == 1;
         }
         beacon.buffs = buffs;
 
