@@ -33,5 +33,6 @@ wercker.yml
 .travis.yml
 
 # misc
-*.md
+## angular cli needs them :(
+# *.md
 *.yaml
