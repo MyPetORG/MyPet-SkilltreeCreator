@@ -123,6 +123,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         }
       });
     }
+    this.stepCompleted[2] = this.types.filter(t => t.selected).length > 0;
   }
 
   loadNewSkilltreeNames() {
@@ -186,7 +187,6 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         let name = skilltreeData.Name.value;
         let id = this.renamedSkilltrees[name];
         if (this.selectedNewSkilltreeNames.indexOf(id) != -1) {
-          console.log(skilltreeData);
           let skilltree: Skilltree = {id, skills: {}, mobtypes: mobTypes.slice(), messages: []};
 
           skilltree.order = skilltreeData.Place.value;
@@ -213,6 +213,9 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
             if (skilltreeData.IconItem.value.tag && skilltreeData.IconItem.value.tag.value.ench) {
               skilltree.icon.glowing = true;
             }
+          }
+          if (skilltreeData.Inherits) {
+            skilltree.inheritance = {skilltree: skilltreeData.Inherits.value};
           }
           skilltreeData.Level.value.value.forEach(l => {
             let level = l.Level.value;
