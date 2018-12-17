@@ -54,6 +54,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
   newSkilltreeNames: string[];
   selectedNewSkilltreeNames: string[];
   renamedSkilltrees: any = {};
+  legacyPrefix = "legacy";
 
   constructor(public snackBar: MatSnackBar,
               private store: Store<Reducers.State>,
@@ -115,6 +116,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         type.selected = true;
       });
     } else {
+      this.legacyPrefix = filename;
       this.types.forEach(type => {
         if (type.name.toLowerCase() == filename) {
           type.selected = true;
@@ -139,11 +141,11 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
       skilltrees.forEach(skilltree => {
         let oldName = skilltree.Name.value;
         let newName = oldName;
-        if (this.existingSkilltreeNames.indexOf(newName) != -1) {
-          newName = oldName + "-legacy";
+        if (this.legacyPrefix != "legacy" || this.existingSkilltreeNames.indexOf(newName) != -1) {
+          newName = oldName + "-" + this.legacyPrefix;
         }
         if (this.existingSkilltreeNames.indexOf(newName) != -1) {
-          newName = oldName + "-legacy-" + Date.now();
+          newName = oldName + "-" + this.legacyPrefix + "-" + Date.now();
         }
 
         this.renamedSkilltrees[oldName] = newName;
@@ -216,6 +218,9 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
           }
           if (skilltreeData.Inherits) {
             skilltree.inheritance = {skilltree: skilltreeData.Inherits.value};
+            if (this.renamedSkilltrees[skilltree.inheritance.skilltree]) {
+              skilltree.inheritance.skilltree = this.renamedSkilltrees[skilltree.inheritance.skilltree];
+            }
           }
           skilltreeData.Level.value.value.forEach(l => {
             let level = l.Level.value;
