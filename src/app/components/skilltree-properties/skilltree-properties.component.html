@@ -61,6 +61,18 @@
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_NUMBER' | translate }}
       </mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE' | translate"
+        [formControl]="inheritedSkilltreeName"
+        (selectionChange)="updateInheritance('skilltree',inheritedSkilltreeName)">
+        <mat-option [value]="null">{{ 'COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_NONE' | translate }}</mat-option>
+        <mat-optgroup [label]="'COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_SKILLTREES' | translate">
+          <mat-option *ngFor="let skilltreeName of skilltreeNames"
+                      [value]="skilltreeName">{{ skilltreeName }}</mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
   </mat-card>
 </div>
 

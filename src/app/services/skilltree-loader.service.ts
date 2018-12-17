@@ -43,6 +43,9 @@ export class SkilltreeLoaderService {
       skilltree.icon.material = ""; //TODO remove later (17.12.2018)
     }
     skilltree.icon.glowing = icon.getPropAs("Glowing", "bool") || false;
+    let inheritance: any = data.getProp("Inheritance") || {};
+    skilltree.inheritance = {};
+    skilltree.inheritance.skilltree = inheritance.getPropAs("Skilltree", "string") || "";
 
     try {
       skilltree.skills = this.loadSkills(data.getProp("Skills"));

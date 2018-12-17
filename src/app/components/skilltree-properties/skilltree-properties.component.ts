@@ -32,6 +32,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   description = new FormControl();
   requiredLevel = new FormControl();
   maxLevel = new FormControl();
+  inheritedSkilltreeName = new FormControl();
   _description: string[] = [];
 
   constructor(private dialog: MatDialog,
@@ -51,6 +52,11 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         if (skilltree.description) {
           this.description.setValue(skilltree.description.join("\n"));
           this._description = skilltree.description;
+        }
+        if (skilltree.inheritance) {
+          this.inheritedSkilltreeName.setValue(skilltree.inheritance.skilltree);
+        } else {
+          this.inheritedSkilltreeName.patchValue(null);
         }
         this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id));
       }
@@ -111,6 +117,28 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         changes: {[field]: control.value},
         id: this.skilltree.id
       }));
+    }
+  }
+
+  updateInheritance(field, control: FormControl) {
+    if (control.errors == null) {
+      if (!control.value) {
+        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
+          changes: {inheritance: null},
+          id: this.skilltree.id
+        }));
+      } else {
+        let inheritance = {};
+        if (this.skilltree.inheritance) {
+          inheritance = this.skilltree.inheritance;
+        }
+        if (inheritance[field] != control.value) {
+          this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
+            changes: {inheritance: {[field]: control.value}},
+            id: this.skilltree.id
+          }));
+        }
+      }
     }
   }
 

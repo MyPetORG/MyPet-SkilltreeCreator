@@ -38,6 +38,13 @@ export class SkilltreeSaverService {
           data.Icon = icon;
         }
       }
+      if (skilltree.inheritance && skilltree.inheritance.skilltree) {
+        let inheritance: any = {};
+        if (skilltree.inheritance.skilltree) {
+          inheritance.Skilltree = skilltree.inheritance.skilltree;
+        }
+        data.Inheritance = inheritance;
+      }
       if (skilltree.requiredLevel) {
         data.RequiredLevel = skilltree.requiredLevel;
       }

@@ -16,4 +16,7 @@ export interface Skilltree {
   requiredLevel?: number
   maxLevel?: number
   messages: { rule: LevelRule, content: string }[]
+  inheritance?: {
+    skilltree?: string
+  }
 }
