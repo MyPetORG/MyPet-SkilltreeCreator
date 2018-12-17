@@ -82,6 +82,8 @@
   "COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE": "Vererbung",
   "COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_NONE": "Keine Vererbung",
   "COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_SKILLTREES": "Skilltrees",
+  "COMPONENTS__SKILLTREE_PROPERTIES__WEIGHT": "Haufigkeit",
+  "COMPONENTS__SKILLTREE_PROPERTIES__WEIGHT_DESCRIPTION": "Je höher die Zahl desto höher ist die Chance,<br>dass dieser Skilltree bei der zufälligen Verteilung ausgewählt wird.<br>Eine <span class=\"bold\">2</span> bedeutet eine doppelt so hohe Chance gegenüber einer <span class=\"bold\">1</span>.",
 
   "COMPONENTS__SKILLTREE_CREATOR__REDO": "Wiederherstellen",
   "COMPONENTS__SKILLTREE_CREATOR__UNDO": "Rückgängig",

@@ -54,6 +54,9 @@ export class SkilltreeSaverService {
       if (skilltree.description) {
         data.Description = skilltree.description.slice();
       }
+      if (skilltree.weight && skilltree.weight != 1) {
+        data.Weight = skilltree.weight;
+      }
       data.MobTypes = this.saveMobTypes(skilltree.mobtypes.slice(0));
 
       data.Skills = {};

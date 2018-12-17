@@ -34,6 +34,7 @@ export class SkilltreeLoaderService {
     if (!skilltree.order && skilltree.order != 0) {
       skilltree.order = Number.MAX_SAFE_INTEGER;
     }
+    skilltree.weight = data.getPropAs("Weight", "int") || 1;
     skilltree.requiredLevel = data.getPropAs("RequiredLevel", "int") || 0;
     skilltree.maxLevel = data.getPropAs("MaxLevel", "int") || 0;
     let icon: any = data.getProp("Icon") || {};

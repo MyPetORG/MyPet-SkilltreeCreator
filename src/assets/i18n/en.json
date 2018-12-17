@@ -82,6 +82,8 @@
   "COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE": "Inheritance",
   "COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_NONE": "No Inheritance",
   "COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_SKILLTREES": "Skilltrees",
+  "COMPONENTS__SKILLTREE_PROPERTIES__WEIGHT": "Weight",
+  "COMPONENTS__SKILLTREE_PROPERTIES__WEIGHT_DESCRIPTION": "The higher the number, the higher the chance<br>that this skill tree will be selected for random distribution.<br>A <span class=\"bold\">2</span> means twice the chance compared to a <span class=\"bold\">1</span>.",
 
   "COMPONENTS__SKILLTREE_CREATOR__REDO": "Redo last change",
   "COMPONENTS__SKILLTREE_CREATOR__UNDO": "Undo last change",

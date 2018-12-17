@@ -32,6 +32,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   description = new FormControl();
   requiredLevel = new FormControl();
   maxLevel = new FormControl();
+  weight = new FormControl();
   inheritedSkilltreeName = new FormControl();
   _description: string[] = [];
 
@@ -48,6 +49,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         this.name.setValue(skilltree.name);
         this.permission.setValue(skilltree.permission);
         this.requiredLevel.setValue(skilltree.requiredLevel);
+        this.weight.setValue(skilltree.weight);
         this.maxLevel.setValue(skilltree.maxLevel);
         if (skilltree.description) {
           this.description.setValue(skilltree.description.join("\n"));

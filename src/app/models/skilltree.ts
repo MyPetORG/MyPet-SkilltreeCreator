@@ -5,6 +5,7 @@ export interface Skilltree {
   id: string
   name?: string
   order?: number
+  weight?: number
   icon?: {
     material?: string
     glowing?: boolean
