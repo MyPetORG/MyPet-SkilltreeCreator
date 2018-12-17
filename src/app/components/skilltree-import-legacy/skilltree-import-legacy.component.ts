@@ -87,6 +87,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
     this.stepCompleted[0] = false;
     if (event.target.files && event.target.files[0]) {
       let file = event.target.files[0];
+      this.loadTypeFromFilename(file.name);
       this.importNbt.importFile(file).subscribe(
         data => {
           this.nbtData = data;
@@ -104,6 +105,23 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
           console.error(error);
         }
       );
+    }
+  }
+
+  loadTypeFromFilename(filename) {
+    filename = filename.substr(0, filename.length - 3).toLowerCase();
+    if (filename == "default") {
+      this.types.forEach(type => {
+        type.selected = true;
+      });
+    } else {
+      this.types.forEach(type => {
+        if (type.name.toLowerCase() == filename) {
+          type.selected = true;
+        } else {
+          type.selected = false;
+        }
+      });
     }
   }
 
