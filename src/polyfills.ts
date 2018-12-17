@@ -82,25 +82,26 @@ Object.defineProperty(Object.prototype, "getProp", {
 Object.defineProperty(Object.prototype, "getPropAs", {
   value: function (prop: string, type: string) {
     let value: any = this.getProp(prop);
-    switch (type.toLowerCase()) {
-      case "int":
-      case "integer":
-        let num = Number(value);
-        num = ~~num;
-        return num;
-      case "number":
-        return Number(value);
-      case "string":
-        return "" + value;
-      case "boolean|null":
-      case "bool|null":
-        return value == true || value == false ? value : null;
-      case "boolean":
-      case "bool":
-        return !!value;
-      default:
-        return value;
+    if (value) {
+      switch (type.toLowerCase()) {
+        case "int":
+        case "integer":
+          let num = Number(value);
+          num = ~~num;
+          return num;
+        case "number":
+          return Number(value);
+        case "string":
+          return "" + value;
+        case "boolean|null":
+        case "bool|null":
+          return value == true || value == false ? value : null;
+        case "boolean":
+        case "bool":
+          return !!value;
+      }
     }
+    return value;
   },
   enumerable: false
 });
