@@ -1,4 +1,4 @@
-import { defer, empty as observableEmpty, Observable, of } from 'rxjs';
+import { defer, EMPTY, Observable, of } from 'rxjs';
 
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -17,6 +17,7 @@ import * as Reducers from "../reducers";
 import { MatSnackBar } from "@angular/material";
 import { Skilltree } from "../../models/skilltree";
 import { TranslateService } from "@ngx-translate/core";
+import { UNDO } from "../reducers/undoable";
 
 @Injectable()
 export class SkilltreeEffects {
@@ -61,7 +62,7 @@ export class SkilltreeEffects {
         });
         return of(new SkilltreeActions.UpdateSkilltreeOrderAction(changes));
       }
-      return observableEmpty();
+      return EMPTY;
     }),);
 
   @Effect()
@@ -225,4 +226,16 @@ export class SkilltreeEffects {
   @Effect() init$: Observable<SkilltreeActions.LoadSkilltreesAction> = defer(() => {
     return of(new SkilltreeActions.LoadSkilltreesAction());
   });
+
+  @Effect()
+  undo$: Observable<Action> = this.actions$.pipe(
+    ofType(UNDO),
+    withLatestFrom(this.store.pipe(select(Reducers.getSkilltrees))),
+    withLatestFrom(this.store.pipe(select(Reducers.getSelectedSkilltreeId))),
+    switchMap(([[action, state], selected]) => { //
+      if (!state[selected]) {
+        this.router.navigate(["/"]);
+      }
+      return EMPTY;
+    }),);
 }
