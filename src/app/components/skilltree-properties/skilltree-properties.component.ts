@@ -54,6 +54,9 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         if (skilltree.description) {
           this.description.setValue(skilltree.description.join("\n"));
           this._description = skilltree.description;
+        } else {
+          this.description.setValue("");
+          this._description = [];
         }
         if (skilltree.inheritance) {
           this.inheritedSkilltreeName.setValue(skilltree.inheritance.skilltree);
