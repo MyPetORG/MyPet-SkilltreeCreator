@@ -1,7 +1,4 @@
 import { filter, map, take } from 'rxjs/operators';
-import "rxjs/add/operator/take";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/withLatestFrom";
 import { Injectable } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router";

@@ -43,8 +43,6 @@ import 'web-animations-js';
  * Zone JS is required by Angular itself.
  */
 import 'zone.js/dist/zone'; // Included with Angular CLI.
-import { polyfill } from "mobile-drag-drop";
-import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
 
 
 /***************************************************************************************************
@@ -104,11 +102,6 @@ Object.defineProperty(Object.prototype, "getPropAs", {
     return value;
   },
   enumerable: false
-});
-
-polyfill({
-  // use this to make use of the scroll behaviour
-  dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
 });
 
 window.addEventListener("touchmove", function () {

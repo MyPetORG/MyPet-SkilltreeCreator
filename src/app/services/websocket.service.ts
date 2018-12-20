@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable as ObservableTimer } from 'rxjs/Rx';
 import { environment } from "../../environments/environment";
-import { Observable, Subscriber } from "rxjs";
+import { Observable, Subscriber, timer } from "rxjs";
 
 @Injectable()
 export class WebsocketService {
@@ -11,20 +10,20 @@ export class WebsocketService {
   _obs: Subscriber<string> = null;
 
   constructor() {
-    let timer = ObservableTimer.timer(1000, 2500);
-    timer.subscribe(() => {
-      if (this.isConnected()) {
-        this.send({action: "PING", data: Date.now()});
-      } else {
-        if (this.getConnectionStatus() == WebSocket.CLOSED) {
-          try {
-            this.connect();
-          } catch (e) {
-            console.error(e);
+    timer(1000, 2500)
+      .subscribe(() => {
+        if (this.isConnected()) {
+          this.send({action: "PING", data: Date.now()});
+        } else {
+          if (this.getConnectionStatus() == WebSocket.CLOSED) {
+            try {
+              this.connect();
+            } catch (e) {
+              console.error(e);
+            }
           }
         }
-      }
-    });
+      });
 
     this.obs = new Observable(observer => this._obs = observer);
 

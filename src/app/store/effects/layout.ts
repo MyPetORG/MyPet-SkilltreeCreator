@@ -1,4 +1,3 @@
-import "rxjs/add/operator/withLatestFrom";
 import { defer, Observable, of } from 'rxjs';
 import { tap } from "rxjs/operators";
 import { Injectable } from '@angular/core';

@@ -1,9 +1,5 @@
 import { defer, EMPTY, Observable, of } from 'rxjs';
-
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-
-
-import "rxjs/add/operator/withLatestFrom";
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';

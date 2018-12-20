@@ -3,7 +3,6 @@ import { Skilltree } from "../../models/skilltree";
 import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
 import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { FormControl } from "@angular/forms";
-import "rxjs/add/operator/distinctUntilChanged";
 import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as SkilltreeActions from "../../store/actions/skilltree";
