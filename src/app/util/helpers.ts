@@ -47,7 +47,7 @@ export function setDefault(object: object, field: string, value: any) {
 }
 
 export function matchOrDefault(value: string, patter, def: any) {
-  if (value.match(patter)) {
+  if (value && value.match(patter)) {
     return value;
   }
   return def;
