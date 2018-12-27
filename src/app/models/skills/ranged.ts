@@ -11,6 +11,7 @@ export const Projectiles: string[] = [
   "DragonFireball",
   "Trident",
   "EnderPearl",
+  "LlamaSpit",
 ];
 
 export interface Ranged extends Upgrade {
