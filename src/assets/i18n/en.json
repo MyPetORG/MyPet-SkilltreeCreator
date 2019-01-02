@@ -97,6 +97,8 @@
   "COMPONENTS__SKILLTREE_CREATOR__IMPORT_LEGACY": "Import Legacy Skilltree",
   "COMPONENTS__SKILLTREE_CREATOR__IMPORT": "Import Skilltree",
   "COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN": "The server was shut down. Changes will not be saved.",
+  "COMPONENTS__SKILLTREE_CREATOR__CLOSE": "Close the Skilltree Creator",
+  "COMPONENTS__SKILLTREE_CREATOR__CLOSE_DONE": "You can close this window now.",
 
   "COMPONENTS__UPGRADE_ADD_DIALOG__ADD_UPGRADE": "Add Upgrade",
   "COMPONENTS__UPGRADE_ADD_DIALOG__LEVEL": "Level",

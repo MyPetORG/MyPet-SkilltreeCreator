@@ -43,3 +43,7 @@ mat-expansion-panel-header.mat-expanded, mat-expansion-panel-header.mat-expanded
 .interaction-click {
   cursor: pointer;
 }
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

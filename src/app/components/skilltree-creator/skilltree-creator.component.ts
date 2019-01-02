@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { select, Store } from "@ngrx/store";
 import * as Reducers from "../../store/reducers/index";
 import * as LayoutActions from "../../store/actions/layout";
+import { CloseAction } from "../../store/actions/layout";
 import * as SkilltreeActions from "../../store/actions/skilltree";
 import { NavigationEnd, Router } from "@angular/router";
 import { RedoAction, UndoAction } from "../../store/reducers/undoable";
@@ -95,6 +96,10 @@ export class SkilltreeCreatorComponent {
 
   redo() {
     this.store.dispatch(new RedoAction());
+  }
+
+  close() {
+    this.store.dispatch(new CloseAction());
   }
 
   importSkilltree() {

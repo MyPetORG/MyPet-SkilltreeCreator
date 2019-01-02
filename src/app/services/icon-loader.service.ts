@@ -29,6 +29,7 @@ export class IconLoaderService {
     this.addSvgIcon('check', 'ic_check_24px.svg');
     this.addSvgIcon('translate', 'ic_translate_24px.svg');
     this.addSvgIcon('star', 'ic_star_24px.svg');
+    this.addSvgIcon('exit_to_app', 'baseline-exit_to_app-24px.svg');
   }
 
   addSvgIcon(name: string, fileName: string) {

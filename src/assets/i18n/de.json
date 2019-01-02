@@ -97,6 +97,8 @@
   "COMPONENTS__SKILLTREE_CREATOR__IMPORT_LEGACY": "Legacy Skilltree Importieren",
   "COMPONENTS__SKILLTREE_CREATOR__IMPORT": "Skilltree Importieren",
   "COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN": "Der Server wurde heruntergefahren. Änderungen werden nicht gespeichert!",
+  "COMPONENTS__SKILLTREE_CREATOR__CLOSE": "Skilltree Creator schließen",
+  "COMPONENTS__SKILLTREE_CREATOR__CLOSE_DONE": "Du kannst dieses Fenster jetzt schließen.",
 
   "COMPONENTS__UPGRADE_ADD_DIALOG__ADD_UPGRADE": "Upgrade hinzufügen",
   "COMPONENTS__UPGRADE_ADD_DIALOG__LEVEL": "Level",

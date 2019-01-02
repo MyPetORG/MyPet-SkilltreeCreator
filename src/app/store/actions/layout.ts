@@ -9,6 +9,7 @@ export const SELECT_SKILL = 'SELECT_SKILL';
 export const SELECT_SKILLTREE = 'SELECT_SKILLTREE';
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 export const APP_LOADED = 'APP_LOADED';
+export const CLOSE_APP = 'CLOSE_APP';
 
 
 export class OpenSidenavAction implements Action {
@@ -28,6 +29,13 @@ export class SwitchTabAction implements Action {
 
 export class TogglePremiumAction implements Action {
   readonly type = TOGGLE_PREMIUM;
+
+  constructor() {
+  }
+}
+
+export class CloseAction implements Action {
+  readonly type = CLOSE_APP;
 
   constructor() {
   }
@@ -69,4 +77,5 @@ export type Actions
   | SelectSkillAction
   | SelectSkilltreeAction
   | ChangeLanguageAction
-  | AppLoadedAction;
+  | AppLoadedAction
+  | CloseAction;

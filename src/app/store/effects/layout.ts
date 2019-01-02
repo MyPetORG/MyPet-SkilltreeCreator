@@ -33,6 +33,19 @@ export class LayoutEffects {
     })
   );
 
+  @Effect({dispatch: false})
+  close$: Observable<Action> = this.actions$.pipe(
+    ofType(LayoutActions.CLOSE_APP),
+    tap(() => {
+      this.websocket.send({action: "CLOSE", data: {}});
+      window.open('', '_self').close();
+      this.translate.get("COMPONENTS__SKILLTREE_CREATOR__CLOSE_DONE")
+        .subscribe((trans) => {
+          this.snackBar.open(trans, "✖");
+        });
+    })
+  );
+
   @Effect() init$: Observable<LayoutActions.ChangeLanguageAction> = defer(() => {
     return of(new LayoutActions.ChangeLanguageAction(languages[0].key));
   });
