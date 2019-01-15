@@ -28,8 +28,11 @@
     <resources>
       <resource>
         <targetPath>./gui</targetPath>
-        <filtering>false</filtering>
+        <filtering>true</filtering>
         <directory>dist</directory>
+        <excludes>
+          <exclude>*.map</exclude>
+        </excludes>
       </resource>
     </resources>
     <plugins>
