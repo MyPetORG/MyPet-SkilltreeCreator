@@ -64,8 +64,12 @@
       <mat-card>
         <mat-form-field>
           <mat-select [placeholder]="'COMPONENTS__SKILLS__RANGED__PROJECTILE' | translate"
-                      [value]="upgrade.projectile|| 'Arrow'"
+                      [value]="upgrade.projectile"
                       (selectionChange)="update(skilltree, upgrade, 'projectile', $event.value, {})">
+            <mat-option [value]="null">
+              {{ 'COMPONENTS__SKILLS__DONT_CHANGE' | translate }}
+            </mat-option>
+            <mat-divider></mat-divider>
             <mat-option value="Arrow">
               {{ 'COMPONENTS__SKILLS__RANGED__PROJECTILE__ARROW' | translate }}
             </mat-option>
