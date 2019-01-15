@@ -168,7 +168,7 @@ export class SkilltreeLoaderService {
               levelRule.minimum = start;
             }
             dynamic = true;
-          } else if (match.startsWith("%")) {
+          } else if (match.startsWith("<")) {
             let e = match.substr(1);
             let end = parseInt(e);
             if (!isNaN(end)) {
