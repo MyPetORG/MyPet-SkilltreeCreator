@@ -41,7 +41,7 @@
 
       <span *cdkDragPreview></span>
 
-      <h3 mat-line> {{skilltree.name}} </h3>
+      <h3 mat-line [innerHTML]="skilltree.name | mcChat"></h3>
       <p mat-line>
         <span>{{skilltree.id}}</span>
       </p>
