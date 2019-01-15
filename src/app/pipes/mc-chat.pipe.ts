@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class McChatPipe implements PipeTransform {
 
   transform(value: string): string {
-    return value != null ? this.minecraft(this.mypet(value)) : null;
+    return value != null ? this.minecraft(this.compat(this.mypet(value))) : null;
   }
 
   minecraft(text) {
@@ -76,7 +76,6 @@ export class McChatPipe implements PipeTransform {
     return text.replace(new RegExp(search, 'g'), replacement);
   };
 
-
   mypet(text) {
     let styles = {
       'black': '§0',
@@ -125,6 +124,38 @@ export class McChatPipe implements PipeTransform {
 
     Object.keys(styles).forEach(key => {
       text = this.replaceAll(text, '<' + key + '>', styles[key]);
+    });
+
+    return text;
+  }
+
+  compat(text) {
+    let styles = {
+      '0': '§0',
+      '1': '§1',
+      '2': '§2',
+      '3': '§3',
+      '4': '§4',
+      '5': '§5',
+      '6': '§6',
+      '7': '§7',
+      '8': '§8',
+      '9': '§9',
+      'a': '§a',
+      'b': '§b',
+      'c': '§c',
+      'd': '§d',
+      'e': '§e',
+      'f': '§d',
+      'l': '§l',
+      'm': '§m',
+      'n': '§n',
+      'o': '§o',
+      'r': '§r'
+    };
+
+    Object.keys(styles).forEach(key => {
+      text = this.replaceAll(text, '&' + key, styles[key]);
     });
 
     return text;
