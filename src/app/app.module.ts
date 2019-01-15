@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { ErrorHandler, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./components/app/app.component";
@@ -105,6 +105,7 @@ import { SkilltreeChangeIconDialogComponent } from "./components/skilltree-chang
 import { LevelupNotificationsComponent } from './components/levelup-notifications/levelup-notifications.component';
 import { LevelupNotificationAddDialogComponent } from "./components/levelup-notification-add-dialog/levelup-notification-add-dialog.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { ErrorReporterService } from "./services/error-reporter.service";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -240,6 +241,7 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer},
     {provide: reducerToken, useFactory: getReducers},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    {provide: ErrorHandler, useClass: ErrorReporterService},
     ...environment.providers,
   ],
   bootstrap: [AppComponent]

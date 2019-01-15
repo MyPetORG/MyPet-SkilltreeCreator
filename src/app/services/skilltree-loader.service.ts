@@ -1,5 +1,5 @@
 import { Observable, of, throwError as observableThrowError } from 'rxjs';
-import { Injectable } from "@angular/core";
+import { ErrorHandler, Injectable } from "@angular/core";
 import { Skilltree } from "../models/skilltree";
 import { SkillLoader } from "../data/skill-loader";
 import { HttpClient } from "@angular/common/http";
@@ -7,11 +7,15 @@ import { Skills } from "../data/skills";
 import { LevelRule } from "../models/level-rule";
 import { Upgrade } from "../models/upgrade";
 import { MobTypes } from "../data/mob-types";
+import { ErrorReporterService } from "./error-reporter.service";
 
 @Injectable()
 export class SkilltreeLoaderService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private errorReporter: ErrorHandler,
+  ) {
   }
 
   public loadSkilltrees() {
@@ -53,6 +57,7 @@ export class SkilltreeLoaderService {
       skilltree.mobtypes = this.loadMobTypes(data.getProp("MobTypes"));
       skilltree.messages = this.loadNotifications(data.getProp("Notifications"));
     } catch (e) {
+      (<ErrorReporterService>this.errorReporter).sendError(e);
       return observableThrowError({type: "INVALID", data: e});
     }
 
