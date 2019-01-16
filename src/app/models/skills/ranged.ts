@@ -4,7 +4,7 @@ import { matchOrDefault } from "../../util/helpers";
 export const Projectiles: string[] = [
   "Arrow",
   "Snowball",
-  "Fireball",
+  "SmallFireball",
   "LargeFireball",
   "WitherSkull",
   "Egg",
