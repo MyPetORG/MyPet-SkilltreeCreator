@@ -28,20 +28,6 @@
              [formControl]="name" (blur)="update('name',name)">
     </mat-form-field>
     <mat-form-field>
-      <span matPrefix>MyPet.skilltree.</span>
-      <input matInput pattern="[^\s]*" [formControl]="permission" (blur)="update('permission',permission)"
-             [placeholder]="(!permission.value ? 'COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT_EMPTY' : 'COMPONENTS__SKILLTREE_PROPERTIES__PERMISSION_INPUT') | translate:{id: id.value} ">
-      <button mat-raised-button matSuffix color="primary" ngxClipboard
-              [cbContent]="'MyPet.skilltree.' + (permission.value ? permission.value : id.value)"
-              (click)="notifyCopy()" matTooltipPosition="left"
-              [matTooltip]="'COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION' | translate">
-        <mat-icon svgIcon="content_copy">content_copy</mat-icon>
-      </button>
-      <mat-error *ngIf="permission.errors?.pattern">
-        {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_NO_WHITESPACES' | translate }}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
       <mat-select
         [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE' | translate"
         [formControl]="inheritedSkilltreeName"

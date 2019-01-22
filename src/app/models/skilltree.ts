@@ -11,7 +11,6 @@ export interface Skilltree {
     glowing?: boolean
   }
   description?: string[]
-  permission?: string
   skills: { [name: string]: Upgrade[] }
   mobtypes: string[]
   requiredLevel?: number
@@ -20,4 +19,5 @@ export interface Skilltree {
   inheritance?: {
     skilltree?: string
   }
+  requirements: string[]
 }

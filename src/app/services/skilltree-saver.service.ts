@@ -20,8 +20,8 @@ export class SkilltreeSaverService {
       if (skilltree.name) {
         data.Name = skilltree.name;
       }
-      if (skilltree.permission) {
-        data.Permission = skilltree.permission;
+      if (skilltree.requirements && skilltree.requirements.length > 0) {
+        data.Requirements = skilltree.requirements;
       }
       if (skilltree.icon) {
         let icon: any = {};

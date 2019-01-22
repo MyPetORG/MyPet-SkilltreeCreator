@@ -1,0 +1,13 @@
+<mat-form-field>
+  <mat-select
+    [placeholder]="'COMPONENTS__SKILLTREE_REQUIREMENTS__SKILLTREE__SELECT' | translate"
+    [formControl]="neededSkilltrees"
+    (closed)="update()"
+    required
+    multiple>
+    <mat-optgroup [label]="'COMPONENTS__SKILLTREE_REQUIREMENTS__SKILLTREE__SKILLTREE' | translate">
+      <mat-option *ngFor="let skilltreeName of skilltreeNames"
+                  [value]="skilltreeName">{{ skilltreeName }}</mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field>

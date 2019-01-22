@@ -74,6 +74,7 @@ export class SkilltreeListComponent {
           skills: {},
           mobtypes: [],
           messages: [],
+          requirements: [],
         }));
         this.translate.get(
           "COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS",

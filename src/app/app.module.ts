@@ -106,6 +106,10 @@ import { LevelupNotificationsComponent } from './components/levelup-notification
 import { LevelupNotificationAddDialogComponent } from "./components/levelup-notification-add-dialog/levelup-notification-add-dialog.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { ErrorReporterService } from "./services/error-reporter.service";
+import { RequirementsComponent } from "./components/requirements/requirements.component";
+import { PermissionRequirementComponent } from "./components/requirements/types/permission/permission-requirement.component";
+import { CustomRequirementComponent } from "./components/requirements/types/custom/custom-requirement.component";
+import { SkilltreeRequirementComponent } from "./components/requirements/types/skilltree/skilltree-requirement.component";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -124,6 +128,10 @@ export function createTranslateLoader(http: HttpClient) {
     SkilltreeImportDialogComponent,
     SkilltreeChangeIconDialogComponent,
     LevelupNotificationAddDialogComponent,
+    RequirementsComponent,
+    PermissionRequirementComponent,
+    SkilltreeRequirementComponent,
+    CustomRequirementComponent,
 
     AppComponent,
     SkilltreePropertiesComponent,

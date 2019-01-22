@@ -189,11 +189,11 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         let name = skilltreeData.Name.value;
         let id = this.renamedSkilltrees[name];
         if (this.selectedNewSkilltreeNames.indexOf(id) != -1) {
-          let skilltree: Skilltree = {id, skills: {}, mobtypes: mobTypes.slice(), messages: []};
+          let skilltree: Skilltree = {id, skills: {}, mobtypes: mobTypes.slice(), messages: [], requirements: []};
 
           skilltree.order = skilltreeData.Place.value;
           if (skilltreeData.Permission) {
-            skilltree.permission = skilltreeData.Permission.value;
+            skilltree.requirements.push("Permission:" + skilltreeData.Permission.value);
           }
           if (skilltreeData.Display) {
             skilltree.name = skilltreeData.Display.value;

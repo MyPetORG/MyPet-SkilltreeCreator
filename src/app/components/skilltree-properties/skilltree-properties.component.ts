@@ -27,7 +27,6 @@ export class SkilltreePropertiesComponent implements OnDestroy {
 
   id = new FormControl();
   name = new FormControl();
-  permission = new FormControl();
   description = new FormControl();
   requiredLevel = new FormControl();
   maxLevel = new FormControl();
@@ -46,7 +45,6 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id), 1);
         this.id.setValue(skilltree.id);
         this.name.setValue(skilltree.name);
-        this.permission.setValue(skilltree.permission);
         this.requiredLevel.setValue(skilltree.requiredLevel);
         this.weight.setValue(skilltree.weight);
         this.maxLevel.setValue(skilltree.maxLevel);
@@ -157,12 +155,5 @@ export class SkilltreePropertiesComponent implements OnDestroy {
     if (this.skilltree.id != control.value && control.errors == null) {
       this.store.dispatch(new SkilltreeActions.RenameSkilltreeAction(control.value, this.skilltree.id));
     }
-  }
-
-  notifyCopy() {
-    this.translate.get("COMPONENTS__SKILLTREE_PROPERTIES__COPY_PERMISSION_DONE")
-      .subscribe((trans) => {
-        this.snackBar.open(trans, null, {duration: 2000,});
-      });
   }
 }
