@@ -4,6 +4,8 @@
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
     "sourceMap": true,
+    "inlineSources": true,
+    "sourceRoot": "/",
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
