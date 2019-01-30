@@ -26,3 +26,5 @@ RUN export SENTRY_AUTH_TOKEN=$sentry
 RUN sentry-cli --auth-token $sentry releases -o mypet new -p skilltree-creator PLUGIN-3.0-b$build
 RUN sentry-cli --auth-token $sentry releases -o mypet -p skilltree-creator files PLUGIN-3.0-b$build upload-sourcemaps --ext map /work
 RUN sentry-cli --auth-token $sentry releases -o mypet -p skilltree-creator finalize PLUGIN-3.0-b$build
+
+ENTRYPOINT []
