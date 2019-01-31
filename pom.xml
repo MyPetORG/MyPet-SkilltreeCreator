@@ -29,7 +29,7 @@
       <resource>
         <targetPath>./gui</targetPath>
         <filtering>true</filtering>
-        <directory>dist</directory>
+        <directory>./gui</directory>
         <excludes>
           <exclude>*.map</exclude>
         </excludes>
