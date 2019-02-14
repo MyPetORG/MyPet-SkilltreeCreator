@@ -5,6 +5,10 @@ export const languages = [
   },
   {
     key: "de",
-    name: "Deutsch"
+    name: "German"
+  },
+  {
+    key: "zh",
+    name: "Chinese (Simplified)"
   },
 ];
