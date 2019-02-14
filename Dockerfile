@@ -23,7 +23,7 @@ COPY --from=angular_builder /home/node/app/dist /work
 #RUN ls -al /work
 
 RUN sentry-cli --auth-token $sentry releases -o mypet new -p skilltree-creator PLUGIN-3.0-b$build
-RUN sentry-cli --auth-token $sentry releases -o mypet -p skilltree-creator files PLUGIN-3.0-b$build upload-sourcemaps --ext map /work
+RUN sentry-cli --auth-token $sentry releases -o mypet -p skilltree-creator files PLUGIN-3.0-b$build upload-sourcemaps /work
 RUN sentry-cli --auth-token $sentry releases -o mypet -p skilltree-creator finalize PLUGIN-3.0-b$build
 
 ENTRYPOINT []
