@@ -27,7 +27,6 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   selectedSkill: SkillInfo;
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
-  premium$: Observable<boolean>;
   selectedSkillSubscription: Subscription = null;
   @ViewChild('upgradeComponentContainer', {read: ViewContainerRef}) upgradeComponentContainer: ViewContainerRef;
   upgradeComponent = null;
@@ -36,7 +35,6 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
               private componentFactoryResolver: ComponentFactoryResolver) {
     this.selectedSkill$ = this.store.pipe(select(Reducers.getSelectedSkill));
     this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
-    this.premium$ = this.store.pipe(select(Reducers.getPremium));
   }
 
   ngAfterViewInit(): void {

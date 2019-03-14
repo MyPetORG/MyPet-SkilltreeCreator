@@ -21,7 +21,6 @@ export interface SkillInfo {
   name: string,
   description: string,
   icon: string,
-  premium?: boolean
 }
 
 export const Skills: SkillInfo[] = [
@@ -114,7 +113,6 @@ export const Skills: SkillInfo[] = [
     name: 'SKILL_NAME__SHIELD',
     description: 'SKILL_DESCRIPTION__SHIELD',
     icon: 'shield.png',
-    premium: true,
   },
   {
     id: 'Slow',

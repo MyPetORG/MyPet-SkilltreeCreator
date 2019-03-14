@@ -22,16 +22,6 @@
               [disabled]="languages.length <= 1">
         <mat-icon svgIcon="translate">translate</mat-icon>
       </button>
-      <button *ngIf="!(premium$ | async)" style="color: red"
-              mat-icon-button (click)="togglePremium()" matTooltipPosition="right"
-              [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__PREMIUM_ENABLE' | translate">
-        <mat-icon svgIcon="star">star</mat-icon>
-      </button>
-      <button *ngIf="premium$ | async" style="color: green"
-              mat-icon-button (click)="togglePremium()" matTooltipPosition="right"
-              [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__PREMIUM_DISABLE' | translate">
-        <mat-icon svgIcon="star">star</mat-icon>
-      </button>
       <button mat-icon-button routerLink="/about" (click)="closeSidenav()" matTooltipPosition="right"
               [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__ABOUT' | translate">
         <mat-icon svgIcon="info_outline">info_outline</mat-icon>

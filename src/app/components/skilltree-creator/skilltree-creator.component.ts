@@ -23,10 +23,8 @@ export class SkilltreeCreatorComponent {
   selectedSkilltree$: Observable<string | null>;
   pastStates$: Observable<any[] | null>;
   futureStates$: Observable<any[] | null>;
-  premium$: Observable<boolean>;
   language$: Observable<string>;
   isRootPath: boolean = false;
-  firstPremiumToggle: boolean = true;
   languages = languages;
 
   constructor(private dialog: MatDialog,
@@ -44,12 +42,6 @@ export class SkilltreeCreatorComponent {
                 this.snackBar.open(trans, null, {duration: 2000,});
               });
             break;
-          case "TOGGLE_PREMIUM":
-            if (this.firstPremiumToggle) {
-              this.firstPremiumToggle = false;
-              this.togglePremium();
-            }
-            break;
           case "CHANGE_LANGUAGE":
             this.store.dispatch(new LayoutActions.ChangeLanguageAction(packet.data));
             break;
@@ -60,7 +52,6 @@ export class SkilltreeCreatorComponent {
     this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltreeId));
     this.pastStates$ = this.store.pipe(select(Reducers.getPastStates));
     this.futureStates$ = this.store.pipe(select(Reducers.getFutureStates));
-    this.premium$ = this.store.pipe(select(Reducers.getPremium));
     this.language$ = this.store.pipe(select(Reducers.getLanguage));
 
     this.router.events.subscribe(data => {
@@ -80,10 +71,6 @@ export class SkilltreeCreatorComponent {
 
   closeSidenav() {
     this.store.dispatch(new LayoutActions.CloseSidenavAction());
-  }
-
-  togglePremium() {
-    this.store.dispatch(new LayoutActions.TogglePremiumAction());
   }
 
   save() {
