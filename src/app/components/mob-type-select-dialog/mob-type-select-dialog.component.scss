@@ -27,12 +27,21 @@
     max-height: 32px;
     cursor: pointer;
 
+    &:hover {
+      filter: alpha(opacity=60);
+      opacity: 0.6;
+    }
+
     &.selected {
-      cursor: default;
       opacity: 1;
       filter: alpha(opacity=100);
       outline: 3px dashed #00C853;
       outline-offset: 0;
+
+      &:hover {
+        filter: alpha(opacity=80);
+        opacity: 0.8;
+      }
     }
   }
 }
