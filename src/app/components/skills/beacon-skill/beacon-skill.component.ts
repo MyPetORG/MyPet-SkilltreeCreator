@@ -1,17 +1,18 @@
-import { Component } from "@angular/core";
-import { MAT_CHECKBOX_CLICK_ACTION, MatDialog } from "@angular/material";
-import { StateService } from "../../../services/state.service";
-import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { Skill } from "../../../models/skill";
-import { LevelRule } from "../../../util/helpers";
-import { Beacon, BeaconDefault } from "../../../models/skills/beacon";
-import { Skilltree } from "../../../models/skilltree";
-import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs";
-import * as Reducers from "../../../store/reducers";
-import { SkillInfo } from "../../../data/skills";
-import { select, Store } from "@ngrx/store";
-import { UpdateSkilltreeUpgradeAction } from "app/store/actions/skilltree";
+import { Component } from '@angular/core';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { updateSkilltreeUpgrade } from 'app/store/actions/skilltree';
+import { Observable } from 'rxjs';
+import { SkillInfo } from '../../../data/skills';
+import { Skill } from '../../../models/skill';
+import { Beacon, BeaconDefault } from '../../../models/skills/beacon';
+import { Skilltree } from '../../../models/skilltree';
+import { Upgrade } from '../../../models/upgrade';
+import { StateService } from '../../../services/state.service';
+import * as Reducers from '../../../store/reducers';
+import { LevelRule } from '../../../util/helpers';
+import { UpgradeAddDialogComponent } from '../../upgrade-add-dialog/upgrade-add-dialog.component';
 
 @Component({
   selector: 'stc-beacon-skill',
@@ -46,7 +47,7 @@ export class BeaconSkillComponent {
     if (changes.Beacon[changes.Beacon.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)][field] = value;
-      this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     }
   }
 
@@ -66,7 +67,7 @@ export class BeaconSkillComponent {
     }
     changes = JSON.parse(JSON.stringify(changes));
     (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] = value;
-    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
   }
 
   updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, value, model) {
@@ -77,7 +78,7 @@ export class BeaconSkillComponent {
     if ((changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] = value;
-      this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     }
   }
 
@@ -94,7 +95,7 @@ export class BeaconSkillComponent {
 
           let beacon: Beacon = Object.assign({rule: result}, new BeaconDefault);
           changes.skills.Beacon.push(beacon);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
+          this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }
       });
     }
@@ -103,7 +104,7 @@ export class BeaconSkillComponent {
   deleteRule(skilltree: Skilltree, upgrade) {
     let changes = JSON.parse(JSON.stringify(skilltree.skills));
     changes.Beacon.splice(skilltree.skills.Beacon.indexOf(upgrade), 1);
-    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     this.selectedUpgrade = -1;
   }
 

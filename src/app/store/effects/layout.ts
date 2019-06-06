@@ -1,52 +1,50 @@
-import { defer, Observable, of } from 'rxjs';
-import { tap } from "rxjs/operators";
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import * as LayoutActions from "../actions/layout";
-import { MatSnackBar } from "@angular/material";
-import { TranslateService } from "@ngx-translate/core";
-import { languages } from "../../data/languages";
-import { WebsocketService } from "../../services/websocket.service";
+import { TranslateService } from '@ngx-translate/core';
+import { tap } from 'rxjs/operators';
+import { languages } from '../../data/languages';
+import { WebsocketService } from '../../services/websocket.service';
+import * as LayoutActions from '../actions/layout';
+import { changeLanguage } from '../actions/layout';
 
 @Injectable()
-export class LayoutEffects {
+export class LayoutEffects implements OnInitEffects {
   constructor(private actions$: Actions,
               private snackBar: MatSnackBar,
               private websocket: WebsocketService,
               private translate: TranslateService) {
   }
 
-  @Effect({dispatch: false})
-  changeLanguage$: Observable<Action> = this.actions$.pipe(
-    ofType(LayoutActions.CHANGE_LANGUAGE),
-    tap((action: LayoutActions.ChangeLanguageAction) => {
-      let lang = languages.find(lang => lang.key.toLowerCase() == action.payload.toLowerCase());
-      this.translate.get("EFFECT__CHANGE_LANGUAGE", {lang: lang.name})
+  changeLanguage$ = createEffect(() => this.actions$.pipe(
+    ofType(LayoutActions.changeLanguage),
+    tap((action) => {
+      let lang = languages.find(lang => lang.key.toLowerCase() == action.language.toLowerCase());
+      this.translate.get('EFFECT__CHANGE_LANGUAGE', { lang: lang.name })
         .subscribe((trans) => {
           if (trans != 'EFFECT__CHANGE_LANGUAGE') {
-            this.snackBar.open(trans, null, {duration: 2000});
+            this.snackBar.open(trans, null, { duration: 2000 });
           }
         });
       this.translate.use(lang.key);
-      this.websocket.send({action: "CHANGE_LANGUAGE", data: lang.key});
+      this.websocket.send({ action: 'CHANGE_LANGUAGE', data: lang.key });
     })
-  );
+  ), { dispatch: false });
 
-  @Effect({dispatch: false})
-  close$: Observable<Action> = this.actions$.pipe(
-    ofType(LayoutActions.CLOSE_APP),
+  close$ = createEffect(() => this.actions$.pipe(
+    ofType(LayoutActions.closeApp),
     tap(() => {
-      this.websocket.send({action: "CLOSE", data: {}});
+      this.websocket.send({ action: 'CLOSE', data: {} });
       window.open('', '_self').close();
-      this.translate.get("COMPONENTS__SKILLTREE_CREATOR__CLOSE_DONE")
+      this.translate.get('COMPONENTS__SKILLTREE_CREATOR__CLOSE_DONE')
         .subscribe((trans) => {
-          this.snackBar.open(trans, "✖");
+          this.snackBar.open(trans, '✖');
         });
     })
-  );
+  ), { dispatch: false });
 
-  @Effect() init$: Observable<LayoutActions.ChangeLanguageAction> = defer(() => {
-    return of(new LayoutActions.ChangeLanguageAction(languages[0].key));
-  });
+  ngrxOnInitEffects(): Action {
+    return changeLanguage({ language: languages[0].key });
+  }
 }

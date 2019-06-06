@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Observable } from "rxjs";
-import { Skilltree } from "../../models/skilltree";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../store/reducers";
-import { LevelRule } from "../../util/helpers";
-import { UpdateSkilltreeInfoAction } from "../../store/actions/skilltree";
-import { MatDialog } from "@angular/material";
-import { LevelupNotificationAddDialogComponent } from "../levelup-notification-add-dialog/levelup-notification-add-dialog.component";
+import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Skilltree } from '../../models/skilltree';
+import { updateSkilltreeInfo } from '../../store/actions/skilltree';
+import * as Reducers from '../../store/reducers';
+import { LevelRule } from '../../util/helpers';
+import { LevelupNotificationAddDialogComponent } from '../levelup-notification-add-dialog/levelup-notification-add-dialog.component';
 
 @Component({
   selector: 'stc-levelup-notifications',
@@ -32,7 +32,7 @@ export class LevelupNotificationsComponent {
           let changes = {messages: JSON.parse(JSON.stringify(skilltree.messages))};
           changes.messages.push({rule: result, content: ""});
 
-          this.store.dispatch(new UpdateSkilltreeInfoAction({changes, id: skilltree.id}));
+          this.store.dispatch(updateSkilltreeInfo({ changes, id: skilltree.id }));
         }
       });
     }
@@ -41,7 +41,7 @@ export class LevelupNotificationsComponent {
   deleteRule(skilltree: Skilltree, index) {
     let changes = JSON.parse(JSON.stringify(skilltree.messages));
     changes.splice(index, 1);
-    this.store.dispatch(new UpdateSkilltreeInfoAction({changes: {messages: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeInfo({ changes: { messages: changes }, id: skilltree.id }));
     this.selectedMessage = 0;
   }
 
@@ -50,7 +50,7 @@ export class LevelupNotificationsComponent {
     if (changes[id].content != model.value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes[id].content = model.value;
-      this.store.dispatch(new UpdateSkilltreeInfoAction({changes: {messages: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeInfo({ changes: { messages: changes }, id: skilltree.id }));
     }
   }
 

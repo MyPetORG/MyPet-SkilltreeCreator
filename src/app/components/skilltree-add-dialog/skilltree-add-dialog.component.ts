@@ -1,8 +1,8 @@
-import { Component, Inject, OnDestroy } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../store/reducers";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
+import { Component, Inject, OnDestroy } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import * as Reducers from '../../store/reducers';
 
 @AutoUnsubscribe()
 @Component({

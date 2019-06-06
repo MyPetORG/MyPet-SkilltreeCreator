@@ -1,17 +1,18 @@
-import { Component } from "@angular/core";
-import { MatDialog, MatSnackBar } from "@angular/material";
-import { SkilltreeAddDialogComponent } from "../skilltree-add-dialog/skilltree-add-dialog.component";
-import { Skilltree } from "../../models/skilltree";
-import { Observable } from "rxjs";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../store/reducers/index";
-import * as SkilltreeActions from "../../store/actions/skilltree";
-import { Router } from "@angular/router";
-import * as LayoutActions from "../../store/actions/layout";
-import { ContextMenuService } from "ngx-contextmenu";
-import { TranslateService } from "@ngx-translate/core";
-import { SkilltreeDuplicateDialogComponent } from "../skilltree-duplicate-dialog/skilltree-duplicate-dialog.component";
-import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { ContextMenuService } from 'ngx-contextmenu';
+import { Observable } from 'rxjs';
+import { Skilltree } from '../../models/skilltree';
+import { selectSkilltree, switchTab } from '../../store/actions/layout';
+import { addSkilltree, copySkilltree, removeSkilltree, updateSkilltreeOrder } from '../../store/actions/skilltree';
+import * as Reducers from '../../store/reducers/index';
+import { SkilltreeAddDialogComponent } from '../skilltree-add-dialog/skilltree-add-dialog.component';
+import { SkilltreeDuplicateDialogComponent } from '../skilltree-duplicate-dialog/skilltree-duplicate-dialog.component';
 
 @Component({
   selector: 'stc-skilltree-list',
@@ -40,7 +41,7 @@ export class SkilltreeListComponent {
         return a.order - b.order;
       });
     });
-    this.store.dispatch(new LayoutActions.SelectSkilltreeAction(null));
+    this.store.dispatch(selectSkilltree({ skilltree: null }));
   }
 
   drag(event: CdkDragDrop<Skilltree[]>) {
@@ -56,55 +57,57 @@ export class SkilltreeListComponent {
     let changes: { id: string, changes: { order: number } }[] = [];
     this.skilltrees.forEach((st, index) => {
       if (st.order != index) {
-        changes.push({id: st.id, changes: {order: index}});
+        changes.push({ id: st.id, changes: { order: index } });
       }
     });
 
-    this.store.dispatch(new SkilltreeActions.UpdateSkilltreeOrderAction(changes, false));
+    this.store.dispatch(updateSkilltreeOrder({ order: changes, ignoredByUndo: false }));
   }
 
   addSkilltree() {
     let dialogRef = this.dialog.open(SkilltreeAddDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.store.dispatch(new SkilltreeActions.AddSkilltreeAction({
-          id: result,
-          name: result,
-          order: Number.MAX_SAFE_INTEGER,
-          skills: {},
-          mobtypes: [],
-          messages: [],
-          requirements: [],
+        this.store.dispatch(addSkilltree({
+          skilltree: {
+            id: result,
+            name: result,
+            order: Number.MAX_SAFE_INTEGER,
+            skills: {},
+            mobtypes: [],
+            messages: [],
+            requirements: [],
+          }
         }));
         this.translate.get(
-          "COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS",
-          {id: result}
+          'COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS',
+          { id: result }
         ).subscribe((trans) => {
-          this.snackBar.open(trans, null, {duration: 2000,});
+          this.snackBar.open(trans, null, { duration: 2000, });
         });
       }
     });
   }
 
   selectSkilltree(skilltree: Skilltree) {
-    this.router.navigate(["st", skilltree.id]).then(() => {
-      this.store.dispatch(new LayoutActions.SwitchTabAction(1));
+    this.router.navigate(['st', skilltree.id]).then(() => {
+      this.store.dispatch(switchTab({ tab: 1 }));
     });
   }
 
   editSkills(skilltree: Skilltree) {
-    this.router.navigate(["st", skilltree.id]).then(() => {
-      this.store.dispatch(new LayoutActions.SwitchTabAction(0));
+    this.router.navigate(['st', skilltree.id]).then(() => {
+      this.store.dispatch(switchTab({ tab: 0 }));
     });
   }
 
   deleteSkilltree(skilltree: Skilltree) {
-    this.store.dispatch(new SkilltreeActions.RemoveSkilltreeAction(skilltree));
+    this.store.dispatch(removeSkilltree({ skilltree }));
     this.translate.get(
-      "COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS",
-      {id: skilltree.id}
+      'COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS',
+      { id: skilltree.id }
     ).subscribe((trans) => {
-      this.snackBar.open(trans, null, {duration: 2000,});
+      this.snackBar.open(trans, null, { duration: 2000, });
     });
   }
 
@@ -114,12 +117,12 @@ export class SkilltreeListComponent {
       if (result) {
         let copy: Skilltree = JSON.parse(JSON.stringify(skilltree));
         copy.id = result;
-        this.store.dispatch(new SkilltreeActions.CopySkilltreeAction(copy));
+        this.store.dispatch(copySkilltree({ skilltree: copy }));
         this.translate.get(
-          "COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS",
-          {old: skilltree.id, "new": result}
+          'COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS',
+          { old: skilltree.id, 'new': result }
         ).subscribe((trans) => {
-          this.snackBar.open(trans, null, {duration: 2000,});
+          this.snackBar.open(trans, null, { duration: 2000, });
         });
       }
     });

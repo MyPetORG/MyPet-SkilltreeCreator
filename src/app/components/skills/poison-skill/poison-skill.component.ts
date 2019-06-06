@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { StateService } from "../../../services/state.service";
-import { MatDialog } from "@angular/material";
-import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { LevelRule } from "../../../util/helpers";
-import { Poison, PoisonDefault } from "../../../models/skills/poison";
-import { Skill } from "../../../models/skill";
-import { Skilltree } from "../../../models/skilltree";
-import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs";
-import * as Reducers from "../../../store/reducers";
-import { SkillInfo } from "../../../data/skills";
-import { select, Store } from "@ngrx/store";
-import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { SkillInfo } from '../../../data/skills';
+import { Skill } from '../../../models/skill';
+import { Poison, PoisonDefault } from '../../../models/skills/poison';
+import { Skilltree } from '../../../models/skilltree';
+import { Upgrade } from '../../../models/upgrade';
+import { StateService } from '../../../services/state.service';
+import { updateSkilltreeUpgrade } from '../../../store/actions/skilltree';
+import * as Reducers from '../../../store/reducers';
+import { LevelRule } from '../../../util/helpers';
+import { UpgradeAddDialogComponent } from '../../upgrade-add-dialog/upgrade-add-dialog.component';
 
 @Component({
   selector: 'stc-poison-skill',
@@ -43,7 +43,7 @@ export class PoisonSkillComponent {
     if (changes.Poison[changes.Poison.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes.Poison[skilltree.skills.Poison.indexOf(upgrade)][field] = value;
-      this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     }
   }
 
@@ -60,7 +60,7 @@ export class PoisonSkillComponent {
 
           let poison: Poison = Object.assign({rule: result}, new PoisonDefault);
           changes.skills.Poison.push(poison);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
+          this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }
       });
     }
@@ -69,7 +69,7 @@ export class PoisonSkillComponent {
   deleteRule(skilltree: Skilltree, upgrade) {
     let changes = JSON.parse(JSON.stringify(skilltree.skills));
     changes.Poison.splice(skilltree.skills.Poison.indexOf(upgrade), 1);
-    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     this.selectedUpgrade = -1;
   }
 

@@ -5,15 +5,15 @@ import {
   OnDestroy,
   ViewChild,
   ViewContainerRef
-} from "@angular/core";
-import { SkillInfo, Skills } from "../../data/skills";
-import { Skilltree } from "../../models/skilltree";
-import * as Reducers from "../../store/reducers/index";
-import { Observable, Subscription } from "rxjs";
-import { select, Store } from "@ngrx/store";
-import * as LayoutActions from "../../store/actions/layout";
-import { SkillUpgradeComponents } from "../../data/upgrade-components";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
+} from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Observable, Subscription } from 'rxjs';
+import { SkillInfo, Skills } from '../../data/skills';
+import { SkillUpgradeComponents } from '../../data/upgrade-components';
+import { Skilltree } from '../../models/skilltree';
+import { selectSkill } from '../../store/actions/layout';
+import * as Reducers from '../../store/reducers/index';
 
 @AutoUnsubscribe()
 @Component({
@@ -28,7 +28,10 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
   selectedSkillSubscription: Subscription = null;
-  @ViewChild('upgradeComponentContainer', {read: ViewContainerRef}) upgradeComponentContainer: ViewContainerRef;
+  @ViewChild('upgradeComponentContainer', {
+    read: ViewContainerRef,
+    static: true
+  }) upgradeComponentContainer: ViewContainerRef;
   upgradeComponent = null;
 
   constructor(private store: Store<Reducers.State>,
@@ -58,7 +61,7 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   switchSkill(data) {
-    this.store.dispatch(new LayoutActions.SelectSkillAction(data.value));
+    this.store.dispatch(selectSkill({ skill: data.value }));
   }
 
   addUpgrade(skilltree) {

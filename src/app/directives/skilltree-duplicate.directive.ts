@@ -1,6 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, Validator } from "@angular/forms";
-import { ValidationErrors } from "@angular/forms/src/directives/validators";
+import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
   selector: '[appSkilltreeDuplicate]',

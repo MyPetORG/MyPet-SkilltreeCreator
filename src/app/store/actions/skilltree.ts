@@ -1,5 +1,5 @@
-import { Action } from "@ngrx/store";
-import { Skilltree } from "../../models/skilltree";
+import { createAction, props } from '@ngrx/store';
+import { Skilltree } from '../../models/skilltree';
 
 export const LOAD_SKILLTREE = 'LOAD_SKILLTREE';
 export const LOAD_SKILLTREE_SUCCESS = 'LOAD_SKILLTREE_SUCCESS';
@@ -31,183 +31,113 @@ export const UPDATE_SKILLTREE_UPGRADE = 'UPDATE_SKILLTREE_UPGRADE';
 /**
  * Add Skilltree Actions
  */
-export class AddSkilltreeAction implements Action {
-  readonly type = ADD_SKILLTREE;
+export const addSkilltree = createAction(
+  ADD_SKILLTREE,
+  props<{ skilltree: Skilltree }>()
+);
 
-  constructor(public payload: Skilltree) {
-  }
-}
+export const loadSkilltrees = createAction(
+  LOAD_SKILLTREES,
+  props<{ ignoredByUndo?: boolean }>()
+);
 
-export class LoadSkilltreesAction implements Action {
-  readonly type = LOAD_SKILLTREES;
-  readonly ignoredByUndo = true;
+export const loadSkilltreesFailed = createAction(
+  LOAD_SKILLTREES_FAILED,
+  props<{ error: any, ignoredByUndo?: boolean }>()
+);
 
-  constructor() {
-  }
-}
+export const loadSkilltreesSuccess = createAction(
+  LOAD_SKILLTREES_SUCCESS,
+  props<{ ignoredByUndo?: boolean }>()
+);
 
-export class LoadSkilltreesFailedAction implements Action {
-  readonly type = LOAD_SKILLTREES_FAILED;
-  readonly ignoredByUndo = true;
+export const loadSkilltree = createAction(
+  LOAD_SKILLTREE,
+  props<{ ignoredByUndo?: boolean, skilltree: any }>()
+);
 
-  constructor(public error: any) {
-  }
-}
+export const loadSkilltreeSuccess = createAction(
+  LOAD_SKILLTREE_SUCCESS,
+  props<{ ignoredByUndo?: boolean, skilltree: Skilltree }>()
+);
 
-export class LoadSkilltreesSuccessAction implements Action {
-  readonly type = LOAD_SKILLTREES_SUCCESS;
-  readonly ignoredByUndo = true;
+export const loadSkilltreeFailed = createAction(
+  LOAD_SKILLTREE_FAILED,
+  props<{ ignoredByUndo?: boolean, error: any }>()
+);
 
-  constructor() {
-  }
-}
+export const saveSkilltrees = createAction(
+  SAVE_SKILLTREES,
+  props<{ ignoredByUndo?: boolean }>()
+);
 
-export class LoadSkilltreeAction implements Action {
-  readonly type = LOAD_SKILLTREE;
-  readonly ignoredByUndo = true;
+export const saveSkilltreesSuccess = createAction(
+  SAVE_SKILLTREES_SUCCESS,
+  props<{ ignoredByUndo?: boolean, result: any }>()
+);
 
-  constructor(public payload: any) {
-  }
-}
+export const saveSkilltreesFailed = createAction(
+  SAVE_SKILLTREES_FAILED,
+  props<{ ignoredByUndo?: boolean, error: any }>()
+);
 
-export class LoadSkilltreeSuccessAction implements Action {
-  readonly type = LOAD_SKILLTREE_SUCCESS;
-  readonly ignoredByUndo = true;
+export const importLegacySkilltree = createAction(
+  IMPORT_LEGACY_SKILLTREE,
+  props<{ skilltree: Skilltree }>()
+);
 
-  constructor(public payload: Skilltree) {
-  }
-}
+export const importSkilltree = createAction(
+  IMPORT_SKILLTREE,
+  props<{ ignoredByUndo?: boolean, skilltreeData: any }>()
+);
 
-export class LoadSkilltreeFailedAction implements Action {
-  readonly type = LOAD_SKILLTREE_FAILED;
-  readonly ignoredByUndo = true;
+export const importSkilltreeSuccess = createAction(
+  IMPORT_SKILLTREE_SUCCESS,
+  props<{ ignoredByUndo?: boolean, skilltree: Skilltree }>()
+);
 
-  constructor(public payload: Skilltree) {
-  }
-}
+export const importSkilltreeFailed = createAction(
+  IMPORT_SKILLTREE_FAILED,
+  props<{ ignoredByUndo?: boolean, error: any }>()
+);
 
-export class SaveSkilltreesAction implements Action {
-  readonly type = SAVE_SKILLTREES;
-  readonly ignoredByUndo = true;
+export const copySkilltree = createAction(
+  COPY_SKILLTREE,
+  props<{ skilltree: Skilltree }>()
+);
 
-  constructor() {
-  }
-}
-
-export class SaveSkilltreesSuccessAction implements Action {
-  readonly type = SAVE_SKILLTREES_SUCCESS;
-  readonly ignoredByUndo = true;
-
-  constructor(public result: any) {
-  }
-}
-
-export class SaveSkilltreesFailedAction implements Action {
-  readonly type = SAVE_SKILLTREES_FAILED;
-  readonly ignoredByUndo = true;
-
-  constructor(public error: any) {
-  }
-}
-
-export class ImportLegacySkilltreeAction implements Action {
-  readonly type = IMPORT_LEGACY_SKILLTREE;
-
-  constructor(public payload: Skilltree) {
-  }
-}
-
-export class ImportSkilltreeAction implements Action {
-  readonly type = IMPORT_SKILLTREE;
-  readonly ignoredByUndo = true;
-
-  constructor(public skilltreeData: any) {
-  }
-}
-
-export class ImportSkilltreeSuccessAction implements Action {
-  readonly type = IMPORT_SKILLTREE_SUCCESS;
-
-  constructor(public payload: Skilltree) {
-  }
-}
-
-export class ImportSkilltreeFailedAction implements Action {
-  readonly type = IMPORT_SKILLTREE_FAILED;
-  readonly ignoredByUndo = true;
-
-  constructor(public error) {
-  }
-}
-
-export class CopySkilltreeAction implements Action {
-  readonly type = COPY_SKILLTREE;
-
-  constructor(public payload: Skilltree) {
-  }
-}
-
-export class UpdateSkilltreeOrderAction implements Action {
-  readonly type = UPDATE_SKILLTREE_ORDER;
-
-  constructor(public payload: { id: string, changes: { order: number } }[], public ignoredByUndo = true) {
-  }
-}
+export const updateSkilltreeOrder = createAction(
+  UPDATE_SKILLTREE_ORDER,
+  props<{ ignoredByUndo?: boolean, order: { id: string, changes: { order: number } }[] }>()
+);
 
 /**
  * Remove Skilltree Actions
  */
-export class RemoveSkilltreeAction implements Action {
-  readonly type = REMOVE_SKILLTREE;
 
-  constructor(public payload: Skilltree) {
-  }
-}
+export const removeSkilltree = createAction(
+  REMOVE_SKILLTREE,
+  props<{ skilltree: Skilltree }>()
+);
 
 /**
  * Remove Skilltree Actions
  */
-export class RenameSkilltreeAction implements Action {
-  readonly type = RENAME_SKILLTREE;
-
-  constructor(public newId: string, public oldId: string) {
-  }
-}
+export const renameSkilltree = createAction(
+  RENAME_SKILLTREE,
+  props<{ newId: string, oldId: string }>()
+);
 
 /**
  * Update Skilltree Actions
  */
-export class UpdateSkilltreeInfoAction implements Action {
-  readonly type = UPDATE_SKILLTREE_INFO;
 
-  constructor(public payload: { changes: any, id: string }) {
-  }
-}
+export const updateSkilltreeInfo = createAction(
+  UPDATE_SKILLTREE_INFO,
+  props<{ id: string, changes: any }>()
+);
 
-export class UpdateSkilltreeUpgradeAction implements Action {
-  readonly type = UPDATE_SKILLTREE_UPGRADE;
-
-  constructor(public payload: { changes: any, id: string }) {
-  }
-}
-
-export type Actions
-  = AddSkilltreeAction
-  | LoadSkilltreeAction
-  | LoadSkilltreeSuccessAction
-  | LoadSkilltreeFailedAction
-  | LoadSkilltreesAction
-  | LoadSkilltreesFailedAction
-  | SaveSkilltreesAction
-  | SaveSkilltreesSuccessAction
-  | SaveSkilltreesFailedAction
-  | ImportLegacySkilltreeAction
-  | ImportSkilltreeAction
-  | ImportSkilltreeSuccessAction
-  | ImportSkilltreeFailedAction
-  | CopySkilltreeAction
-  | UpdateSkilltreeOrderAction
-  | RemoveSkilltreeAction
-  | RenameSkilltreeAction
-  | UpdateSkilltreeInfoAction
-  | UpdateSkilltreeUpgradeAction
+export const updateSkilltreeUpgrade = createAction(
+  UPDATE_SKILLTREE_INFO,
+  props<{ id: string, changes: any }>()
+);

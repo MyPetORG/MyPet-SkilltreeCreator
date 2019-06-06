@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
-import { Skilltree } from "../../models/skilltree";
-import { MobTypeSelectDialogComponent } from "../mob-type-select-dialog/mob-type-select-dialog.component";
-import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
-import { FormControl } from "@angular/forms";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../store/reducers/index";
-import * as SkilltreeActions from "../../store/actions/skilltree";
-import { Observable, Subscription } from "rxjs";
-import { TranslateService } from "@ngx-translate/core";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
-import { SkilltreeChangeIconDialogComponent } from "../skilltree-change-icon-dialog/skilltree-change-icon-dialog.component";
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Observable, Subscription } from 'rxjs';
+import { Skilltree } from '../../models/skilltree';
+import { renameSkilltree, updateSkilltreeInfo } from '../../store/actions/skilltree';
+import * as Reducers from '../../store/reducers/index';
+import { MobTypeSelectDialogComponent } from '../mob-type-select-dialog/mob-type-select-dialog.component';
+import { SkilltreeChangeIconDialogComponent } from '../skilltree-change-icon-dialog/skilltree-change-icon-dialog.component';
 
 @AutoUnsubscribe()
 @Component({
@@ -49,10 +50,10 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         this.weight.setValue(skilltree.weight);
         this.maxLevel.setValue(skilltree.maxLevel);
         if (skilltree.description) {
-          this.description.setValue(skilltree.description.join("\n"));
+          this.description.setValue(skilltree.description.join('\n'));
           this._description = skilltree.description;
         } else {
-          this.description.setValue("");
+          this.description.setValue('');
           this._description = [];
         }
         if (skilltree.inheritance) {
@@ -78,7 +79,7 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   parseTextArea() {
-    this._description = this.description.value.split("\n");
+    this._description = this.description.value.split('\n');
   }
 
   selectMobType() {
@@ -91,8 +92,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         result.forEach(type => {
           mobtypes.push(type.name);
         });
-        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
-          changes: {mobtypes},
+        this.store.dispatch(updateSkilltreeInfo({
+          changes: { mobtypes },
           id: this.skilltree.id
         }));
       }
@@ -105,8 +106,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
     let dialogRef = this.dialog.open(SkilltreeChangeIconDialogComponent, conf);
     dialogRef.afterClosed().subscribe(icon => {
       if (icon) {
-        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
-          changes: {icon},
+        this.store.dispatch(updateSkilltreeInfo({
+          changes: { icon },
           id: this.skilltree.id
         }));
       }
@@ -115,8 +116,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
 
   update(field, control: FormControl) {
     if (this.skilltree[field] != control.value && control.errors == null) {
-      this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
-        changes: {[field]: control.value},
+      this.store.dispatch(updateSkilltreeInfo({
+        changes: { [field]: control.value },
         id: this.skilltree.id
       }));
     }
@@ -125,8 +126,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   updateInheritance(field, control: FormControl) {
     if (control.errors == null) {
       if (!control.value) {
-        this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
-          changes: {inheritance: null},
+        this.store.dispatch(updateSkilltreeInfo({
+          changes: { inheritance: null },
           id: this.skilltree.id
         }));
       } else {
@@ -135,8 +136,8 @@ export class SkilltreePropertiesComponent implements OnDestroy {
           inheritance = this.skilltree.inheritance;
         }
         if (inheritance[field] != control.value) {
-          this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
-            changes: {inheritance: {[field]: control.value}},
+          this.store.dispatch(updateSkilltreeInfo({
+            changes: { inheritance: { [field]: control.value } },
             id: this.skilltree.id
           }));
         }
@@ -145,15 +146,15 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   }
 
   updateDescription() {
-    this.store.dispatch(new SkilltreeActions.UpdateSkilltreeInfoAction({
-      changes: {description: this.description.value.split("\n")},
+    this.store.dispatch(updateSkilltreeInfo({
+      changes: { description: this.description.value.split('\n') },
       id: this.skilltree.id
     }));
   }
 
   rename(control: FormControl) {
     if (this.skilltree.id != control.value && control.errors == null) {
-      this.store.dispatch(new SkilltreeActions.RenameSkilltreeAction(control.value, this.skilltree.id));
+      this.store.dispatch(renameSkilltree({ newId: control.value, oldId: this.skilltree.id }));
     }
   }
 }

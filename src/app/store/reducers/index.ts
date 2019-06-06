@@ -1,12 +1,12 @@
-import { createSelector } from "reselect";
-import * as fromRouter from "@ngrx/router-store";
-import { ActionReducerMap } from "@ngrx/store";
-import * as fromLayout from "./layout";
-import * as fromSkilltree from "./skilltree";
-import { Skilltree } from "../../models/skilltree";
-import { SkillInfo } from "../../data/skills";
-import * as fromUndoable from "./undoable";
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
+import * as fromRouter from '@ngrx/router-store';
+import { ActionReducerMap } from '@ngrx/store';
+import { createSelector } from 'reselect';
+import { SkillInfo } from '../../data/skills';
+import { Skilltree } from '../../models/skilltree';
+import * as fromLayout from './layout';
+import * as fromSkilltree from './skilltree';
+import * as fromUndoable from './undoable';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -32,13 +32,11 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const reducerToken = new InjectionToken<ActionReducerMap<State>>(
-  'Registered Reducers'
+  'Registered Reducers',
+  {
+    factory: () => reducers
+  }
 );
-Object.assign(reducerToken, reducers);
-
-export function getReducers() {
-  return reducers;
-}
 
 
 /**

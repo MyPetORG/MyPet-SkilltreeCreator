@@ -1,5 +1,6 @@
-import * as layout from "../actions/layout";
-import { SkillInfo, Skills } from "../../data/skills";
+import { createReducer, on } from '@ngrx/store';
+import { SkillInfo, Skills } from '../../data/skills';
+import * as LayoutActions from '../actions/layout';
 
 
 export interface State {
@@ -17,53 +18,20 @@ const initialState: State = {
   tab: 0,
   skill: Skills[0],
   selectedSkilltreeId: null,
-  language: "",
+  language: '',
 };
 
-export function reducer(state = initialState, action: layout.Actions): State {
-  switch (action.type) {
-    case layout.CLOSE_SIDENAV:
-      return Object.assign({}, state, {
-        showSidenav: false
-      });
+export const reducer = createReducer(
+  initialState,
 
-    case layout.OPEN_SIDENAV:
-      return Object.assign({}, state, {
-        showSidenav: true
-      });
-
-    case layout.SWITCH_TAB:
-      return Object.assign({}, state, {
-        tab: action.payload
-      });
-
-    case layout.SELECT_SKILL:
-      return Object.assign({}, state, {
-        skill: action.payload
-      });
-
-    case layout.SELECT_SKILLTREE: {
-      return Object.assign({}, state, {
-        selectedSkilltreeId: action.payload
-      });
-    }
-
-    case layout.CHANGE_LANGUAGE: {
-      return Object.assign({}, state, {
-        language: action.payload
-      });
-    }
-
-    case layout.APP_LOADED: {
-      return Object.assign({}, state, {
-        loaded: true
-      });
-    }
-
-    default:
-      return state;
-  }
-}
+  on(LayoutActions.closeSidenav, state => ({ ...state, showSidenav: false })),
+  on(LayoutActions.openSidenav, state => ({ ...state, showSidenav: true })),
+  on(LayoutActions.switchTab, (state, { tab }) => ({ ...state, tab })),
+  on(LayoutActions.selectSkill, (state, { skill }) => ({ ...state, skill })),
+  on(LayoutActions.selectSkilltree, (state, { skilltree }) => ({ ...state, selectedSkilltreeId: skilltree })),
+  on(LayoutActions.changeLanguage, (state, { language }) => ({ ...state, language })),
+  on(LayoutActions.appLoaded, (state) => ({ ...state, loaded: true })),
+);
 
 export const getShowSidenav = (state: State) => state.showSidenav;
 export const getTab = (state: State) => state.tab;

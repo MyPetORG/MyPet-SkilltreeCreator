@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { Skill } from "../../../models/skill";
-import { Knockback, KnockbackDefault } from "../../../models/skills/knockback";
-import { StateService } from "../../../services/state.service";
-import { MatDialog } from "@angular/material";
-import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { LevelRule } from "../../../util/helpers";
-import { Skilltree } from "../../../models/skilltree";
-import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs";
-import * as Reducers from "../../../store/reducers";
-import { SkillInfo } from "../../../data/skills";
-import { select, Store } from "@ngrx/store";
-import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { SkillInfo } from '../../../data/skills';
+import { Skill } from '../../../models/skill';
+import { Knockback, KnockbackDefault } from '../../../models/skills/knockback';
+import { Skilltree } from '../../../models/skilltree';
+import { Upgrade } from '../../../models/upgrade';
+import { StateService } from '../../../services/state.service';
+import { updateSkilltreeUpgrade } from '../../../store/actions/skilltree';
+import * as Reducers from '../../../store/reducers';
+import { LevelRule } from '../../../util/helpers';
+import { UpgradeAddDialogComponent } from '../../upgrade-add-dialog/upgrade-add-dialog.component';
 
 @Component({
   selector: 'stc-knockback-skill',
@@ -43,7 +43,7 @@ export class KnockbackSkillComponent {
     if (changes.Knockback[changes.Knockback.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes.Knockback[skilltree.skills.Knockback.indexOf(upgrade)][field] = value;
-      this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     }
   }
 
@@ -60,7 +60,7 @@ export class KnockbackSkillComponent {
 
           let knockback: Knockback = Object.assign({rule: result}, new KnockbackDefault);
           changes.skills.Knockback.push(knockback);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
+          this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }
       });
     }
@@ -69,7 +69,7 @@ export class KnockbackSkillComponent {
   deleteRule(skilltree: Skilltree, upgrade) {
     let changes = JSON.parse(JSON.stringify(skilltree.skills));
     changes.Knockback.splice(skilltree.skills.Knockback.indexOf(upgrade), 1);
-    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     this.selectedUpgrade = -1;
   }
 

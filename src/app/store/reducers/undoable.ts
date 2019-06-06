@@ -1,4 +1,4 @@
-import { Action } from "@ngrx/store";
+import { Action, createAction } from '@ngrx/store';
 
 export interface UndoableState<T> {
   past: T[],
@@ -13,6 +13,9 @@ export class UndoAction implements Action {
   readonly type = UNDO;
 }
 
+export const undo = createAction(UNDO);
+export const redo = createAction(REDO);
+
 export class RedoAction implements Action {
   readonly type = REDO;
 }
@@ -26,12 +29,12 @@ export const undoable = reducer => {
 
   const initialState: UndoableState<any> = {
     past: [],
-    present: reducer(undefined, {type: '__INIT__'}),
+    present: reducer(undefined, { type: '__INIT__' }),
     future: []
   };
 
   return function (state = initialState, action) {
-    const {past, present, future} = state;
+    const { past, present, future } = state;
 
     //if reset action is fired, return initial state
     switch (action.type) {

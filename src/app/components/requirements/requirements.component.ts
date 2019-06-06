@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Observable } from "rxjs";
-import { Skilltree } from "../../models/skilltree";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../store/reducers";
-import { UpdateSkilltreeInfoAction } from "../../store/actions/skilltree";
-import { map } from "rxjs/operators";
-import { MatSnackBar } from "@angular/material";
-import { TranslateService } from "@ngx-translate/core";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Skilltree } from '../../models/skilltree';
+import { updateSkilltreeInfo } from '../../store/actions/skilltree';
+import * as Reducers from '../../store/reducers';
 
 @Component({
   selector: 'stc-requirements',
@@ -61,20 +61,20 @@ export class RequirementsComponent {
   addRequirement(skilltree: Skilltree) {
     let changes = JSON.parse(JSON.stringify(skilltree.requirements));
     changes.push(this.knownTypes[0]);
-    this.store.dispatch(new UpdateSkilltreeInfoAction({changes: {requirements: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
   }
 
   deleteRequirement(skilltree: Skilltree, index) {
     let changes = JSON.parse(JSON.stringify(skilltree.requirements));
     changes.splice(index, 1);
-    this.store.dispatch(new UpdateSkilltreeInfoAction({changes: {requirements: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
     this.selected = 0;
   }
 
   changeRequirementType(index, skilltree, newType: string) {
     let changes = JSON.parse(JSON.stringify(skilltree.requirements));
     changes[index] = newType;
-    this.store.dispatch(new UpdateSkilltreeInfoAction({changes: {requirements: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
   }
 
   update(skilltree: Skilltree, id, value) {
@@ -82,7 +82,7 @@ export class RequirementsComponent {
     if (changes[id] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes[id] = value;
-      this.store.dispatch(new UpdateSkilltreeInfoAction({changes: {requirements: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
     }
   }
 }

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatSnackBar } from "@angular/material";
-import { TranslateService } from "@ngx-translate/core";
-import { Skilltree } from "../../../../models/skilltree";
-import { FormControl } from "@angular/forms";
+import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
+import { Skilltree } from '../../../../models/skilltree';
 
 @Component({
   selector: 'stc-requirement-permission',

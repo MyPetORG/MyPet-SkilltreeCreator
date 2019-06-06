@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { MatSnackBar } from "@angular/material";
-import { TranslateService } from "@ngx-translate/core";
-import { Skilltree } from "../../../../models/skilltree";
-import { FormControl } from "@angular/forms";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../../../store/reducers";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
+import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Skilltree } from '../../../../models/skilltree';
+import * as Reducers from '../../../../store/reducers';
 
 @AutoUnsubscribe()
 @Component({

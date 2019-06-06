@@ -1,17 +1,18 @@
-import { Component } from "@angular/core";
-import { MAT_CHECKBOX_CLICK_ACTION, MatDialog } from "@angular/material";
-import { StateService } from "../../../services/state.service";
-import { UpgradeAddDialogComponent } from "../../upgrade-add-dialog/upgrade-add-dialog.component";
-import { Skill } from "../../../models/skill";
-import { LevelRule } from "../../../util/helpers";
-import { Skilltree } from "../../../models/skilltree";
-import { Upgrade } from "../../../models/upgrade";
-import { Observable } from "rxjs";
-import { Behavior, BehaviorDefault } from "../../../models/skills/behavior";
-import * as Reducers from "../../../store/reducers";
-import { SkillInfo } from "../../../data/skills";
-import { select, Store } from "@ngrx/store";
-import { UpdateSkilltreeUpgradeAction } from "../../../store/actions/skilltree";
+import { Component } from '@angular/core';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { SkillInfo } from '../../../data/skills';
+import { Skill } from '../../../models/skill';
+import { Behavior, BehaviorDefault } from '../../../models/skills/behavior';
+import { Skilltree } from '../../../models/skilltree';
+import { Upgrade } from '../../../models/upgrade';
+import { StateService } from '../../../services/state.service';
+import { updateSkilltreeUpgrade } from '../../../store/actions/skilltree';
+import * as Reducers from '../../../store/reducers';
+import { LevelRule } from '../../../util/helpers';
+import { UpgradeAddDialogComponent } from '../../upgrade-add-dialog/upgrade-add-dialog.component';
 
 @Component({
   selector: 'stc-behavior-skill',
@@ -43,7 +44,7 @@ export class BehaviorSkillComponent {
     if (changes.Behavior[changes.Behavior.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes.Behavior[skilltree.skills.Behavior.indexOf(upgrade)][field] = value;
-      this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     }
   }
 
@@ -63,7 +64,7 @@ export class BehaviorSkillComponent {
     }
     changes = JSON.parse(JSON.stringify(changes));
     changes.Behavior[skilltree.skills.Behavior.indexOf(upgrade)][field] = value;
-    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
   }
 
   addUpgrade(skilltree: Skilltree) {
@@ -79,7 +80,7 @@ export class BehaviorSkillComponent {
 
           let behavior: Behavior = Object.assign({rule: result}, new BehaviorDefault);
           changes.skills.Behavior.push(behavior);
-          this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes, id: skilltree.id}));
+          this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }
       });
     }
@@ -88,7 +89,7 @@ export class BehaviorSkillComponent {
   deleteRule(skilltree: Skilltree, upgrade) {
     let changes = JSON.parse(JSON.stringify(skilltree.skills));
     changes.Behavior.splice(skilltree.skills.Behavior.indexOf(upgrade), 1);
-    this.store.dispatch(new UpdateSkilltreeUpgradeAction({changes: {skills: changes}, id: skilltree.id}));
+    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     this.selectedUpgrade = -1;
   }
 

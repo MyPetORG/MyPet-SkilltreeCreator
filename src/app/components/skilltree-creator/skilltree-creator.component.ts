@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { Observable } from "rxjs";
-import { select, Store } from "@ngrx/store";
-import * as Reducers from "../../store/reducers/index";
-import * as LayoutActions from "../../store/actions/layout";
-import { CloseAction } from "../../store/actions/layout";
-import * as SkilltreeActions from "../../store/actions/skilltree";
-import { NavigationEnd, Router } from "@angular/router";
-import { RedoAction, UndoAction } from "../../store/reducers/undoable";
-import { MatDialog, MatSnackBar } from "@angular/material";
-import { SkilltreeImportDialogComponent } from "../skilltree-import-dialog/skilltree-import-dialog.component";
-import { WebsocketService } from "../../services/websocket.service";
-import { TranslateService } from "@ngx-translate/core";
-import { languages } from "../../data/languages";
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavigationEnd, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { languages } from '../../data/languages';
+import { WebsocketService } from '../../services/websocket.service';
+import { changeLanguage, closeApp, closeSidenav, openSidenav } from '../../store/actions/layout';
+import { importSkilltree, saveSkilltrees } from '../../store/actions/skilltree';
+import * as Reducers from '../../store/reducers/index';
+import { RedoAction, UndoAction } from '../../store/reducers/undoable';
+import { SkilltreeImportDialogComponent } from '../skilltree-import-dialog/skilltree-import-dialog.component';
 
 @Component({
   selector: 'skilltree-creator',
@@ -36,14 +36,14 @@ export class SkilltreeCreatorComponent {
     this.websocket.connect().subscribe(
       (packet: any) => {
         switch (packet.action) {
-          case "SERVER_STOP":
-            this.translate.get("COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN")
+          case 'SERVER_STOP':
+            this.translate.get('COMPONENTS__SKILLTREE_CREATOR__SHUTDOWN')
               .subscribe((trans) => {
-                this.snackBar.open(trans, null, {duration: 2000,});
+                this.snackBar.open(trans, null, { duration: 2000, });
               });
             break;
-          case "CHANGE_LANGUAGE":
-            this.store.dispatch(new LayoutActions.ChangeLanguageAction(packet.data));
+          case 'CHANGE_LANGUAGE':
+            this.store.dispatch(changeLanguage({ language: packet.data }));
             break;
         }
       });
@@ -56,25 +56,25 @@ export class SkilltreeCreatorComponent {
 
     this.router.events.subscribe(data => {
       if (data instanceof NavigationEnd) {
-        this.isRootPath = data.url == "/";
+        this.isRootPath = data.url == '/';
       }
     });
   }
 
   back() {
-    this.router.navigate(["/"]);
+    this.router.navigate(['/']);
   }
 
   openSidenav() {
-    this.store.dispatch(new LayoutActions.OpenSidenavAction());
+    this.store.dispatch(openSidenav());
   }
 
   closeSidenav() {
-    this.store.dispatch(new LayoutActions.CloseSidenavAction());
+    this.store.dispatch(closeSidenav());
   }
 
   save() {
-    this.store.dispatch(new SkilltreeActions.SaveSkilltreesAction());
+    this.store.dispatch(saveSkilltrees({ ignoredByUndo: true }));
   }
 
   undo() {
@@ -86,15 +86,15 @@ export class SkilltreeCreatorComponent {
   }
 
   close() {
-    this.store.dispatch(new CloseAction());
+    this.store.dispatch(closeApp());
   }
 
   importSkilltree() {
     this.closeSidenav();
     let dialogRef = this.dialog.open(SkilltreeImportDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.store.dispatch(new SkilltreeActions.ImportSkilltreeAction(result));
+    dialogRef.afterClosed().subscribe(skilltreeData => {
+      if (skilltreeData) {
+        this.store.dispatch(importSkilltree({ skilltreeData }));
       }
     });
   }
@@ -103,6 +103,6 @@ export class SkilltreeCreatorComponent {
     let index = languages.findIndex(lang => lang.key.toLowerCase() == current.toLowerCase());
     index = (index + 1) % languages.length;
     let nextLanguage = languages[index];
-    this.store.dispatch(new LayoutActions.ChangeLanguageAction(nextLanguage.key));
+    this.store.dispatch(changeLanguage({ language: nextLanguage.key }));
   }
 }

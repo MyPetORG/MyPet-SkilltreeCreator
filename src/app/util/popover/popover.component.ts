@@ -1,33 +1,29 @@
+import { AnimationEvent } from '@angular/animations';
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DOCUMENT } from '@angular/common';
 import {
   Component,
   ElementRef,
   EventEmitter,
   Inject,
   Input,
-  ViewChild,
-  ViewEncapsulation,
-  TemplateRef,
   OnDestroy,
   OnInit,
   Optional,
   Output,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
-import { AnimationEvent } from '@angular/animations';
-import { DOCUMENT } from '@angular/platform-browser';
-import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { NotificationAction, PopoverNotification, PopoverNotificationService, } from './notification.service';
 
 import { transformPopover } from './popover.animations';
 import {
-  NotificationAction,
-  PopoverNotification,
-  PopoverNotificationService,
-} from './notification.service';
-import {
-  getUnanchoredPopoverError,
   getInvalidHorizontalAlignError,
-  getInvalidVerticalAlignError,
   getInvalidScrollStrategyError,
+  getInvalidVerticalAlignError,
+  getUnanchoredPopoverError,
 } from './popover.errors';
 
 export type SatPopoverScrollStrategy = 'noop' | 'block' | 'reposition' | 'close';
@@ -241,7 +237,7 @@ export class SatPopover implements OnInit, OnDestroy {
   @Output() overlayKeydown = new EventEmitter<KeyboardEvent>();
 
   /** Reference to template so it can be placed within a portal. */
-  @ViewChild(TemplateRef) _templateRef: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) _templateRef: TemplateRef<any>;
 
   /** Classes to be added to the popover for setting the correct transform origin. */
   _classList: any = {};
@@ -253,7 +249,7 @@ export class SatPopover implements OnInit, OnDestroy {
   _notifications: PopoverNotificationService;
 
   /** Reference to the element to build a focus trap around. */
-  @ViewChild('focusTrapElement')
+  @ViewChild('focusTrapElement', { static: false })
   private _focusTrapElement: ElementRef;
 
   /** Reference to the element that was focused before opening. */

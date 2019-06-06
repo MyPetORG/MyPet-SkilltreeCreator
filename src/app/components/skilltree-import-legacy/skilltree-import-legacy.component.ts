@@ -1,37 +1,39 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { MatSelectionList, MatSnackBar, MatStepper } from "@angular/material";
-import { NbtImportService } from "../../services/nbt-import.service";
-import * as Reducers from "../../store/reducers";
-import { select, Store } from "@ngrx/store";
-import { Skilltree } from "../../models/skilltree";
-import { Subscription } from "rxjs";
-import { MobTypes } from "../../data/mob-types";
-import * as SkilltreeActions from "../../store/actions/skilltree";
-import { LevelRule } from "../../models/level-rule";
-import { Upgrade } from "../../models/upgrade";
-import { Backpack } from "../../models/skills/backpack";
-import { Behavior } from "../../models/skills/behavior";
-import { Thorns } from "../../models/skills/thorns";
-import { Damage } from "../../models/skills/damage";
-import { Ranged } from "../../models/skills/ranged";
-import { Control } from "../../models/skills/control";
-import { Pickup } from "../../models/skills/pickup";
-import { Sprint } from "../../models/skills/sprint";
-import { Ride } from "../../models/skills/ride";
-import { Slow } from "../../models/skills/slow";
-import { Poison } from "../../models/skills/poison";
-import { Knockback } from "../../models/skills/knockback";
-import { Wither } from "../../models/skills/wither";
-import { Fire } from "../../models/skills/fire";
-import { Lightning } from "../../models/skills/lightning";
-import { Stomp } from "../../models/skills/stomp";
-import { Shield } from "../../models/skills/shield";
-import { Life } from "../../models/skills/life";
-import { Heal } from "../../models/skills/heal";
-import { Beacon, BeaconDefault } from "../../models/skills/beacon";
-import { Router } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatSelectionList } from '@angular/material/list';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { Subscription } from 'rxjs';
+import { MobTypes } from '../../data/mob-types';
+import { LevelRule } from '../../models/level-rule';
+import { Backpack } from '../../models/skills/backpack';
+import { Beacon, BeaconDefault } from '../../models/skills/beacon';
+import { Behavior } from '../../models/skills/behavior';
+import { Control } from '../../models/skills/control';
+import { Damage } from '../../models/skills/damage';
+import { Fire } from '../../models/skills/fire';
+import { Heal } from '../../models/skills/heal';
+import { Knockback } from '../../models/skills/knockback';
+import { Life } from '../../models/skills/life';
+import { Lightning } from '../../models/skills/lightning';
+import { Pickup } from '../../models/skills/pickup';
+import { Poison } from '../../models/skills/poison';
+import { Ranged } from '../../models/skills/ranged';
+import { Ride } from '../../models/skills/ride';
+import { Shield } from '../../models/skills/shield';
+import { Slow } from '../../models/skills/slow';
+import { Sprint } from '../../models/skills/sprint';
+import { Stomp } from '../../models/skills/stomp';
+import { Thorns } from '../../models/skills/thorns';
+import { Wither } from '../../models/skills/wither';
+import { Skilltree } from '../../models/skilltree';
+import { Upgrade } from '../../models/upgrade';
+import { NbtImportService } from '../../services/nbt-import.service';
+import { importLegacySkilltree } from '../../store/actions/skilltree';
+import * as Reducers from '../../store/reducers';
 
 @AutoUnsubscribe()
 @Component({
@@ -41,8 +43,8 @@ import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 })
 export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
 
-  @ViewChild("stepper") stepper: MatStepper;
-  @ViewChild("selectedSkilltreeNames") selectedSkilltreeNames: MatSelectionList;
+  @ViewChild('stepper', { static: true }) stepper: MatStepper;
+  @ViewChild('selectedSkilltreeNames', { static: true }) selectedSkilltreeNames: MatSelectionList;
 
   stepCompleted: boolean[] = [false, false, false];
   types = [];
@@ -252,7 +254,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
             });
           });
 
-          this.store.dispatch(new SkilltreeActions.ImportLegacySkilltreeAction(skilltree));
+          this.store.dispatch(importLegacySkilltree({ skilltree }));
         }
       });
 

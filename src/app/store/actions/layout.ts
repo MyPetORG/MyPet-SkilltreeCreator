@@ -1,5 +1,5 @@
-import { Action } from "@ngrx/store";
-import { SkillInfo } from "../../data/skills";
+import { createAction, props } from '@ngrx/store';
+import { SkillInfo } from '../../data/skills';
 
 export const OPEN_SIDENAV = 'OPEN_SIDENAV';
 export const CLOSE_SIDENAV = 'CLOSE_SIDENAV';
@@ -11,62 +11,30 @@ export const APP_LOADED = 'APP_LOADED';
 export const CLOSE_APP = 'CLOSE_APP';
 
 
-export class OpenSidenavAction implements Action {
-  readonly type = OPEN_SIDENAV;
-}
+export const openSidenav = createAction(OPEN_SIDENAV);
 
-export class CloseSidenavAction implements Action {
-  readonly type = CLOSE_SIDENAV;
-}
+export const closeSidenav = createAction(CLOSE_SIDENAV);
 
-export class SwitchTabAction implements Action {
-  readonly type = SWITCH_TAB;
+export const switchTab = createAction(
+  SWITCH_TAB,
+  props<{ tab: number }>()
+);
 
-  constructor(public payload: number) {
-  }
-}
+export const closeApp = createAction(CLOSE_APP);
 
-export class CloseAction implements Action {
-  readonly type = CLOSE_APP;
+export const selectSkill = createAction(
+  SELECT_SKILL,
+  props<{ skill: SkillInfo | null }>()
+);
 
-  constructor() {
-  }
-}
+export const selectSkilltree = createAction(
+  SELECT_SKILLTREE,
+  props<{ skilltree: string | null }>()
+);
 
-export class SelectSkillAction implements Action {
-  readonly type = SELECT_SKILL;
+export const changeLanguage = createAction(
+  CHANGE_LANGUAGE,
+  props<{ language: string }>()
+);
 
-  constructor(public payload: SkillInfo) {
-  }
-}
-
-export class SelectSkilltreeAction implements Action {
-  readonly type = SELECT_SKILLTREE;
-
-  constructor(public payload: string | null) {
-  }
-}
-
-export class ChangeLanguageAction implements Action {
-  readonly type = CHANGE_LANGUAGE;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class AppLoadedAction implements Action {
-  readonly type = APP_LOADED;
-
-  constructor() {
-  }
-}
-
-export type Actions
-  = OpenSidenavAction
-  | CloseSidenavAction
-  | SwitchTabAction
-  | SelectSkillAction
-  | SelectSkilltreeAction
-  | ChangeLanguageAction
-  | AppLoadedAction
-  | CloseAction;
+export const appLoaded = createAction(APP_LOADED);

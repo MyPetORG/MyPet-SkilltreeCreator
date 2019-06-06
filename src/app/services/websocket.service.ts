@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment";
-import { Observable, Subscriber, timer } from "rxjs";
+import { Observable, Subscriber, timer } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class WebsocketService {
@@ -13,7 +13,7 @@ export class WebsocketService {
     timer(1000, 2500)
       .subscribe(() => {
         if (this.isConnected()) {
-          this.send({action: "PING", data: Date.now()});
+          this.send({ action: 'PING', data: Date.now() });
         } else {
           if (this.getConnectionStatus() == WebSocket.CLOSED) {
             try {
@@ -43,7 +43,7 @@ export class WebsocketService {
   connect(): Observable<string> {
     if (!this.isConnected()) {
       if (environment.websocketUrl) {
-        this.ws = new WebSocket("ws://" + environment.websocketUrl + "/websocket");
+        this.ws = new WebSocket('ws://' + environment.websocketUrl + '/websocket');
         this.ws.onmessage = (event) => {
           try {
             let jsonData = JSON.parse(event.data);

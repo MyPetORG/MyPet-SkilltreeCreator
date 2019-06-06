@@ -1,13 +1,15 @@
-import { Component, Inject, OnDestroy } from "@angular/core";
-import { MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar } from "@angular/material";
-import { LevelRule } from "../../models/level-rule";
-import { COMMA, ENTER, SPACE } from "@angular/cdk/keycodes";
-import * as Reducers from "../../store/reducers";
-import { select, Store } from "@ngrx/store";
-import { Upgrade } from "../../models/upgrade";
-import { isArray } from "util";
-import { TranslateService } from "@ngx-translate/core";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { Component, Inject, OnDestroy } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { isArray } from 'util';
+import { LevelRule } from '../../models/level-rule';
+import { Upgrade } from '../../models/upgrade';
+import * as Reducers from '../../store/reducers';
 
 @AutoUnsubscribe()
 @Component({
