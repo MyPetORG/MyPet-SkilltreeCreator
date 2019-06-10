@@ -1,5 +1,5 @@
-import { Upgrade } from "./upgrade";
-import { LevelRule } from "./level-rule";
+import { LevelRule } from './level-rule';
+import { Upgrades } from './skills';
 
 export interface Skilltree {
   id: string
@@ -11,7 +11,7 @@ export interface Skilltree {
     glowing?: boolean
   }
   description?: string[]
-  skills: { [name: string]: Upgrade[] }
+  skills: Upgrades
   mobtypes: string[]
   requiredLevel?: number
   maxLevel?: number
