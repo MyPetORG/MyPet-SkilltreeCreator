@@ -44,9 +44,9 @@ export const reducer = createReducer(
     changes: { id: newId },
     id: oldId
   }, state)),
-  on(SkilltreeActions.updateSkilltreeInfo, (state, { changes }) => adapter.updateOne(changes, state)),
+  on(SkilltreeActions.updateSkilltreeInfo, (state, changes) => adapter.updateOne(changes, state)),
   on(SkilltreeActions.updateSkilltreeOrder, (state, { order }) => adapter.updateMany(order, state)),
-  on(SkilltreeActions.updateSkilltreeUpgrade, (state, { changes }) => adapter.updateOne(changes, state)),
+  on(SkilltreeActions.updateSkilltreeUpgrade, (state, changes) => adapter.updateOne(changes, state)),
 );
 
 export const {
