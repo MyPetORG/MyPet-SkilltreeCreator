@@ -1,0 +1,68 @@
+<h1 mat-dialog-title>
+  {{ 'COMPONENTS__UPGRADE_DIALOG__' + (edit ? 'EDIT' : 'ADD') + '_UPGRADE' | translate }}
+</h1>
+<div mat-dialog-content>
+  <mat-tab-group [(selectedIndex)]="type" [dynamicHeight]="true">
+    <mat-tab [label]="'COMPONENTS__UPGRADE_DIALOG__FIXED' | translate">
+      <div fxLayout="column">
+        <mat-form-field class="demo-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let l of level" (removed)="removeLevel(l)" [selectable]="false">
+              {{l}}
+              <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
+            </mat-chip>
+            <input [placeholder]="'COMPONENTS__UPGRADE_DIALOG__LEVELS' | translate"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   (matChipInputTokenEnd)="addLevel($event)"/>
+          </mat-chip-list>
+        </mat-form-field>
+
+        <span fxLayout="row">
+          <button mat-raised-button (click)="done()" color="primary" [disabled]="level.length == 0" fxFlex="50">
+            {{ 'COMPONENTS__UPGRADE_DIALOG__DONE' | translate }}
+          </button>
+          <button mat-button mat-dialog-close fxFlex="50">
+            {{ 'COMPONENTS__UPGRADE_DIALOG__CANCEL' | translate }}
+          </button>
+        </span>
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'COMPONENTS__UPGRADE_DIALOG__DYNAMIC' | translate">
+      <div fxLayout="column">
+        <mat-form-field>
+          <span matPrefix>{{ 'COMPONENTS__UPGRADE_DIALOG__EVERY' | translate }}&nbsp;</span>
+          <input matInput [placeholder]="'COMPONENTS__UPGRADE_DIALOG__REQUIRED' | translate"
+                 [(ngModel)]="every" type="number" required pattern="\d+" #everyInput="ngModel">
+          <span matSuffix="">&nbsp;{{ 'COMPONENTS__UPGRADE_DIALOG__LEVEL' | translate }}</span>
+        </mat-form-field>
+
+        <mat-form-field>
+          <span matPrefix>{{ 'COMPONENTS__UPGRADE_DIALOG__START_LEVEL' | translate }}&nbsp;</span>
+          <input matInput [placeholder]="'COMPONENTS__UPGRADE_DIALOG__OPTIONAL' | translate"
+                 [(ngModel)]="minimum" type="number" pattern="\d+" #minimumInput="ngModel">
+        </mat-form-field>
+
+        <mat-form-field>
+          <span matPrefix>{{ 'COMPONENTS__UPGRADE_DIALOG__UNTIL_LEVEL' | translate }}&nbsp;</span>
+          <input matInput [placeholder]="'COMPONENTS__UPGRADE_DIALOG__OPTIONAL' | translate"
+                 [(ngModel)]="limit" type="number" pattern="\d+" #limitInput="ngModel">
+        </mat-form-field>
+
+        <span fxLayout="row">
+          <button mat-raised-button
+                  (click)="done()"
+                  color="primary"
+                  fxFlex="50"
+                  [disabled]="everyInput.errors != null || minimumInput.errors != null || limitInput.errors != null">
+            {{ 'COMPONENTS__UPGRADE_DIALOG__DONE' | translate }}
+          </button>
+          <button mat-button mat-dialog-close fxFlex="50">
+            {{ 'COMPONENTS__UPGRADE_DIALOG__CANCEL' | translate }}
+          </button>
+        </span>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

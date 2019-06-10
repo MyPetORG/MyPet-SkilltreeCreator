@@ -12,7 +12,7 @@ import { StateService } from '../../../services/state.service';
 import { updateSkilltreeUpgrade } from '../../../store/actions/skilltree';
 import * as Reducers from '../../../store/reducers';
 import { LevelRule } from '../../../util/helpers';
-import { UpgradeAddDialogComponent } from '../../upgrade-add-dialog/upgrade-add-dialog.component';
+import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.component';
 
 @Component({
   selector: 'stc-behavior-skill',
@@ -69,7 +69,7 @@ export class BehaviorSkillComponent {
 
   addUpgrade(skilltree: Skilltree) {
     if (skilltree) {
-      let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
+      let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
@@ -91,6 +91,22 @@ export class BehaviorSkillComponent {
     changes.Behavior.splice(skilltree.skills.Behavior.indexOf(upgrade), 1);
     this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     this.selectedUpgrade = -1;
+  }
+
+  editRule(skilltree: Skilltree, upgrade) {
+    let dialogRef = this.dialog.open(UpgradeDialogComponent, {
+      data: {
+        edit: true,
+        upgrade,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let changes = JSON.parse(JSON.stringify(skilltree.skills));
+        changes.Behavior[skilltree.skills.Behavior.indexOf(upgrade)].rule = result;
+        this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+      }
+    });
   }
 
   trackById(index, item) {

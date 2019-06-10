@@ -86,7 +86,7 @@ import { SkilltreeImportDialogComponent } from './components/skilltree-import-di
 import { SkilltreeImportLegacyComponent } from './components/skilltree-import-legacy/skilltree-import-legacy.component';
 import { SkilltreeListComponent } from './components/skilltree-list/skilltree-list.component';
 import { SkilltreePropertiesComponent } from './components/skilltree-properties/skilltree-properties.component';
-import { UpgradeAddDialogComponent } from './components/upgrade-add-dialog/upgrade-add-dialog.component';
+import { UpgradeDialogComponent } from './components/upgrade-dialog/upgrade-dialog.component';
 import { DynamicPopoverAnchorDirective } from './directives/dynamic-popover-anchor.directive';
 import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.directive';
 import { SkilltreeExistsGuard } from './guards/skilltree-exists.guard';
@@ -118,7 +118,7 @@ export function createTranslateLoader(http: HttpClient) {
 
     SkilltreeAddDialogComponent,
     SkilltreeDuplicateDialogComponent,
-    UpgradeAddDialogComponent,
+    UpgradeDialogComponent,
     MobTypeSelectDialogComponent,
     SkilltreeImportDialogComponent,
     SkilltreeChangeIconDialogComponent,
@@ -210,7 +210,7 @@ export function createTranslateLoader(http: HttpClient) {
     SkilltreeAddDialogComponent,
     SkilltreeDuplicateDialogComponent,
     MobTypeSelectDialogComponent,
-    UpgradeAddDialogComponent,
+    UpgradeDialogComponent,
     SkilltreeImportDialogComponent,
     SkilltreeChangeIconDialogComponent,
     LevelupNotificationAddDialogComponent,

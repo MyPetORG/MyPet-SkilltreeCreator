@@ -13,11 +13,11 @@ import * as Reducers from '../../store/reducers';
 
 @AutoUnsubscribe()
 @Component({
-  selector: 'stc-levelup-message-add-dialog',
-  templateUrl: './upgrade-add-dialog.component.html',
-  styleUrls: ['./upgrade-add-dialog.component.scss']
+  selector: 'stc-upgrade-dialog',
+  templateUrl: './upgrade-dialog.component.html',
+  styleUrls: ['./upgrade-dialog.component.scss']
 })
-export class UpgradeAddDialogComponent implements OnDestroy {
+export class UpgradeDialogComponent implements OnDestroy {
 
   type: number = 0;
   level: number[] = [];
@@ -25,16 +25,34 @@ export class UpgradeAddDialogComponent implements OnDestroy {
   minimum: number;
   limit: number;
 
+  edit: boolean = false;
+  upgrade: any = null;
+
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
   levelRules: LevelRule[] = [];
   levelRulessSubscription = null;
 
-  constructor(private dialogRef: MatDialogRef<UpgradeAddDialogComponent>,
+  constructor(private dialogRef: MatDialogRef<UpgradeDialogComponent>,
               private store: Store<Reducers.State>,
               private translate: TranslateService,
               private snackBar: MatSnackBar,
               @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    if (data && data.edit && data.upgrade && data.upgrade.rule) {
+      this.edit = true;
+      const rule = data.upgrade.rule;
+      console.log(rule);
+      if (rule.exact) {
+        this.level = [...rule.exact].sort();
+        this.type = 0;
+      } else if (rule.every) {
+        this.every = rule.every;
+        this.minimum = rule.minimum;
+        this.limit = rule.limit;
+        this.type = 1;
+      }
+    }
 
     this.levelRulessSubscription = this.store.pipe(select(Reducers.getSelectedUpgrades))
       .subscribe(upgrades => {
@@ -48,6 +66,7 @@ export class UpgradeAddDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // AutoUnsubscribe
   }
 
   done() {
@@ -67,9 +86,9 @@ export class UpgradeAddDialogComponent implements OnDestroy {
     if (!found) {
       this.dialogRef.close(newRule);
     } else {
-      this.translate.get("COMPONENTS__UPGRADE_ADD_DIALOG__ERROR_RULE_DUPLICATED")
+      this.translate.get('COMPONENTS__UPGRADE_DIALOG__ERROR_RULE_DUPLICATED')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, {duration: 2000,});
+          this.snackBar.open(trans, null, { duration: 2000, });
         });
     }
   }

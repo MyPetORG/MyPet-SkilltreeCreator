@@ -12,7 +12,7 @@ import { Upgrade } from '../../../models/upgrade';
 import { StateService } from '../../../services/state.service';
 import * as Reducers from '../../../store/reducers';
 import { LevelRule } from '../../../util/helpers';
-import { UpgradeAddDialogComponent } from '../../upgrade-add-dialog/upgrade-add-dialog.component';
+import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.component';
 
 @Component({
   selector: 'stc-beacon-skill',
@@ -84,7 +84,7 @@ export class BeaconSkillComponent {
 
   addUpgrade(skilltree: Skilltree) {
     if (skilltree) {
-      let dialogRef = this.dialog.open(UpgradeAddDialogComponent);
+      let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
@@ -106,6 +106,22 @@ export class BeaconSkillComponent {
     changes.Beacon.splice(skilltree.skills.Beacon.indexOf(upgrade), 1);
     this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
     this.selectedUpgrade = -1;
+  }
+
+  editRule(skilltree: Skilltree, upgrade) {
+    let dialogRef = this.dialog.open(UpgradeDialogComponent, {
+      data: {
+        edit: true,
+        upgrade,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let changes = JSON.parse(JSON.stringify(skilltree.skills));
+        changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)].rule = result;
+        this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+      }
+    });
   }
 
   trackById(index, item) {
