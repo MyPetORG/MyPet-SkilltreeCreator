@@ -37,7 +37,8 @@ export class SkilltreeListComponent {
       Object.keys(skilltrees).forEach(id => {
         this.skilltrees.push(JSON.parse(JSON.stringify(skilltrees[id])));
       });
-      this.skilltrees.sort((a, b) => {
+      this.skilltrees = this.skilltrees.filter(skilltree => !!skilltree);
+      this.skilltrees = this.skilltrees.sort((a, b) => {
         return a.order - b.order;
       });
     });
