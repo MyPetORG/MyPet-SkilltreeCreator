@@ -1,13 +1,13 @@
+import { HttpClient } from '@angular/common/http';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable, of, throwError as observableThrowError } from 'rxjs';
-import { ErrorHandler, Injectable } from "@angular/core";
-import { Skilltree } from "../models/skilltree";
-import { SkillLoader } from "../data/skill-loader";
-import { HttpClient } from "@angular/common/http";
-import { Skills } from "../data/skills";
-import { LevelRule } from "../models/level-rule";
-import { Upgrade } from "../models/upgrade";
-import { MobTypes } from "../data/mob-types";
-import { ErrorReporterService } from "./error-reporter.service";
+import { MobTypes } from '../data/mob-types';
+import { SkillLoader } from '../data/skill-loader';
+import { Skills } from '../data/skills';
+import { LevelRule } from '../models/level-rule';
+import { Skilltree } from '../models/skilltree';
+import { Upgrade } from '../models/upgrade';
+import { ErrorReporterService } from './error-reporter.service';
 
 @Injectable()
 export class SkilltreeLoaderService {
@@ -86,14 +86,14 @@ export class SkilltreeLoaderService {
     let types = [];
     if (Array.isArray(data)) {
       if (data.length == 0) {
-        return MobTypes.slice();
+        return [...MobTypes];
       }
       if (data.findIndex(name => name.substr(0, 1) != "-") == -1) {
-        types = MobTypes.slice();
+        types = [...MobTypes];
       }
       data.forEach(name => {
         if (name == "*") {
-          types = MobTypes.slice();
+          types = [...MobTypes];
         } else {
           let negative = false;
           if (name.substr(0, 1) == "-") {

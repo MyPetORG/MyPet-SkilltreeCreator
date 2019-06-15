@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { Skilltree } from "../models/skilltree";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { LevelRule } from "../models/level-rule";
-import { Upgrade } from "../models/upgrade";
-import { SkillSaver } from "../data/skill-saver";
-import { MobTypes } from "../data/mob-types";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { MobTypes } from '../data/mob-types';
+import { SkillSaver } from '../data/skill-saver';
+import { LevelRule } from '../models/level-rule';
+import { Skilltree } from '../models/skilltree';
+import { Upgrade } from '../models/upgrade';
 
 @Injectable()
 export class SkilltreeSaverService {
@@ -57,7 +57,11 @@ export class SkilltreeSaverService {
       if (skilltree.weight && skilltree.weight != 1) {
         data.Weight = skilltree.weight;
       }
-      data.MobTypes = this.saveMobTypes(skilltree.mobtypes.slice(0));
+      let mobTypes = skilltree.mobtypes;
+      if (!mobTypes) {
+        mobTypes = ['*'];
+      }
+      data.MobTypes = this.saveMobTypes([...mobTypes]);
 
       data.Skills = {};
       this.saveSkills(data.Skills, skilltree.skills);
