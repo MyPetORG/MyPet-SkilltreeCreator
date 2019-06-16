@@ -1,5 +1,5 @@
 ### STAGE 1: Compile ###
-FROM node:10 as angular_builder
+FROM node:12 as angular_builder
 ARG build=0
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
