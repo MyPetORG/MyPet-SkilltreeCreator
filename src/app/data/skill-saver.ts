@@ -1,23 +1,23 @@
-import { BackpackSaver } from "../models/skills/backpack";
-import { BehaviorSaver } from "../models/skills/behavior";
-import { ControlSaver } from "../models/skills/control";
-import { SlowSaver } from "../models/skills/slow";
-import { PickupSaver } from "../models/skills/pickup";
-import { RideSaver } from "../models/skills/ride";
-import { KnockbackSaver } from "../models/skills/knockback";
-import { BeaconSaver } from "../models/skills/beacon";
-import { DamageSaver } from "../models/skills/damage";
-import { StompSaver } from "../models/skills/stomp";
-import { FireSaver } from "../models/skills/fire";
-import { ShieldSaver } from "../models/skills/shield";
-import { LifeSaver } from "../models/skills/life";
-import { PoisonSaver } from "../models/skills/poison";
-import { SprintSaver } from "../models/skills/sprint";
-import { ThornsSaver } from "../models/skills/thorns";
-import { HealSaver } from "../models/skills/heal";
-import { WitherSaver } from "../models/skills/wither";
-import { RangedSaver } from "../models/skills/ranged";
-import { LightningSaver } from "../models/skills/lightning";
+import { BackpackSaver } from '../models/skills/backpack';
+import { BeaconSaver } from '../models/skills/beacon';
+import { BehaviorSaver } from '../models/skills/behavior';
+import { ControlSaver } from '../models/skills/control';
+import { DamageSaver } from '../models/skills/damage';
+import { FireSaver } from '../models/skills/fire';
+import { HealSaver } from '../models/skills/heal';
+import { KnockbackSaver } from '../models/skills/knockback';
+import { LifeSaver } from '../models/skills/life';
+import { LightningSaver } from '../models/skills/lightning';
+import { PickupSaver } from '../models/skills/pickup';
+import { PoisonSaver } from '../models/skills/poison';
+import { RangedSaver } from '../models/skills/ranged';
+import { RideSaver } from '../models/skills/ride';
+import { ShieldSaver } from '../models/skills/shield';
+import { SlowSaver } from '../models/skills/slow';
+import { SprintSaver } from '../models/skills/sprint';
+import { StompSaver } from '../models/skills/stomp';
+import { ThornsSaver } from '../models/skills/thorns';
+import { WitherSaver } from '../models/skills/wither';
 
 export const SkillSaver = {
   Backpack: BackpackSaver,

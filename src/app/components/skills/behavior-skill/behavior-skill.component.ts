@@ -19,7 +19,7 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
   templateUrl: './behavior-skill.component.html',
   styleUrls: ['./behavior-skill.component.scss'],
   providers: [
-    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
   ]
 })
 export class BehaviorSkillComponent {
@@ -72,13 +72,13 @@ export class BehaviorSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Behavior) {
             changes.skills.Behavior = [];
           }
 
-          let behavior: Behavior = Object.assign({rule: result}, new BehaviorDefault);
+          let behavior: Behavior = Object.assign({ rule: result }, new BehaviorDefault);
           changes.skills.Behavior.push(behavior);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

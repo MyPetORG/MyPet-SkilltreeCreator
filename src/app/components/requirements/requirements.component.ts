@@ -20,9 +20,9 @@ export class RequirementsComponent {
   requirements$: Observable<any>;
 
   knownTypes: string[] = [
-    "Permission",
-    "Skilltree",
-    "NoSkilltree",
+    'Permission',
+    'Skilltree',
+    'NoSkilltree',
   ];
 
   constructor(
@@ -40,19 +40,19 @@ export class RequirementsComponent {
 
           let name;
           let data;
-          if (requirement.indexOf(":") != -1) {
-            let split: string[] = requirement.split(":");
+          if (requirement.indexOf(':') != -1) {
+            let split: string[] = requirement.split(':');
             name = split.shift();
             data = split.join(':');
           } else {
             name = requirement;
-            data = "";
+            data = '';
           }
           let type = name;
           if (this.knownTypes.indexOf(type) == -1) {
-            type = "Custom";
+            type = 'Custom';
           }
-          return {type, name, data, full: requirement};
+          return { type, name, data, full: requirement };
         });
       })
     );

@@ -52,13 +52,13 @@ export class LifeSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Life) {
             changes.skills.Life = [];
           }
 
-          let life: Life = Object.assign({rule: result}, new LifeDefault);
+          let life: Life = Object.assign({ rule: result }, new LifeDefault);
           changes.skills.Life.push(life);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

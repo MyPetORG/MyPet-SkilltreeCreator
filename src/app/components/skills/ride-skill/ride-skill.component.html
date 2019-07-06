@@ -54,7 +54,7 @@
                  (blur)="update(skilltree, upgrade, 'speed', $event.srcElement.value, modelSpeed)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__SPEED_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelSpeed.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][integer]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="speedPopover">
@@ -71,7 +71,7 @@
                  (blur)="update(skilltree, upgrade, 'jumpHeight', $event.srcElement.value, modelJumpHeight)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__JUMP_HEIGHT_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelJumpHeight.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="jumpHeightPopover">
@@ -97,7 +97,7 @@
                  (blur)="update(skilltree, upgrade, 'flyLimit', $event.srcElement.value, modelFlyLimit)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_LIMIT_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelFlyLimit.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyLimitPopover">
@@ -114,7 +114,7 @@
                  (blur)="update(skilltree, upgrade, 'flyRegenRate', $event.srcElement.value, modelFlyRegenRate)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RIDE__FLY_REGEN_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelFlyRegenRate.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="flyRegenRatePopover">

@@ -12,7 +12,7 @@ import * as Reducers from '../../store/reducers';
 })
 export class SkilltreeAddDialogComponent implements OnDestroy {
 
-  name: string = "";
+  name: string = '';
   skilltreeNames: string[] = [];
   skilltreeNamesSubscription = null;
 

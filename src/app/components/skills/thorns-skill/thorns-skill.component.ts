@@ -52,13 +52,13 @@ export class ThornsSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Thorns) {
             changes.skills.Thorns = [];
           }
 
-          let thorns: Thorns = Object.assign({rule: result}, new ThornsDefault);
+          let thorns: Thorns = Object.assign({ rule: result }, new ThornsDefault);
           changes.skills.Thorns.push(thorns);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

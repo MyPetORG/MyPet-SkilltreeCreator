@@ -30,7 +30,7 @@
                  (blur)="update(skilltree, upgrade, 'timer', $event.srcElement.value, modelTimer)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__TIMER_SECONDS_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelTimer.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][integer]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="timerPopover">
@@ -47,7 +47,7 @@
                  (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value, modelHealth)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__HEAL__HEALTH_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelHealth.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="healthPopover">

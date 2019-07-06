@@ -1,17 +1,17 @@
-import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault } from "../../util/helpers";
+import { matchOrDefault } from '../../util/helpers';
+import { getNewUpgradeID, Upgrade } from '../upgrade';
 
 export const Projectiles: string[] = [
-  "Arrow",
-  "Snowball",
-  "SmallFireball",
-  "LargeFireball",
-  "WitherSkull",
-  "Egg",
-  "DragonFireball",
-  "Trident",
-  "EnderPearl",
-  "LlamaSpit",
+  'Arrow',
+  'Snowball',
+  'SmallFireball',
+  'LargeFireball',
+  'WitherSkull',
+  'Egg',
+  'DragonFireball',
+  'Trident',
+  'EnderPearl',
+  'LlamaSpit',
 ];
 
 export interface Ranged extends Upgrade {
@@ -22,16 +22,16 @@ export interface Ranged extends Upgrade {
 
 export class RangedDefault implements Ranged {
   id = getNewUpgradeID();
-  damage = "+0";
-  rate = "+0";
+  damage = '+0';
+  rate = '+0';
   projectile = null;
 }
 
 export function RangedLoader(data: any): Ranged {
   let ranged: Ranged = Object.assign({}, new RangedDefault);
-  ranged.damage = matchOrDefault(data.getPropAs("damage", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
-  ranged.rate = matchOrDefault(data.getPropAs("rate", "string"), /[+-][0-9]+(\.[0-9]+)?/, "+0");
-  let projectile = data.getPropAs("projectile", "string");
+  ranged.damage = matchOrDefault(data.getPropAs('damage', 'string'), /[+-][0-9]+(\.[0-9]+)?/, '+0');
+  ranged.rate = matchOrDefault(data.getPropAs('rate', 'string'), /[+-][0-9]+(\.[0-9]+)?/, '+0');
+  let projectile = data.getPropAs('projectile', 'string');
   if (projectile) {
     projectile = projectile.toLowerCase();
     Projectiles.forEach(p => {
@@ -45,10 +45,10 @@ export function RangedLoader(data: any): Ranged {
 
 export function RangedSaver(data: Ranged) {
   let savedData: any = {};
-  if (data.damage && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != "0") {
+  if (data.damage && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.damage)[1] != '0') {
     savedData.Damage = data.damage;
   }
-  if (data.rate && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.rate)[1] != "0") {
+  if (data.rate && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.rate)[1] != '0') {
     savedData.Rate = data.rate;
   }
   if (data.projectile) {

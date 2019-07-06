@@ -52,13 +52,13 @@ export class DamageSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Damage) {
             changes.skills.Damage = [];
           }
 
-          let damage: Damage = Object.assign({rule: result}, new DamageDefault);
+          let damage: Damage = Object.assign({ rule: result }, new DamageDefault);
           changes.skills.Damage.push(damage);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

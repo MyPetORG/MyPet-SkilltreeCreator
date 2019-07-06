@@ -52,13 +52,13 @@ export class SlowSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Slow) {
             changes.skills.Slow = [];
           }
 
-          let slow: Slow = Object.assign({rule: result}, new SlowDefault);
+          let slow: Slow = Object.assign({ rule: result }, new SlowDefault);
           changes.skills.Slow.push(slow);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

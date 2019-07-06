@@ -1,20 +1,20 @@
-import { Fire } from "../models/skills/fire";
-import { Knockback } from "../models/skills/knockback";
-import { Poison } from "../models/skills/poison";
-import { Lightning } from "../models/skills/lightning";
-import { Ride } from "../models/skills/ride";
-import { Slow } from "../models/skills/slow";
-import { Sprint } from "../models/skills/sprint";
-import { Stomp } from "../models/skills/stomp";
-import { Thorns } from "../models/skills/thorns";
-import { Wither } from "../models/skills/wither";
-import { Beacon } from "app/models/skills/beacon";
-import { Backpack } from "../models/skills/backpack";
-import { Behavior } from "../models/skills/behavior";
-import { Control } from "app/models/skills/control";
-import { Pickup } from "../models/skills/pickup";
-import { Ranged } from "../models/skills/ranged";
-import { Shield } from "../models/skills/shield";
+import { Beacon } from 'app/models/skills/beacon';
+import { Control } from 'app/models/skills/control';
+import { Backpack } from '../models/skills/backpack';
+import { Behavior } from '../models/skills/behavior';
+import { Fire } from '../models/skills/fire';
+import { Knockback } from '../models/skills/knockback';
+import { Lightning } from '../models/skills/lightning';
+import { Pickup } from '../models/skills/pickup';
+import { Poison } from '../models/skills/poison';
+import { Ranged } from '../models/skills/ranged';
+import { Ride } from '../models/skills/ride';
+import { Shield } from '../models/skills/shield';
+import { Slow } from '../models/skills/slow';
+import { Sprint } from '../models/skills/sprint';
+import { Stomp } from '../models/skills/stomp';
+import { Thorns } from '../models/skills/thorns';
+import { Wither } from '../models/skills/wither';
 
 export interface SkillInfo {
   id: string,

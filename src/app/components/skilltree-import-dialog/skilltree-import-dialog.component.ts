@@ -29,9 +29,9 @@ export class SkilltreeImportDialogComponent {
         try {
           data = window.atob(base64Data);
         } catch (e) {
-          this.translate.get("COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE")
+          this.translate.get('COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE')
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, {duration: 2000,});
+              this.snackBar.open(trans, null, { duration: 2000, });
             });
           return;
         }
@@ -41,9 +41,9 @@ export class SkilltreeImportDialogComponent {
           this.valid = true;
           return;
         } catch (e) {
-          this.translate.get("COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE")
+          this.translate.get('COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE')
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, {duration: 2000,});
+              this.snackBar.open(trans, null, { duration: 2000, });
             });
         }
       };

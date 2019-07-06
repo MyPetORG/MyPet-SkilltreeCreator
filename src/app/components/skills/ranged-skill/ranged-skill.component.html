@@ -37,7 +37,7 @@
                  (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value, modelDamage)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__DAMAGE_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelDamage.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="damagePopover">
@@ -54,7 +54,7 @@
                  (blur)="update(skilltree, upgrade, 'rate', $event.srcElement.value, modelRate)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__RANGED__RATE_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelRate.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][integer]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][integer]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="ratePopover">

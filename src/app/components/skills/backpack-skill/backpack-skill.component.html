@@ -21,7 +21,7 @@
                    (blur)="update(skilltree, upgrade, 'rows', $event.srcElement.value, modelRows)">
             <span matSuffix>{{ 'COMPONENTS__SKILLS__BACKPACK__ROWS_SUFFIX' | translate }}</span>
             <mat-error *ngIf="modelRows.errors?.pattern">
-              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-9]'} }}
+              {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][0-9]' } }}
             </mat-error>
           </mat-form-field>
           <button mat-icon-button [stcDynamicPopoverAnchorFor]="rowsPopover">

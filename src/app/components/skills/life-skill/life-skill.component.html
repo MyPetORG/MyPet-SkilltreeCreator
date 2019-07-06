@@ -23,7 +23,7 @@
                  (blur)="update(skilltree, upgrade, 'health', $event.srcElement.value, modelHealth)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__LIFE_HEALTH_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelHealth.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="healthPopover">

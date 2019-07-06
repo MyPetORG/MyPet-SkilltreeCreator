@@ -1,5 +1,5 @@
-import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault } from "../../util/helpers";
+import { matchOrDefault } from '../../util/helpers';
+import { getNewUpgradeID, Upgrade } from '../upgrade';
 
 export interface Backpack extends Upgrade {
   rows?: string;
@@ -8,21 +8,21 @@ export interface Backpack extends Upgrade {
 
 export class BackpackDefault implements Backpack {
   id = getNewUpgradeID();
-  rows = "+0";
+  rows = '+0';
   drop = null;
 }
 
 export function BackpackLoader(data: any): Backpack {
   let backpack: Backpack = Object.assign({}, new BackpackDefault);
-  backpack.rows = matchOrDefault(data.getPropAs("rows", "string"), /[+\\-][0-9]/, "+0");
-  backpack.drop = data.getPropAs("drop", "bool|null");
+  backpack.rows = matchOrDefault(data.getPropAs('rows', 'string'), /[+\\-][0-9]/, '+0');
+  backpack.drop = data.getPropAs('drop', 'bool|null');
 
   return backpack;
 }
 
 export function BackpackSaver(data: Backpack) {
   let savedData: any = {};
-  if (data.rows && /[\\+\-]?(\d+)/g.exec(data.rows)[1] != "0") {
+  if (data.rows && /[\\+\-]?(\d+)/g.exec(data.rows)[1] != '0') {
     savedData.rows = data.rows;
   }
   if (data.drop != null) {

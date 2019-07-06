@@ -9,10 +9,10 @@ import {
   Output,
   ViewContainerRef
 } from '@angular/core';
-import { merge, Subject } from "rxjs";
+import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { PopoverAnchoringService } from "../util/popover/popover-anchoring.service";
-import { SatPopover } from "../util/popover/popover.component";
+import { PopoverAnchoringService } from '../util/popover/popover-anchoring.service';
+import { SatPopover } from '../util/popover/popover.component';
 
 @Directive({
   selector: '[stcDynamicPopoverAnchorFor]',

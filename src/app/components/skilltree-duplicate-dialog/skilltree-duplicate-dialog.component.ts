@@ -12,7 +12,7 @@ import * as Reducers from '../../store/reducers';
 })
 export class SkilltreeDuplicateDialogComponent implements OnDestroy {
 
-  name: string = "";
+  name: string = '';
   skilltreeNames: string[] = [];
   skilltreeNamesSubscription = null;
 

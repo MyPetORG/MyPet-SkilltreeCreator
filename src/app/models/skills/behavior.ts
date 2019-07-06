@@ -1,4 +1,4 @@
-import { getNewUpgradeID, Upgrade } from "../upgrade";
+import { getNewUpgradeID, Upgrade } from '../upgrade';
 
 export interface Behavior extends Upgrade {
   friend?: boolean | null;
@@ -20,11 +20,11 @@ export class BehaviorDefault implements Behavior {
 
 export function BehaviorLoader(data: any): Behavior {
   let behavior: Behavior = Object.assign({}, new BehaviorDefault);
-  behavior.aggro = data.getPropAs("aggro", "bool|null");
-  behavior.duel = data.getPropAs("duel", "bool|null");
-  behavior.farm = data.getPropAs("farm", "bool|null");
-  behavior.friend = data.getPropAs("friend", "bool|null");
-  behavior.raid = data.getPropAs("raid", "bool|null");
+  behavior.aggro = data.getPropAs('aggro', 'bool|null');
+  behavior.duel = data.getPropAs('duel', 'bool|null');
+  behavior.farm = data.getPropAs('farm', 'bool|null');
+  behavior.friend = data.getPropAs('friend', 'bool|null');
+  behavior.raid = data.getPropAs('raid', 'bool|null');
   return behavior;
 }
 

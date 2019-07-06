@@ -65,9 +65,9 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
     if (!found) {
       this.dialogRef.close(newRule);
     } else {
-      this.translate.get("COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED")
+      this.translate.get('COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, {duration: 2000,});
+          this.snackBar.open(trans, null, { duration: 2000, });
         });
     }
   }

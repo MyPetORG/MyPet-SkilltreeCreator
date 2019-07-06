@@ -19,51 +19,51 @@ export class SkilltreeLoaderService {
   }
 
   public loadSkilltrees() {
-    return this.http.get("/api/skilltrees");
+    return this.http.get('/api/skilltrees');
   }
 
   loadSkilltree(data: any): Observable<Skilltree> {
-    let id = data.getProp("ID");
-    if (!id || id == "") {
-      return observableThrowError({type: "INVALID", data: "NO ID"});
+    let id = data.getProp('ID');
+    if (!id || id == '') {
+      return observableThrowError({ type: 'INVALID', data: 'NO ID' });
     }
     if (!id.match(/^[a-zA-Z0-9.-_]+$/)) {
-      return observableThrowError({type: "INVALID", data: "INVALID ID"});
+      return observableThrowError({ type: 'INVALID', data: 'INVALID ID' });
     }
-    let skilltree: Skilltree = {id, skills: {}, mobtypes: [], messages: [], requirements: []};
+    let skilltree: Skilltree = { id, skills: {}, mobtypes: [], messages: [], requirements: [] };
 
-    skilltree.name = data.getProp("Name") || skilltree.id;
-    skilltree.description = data.getProp("Description") || [];
-    skilltree.order = data.getPropAs("Order", "int");
+    skilltree.name = data.getProp('Name') || skilltree.id;
+    skilltree.description = data.getProp('Description') || [];
+    skilltree.order = data.getPropAs('Order', 'int');
     if (!skilltree.order && skilltree.order != 0) {
       skilltree.order = Number.MAX_SAFE_INTEGER;
     }
-    skilltree.weight = data.getPropAs("Weight", "int") || 1;
-    skilltree.requiredLevel = data.getPropAs("RequiredLevel", "int") || 0;
-    skilltree.maxLevel = data.getPropAs("MaxLevel", "int") || 0;
-    let icon: any = data.getProp("Icon") || {};
+    skilltree.weight = data.getPropAs('Weight', 'int') || 1;
+    skilltree.requiredLevel = data.getPropAs('RequiredLevel', 'int') || 0;
+    skilltree.maxLevel = data.getPropAs('MaxLevel', 'int') || 0;
+    let icon: any = data.getProp('Icon') || {};
     skilltree.icon = {};
-    skilltree.icon.material = icon.getPropAs("Material", "string") || "";
-    if (skilltree.icon.material == "undefined") {
-      skilltree.icon.material = ""; //TODO remove later (17.12.2018)
+    skilltree.icon.material = icon.getPropAs('Material', 'string') || '';
+    if (skilltree.icon.material == 'undefined') {
+      skilltree.icon.material = ''; //TODO remove later (17.12.2018)
     }
-    skilltree.icon.glowing = icon.getPropAs("Glowing", "bool") || false;
-    let inheritance: any = data.getProp("Inheritance") || {};
+    skilltree.icon.glowing = icon.getPropAs('Glowing', 'bool') || false;
+    let inheritance: any = data.getProp('Inheritance') || {};
     skilltree.inheritance = {};
-    skilltree.inheritance.skilltree = inheritance.getPropAs("Skilltree", "string") || "";
-    skilltree.requirements = data.getProp("Requirements") || [];
-    let permission = data.getProp("Permission");
+    skilltree.inheritance.skilltree = inheritance.getPropAs('Skilltree', 'string') || '';
+    skilltree.requirements = data.getProp('Requirements') || [];
+    let permission = data.getProp('Permission');
     if (permission) {
-      skilltree.requirements.push("Permission:" + permission);
+      skilltree.requirements.push('Permission:' + permission);
     }
 
     try {
-      skilltree.skills = this.loadSkills(data.getProp("Skills"));
-      skilltree.mobtypes = this.loadMobTypes(data.getProp("MobTypes"));
-      skilltree.messages = this.loadNotifications(data.getProp("Notifications"));
+      skilltree.skills = this.loadSkills(data.getProp('Skills'));
+      skilltree.mobtypes = this.loadMobTypes(data.getProp('MobTypes'));
+      skilltree.messages = this.loadNotifications(data.getProp('Notifications'));
     } catch (e) {
       (<ErrorReporterService>this.errorReporter).sendError(e);
-      return observableThrowError({type: "INVALID", data: e});
+      return observableThrowError({ type: 'INVALID', data: e });
     }
 
     return of(skilltree);
@@ -75,7 +75,7 @@ export class SkilltreeLoaderService {
       Object.keys(data).forEach(key => {
         let rule = this.loadLevelRule(key);
         if (rule) {
-          messages.push({rule, content: data[key]});
+          messages.push({ rule, content: data[key] });
         }
       });
     }
@@ -88,15 +88,15 @@ export class SkilltreeLoaderService {
       if (data.length == 0) {
         return [...MobTypes];
       }
-      if (data.findIndex(name => name.substr(0, 1) != "-") == -1) {
+      if (data.findIndex(name => name.substr(0, 1) != '-') == -1) {
         types = [...MobTypes];
       }
       data.forEach(name => {
-        if (name == "*") {
+        if (name == '*') {
           types = [...MobTypes];
         } else {
           let negative = false;
-          if (name.substr(0, 1) == "-") {
+          if (name.substr(0, 1) == '-') {
             negative = true;
             name = name.substr(1);
           }
@@ -126,7 +126,7 @@ export class SkilltreeLoaderService {
     Skills.forEach(skillInfo => {
       if (data[skillInfo.id]) {
         skills[skillInfo.id] = [];
-        let upgrades = data[skillInfo.id].getProp("Upgrades");
+        let upgrades = data[skillInfo.id].getProp('Upgrades');
         if (upgrades === Object(upgrades)) {
           Object.keys(upgrades).forEach(key => {
             let rule = this.loadLevelRule(key);
@@ -157,7 +157,7 @@ export class SkilltreeLoaderService {
 
       m.forEach((match) => {
         if (match) {
-          if (match.startsWith("%")) {
+          if (match.startsWith('%')) {
             let m = match.substr(1);
             let modulo = parseInt(m);
             if (!isNaN(modulo)) {
@@ -166,14 +166,14 @@ export class SkilltreeLoaderService {
               levelRule.every = 1;
             }
             dynamic = true;
-          } else if (match.startsWith(">")) {
+          } else if (match.startsWith('>')) {
             let s = match.substr(1);
             let start = parseInt(s);
             if (!isNaN(start)) {
               levelRule.minimum = start;
             }
             dynamic = true;
-          } else if (match.startsWith("<")) {
+          } else if (match.startsWith('<')) {
             let e = match.substr(1);
             let end = parseInt(e);
             if (!isNaN(end)) {

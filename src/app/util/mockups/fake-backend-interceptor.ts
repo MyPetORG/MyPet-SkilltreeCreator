@@ -1,5 +1,3 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { Injectable } from '@angular/core';
 import {
   HTTP_INTERCEPTORS,
   HttpEvent,
@@ -8,9 +6,11 @@ import {
   HttpRequest,
   HttpResponse
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 
 
-import { CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree } from "./example-skilltrees";
+import { CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree } from './example-skilltrees';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -27,7 +27,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         if (fail) {
           return observableThrowError('ERROR');
         } else {
-          return observableOf(new HttpResponse({status: 200, body: {message: "DONE"}}));
+          return observableOf(new HttpResponse({ status: 200, body: { message: 'DONE' } }));
         }
       }
 

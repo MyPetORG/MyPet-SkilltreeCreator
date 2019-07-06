@@ -26,12 +26,12 @@ export class SkilltreeRequirementComponent implements OnDestroy {
 
   @Input() set data(data: string) {
     if (data) {
-      let selected = data.split(":");
+      let selected = data.split(':');
       this.neededSkilltrees.setValue(selected);
     }
   }
 
-  @Output("update") updater: EventEmitter<string> = new EventEmitter();
+  @Output('update') updater: EventEmitter<string> = new EventEmitter();
 
   neededSkilltrees = new FormControl();
 
@@ -61,7 +61,7 @@ export class SkilltreeRequirementComponent implements OnDestroy {
   update() {
     if (this.neededSkilltrees.value && this.neededSkilltrees.value.length != 0) {
       let selected: string[] = this.neededSkilltrees.value;
-      this.updater.emit("Skilltree:" + selected.join(':'));
+      this.updater.emit('Skilltree:' + selected.join(':'));
     }
   }
 }

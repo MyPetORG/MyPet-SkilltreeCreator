@@ -1,9 +1,9 @@
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-import { Injectable } from "@angular/core";
-import { select, Store } from "@ngrx/store";
-import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router";
-import { Observable } from "rxjs";
-import * as Reducers from "../store/reducers/index";
+import * as Reducers from '../store/reducers/index';
 
 @Injectable()
 export class SkilltreeExistsGuard implements CanActivate {
@@ -16,7 +16,7 @@ export class SkilltreeExistsGuard implements CanActivate {
   hasSkilltree(id: string): Observable<boolean> {
     return this.store.pipe(
       select(state => {
-        return {loaded: Reducers.isLoaded(state), skilltrees: Reducers.getSkilltrees(state)};
+        return { loaded: Reducers.isLoaded(state), skilltrees: Reducers.getSkilltrees(state) };
       }),
       filter((combinedData) => {
         return combinedData.loaded;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import "pako";
-import { Observable, Subscriber } from "rxjs";
-import { NBT } from "../util/libs/nbt";
+import 'pako';
+import { Observable, Subscriber } from 'rxjs';
+import { NBT } from '../util/libs/nbt';
 
 @Injectable()
 export class NbtImportService {

@@ -16,7 +16,7 @@ export class SkilltreeSaverService {
     let savedSkilltrees = [];
 
     skilltrees.forEach(skilltree => {
-      let data: any = {ID: skilltree.id, Order: skilltree.order};
+      let data: any = { ID: skilltree.id, Order: skilltree.order };
       if (skilltree.name) {
         data.Name = skilltree.name;
       }
@@ -26,7 +26,7 @@ export class SkilltreeSaverService {
       if (skilltree.icon) {
         let icon: any = {};
         let save = false;
-        if (skilltree.icon.material && skilltree.icon.material !== "") {
+        if (skilltree.icon.material && skilltree.icon.material !== '') {
           icon.Material = skilltree.icon.material;
           save = true;
         }
@@ -72,7 +72,7 @@ export class SkilltreeSaverService {
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post("/api/skilltrees/save", savedSkilltrees, {headers});
+    return this.http.post('/api/skilltrees/save', savedSkilltrees, { headers });
   }
 
   saveNotifications(data: any, messages: { rule: LevelRule, content: string }[]) {
@@ -111,19 +111,19 @@ export class SkilltreeSaverService {
     if (levelRule.exact) {
       return levelRule.exact.join(',');
     }
-    let rule = "%" + levelRule.every;
+    let rule = '%' + levelRule.every;
     if (levelRule.minimum) {
-      rule += ">" + levelRule.minimum;
+      rule += '>' + levelRule.minimum;
     }
     if (levelRule.limit) {
-      rule += "<" + levelRule.limit;
+      rule += '<' + levelRule.limit;
     }
     return rule;
   }
 
   saveMobTypes(mobtypes: string[]): string[] {
     if (mobtypes.length == MobTypes.length) {
-      return ["*"];
+      return ['*'];
     }
     if (mobtypes.length >= ~~(MobTypes.length * 0.75)) {
       return MobTypes

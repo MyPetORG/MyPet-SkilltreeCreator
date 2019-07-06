@@ -19,7 +19,7 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
   templateUrl: './pickup-skill.component.html',
   styleUrls: ['./pickup-skill.component.scss'],
   providers: [
-    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
   ]
 })
 export class PickupSkillComponent {
@@ -75,13 +75,13 @@ export class PickupSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Pickup) {
             changes.skills.Pickup = [];
           }
 
-          let pickup: Pickup = Object.assign({rule: result}, new PickupDefault);
+          let pickup: Pickup = Object.assign({ rule: result }, new PickupDefault);
           changes.skills.Pickup.push(pickup);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

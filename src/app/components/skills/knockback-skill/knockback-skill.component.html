@@ -23,7 +23,7 @@
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value, modelChance)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__KNOCKBACK__CHANCE_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelChance.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][0-100]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">

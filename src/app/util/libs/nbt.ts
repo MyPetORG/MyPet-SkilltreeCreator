@@ -188,7 +188,7 @@ class Reader {
     for (let i = 0; i < length; i++) {
       values.push(this[NBT.TAG_TYPE_NAMES[type]]());
     }
-    return {type: NBT.TAG_TYPE_NAMES[type], value: values};
+    return { type: NBT.TAG_TYPE_NAMES[type], value: values };
   }
 
   compound() {
@@ -201,7 +201,7 @@ class Reader {
       }
       name = this.string();
       value = this[NBT.TAG_TYPE_NAMES[type]]();
-      values[name] = {type: NBT.TAG_TYPE_NAMES[type], value: value};
+      values[name] = { type: NBT.TAG_TYPE_NAMES[type], value: value };
     }
     return values;
   }

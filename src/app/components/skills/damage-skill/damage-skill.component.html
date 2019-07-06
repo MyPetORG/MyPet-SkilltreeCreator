@@ -23,7 +23,7 @@
                  (blur)="update(skilltree, upgrade, 'damage', $event.srcElement.value, modelDamage)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__DAMAGE__DAMAGE_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelDamage.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="damagePopover">

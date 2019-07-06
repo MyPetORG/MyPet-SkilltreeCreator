@@ -52,13 +52,13 @@ export class LightningSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Lightning) {
             changes.skills.Lightning = [];
           }
 
-          let lightning: Lightning = Object.assign({rule: result}, new LightningDefault);
+          let lightning: Lightning = Object.assign({ rule: result }, new LightningDefault);
           changes.skills.Lightning.push(lightning);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

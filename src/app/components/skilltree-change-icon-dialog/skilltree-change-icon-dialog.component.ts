@@ -20,6 +20,6 @@ export class SkilltreeChangeIconDialogComponent {
   }
 
   done() {
-    this.dialogRef.close({material: this.material, glowing: this.glowing});
+    this.dialogRef.close({ material: this.material, glowing: this.glowing });
   }
 }

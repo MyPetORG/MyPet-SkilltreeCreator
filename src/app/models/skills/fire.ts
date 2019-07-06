@@ -1,5 +1,5 @@
-import { getNewUpgradeID, Upgrade } from "../upgrade";
-import { matchOrDefault } from "../../util/helpers";
+import { matchOrDefault } from '../../util/helpers';
+import { getNewUpgradeID, Upgrade } from '../upgrade';
 
 export interface Fire extends Upgrade {
   chance?: string;
@@ -8,23 +8,23 @@ export interface Fire extends Upgrade {
 
 export class FireDefault implements Fire {
   id = getNewUpgradeID();
-  chance = "+0";
-  duration = "+0";
+  chance = '+0';
+  duration = '+0';
 }
 
 export function FireLoader(data: any): Fire {
   let fire: Fire = Object.assign({}, new FireDefault);
-  fire.chance = matchOrDefault(data.getPropAs("chance", "string"), /[+-](?:[0-9]|[1-9][0-9]|100)/, "+0");
-  fire.duration = matchOrDefault(data.getPropAs("duration", "string"), /[+-][0-9]+/, "+0");
+  fire.chance = matchOrDefault(data.getPropAs('chance', 'string'), /[+-](?:[0-9]|[1-9][0-9]|100)/, '+0');
+  fire.duration = matchOrDefault(data.getPropAs('duration', 'string'), /[+-][0-9]+/, '+0');
   return fire;
 }
 
 export function FireSaver(data: Fire) {
   let savedData: any = {};
-  if (data.duration && /[\\+\-]?(\d+)/g.exec(data.duration)[1] != "0") {
+  if (data.duration && /[\\+\-]?(\d+)/g.exec(data.duration)[1] != '0') {
     savedData.Duration = data.duration;
   }
-  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != "0") {
+  if (data.chance && /[\\+\-]?(\d+(?:\.\d+)?)/g.exec(data.chance)[1] != '0') {
     savedData.Chance = data.chance;
   }
   return savedData;

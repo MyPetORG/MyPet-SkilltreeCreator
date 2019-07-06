@@ -1,4 +1,4 @@
-import { getNewUpgradeID, Upgrade } from "../upgrade";
+import { getNewUpgradeID, Upgrade } from '../upgrade';
 
 export interface Control extends Upgrade {
   active?: boolean | null;
@@ -11,7 +11,7 @@ export class ControlDefault implements Control {
 
 export function ControlLoader(data: any): Control {
   let control: Control = Object.assign({}, new ControlDefault);
-  control.active = data.getPropAs("active", "bool|null");
+  control.active = data.getPropAs('active', 'bool|null');
   return control;
 }
 

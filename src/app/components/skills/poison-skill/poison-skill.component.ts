@@ -52,13 +52,13 @@ export class PoisonSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Poison) {
             changes.skills.Poison = [];
           }
 
-          let poison: Poison = Object.assign({rule: result}, new PoisonDefault);
+          let poison: Poison = Object.assign({ rule: result }, new PoisonDefault);
           changes.skills.Poison.push(poison);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

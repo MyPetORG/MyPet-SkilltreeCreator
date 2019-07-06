@@ -19,7 +19,7 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
   templateUrl: './backpack-skill.component.html',
   styleUrls: ['./backpack-skill.component.scss'],
   providers: [
-    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
   ]
 })
 export class BackpackSkillComponent {
@@ -75,13 +75,13 @@ export class BackpackSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Backpack) {
             changes.skills.Backpack = [];
           }
 
-          let backpack: Backpack = Object.assign({rule: result}, new BackpackDefault);
+          let backpack: Backpack = Object.assign({ rule: result }, new BackpackDefault);
           changes.skills.Backpack.push(backpack);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

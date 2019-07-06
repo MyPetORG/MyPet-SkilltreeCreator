@@ -150,12 +150,12 @@ export class SkilltreeEffects implements OnInitEffects {
   loadSkilltreesSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SkilltreeActions.loadSkilltreesSuccess),
     map(() => {
-      this.translate.get('EFFECT__LOAD_SKILLTREE_SUCCESS')
+        this.translate.get('EFFECT__LOAD_SKILLTREE_SUCCESS')
           .subscribe((trans) => {
-            this.snackBar.open(trans, null, { duration: 2000, });
+              this.snackBar.open(trans, null, { duration: 2000, });
             }
           );
-      return appLoaded();
+        return appLoaded();
       }
     )
   ));
@@ -163,11 +163,11 @@ export class SkilltreeEffects implements OnInitEffects {
   loadSkilltreesFailed$ = createEffect(() => this.actions$.pipe(
     ofType(SkilltreeActions.loadSkilltreeFailed),
     map(() => {
-      this.translate.get('EFFECT__LOAD_SKILLTREE_FAILED')
+        this.translate.get('EFFECT__LOAD_SKILLTREE_FAILED')
           .subscribe((trans) => {
             this.snackBar.open(trans, null, { duration: 2000, });
           });
-      return appLoaded();
+        return appLoaded();
       }
     )
   ));

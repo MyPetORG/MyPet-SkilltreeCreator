@@ -8,25 +8,25 @@ export class RomanPipe implements PipeTransform {
   transform(value: number, args?: any): any {
     switch (value) {
       case 1:
-        return "I";
+        return 'I';
       case 2:
-        return "II";
+        return 'II';
       case 3:
-        return "II";
+        return 'II';
       case 4:
-        return "IV";
+        return 'IV';
       case 5:
-        return "V";
+        return 'V';
       case 6:
-        return "VI";
+        return 'VI';
       case 7:
-        return "VII";
+        return 'VII';
       case 8:
-        return "VIII";
+        return 'VIII';
       case 9:
-        return "IX";
+        return 'IX';
       case 10:
-        return "X";
+        return 'X';
       default:
         return value;
     }

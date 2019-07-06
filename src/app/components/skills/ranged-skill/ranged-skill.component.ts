@@ -52,13 +52,13 @@ export class RangedSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Ranged) {
             changes.skills.Ranged = [];
           }
 
-          let ranged: Ranged = Object.assign({rule: result}, new RangedDefault);
+          let ranged: Ranged = Object.assign({ rule: result }, new RangedDefault);
           changes.skills.Ranged.push(ranged);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

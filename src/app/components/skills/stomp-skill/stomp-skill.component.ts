@@ -52,13 +52,13 @@ export class StompSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Stomp) {
             changes.skills.Stomp = [];
           }
 
-          let stomp: Stomp = Object.assign({rule: result}, new StompDefault);
+          let stomp: Stomp = Object.assign({ rule: result }, new StompDefault);
           changes.skills.Stomp.push(stomp);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

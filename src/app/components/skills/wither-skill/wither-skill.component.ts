@@ -52,13 +52,13 @@ export class WitherSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Wither) {
             changes.skills.Wither = [];
           }
 
-          let wither: Wither = Object.assign({rule: result}, new WitherDefault);
+          let wither: Wither = Object.assign({ rule: result }, new WitherDefault);
           changes.skills.Wither.push(wither);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

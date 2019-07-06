@@ -1,28 +1,28 @@
-import { LevelRule as LR } from "../models/level-rule";
+import { LevelRule as LR } from '../models/level-rule';
 
 export class LevelRule {
   static toKey(rule: LR): string {
     if (rule.exact && rule.exact.length > 0) {
-      return "LEVEL_RULE_EXACT";
+      return 'LEVEL_RULE_EXACT';
     } else {
-      let key = "LEVEL_RULE_EVERY";
+      let key = 'LEVEL_RULE_EVERY';
       if (rule.every > 1) {
-        key += "_X";
+        key += '_X';
       }
-      key += "_LEVEL";
+      key += '_LEVEL';
       if (rule.minimum) {
-        key += "_START";
+        key += '_START';
       }
       if (rule.limit) {
-        key += "_END";
+        key += '_END';
       }
-      return key
+      return key;
     }
   }
 
   static toData(rule: LR): any {
     if (rule.exact && rule.exact.length > 0) {
-      return {levels: rule.exact.join(', ')}
+      return { levels: rule.exact.join(', ') };
     } else {
       let data: any = {};
       if (rule.every > 1) {
@@ -34,14 +34,14 @@ export class LevelRule {
       if (rule.limit) {
         data.end = rule.limit;
       }
-      return data
+      return data;
     }
   }
 }
 
 
 export function setDefault(object: object, field: string, value: any) {
-  if (typeof value !== "undefined") {
+  if (typeof value !== 'undefined') {
     object[field] = value;
   }
 }

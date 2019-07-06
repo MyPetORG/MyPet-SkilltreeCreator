@@ -30,7 +30,7 @@
                  (blur)="update(skilltree, upgrade, 'chance', $event.srcElement.value, modelChance)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__THORNS__CHANCE_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelChance.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][0-100]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][0-100]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
@@ -47,7 +47,7 @@
                  (blur)="update(skilltree, upgrade, 'reflection', $event.srcElement.value, modelReflection)">
           <span matSuffix>{{ 'COMPONENTS__SKILLS__THORNS__REFLECTION_SUFFIX' | translate }}</span>
           <mat-error *ngIf="modelReflection.errors?.pattern">
-            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{format: '[+-][double]'} }}
+            {{ 'COMPONENTS__SKILLS__ERROR_FORMAT' | translate:{ format: '[+-][double]' } }}
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="reflectionPopover">

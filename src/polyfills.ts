@@ -75,7 +75,7 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
  * CUSTOM POLYFILL METHODS
  */
 
-Object.defineProperty(Object.prototype, "getProp", {
+Object.defineProperty(Object.prototype, 'getProp', {
   value: function (prop: string) {
     let key, self = this;
     for (key in self) {
@@ -88,25 +88,25 @@ Object.defineProperty(Object.prototype, "getProp", {
   enumerable: false
 });
 
-Object.defineProperty(Object.prototype, "getPropAs", {
+Object.defineProperty(Object.prototype, 'getPropAs', {
   value: function (prop: string, type: string) {
     let value: any = this.getProp(prop);
     if (value) {
       switch (type.toLowerCase()) {
-        case "int":
-        case "integer":
+        case 'int':
+        case 'integer':
           let num = Number(value);
           num = ~~num;
           return num;
-        case "number":
+        case 'number':
           return Number(value);
-        case "string":
-          return "" + value;
-        case "boolean|null":
-        case "bool|null":
+        case 'string':
+          return '' + value;
+        case 'boolean|null':
+        case 'bool|null':
           return value == true || value == false ? value : null;
-        case "boolean":
-        case "bool":
+        case 'boolean':
+        case 'bool':
           return !!value;
       }
     }
@@ -115,6 +115,6 @@ Object.defineProperty(Object.prototype, "getPropAs", {
   enumerable: false
 });
 
-window.addEventListener("touchmove", function () {
+window.addEventListener('touchmove', function () {
   // workaround to make scroll prevent work in iOS Safari > 10
 });

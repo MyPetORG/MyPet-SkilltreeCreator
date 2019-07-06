@@ -17,7 +17,7 @@ export class PermissionRequirementComponent {
     this.permissionControl.setValue(data);
   }
 
-  @Output("update") updater: EventEmitter<string> = new EventEmitter();
+  @Output('update') updater: EventEmitter<string> = new EventEmitter();
 
   permissionControl = new FormControl();
 
@@ -28,17 +28,17 @@ export class PermissionRequirementComponent {
   }
 
   update() {
-    if (this.permissionControl.value != "") {
-      this.updater.emit("Permission:" + this.permissionControl.value);
+    if (this.permissionControl.value != '') {
+      this.updater.emit('Permission:' + this.permissionControl.value);
     } else {
-      this.updater.emit("Permission");
+      this.updater.emit('Permission');
     }
   }
 
   notifyCopy() {
-    this.translate.get("COMPONENTS__SKILLTREE_REQUIREMENTS__PERMISSION__COPY_DONE")
+    this.translate.get('COMPONENTS__SKILLTREE_REQUIREMENTS__PERMISSION__COPY_DONE')
       .subscribe((trans) => {
-        this.snackBar.open(trans, null, {duration: 2000,});
+        this.snackBar.open(trans, null, { duration: 2000, });
       });
   }
 }

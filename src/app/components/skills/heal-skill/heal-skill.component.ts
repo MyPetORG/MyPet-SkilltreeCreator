@@ -52,13 +52,13 @@ export class HealSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Heal) {
             changes.skills.Heal = [];
           }
 
-          let heal: Heal = Object.assign({rule: result}, new HealDefault);
+          let heal: Heal = Object.assign({ rule: result }, new HealDefault);
           changes.skills.Heal.push(heal);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

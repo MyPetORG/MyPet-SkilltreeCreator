@@ -17,7 +17,7 @@
   </ng-template>
   <ng-template contextMenuItem divider="true"></ng-template>
   <ng-template contextMenuItem let-item (execute)="deleteSkilltree($event.item)">
-    {{ 'COMPONENTS__SKILLTREE_LIST__DELETE_SKILLTREE' | translate:{name:item?.name} }}
+    {{ 'COMPONENTS__SKILLTREE_LIST__DELETE_SKILLTREE' | translate:{ name: item?.name } }}
   </ng-template>
 </context-menu>
 

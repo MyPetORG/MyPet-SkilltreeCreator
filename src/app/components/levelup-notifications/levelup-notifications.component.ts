@@ -29,8 +29,8 @@ export class LevelupNotificationsComponent {
       let dialogRef = this.dialog.open(LevelupNotificationAddDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {messages: JSON.parse(JSON.stringify(skilltree.messages))};
-          changes.messages.push({rule: result, content: ""});
+          let changes = { messages: JSON.parse(JSON.stringify(skilltree.messages)) };
+          changes.messages.push({ rule: result, content: '' });
 
           this.store.dispatch(updateSkilltreeInfo({ changes, id: skilltree.id }));
         }
@@ -56,8 +56,8 @@ export class LevelupNotificationsComponent {
 
   replace(message: string) {
     return message ? message
-      .replace("{{owner}}", "Keyle")
-      .replace("{{level}}", "" + (Math.floor(Math.random() * 100) % 101))
-      .replace("{{pet}}", "Wolfi") : message;
+      .replace('{{owner}}', 'Keyle')
+      .replace('{{level}}', '' + (Math.floor(Math.random() * 100) % 101))
+      .replace('{{pet}}', 'Wolfi') : message;
   }
 }

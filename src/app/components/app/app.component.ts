@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
-import { IconLoaderService } from "../../services/icon-loader.service";
-import * as Reducers from "../../store/reducers";
-import { Store } from "@ngrx/store";
-import { HotkeyService } from "../../services/hotkey.service";
-import { TranslateService } from "@ngx-translate/core";
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { HotkeyService } from '../../services/hotkey.service';
+import { IconLoaderService } from '../../services/icon-loader.service';
+import * as Reducers from '../../store/reducers';
 
 @Component({
   selector: 'stc-root',

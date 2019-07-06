@@ -1,4 +1,5 @@
-import { ElementRef, Injectable, NgZone, OnDestroy, Optional, ViewContainerRef } from '@angular/core';
+import { Direction, Directionality } from '@angular/cdk/bidi';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import {
   ConnectedPositionStrategy,
   HorizontalConnectionPos,
@@ -8,11 +9,11 @@ import {
   ScrollStrategy,
   VerticalConnectionPos,
 } from '@angular/cdk/overlay';
-import { Direction, Directionality } from '@angular/cdk/bidi';
-import { ESCAPE } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { ElementRef, Injectable, NgZone, OnDestroy, Optional, ViewContainerRef } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { filter, take, takeUntil, tap } from 'rxjs/operators';
+import { NotificationAction, PopoverNotificationService } from './notification.service';
 
 import {
   SatPopover,
@@ -20,7 +21,6 @@ import {
   SatPopoverScrollStrategy,
   SatPopoverVerticalAlign,
 } from './popover.component';
-import { NotificationAction, PopoverNotificationService } from './notification.service';
 
 /**
  * Configuration provided by the popover for the anchoring service
@@ -351,10 +351,10 @@ export class PopoverAnchoringService implements OnDestroy {
     anchor: ElementRef,
   ): ConnectedPositionStrategy {
     // Attach the overlay at the preferred position
-    const {originX, overlayX} = getHorizontalConnectionPosPair(horizontalTarget);
-    const {originY, overlayY} = getVerticalConnectionPosPair(verticalTarget);
+    const { originX, overlayX } = getHorizontalConnectionPosPair(horizontalTarget);
+    const { originY, overlayY } = getVerticalConnectionPosPair(verticalTarget);
     const strategy = this._overlay.position()
-      .connectedTo(anchor, {originX, originY}, {overlayX, overlayY})
+      .connectedTo(anchor, { originX, originY }, { overlayX, overlayY })
       .withDirection(this._getDirection())
       .withLockedPosition(lockAlignment);
 
@@ -389,13 +389,13 @@ export class PopoverAnchoringService implements OnDestroy {
     const fallbacks = [];
     prioritizeAroundTarget(hTarget, possibleHorizontalAlignments).forEach(h => {
       prioritizeAroundTarget(vTarget, possibleVerticalAlignments).forEach(v => {
-        fallbacks.push({h, v});
+        fallbacks.push({ h, v });
       });
     });
 
     // Remove the first fallback since it will be the target alignment that is already applied
     fallbacks.slice(1, fallbacks.length)
-      .forEach(({h, v}) => this._applyFallback(strategy, h, v));
+      .forEach(({ h, v }) => this._applyFallback(strategy, h, v));
   }
 
   /**
@@ -403,9 +403,9 @@ export class PopoverAnchoringService implements OnDestroy {
    * the strategy.
    */
   private _applyFallback(strategy, horizontalAlign, verticalAlign): void {
-    const {originX, overlayX} = getHorizontalConnectionPosPair(horizontalAlign);
-    const {originY, overlayY} = getVerticalConnectionPosPair(verticalAlign);
-    strategy.withFallbackPosition({originX, originY}, {overlayX, overlayY});
+    const { originX, overlayX } = getHorizontalConnectionPosPair(horizontalAlign);
+    const { originY, overlayY } = getVerticalConnectionPosPair(verticalAlign);
+    strategy.withFallbackPosition({ originX, originY }, { overlayX, overlayY });
   }
 
 
@@ -442,15 +442,15 @@ function getHorizontalConnectionPosPair(h: SatPopoverHorizontalAlign):
   { originX: HorizontalConnectionPos, overlayX: HorizontalConnectionPos } {
   switch (h) {
     case 'before':
-      return {originX: 'start', overlayX: 'end'};
+      return { originX: 'start', overlayX: 'end' };
     case 'start':
-      return {originX: 'start', overlayX: 'start'};
+      return { originX: 'start', overlayX: 'start' };
     case 'end':
-      return {originX: 'end', overlayX: 'end'};
+      return { originX: 'end', overlayX: 'end' };
     case 'after':
-      return {originX: 'end', overlayX: 'start'};
+      return { originX: 'end', overlayX: 'start' };
     default:
-      return {originX: 'center', overlayX: 'center'};
+      return { originX: 'center', overlayX: 'center' };
   }
 }
 
@@ -459,15 +459,15 @@ function getVerticalConnectionPosPair(v: SatPopoverVerticalAlign):
   { originY: VerticalConnectionPos, overlayY: VerticalConnectionPos } {
   switch (v) {
     case 'above':
-      return {originY: 'top', overlayY: 'bottom'};
+      return { originY: 'top', overlayY: 'bottom' };
     case 'start':
-      return {originY: 'top', overlayY: 'top'};
+      return { originY: 'top', overlayY: 'top' };
     case 'end':
-      return {originY: 'bottom', overlayY: 'bottom'};
+      return { originY: 'bottom', overlayY: 'bottom' };
     case 'below':
-      return {originY: 'bottom', overlayY: 'top'};
+      return { originY: 'bottom', overlayY: 'top' };
     default:
-      return {originY: 'center', overlayY: 'center'};
+      return { originY: 'center', overlayY: 'center' };
   }
 }
 

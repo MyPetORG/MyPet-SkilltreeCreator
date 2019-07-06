@@ -301,7 +301,7 @@ export class SatPopover implements OnInit, OnDestroy {
   _getAnimation(): { value: any, params: any } {
     return {
       value: 'visible',
-      params: {openTransition: this.openTransition, closeTransition: this.closeTransition}
+      params: { openTransition: this.openTransition, closeTransition: this.closeTransition }
     };
   }
 

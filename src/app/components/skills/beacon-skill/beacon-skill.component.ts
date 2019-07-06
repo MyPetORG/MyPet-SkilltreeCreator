@@ -19,7 +19,7 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
   templateUrl: './beacon-skill.component.html',
   styleUrls: ['./beacon-skill.component.scss'],
   providers: [
-    {provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
   ]
 })
 export class BeaconSkillComponent {
@@ -87,13 +87,13 @@ export class BeaconSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Beacon) {
             changes.skills.Beacon = [];
           }
 
-          let beacon: Beacon = Object.assign({rule: result}, new BeaconDefault);
+          let beacon: Beacon = Object.assign({ rule: result }, new BeaconDefault);
           changes.skills.Beacon.push(beacon);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }

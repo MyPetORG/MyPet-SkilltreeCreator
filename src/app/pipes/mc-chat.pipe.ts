@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'mcChat'
@@ -14,7 +14,7 @@ export class McChatPipe implements PipeTransform {
     let styles = ['§l', '§m', '§n', '§o'];
     let colors = ['§0', '§1', '§2', '§3', '§4', '§5', '§6', '§7', '§8', '§9', '§a', '§b', '§c', '§d', '§e', '§f'];
 
-    text = text.replace(/[ ]/g, "&nbsp;");
+    text = text.replace(/[ ]/g, '&nbsp;');
     //text = text.replace("\"", "&quot;");
 
     let match = text.match(/(§[0-9a-flmnor])/i);

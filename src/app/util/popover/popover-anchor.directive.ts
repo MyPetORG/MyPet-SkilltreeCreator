@@ -1,10 +1,10 @@
 import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { PopoverAnchoringService } from './popover-anchoring.service';
 
 import { SatPopover } from './popover.component';
 import { getInvalidPopoverError } from './popover.errors';
-import { PopoverAnchoringService } from './popover-anchoring.service';
 
 @Directive({
   selector: '[satPopoverAnchorFor]',

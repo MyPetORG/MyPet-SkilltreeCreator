@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { Skill } from "../models/skill";
-import { Upgrade } from "../models/upgrade";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Skill } from '../models/skill';
+import { Upgrade } from '../models/upgrade';
 
 @Injectable()
 export class StateService {

@@ -52,13 +52,13 @@ export class FireSkillComponent {
       let dialogRef = this.dialog.open(UpgradeDialogComponent);
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let changes = {skills: JSON.parse(JSON.stringify(skilltree.skills))};
+          let changes = { skills: JSON.parse(JSON.stringify(skilltree.skills)) };
 
           if (!changes.skills.Fire) {
             changes.skills.Fire = [];
           }
 
-          let fire: Fire = Object.assign({rule: result}, new FireDefault);
+          let fire: Fire = Object.assign({ rule: result }, new FireDefault);
           changes.skills.Fire.push(fire);
           this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
         }
