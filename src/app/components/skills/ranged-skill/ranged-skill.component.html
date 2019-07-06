@@ -24,7 +24,7 @@
   <mat-expansion-panel *ngFor="let upgrade of skilltree.skills.Ranged; trackBy: trackById; let i = index"
                        [expanded]="selectedUpgrade == i" (opened)="selectedUpgrade = i">
     <mat-expansion-panel-header>
-      {{ LevelRule.toKey(upgrade.rule) | translate:LevelRule.toData(upgrade.rule) }}
+      {{ upgrade.rule | levelRuleKey | translate:(upgrade.rule | levelRuleToData) }}
     </mat-expansion-panel-header>
     <div fxLayout="column">
       <mat-card>

@@ -11,7 +11,6 @@ import { Skilltree } from '../../../models/skilltree';
 import { Upgrade } from '../../../models/upgrade';
 import { StateService } from '../../../services/state.service';
 import * as Reducers from '../../../store/reducers';
-import { LevelRule } from '../../../util/helpers';
 import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.component';
 
 @Component({
@@ -24,7 +23,6 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
 })
 export class BeaconSkillComponent {
 
-  LevelRule = LevelRule;
   skill: Skill<Beacon> = null;
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;

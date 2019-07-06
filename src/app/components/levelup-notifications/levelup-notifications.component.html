@@ -15,7 +15,7 @@
     <mat-expansion-panel *ngFor="let message of skilltree.messages; let i = index"
                          [expanded]="selectedMessage == i" (opened)="selectedMessage = i">
       <mat-expansion-panel-header>
-        {{ LevelRule.toKey(message.rule) | translate:LevelRule.toData(message.rule) }}
+        {{ message.rule | levelRuleKey | translate:(message.rule | levelRuleToData) }}
       </mat-expansion-panel-header>
       <div fxLayout="column" style="padding-top: 1.25em;">
         <mat-form-field>

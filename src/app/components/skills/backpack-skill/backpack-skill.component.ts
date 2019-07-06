@@ -11,7 +11,6 @@ import { Upgrade } from '../../../models/upgrade';
 import { StateService } from '../../../services/state.service';
 import { updateSkilltreeUpgrade } from '../../../store/actions/skilltree';
 import * as Reducers from '../../../store/reducers/index';
-import { LevelRule } from '../../../util/helpers';
 import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.component';
 
 @Component({
@@ -24,7 +23,6 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
 })
 export class BackpackSkillComponent {
 
-  LevelRule = LevelRule;
   skill: Skill<Backpack> = null;
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;

@@ -91,6 +91,8 @@ import { DynamicPopoverAnchorDirective } from './directives/dynamic-popover-anch
 import { SkilltreeDuplicateDirective } from './directives/skilltree-duplicate.directive';
 import { SkilltreeExistsGuard } from './guards/skilltree-exists.guard';
 import { KeysPipe } from './pipes/keys.pipe';
+import { LevelRuleKeyPipe } from './pipes/level-rule-key.pipe';
+import { LevelRuleToDataPipe } from './pipes/level-rule-to-data.pipe';
 import { McChatPipe } from './pipes/mc-chat.pipe';
 import { RomanPipe } from './pipes/roman.pipe';
 import { ErrorReporterService } from './services/error-reporter.service';
@@ -115,6 +117,8 @@ export function createTranslateLoader(http: HttpClient) {
     McChatPipe,
     KeysPipe,
     RomanPipe,
+    LevelRuleKeyPipe,
+    LevelRuleToDataPipe,
 
     SkilltreeAddDialogComponent,
     SkilltreeDuplicateDialogComponent,

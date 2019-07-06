@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Skilltree } from '../../models/skilltree';
 import { updateSkilltreeInfo } from '../../store/actions/skilltree';
 import * as Reducers from '../../store/reducers';
-import { LevelRule } from '../../util/helpers';
 import { LevelupNotificationAddDialogComponent } from '../levelup-notification-add-dialog/levelup-notification-add-dialog.component';
 
 @Component({
@@ -15,7 +14,6 @@ import { LevelupNotificationAddDialogComponent } from '../levelup-notification-a
 })
 export class LevelupNotificationsComponent {
 
-  LevelRule = LevelRule;
   selectedSkilltree$: Observable<Skilltree>;
   selectedMessage = 0;
 
