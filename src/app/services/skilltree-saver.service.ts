@@ -126,9 +126,9 @@ export class SkilltreeSaverService {
       return ["*"];
     }
     if (mobtypes.length >= ~~(MobTypes.length * 0.75)) {
-      let negativeTypes = MobTypes.filter(type => mobtypes.indexOf(type) == -1);
-      negativeTypes.forEach((type, index) => negativeTypes[index] = "-" + type);
-      return negativeTypes;
+      return MobTypes
+        .filter(type => mobtypes.indexOf(type) == -1)
+        .map(type => '-' + type);
     }
     return mobtypes;
   }
