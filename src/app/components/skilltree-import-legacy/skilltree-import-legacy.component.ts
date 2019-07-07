@@ -101,7 +101,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
           }
         },
         error => {
-          this.translate.get('COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__INVALID_FILE')
+          this.translate.get('COMPONENTS__SKILLTREE_IMPORT_LEGACY__INVALID_FILE')
             .subscribe((trans) => {
               this.snackBar.open(trans, null, { duration: 2000, });
             });
@@ -258,7 +258,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         }
       });
 
-      this.translate.get('COMPONENTS__SKILLTREE_IMPORT_LEGACY_DIALOG__SKILLTREE_IMPORTED')
+      this.translate.get('COMPONENTS__SKILLTREE_IMPORT_LEGACY__SKILLTREE_IMPORTED')
         .subscribe((trans) => {
           this.snackBar.open(trans, null, { duration: 2000, });
         });
