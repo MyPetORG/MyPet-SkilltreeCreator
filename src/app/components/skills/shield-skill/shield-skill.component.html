@@ -34,7 +34,7 @@
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="chancePopover">
-          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+          <fa-icon icon="info-circle"></fa-icon>
         </button>
       </mat-card>
       <mat-card>
@@ -52,7 +52,7 @@
           </mat-error>
         </mat-form-field>
         <button mat-icon-button [stcDynamicPopoverAnchorFor]="redirectionPopover">
-          <mat-icon svgIcon="info_outline">info_outline</mat-icon>
+          <fa-icon icon="info-circle"></fa-icon>
         </button>
       </mat-card>
     </div>
@@ -61,7 +61,7 @@
         {{ 'COMPONENTS__SKILLS__EDIT' | translate }}
       </button>
       <button mat-button color="warn" (click)="deleteRule(skilltree, upgrade)">
-        <mat-icon svgIcon="delete">delete</mat-icon>
+        <fa-icon icon="trash"></fa-icon>
         {{ 'COMPONENTS__SKILLS__DELETE' | translate }}
       </button>
     </mat-action-row>

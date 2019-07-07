@@ -6,7 +6,7 @@
           [cbContent]="'MyPet.skilltree.' + (permissionControl.value != '' ? permissionControl.value : skilltree.id)"
           (click)="notifyCopy()" matTooltipPosition="left"
           [matTooltip]="'COMPONENTS__SKILLTREE_REQUIREMENTS__PERMISSION__COPY' | translate">
-    <mat-icon svgIcon="content_copy">content_copy</mat-icon>
+    <fa-icon [icon]="['far','copy']"></fa-icon>
   </button>
   <mat-error *ngIf="permissionControl.errors?.pattern">
     {{ 'COMPONENTS__SKILLTREE_REQUIREMENTS__PERMISSION__ERROR_NO_WHITESPACES' | translate }}

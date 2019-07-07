@@ -47,3 +47,14 @@ mat-expansion-panel-header.mat-expanded, mat-expansion-panel-header.mat-expanded
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
+fa-icon {
+  font-size: 20px;
+
+  &.chip-icon {
+    margin-left: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    height: 22px;
+  }
+}

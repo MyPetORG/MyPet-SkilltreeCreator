@@ -37,7 +37,7 @@
                    [cdkDragData]="skilltree"
                    class="draggable-item">
 
-      <mat-icon mat-list-icon cdkDragHandle class="handle" svgIcon="drag_handle">drag_handle</mat-icon>
+      <fa-icon icon="grip-lines" mat-list-icon cdkDragHandle class="handle"></fa-icon>
 
       <span *cdkDragPreview></span>
 
@@ -47,13 +47,13 @@
       </p>
       <span style="flex: 1 1 auto;"></span>
       <button mat-icon-button (click)="selectSkilltree(skilltree)">
-        <mat-icon svgIcon="create">create</mat-icon>
+        <fa-icon [icon]="['far', 'edit']"></fa-icon>
       </button>
       <button mat-icon-button (click)="deleteSkilltree(skilltree)">
-        <mat-icon svgIcon="delete">delete</mat-icon>
+        <fa-icon icon="trash"></fa-icon>
       </button>
       <button mat-icon-button (click)="onContextMenu($event, skilltree, skilltreeMenu)">
-        <mat-icon svgIcon="arrow_drop_down">arrow_drop_down</mat-icon>
+        <fa-icon icon="caret-down"></fa-icon>
       </button>
     </mat-list-item>
   </mat-nav-list>

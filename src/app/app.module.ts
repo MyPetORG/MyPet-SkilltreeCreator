@@ -12,7 +12,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ErrorStateMatcher, MatOptionModule, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -31,6 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
@@ -174,7 +174,7 @@ export function createTranslateLoader(http: HttpClient) {
     FlexLayoutModule,
     BrowserAnimationsModule,
     ClipboardModule,
-    MatButtonModule, MatCheckboxModule, MatIconModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
+    MatButtonModule, MatCheckboxModule, MatTabsModule, MatCardModule, MatDialogModule, MatSnackBarModule,
     MatSidenavModule, MatOptionModule, MatTooltipModule, MatExpansionModule, MatButtonToggleModule, MatListModule,
     MatToolbarModule, MatInputModule, MatSelectModule, MatSlideToggleModule, MatRadioModule, MatChipsModule,
     MatProgressSpinnerModule, MatProgressBarModule, MatPaginatorModule, MatBadgeModule, MatSliderModule,
@@ -208,7 +208,7 @@ export function createTranslateLoader(http: HttpClient) {
       SkilltreeEffects,
       LayoutEffects,
       RouterEffects,
-    ]),
+    ]), FontAwesomeModule,
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

@@ -23,9 +23,9 @@
                  [name]="'message_' + i" #modelMessage="ngModel"
                  [ngModel]="message.content"
                  (blur)="update(skilltree, i, modelMessage)">
-          <mat-icon matSuffix svgIcon="info_outline" [stcDynamicPopoverAnchorFor]="messagePopover"
-                    class="interaction-click">info_outline
-          </mat-icon>
+          <fa-icon icon="info-circle"
+                   [stcDynamicPopoverAnchorFor]="messagePopover"
+                   class="interaction-click"></fa-icon>
         </mat-form-field>
         <div class="codebox interaction-none">
           <ul>
@@ -35,7 +35,7 @@
       </div>
       <mat-action-row>
         <button mat-raised-button color="primary" (click)="deleteRule(skilltree, i)">
-          <mat-icon svgIcon="delete">delete</mat-icon>
+          <fa-icon icon="trash"></fa-icon>
           {{ 'COMPONENTS__LEVELUP_NOTIFICATIONS__DELETE' | translate }}
         </button>
       </mat-action-row>

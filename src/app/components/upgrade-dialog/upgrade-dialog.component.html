@@ -9,7 +9,7 @@
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let l of level" (removed)="removeLevel(l)" [selectable]="false">
               {{l}}
-              <mat-icon matChipRemove svgIcon="cancel">cancel</mat-icon>
+              <fa-icon icon="times" matChipRemove class="chip-icon"></fa-icon>
             </mat-chip>
             <input [placeholder]="'COMPONENTS__UPGRADE_DIALOG__LEVELS' | translate"
                    [matChipInputFor]="chipList"

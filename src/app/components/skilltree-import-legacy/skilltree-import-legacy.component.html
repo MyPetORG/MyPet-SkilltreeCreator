@@ -5,10 +5,10 @@
   {{ 'COMPONENTS__SKILLTREE_IMPORT_LEGACY__INSTRUCTIONS' | translate }}
   <mat-vertical-stepper [linear]="true" #stepper>
     <ng-template matStepperIcon="edit">
-      <mat-icon svgIcon="check">check</mat-icon>
+      <fa-icon icon="check" class="step-icon"></fa-icon>
     </ng-template>
     <ng-template matStepperIcon="done">
-      <mat-icon svgIcon="check">check</mat-icon>
+      <fa-icon icon="check" class="step-icon"></fa-icon>
     </ng-template>
     <mat-step [label]="'COMPONENTS__SKILLTREE_IMPORT_LEGACY__STEP_FILE' | translate"
               [completed]="stepCompleted[0]">
