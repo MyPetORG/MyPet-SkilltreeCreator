@@ -211,7 +211,7 @@
   "COMPONENTS__SKILLS__LIGHTNING__CHANCE_POPUP": "<p>Die Chance dass das Pet seinen Gegner bei einem Angriff einen Blitz auf seinen Gerner niederschmettert.<br>Format: [+-][Nummer]<br>Beispiele:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__LIGHTNING__DAMAGE": "Schaden",
   "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_PREFIX": "",
-  "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_SUFFIX": "%",
+  "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_SUFFIX": "Schaden",
   "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_POPUP": "<p>Der Schaden den der Blitz verursacht.<br>Format: [+-][Nummer]<br>Beispiele:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__WITHER__CHANCE": "Chance",
   "COMPONENTS__SKILLS__WITHER__CHANCE_PREFIX": "",

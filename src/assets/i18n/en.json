@@ -211,7 +211,7 @@
   "COMPONENTS__SKILLS__LIGHTNING__CHANCE_POPUP": "<p>The chance a hit will cause a lightning.<br>Format: [+-][number]<br>Examples:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__LIGHTNING__DAMAGE": "Damage",
   "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_PREFIX": "",
-  "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_SUFFIX": "%",
+  "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_SUFFIX": "damage",
   "COMPONENTS__SKILLS__LIGHTNING__DAMAGE_POPUP": "<p>The damage the lightning strike will cause.<br>Format: [+-][number]<br>Examples:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__WITHER__CHANCE": "Chance",
   "COMPONENTS__SKILLS__WITHER__CHANCE_PREFIX": "",
