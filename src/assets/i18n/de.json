@@ -347,6 +347,7 @@
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} wurde zu {{new}} umbenannt.",
 
   "MOB_TYPE__BAT": "Fledermaus",
+  "MOB_TYPE__BEE": "Biene",
   "MOB_TYPE__BLAZE": "Lohe",
   "MOB_TYPE__CAVESPIDER": "Höhlenspinne",
   "MOB_TYPE__CAT": "Katze",

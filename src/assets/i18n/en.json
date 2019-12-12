@@ -347,6 +347,7 @@
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} was renamed to {{new}}",
 
   "MOB_TYPE__BAT": "Bat",
+  "MOB_TYPE__BEE": "Bee",
   "MOB_TYPE__BLAZE": "Blaze",
   "MOB_TYPE__CAT": "Cat",
   "MOB_TYPE__CAVESPIDER": "Cave Spider",

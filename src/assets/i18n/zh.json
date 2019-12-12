@@ -340,6 +340,7 @@
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} 重命名为 {{new}}",
 
   "MOB_TYPE__BAT": "蝙蝠",
+  "MOB_TYPE__BEE": "蜜蜂",
   "MOB_TYPE__BLAZE": "烈焰人",
   "MOB_TYPE__CAVESPIDER": "洞穴蜘蛛",
   "MOB_TYPE__CHICKEN": "鸡",
