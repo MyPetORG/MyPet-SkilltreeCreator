@@ -54,6 +54,7 @@ export class BackpackSkillComponent {
     let value = changes.Backpack[skilltree.skills.Backpack.indexOf(upgrade)][field];
     switch (value) {
       case null:
+      case undefined:
         value = true;
         break;
       case true:

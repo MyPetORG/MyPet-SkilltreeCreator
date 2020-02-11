@@ -51,6 +51,7 @@ export class ControlSkillComponent {
     let value = changes.Control[skilltree.skills.Control.indexOf(upgrade)][field];
     switch (value) {
       case null:
+      case undefined:
         value = true;
         break;
       case true:

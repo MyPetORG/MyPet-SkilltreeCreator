@@ -54,6 +54,7 @@ export class RideSkillComponent {
     let value = changes.Ride[skilltree.skills.Ride.indexOf(upgrade)][field];
     switch (value) {
       case null:
+      case undefined:
         value = true;
         break;
       case true:

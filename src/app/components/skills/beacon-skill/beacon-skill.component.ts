@@ -54,6 +54,7 @@ export class BeaconSkillComponent {
     let value = (changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff];
     switch (value) {
       case null:
+      case undefined:
         value = true;
         break;
       case true:

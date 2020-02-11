@@ -51,6 +51,7 @@ export class SprintSkillComponent {
     let value = changes.Sprint[skilltree.skills.Sprint.indexOf(upgrade)][field];
     switch (value) {
       case null:
+      case undefined:
         value = true;
         break;
       case true:

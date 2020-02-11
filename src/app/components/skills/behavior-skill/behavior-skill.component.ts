@@ -51,6 +51,7 @@ export class BehaviorSkillComponent {
     let value = changes.Behavior[skilltree.skills.Behavior.indexOf(upgrade)][field];
     switch (value) {
       case null:
+      case undefined:
         value = true;
         break;
       case true:
