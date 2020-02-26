@@ -30,7 +30,7 @@ export class SkilltreeExistsGuard implements CanActivate {
       take(1),
       map(hasSkilltree => {
         return hasSkilltree;
-      })
+      }),
     );
   }
 

@@ -16,13 +16,15 @@ import { REDO, UNDO } from '../reducers/undoable';
 
 @Injectable()
 export class SkilltreeEffects implements OnInitEffects {
-  constructor(private actions$: Actions,
-              private skilltreeLoader: SkilltreeLoaderService,
-              private skilltreeSaver: SkilltreeSaverService,
-              private store: Store<Reducers.State>,
-              private snackBar: MatSnackBar,
-              private translate: TranslateService,
-              private router: Router) {
+  constructor(
+    private actions$: Actions,
+    private skilltreeLoader: SkilltreeLoaderService,
+    private skilltreeSaver: SkilltreeSaverService,
+    private store: Store<Reducers.State>,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService,
+    private router: Router,
+  ) {
   }
 
   orderSkilltree$ = createEffect(() => this.actions$.pipe(
@@ -57,7 +59,7 @@ export class SkilltreeEffects implements OnInitEffects {
         return of(SkilltreeActions.updateSkilltreeOrder({ order: changes, ignoredByUndo: true }));
       }
       return EMPTY;
-    })
+    }),
   ));
 
   importSkilltree$ = createEffect(() => this.actions$.pipe(
@@ -73,19 +75,19 @@ export class SkilltreeEffects implements OnInitEffects {
           if (skilltreeIds.indexOf(skilltree.id) == -1) {
             return SkilltreeActions.importSkilltreeSuccess({
               skilltree,
-              ignoredByUndo: true
+              ignoredByUndo: true,
             });
           } else {
             return SkilltreeActions.importSkilltreeFailed({
               error: { type: 'DUPLICATE', data: skilltree.id },
-              ignoredByUndo: true
+              ignoredByUndo: true,
             });
           }
         }),
         catchError(error => {
           return of(SkilltreeActions.importSkilltreeFailed({ error, ignoredByUndo: true }));
-        }),);
-    })
+        }));
+    }),
   ));
 
   importSkilltreesFailed$ = createEffect(() => this.actions$.pipe(
@@ -95,7 +97,7 @@ export class SkilltreeEffects implements OnInitEffects {
         case 'INVALID':
           this.translate.get('EFFECT__IMPORT_SKILLTREE_FAILED__INVALID')
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, { duration: 2000, });
+              this.snackBar.open(trans, null, { duration: 2000 });
             });
           break;
         case 'DUPLICATE':
@@ -103,13 +105,13 @@ export class SkilltreeEffects implements OnInitEffects {
             'EFFECT__IMPORT_SKILLTREE_FAILED__DUPLICATE',
             { id: action.error.data })
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, { duration: 2000, });
+              this.snackBar.open(trans, null, { duration: 2000 });
             });
           break;
         default:
           console.error(action);
       }
-    })
+    }),
   ), { dispatch: false });
 
   importSkilltreesSuccess$ = createEffect(() => this.actions$.pipe(
@@ -117,9 +119,9 @@ export class SkilltreeEffects implements OnInitEffects {
     tap(() => {
       this.translate.get('EFFECT__IMPORT_SKILLTREE_SUCCESS')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
-    })
+    }),
   ), { dispatch: false });
 
   loadSkilltree$ = createEffect(() => this.actions$.pipe(
@@ -127,8 +129,8 @@ export class SkilltreeEffects implements OnInitEffects {
     switchMap((action) => {
       return this.skilltreeLoader.loadSkilltree(action.skilltree).pipe(
         map((skilltree) => SkilltreeActions.loadSkilltreeSuccess({ ignoredByUndo: action.ignoredByUndo, skilltree })),
-        catchError(error => of(SkilltreeActions.loadSkilltreeFailed({ error, ignoredByUndo: true }))),);
-    })
+        catchError(error => of(SkilltreeActions.loadSkilltreeFailed({ error, ignoredByUndo: true }))));
+    }),
   ));
 
   loadSkilltrees$ = createEffect(() => this.actions$.pipe(
@@ -139,12 +141,12 @@ export class SkilltreeEffects implements OnInitEffects {
         map(res => {
           res.forEach(skilltree => this.store.dispatch(SkilltreeActions.loadSkilltree({
             skilltree,
-            ignoredByUndo: true
+            ignoredByUndo: true,
           })));
           return SkilltreeActions.loadSkilltreesSuccess({ ignoredByUndo: true });
         }),
-        catchError(error => of(SkilltreeActions.loadSkilltreesFailed({ error, ignoredByUndo: true }))),);
-    })
+        catchError(error => of(SkilltreeActions.loadSkilltreesFailed({ error, ignoredByUndo: true }))));
+    }),
   ));
 
   loadSkilltreesSuccess$ = createEffect(() => this.actions$.pipe(
@@ -152,12 +154,12 @@ export class SkilltreeEffects implements OnInitEffects {
     map(() => {
         this.translate.get('EFFECT__LOAD_SKILLTREE_SUCCESS')
           .subscribe((trans) => {
-              this.snackBar.open(trans, null, { duration: 2000, });
-            }
+              this.snackBar.open(trans, null, { duration: 2000 });
+            },
           );
         return appLoaded();
-      }
-    )
+      },
+    ),
   ));
 
   loadSkilltreesFailed$ = createEffect(() => this.actions$.pipe(
@@ -165,11 +167,11 @@ export class SkilltreeEffects implements OnInitEffects {
     map(() => {
         this.translate.get('EFFECT__LOAD_SKILLTREE_FAILED')
           .subscribe((trans) => {
-            this.snackBar.open(trans, null, { duration: 2000, });
+            this.snackBar.open(trans, null, { duration: 2000 });
           });
         return appLoaded();
-      }
-    )
+      },
+    ),
   ));
 
   saveSkilltree$ = createEffect(() => this.actions$.pipe(
@@ -182,8 +184,8 @@ export class SkilltreeEffects implements OnInitEffects {
       });
       return this.skilltreeSaver.saveSkilltrees(skilltrees).pipe(
         map(result => SkilltreeActions.saveSkilltreesSuccess({ result, ignoredByUndo: true })),
-        catchError(error => of(SkilltreeActions.saveSkilltreesFailed({ error, ignoredByUndo: true }))),);
-    })
+        catchError(error => of(SkilltreeActions.saveSkilltreesFailed({ error, ignoredByUndo: true }))));
+    }),
   ));
 
   saveSkilltreeSuccess$ = createEffect(() => this.actions$.pipe(
@@ -193,7 +195,7 @@ export class SkilltreeEffects implements OnInitEffects {
         .subscribe((trans) => {
           this.snackBar.open(trans, null, { duration: 2000 });
         });
-    })
+    }),
   ), { dispatch: false });
 
   saveSkilltreeFailed$ = createEffect(() => this.actions$.pipe(
@@ -201,10 +203,10 @@ export class SkilltreeEffects implements OnInitEffects {
     tap((action) => {
       this.translate.get('EFFECT__SAVE_SKILLTREE_FAILED')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
       console.log('Skilltree saving failed', action.error);
-    })
+    }),
   ), { dispatch: false });
 
   renameSkilltree$ = createEffect(() => this.actions$.pipe(
@@ -213,13 +215,13 @@ export class SkilltreeEffects implements OnInitEffects {
       this.router.navigate(['st', action.newId]).then(() => {
         this.translate.get(
           'EFFECT__RENAME_SKILLTREE__SUCCESS',
-          { old: action.oldId, 'new': action.newId }
+          { old: action.oldId, 'new': action.newId },
         ).subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
         this.store.dispatch(switchTab({ tab: 1 }));
       });
-    })
+    }),
   ), { dispatch: false });
 
   undoredo$ = createEffect(() => this.actions$.pipe(
@@ -231,7 +233,7 @@ export class SkilltreeEffects implements OnInitEffects {
         this.router.navigate(['/']);
       }
       return EMPTY;
-    })
+    }),
   ));
 
   ngrxOnInitEffects(): Action {

@@ -181,14 +181,15 @@ export function createTranslateLoader(http: HttpClient) {
     MatStepperModule,
     DragDropModule,
     SatPopoverModule,
+    FontAwesomeModule,
     HotkeyModule.forRoot(),
     ContextMenuModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     StoreModule.forRoot(reducerToken, {
       runtimeChecks: {
@@ -208,7 +209,7 @@ export function createTranslateLoader(http: HttpClient) {
       SkilltreeEffects,
       LayoutEffects,
       RouterEffects,
-    ]), FontAwesomeModule,
+    ]),
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,

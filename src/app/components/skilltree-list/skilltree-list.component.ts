@@ -17,7 +17,7 @@ import { SkilltreeDuplicateDialogComponent } from '../skilltree-duplicate-dialog
 @Component({
   selector: 'stc-skilltree-list',
   templateUrl: './skilltree-list.component.html',
-  styleUrls: ['./skilltree-list.component.scss']
+  styleUrls: ['./skilltree-list.component.scss'],
 })
 export class SkilltreeListComponent {
   skilltrees$: Observable<{ [id: string]: Skilltree }>;
@@ -78,13 +78,13 @@ export class SkilltreeListComponent {
             mobtypes: [],
             messages: [],
             requirements: [],
-          }
+          },
         }));
         this.translate.get(
           'COMPONENTS__SKILLTREE_LIST__ADD_SUCCESS',
-          { id: result }
+          { id: result },
         ).subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
       }
     });
@@ -106,9 +106,9 @@ export class SkilltreeListComponent {
     this.store.dispatch(removeSkilltree({ skilltree }));
     this.translate.get(
       'COMPONENTS__SKILLTREE_LIST__DELETE_SUCCESS',
-      { id: skilltree.id }
+      { id: skilltree.id },
     ).subscribe((trans) => {
-      this.snackBar.open(trans, null, { duration: 2000, });
+      this.snackBar.open(trans, null, { duration: 2000 });
     });
   }
 
@@ -121,9 +121,9 @@ export class SkilltreeListComponent {
         this.store.dispatch(copySkilltree({ skilltree: copy }));
         this.translate.get(
           'COMPONENTS__SKILLTREE_LIST__COPY_SUCCESS',
-          { old: skilltree.id, 'new': result }
+          { old: skilltree.id, 'new': result },
         ).subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
       }
     });
