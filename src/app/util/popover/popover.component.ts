@@ -248,7 +248,7 @@ export class SatPopover implements OnInit, OnDestroy {
   _notifications: PopoverNotificationService;
 
   /** Reference to the element to build a focus trap around. */
-  @ViewChild('focusTrapElement', { static: false })
+  @ViewChild('focusTrapElement')
   private _focusTrapElement: ElementRef;
 
   /** Reference to the element that was focused before opening. */
