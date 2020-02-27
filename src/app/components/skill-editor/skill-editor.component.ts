@@ -6,8 +6,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 import { SkillInfo, Skills } from '../../data/skills';
 import { SkillUpgradeComponents } from '../../data/upgrade-components';
 import { Skilltree } from '../../models/skilltree';
@@ -15,7 +15,6 @@ import { LayoutQuery } from '../../stores/layout/layout.query';
 import { LayoutService } from '../../stores/layout/layout.service';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-skill-editor',
   templateUrl: './skill-editor.component.html',
@@ -23,11 +22,12 @@ import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 })
 export class SkillEditorComponent implements AfterViewInit, OnDestroy {
 
+  subs = new SubSink();
+
   skills = Skills;
   selectedSkill: SkillInfo;
   selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
-  selectedSkillSubscription: Subscription = null;
   @ViewChild('upgradeComponentContainer', {
     read: ViewContainerRef,
     static: true,
@@ -45,7 +45,7 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.selectedSkillSubscription = this.selectedSkill$.subscribe(value => {
+    this.subs.sink = this.selectedSkill$.subscribe(value => {
       this.upgradeComponentContainer.clear();
       if (value) {
         this.loadComponent(value);
@@ -57,6 +57,7 @@ export class SkillEditorComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   loadComponent(skill: SkillInfo) {

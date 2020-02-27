@@ -4,19 +4,20 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { SubSink } from 'subsink';
 import { isArray } from 'util';
 import { LevelRule } from '../../models/level-rule';
 import { Upgrade } from '../../models/upgrade';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-upgrade-dialog',
   templateUrl: './upgrade-dialog.component.html',
   styleUrls: ['./upgrade-dialog.component.scss'],
 })
 export class UpgradeDialogComponent implements OnDestroy {
+
+  subs = new SubSink();
 
   type: number = 0;
   level: number[] = [];
@@ -30,7 +31,6 @@ export class UpgradeDialogComponent implements OnDestroy {
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
   levelRules: LevelRule[] = [];
-  levelRulessSubscription = null;
 
   constructor(
     private dialogRef: MatDialogRef<UpgradeDialogComponent>,
@@ -54,7 +54,7 @@ export class UpgradeDialogComponent implements OnDestroy {
       }
     }
 
-    this.levelRulessSubscription = this.skilltreeQuery.selectedUpgrades$
+    this.subs.sink = this.skilltreeQuery.selectedUpgrades$
       .subscribe(upgrades => {
         this.levelRules = [];
         if (upgrades) {
@@ -66,7 +66,7 @@ export class UpgradeDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // AutoUnsubscribe
+    this.subs.unsubscribe();
   }
 
   done() {

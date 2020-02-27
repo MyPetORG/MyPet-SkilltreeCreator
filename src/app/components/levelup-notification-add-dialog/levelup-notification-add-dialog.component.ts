@@ -4,18 +4,19 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { SubSink } from 'subsink';
 import { isArray } from 'util';
 import { LevelRule } from '../../models/level-rule';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-levelup-notification-add-dialog',
   templateUrl: './levelup-notification-add-dialog.component.html',
   styleUrls: ['./levelup-notification-add-dialog.component.scss'],
 })
 export class LevelupNotificationAddDialogComponent implements OnDestroy {
+
+  subs = new SubSink();
 
   type: number = 0;
   level: number[] = [];
@@ -26,7 +27,6 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
   levelRules: LevelRule[] = [];
-  levelRulessSubscription = null;
 
   constructor(
     private dialogRef: MatDialogRef<LevelupNotificationAddDialogComponent>,
@@ -36,7 +36,7 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
     private skilltreeQuery: SkilltreeQuery,
   ) {
 
-    this.levelRulessSubscription = this.skilltreeQuery.selectActive().subscribe(skilltree => {
+    this.subs.sink = this.skilltreeQuery.selectActive().subscribe(skilltree => {
       this.levelRules = [];
       if (skilltree) {
         skilltree.messages.forEach((message) => {
@@ -47,6 +47,7 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   done() {

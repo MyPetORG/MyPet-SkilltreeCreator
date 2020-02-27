@@ -1,10 +1,9 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { SubSink } from 'subsink';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-duplicate-dialog',
   templateUrl: './skilltree-duplicate-dialog.component.html',
@@ -12,9 +11,10 @@ import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 })
 export class SkilltreeDuplicateDialogComponent implements OnDestroy {
 
+  subs = new SubSink();
+
   name: string = '';
   skilltreeNames: string[] = [];
-  skilltreeNamesSubscription = null;
 
   constructor(
     public dialogRef: MatDialogRef<SkilltreeDuplicateDialogComponent>,
@@ -22,7 +22,7 @@ export class SkilltreeDuplicateDialogComponent implements OnDestroy {
     private skilltreeQuery: SkilltreeQuery,
   ) {
 
-    this.skilltreeNamesSubscription = this.skilltreeQuery.skiltreeIds$
+    this.subs.sink = this.skilltreeQuery.skiltreeIds$
       .subscribe(skilltrees => {
         this.skilltreeNames = [];
         Object.keys(skilltrees).forEach(id => {
@@ -37,5 +37,6 @@ export class SkilltreeDuplicateDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

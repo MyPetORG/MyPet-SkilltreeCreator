@@ -4,8 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { Subscription } from 'rxjs';
+import { SubSink } from 'subsink';
 import { MobTypes } from '../../data/mob-types';
 import { LevelRule } from '../../models/level-rule';
 import { Backpack } from '../../models/skills/backpack';
@@ -34,7 +33,6 @@ import { NbtImportService } from '../../services/nbt-import.service';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-import-legacy',
   templateUrl: './skilltree-import-legacy.component.html',
@@ -42,14 +40,13 @@ import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 })
 export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
 
+  subs = new SubSink();
+
   @ViewChild('stepper', { static: true }) stepper: MatStepper;
   @ViewChild('selectedSkilltreeNames', { static: true }) selectedSkilltreeNames: MatSelectionList;
 
   stepCompleted: boolean[] = [false, false, false];
   types = [];
-
-  skilltreesSubscription: Subscription;
-
   nbtData: any = null;
   existingSkilltreeIds: string[];
   newSkilltreeNames: string[];
@@ -65,7 +62,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
     private skilltreeQuery: SkilltreeQuery,
     private skilltreeService: SkilltreeService,
   ) {
-    this.skilltreesSubscription = this.skilltreeQuery.skiltreeIds$
+    this.subs.sink = this.skilltreeQuery.skiltreeIds$
       .subscribe((data: string[]) => {
         this.existingSkilltreeIds = data.slice();
       });
@@ -86,6 +83,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   onSelectFile(event) {

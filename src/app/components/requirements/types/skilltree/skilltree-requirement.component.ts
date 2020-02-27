@@ -2,13 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Skilltree } from '../../../../models/skilltree';
 import { SkilltreeQuery } from '../../../../stores/skilltree/skilltree.query';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-requirement-skilltree',
   templateUrl: './skilltree-requirement.component.html',
@@ -54,10 +52,6 @@ export class SkilltreeRequirementComponent {
         skilltrees.filter(s => s.id !== selectedId),
       ),
     );
-  }
-
-  ngOnDestroy(): void {
-    // AutoUnsubscribe
   }
 
   update() {

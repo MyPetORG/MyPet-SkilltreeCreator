@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 import { Tab } from '../../enums/tab.enum';
 import { LayoutQuery } from '../../stores/layout/layout.query';
 import { LayoutService } from '../../stores/layout/layout.service';
 import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-editor',
   templateUrl: './skilltree-editor.component.html',
@@ -17,9 +16,9 @@ import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 })
 export class SkilltreeEditorComponent implements OnDestroy {
 
-  Tab = Tab;
+  subs = new SubSink();
 
-  actionsSubscription: Subscription;
+  Tab = Tab;
   tab$: Observable<number>;
 
   constructor(
@@ -28,7 +27,7 @@ export class SkilltreeEditorComponent implements OnDestroy {
     private route: ActivatedRoute,
     private skilltreeService: SkilltreeService,
   ) {
-    this.actionsSubscription = route.params.pipe(
+    this.subs.sink = route.params.pipe(
       map(params => params.id),
       map(id => this.skilltreeService.select(id)))
       .subscribe();
@@ -39,6 +38,7 @@ export class SkilltreeEditorComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   switchTab(tab: Tab) {

@@ -37,7 +37,6 @@
     "angular2-hotkeys": "2.1.5",
     "core-js": "^2.6.2",
     "lodash": "^4.17.15",
-    "ngx-auto-unsubscribe": "^3.0.1",
     "ngx-clipboard": "^13.0.0",
     "ngx-contextmenu": "^5.3.0",
     "pako": "^1.0.11",

@@ -1,10 +1,9 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { SubSink } from 'subsink';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-add-dialog',
   templateUrl: './skilltree-add-dialog.component.html',
@@ -12,9 +11,10 @@ import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 })
 export class SkilltreeAddDialogComponent implements OnDestroy {
 
+  subs = new SubSink();
+
   name: string = '';
   skilltreeNames: string[] = [];
-  skilltreeNamesSubscription = null;
 
   constructor(
     public dialogRef: MatDialogRef<SkilltreeAddDialogComponent>,
@@ -22,7 +22,7 @@ export class SkilltreeAddDialogComponent implements OnDestroy {
     private skilltreeQuery: SkilltreeQuery,
   ) {
 
-    this.skilltreeNamesSubscription = this.skilltreeQuery.skiltreeIds$
+    this.subs.sink = this.skilltreeQuery.skiltreeIds$
       .subscribe(ids => {
         this.skilltreeNames = ids;
       });
@@ -33,5 +33,6 @@ export class SkilltreeAddDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
