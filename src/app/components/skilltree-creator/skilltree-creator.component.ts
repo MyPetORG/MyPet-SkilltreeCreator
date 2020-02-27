@@ -68,7 +68,7 @@ export class SkilltreeCreatorComponent {
   }
 
   back() {
-    this.router.navigate(['/']);
+    this.skilltreeService.select(null);
   }
 
   openSidenav() {
