@@ -1,19 +1,23 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Skilltree } from '../../../../models/skilltree';
-import * as Reducers from '../../../../store/reducers';
+import { SkilltreeQuery } from '../../../../stores/skilltree/skilltree.query';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'stc-requirement-skilltree',
   templateUrl: './skilltree-requirement.component.html',
-  styleUrls: ['./skilltree-requirement.component.scss']
+  styleUrls: ['./skilltree-requirement.component.scss'],
 })
-export class SkilltreeRequirementComponent implements OnDestroy {
+export class SkilltreeRequirementComponent {
+
+
+  requireableSkilltrees$: Observable<Skilltree[]>;
 
   private _st: Skilltree;
 
@@ -36,22 +40,20 @@ export class SkilltreeRequirementComponent implements OnDestroy {
   neededSkilltrees = new FormControl();
 
   skilltreeNames: string[] = [];
-  skilltreeNamesSubscription;
 
   constructor(
     public snackBar: MatSnackBar,
     private translate: TranslateService,
-    private store: Store<Reducers.State>,
+    private skilltreeQuery: SkilltreeQuery,
   ) {
-    this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
-      .subscribe(skilltrees => {
-        this.skilltreeNames = [];
-        Object.keys(skilltrees).forEach(id => {
-          if (!this._st || this._st.id != id) {
-            this.skilltreeNames.push(id);
-          }
-        });
-      });
+    this.requireableSkilltrees$ = combineLatest([
+      this.skilltreeQuery.selectActiveId(),
+      this.skilltreeQuery.selectAll(),
+    ]).pipe(
+      map(([selectedId, skilltrees]) =>
+        skilltrees.filter(s => s.id !== selectedId),
+      ),
+    );
   }
 
   ngOnDestroy(): void {

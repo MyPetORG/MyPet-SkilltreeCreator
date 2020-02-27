@@ -5,14 +5,19 @@ import { SkillSaver } from '../data/skill-saver';
 import { LevelRule } from '../models/level-rule';
 import { Skilltree } from '../models/skilltree';
 import { Upgrade } from '../models/upgrade';
+import { SkilltreeQuery } from '../stores/skilltree/skilltree.query';
 
 @Injectable()
 export class SkilltreeSaverService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private skilltreeQuery: SkilltreeQuery,
+  ) {
   }
 
-  public saveSkilltrees(skilltrees: Skilltree[]) {
+  public saveSkilltrees() {
+    const skilltrees: Skilltree[] = this.skilltreeQuery.getAll();
     let savedSkilltrees = [];
 
     skilltrees.forEach(skilltree => {
@@ -72,7 +77,7 @@ export class SkilltreeSaverService {
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post('/api/skilltrees/save', savedSkilltrees, { headers });
+    return this.http.post('/api/skilltrees/save', savedSkilltrees, { headers }).toPromise();
   }
 
   saveNotifications(data: any, messages: { rule: LevelRule, content: string }[]) {

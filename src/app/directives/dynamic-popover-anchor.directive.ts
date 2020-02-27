@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';

@@ -6,7 +6,7 @@ import { Skilltree } from '../../models/skilltree';
 @Component({
   selector: 'stc-mob-type-select-dialog',
   templateUrl: './mob-type-select-dialog.component.html',
-  styleUrls: ['./mob-type-select-dialog.component.scss']
+  styleUrls: ['./mob-type-select-dialog.component.scss'],
 })
 export class MobTypeSelectDialogComponent implements OnInit {
   types = [];
@@ -20,7 +20,7 @@ export class MobTypeSelectDialogComponent implements OnInit {
     MobTypes.forEach(name => {
       this.types.push({
         name,
-        selected: this.skilltree.mobtypes.indexOf(name) >= 0
+        selected: this.skilltree.mobtypes.indexOf(name) >= 0,
       });
       this.selected += this.skilltree.mobtypes.indexOf(name) ? 1 : 0;
     });

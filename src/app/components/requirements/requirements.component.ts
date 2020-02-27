@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Skilltree } from '../../models/skilltree';
-import { updateSkilltreeInfo } from '../../store/actions/skilltree';
-import * as Reducers from '../../store/reducers';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
+import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 
 @Component({
   selector: 'stc-requirements',
   templateUrl: './requirements.component.html',
-  styleUrls: ['./requirements.component.scss']
+  styleUrls: ['./requirements.component.scss'],
 })
 export class RequirementsComponent {
 
@@ -26,11 +25,12 @@ export class RequirementsComponent {
   ];
 
   constructor(
-    private store: Store<Reducers.State>,
     public snackBar: MatSnackBar,
     private translate: TranslateService,
+    private skilltreeQuery: SkilltreeQuery,
+    private skilltreeService: SkilltreeService,
   ) {
-    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
+    this.selectedSkilltree$ = this.skilltreeQuery.selectActive();
     this.requirements$ = this.selectedSkilltree$.pipe(
       map(skilltree => {
         return skilltree.requirements;
@@ -54,27 +54,27 @@ export class RequirementsComponent {
           }
           return { type, name, data, full: requirement };
         });
-      })
+      }),
     );
   }
 
   addRequirement(skilltree: Skilltree) {
     let changes = JSON.parse(JSON.stringify(skilltree.requirements));
     changes.push(this.knownTypes[0]);
-    this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { requirements: changes });
   }
 
   deleteRequirement(skilltree: Skilltree, index) {
     let changes = JSON.parse(JSON.stringify(skilltree.requirements));
     changes.splice(index, 1);
-    this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { requirements: changes });
     this.selected = 0;
   }
 
   changeRequirementType(index, skilltree, newType: string) {
     let changes = JSON.parse(JSON.stringify(skilltree.requirements));
     changes[index] = newType;
-    this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { requirements: changes });
   }
 
   update(skilltree: Skilltree, id, value) {
@@ -82,7 +82,7 @@ export class RequirementsComponent {
     if (changes[id] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes[id] = value;
-      this.store.dispatch(updateSkilltreeInfo({ changes: { requirements: changes }, id: skilltree.id }));
+      this.skilltreeService.update(skilltree.id, { requirements: changes });
     }
   }
 }

@@ -2,7 +2,6 @@ import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { PopoverAnchoringService } from './popover-anchoring.service';
-
 import { SatPopover } from './popover.component';
 import { getInvalidPopoverError } from './popover.errors';
 

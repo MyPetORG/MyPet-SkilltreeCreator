@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'stc-skilltree-change-icon-dialog',
   templateUrl: './skilltree-change-icon-dialog.component.html',
-  styleUrls: ['./skilltree-change-icon-dialog.component.scss']
+  styleUrls: ['./skilltree-change-icon-dialog.component.scss'],
 })
 export class SkilltreeChangeIconDialogComponent {
 

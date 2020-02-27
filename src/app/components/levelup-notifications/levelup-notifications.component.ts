@@ -1,25 +1,27 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Skilltree } from '../../models/skilltree';
-import { updateSkilltreeInfo } from '../../store/actions/skilltree';
-import * as Reducers from '../../store/reducers';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
+import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 import { LevelupNotificationAddDialogComponent } from '../levelup-notification-add-dialog/levelup-notification-add-dialog.component';
 
 @Component({
   selector: 'stc-levelup-notifications',
   templateUrl: './levelup-notifications.component.html',
-  styleUrls: ['./levelup-notifications.component.scss']
+  styleUrls: ['./levelup-notifications.component.scss'],
 })
 export class LevelupNotificationsComponent {
 
   selectedSkilltree$: Observable<Skilltree>;
   selectedMessage = 0;
 
-  constructor(private store: Store<Reducers.State>,
-              private dialog: MatDialog) {
-    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
+  constructor(
+    private dialog: MatDialog,
+    private skilltreeQuery: SkilltreeQuery,
+    private skilltreeService: SkilltreeService,
+  ) {
+    this.selectedSkilltree$ = this.skilltreeQuery.selectActive();
   }
 
   addRule(skilltree: Skilltree) {
@@ -29,8 +31,7 @@ export class LevelupNotificationsComponent {
         if (result) {
           let changes = { messages: JSON.parse(JSON.stringify(skilltree.messages)) };
           changes.messages.push({ rule: result, content: '' });
-
-          this.store.dispatch(updateSkilltreeInfo({ changes, id: skilltree.id }));
+          this.skilltreeService.update(skilltree.id, changes);
         }
       });
     }
@@ -39,7 +40,7 @@ export class LevelupNotificationsComponent {
   deleteRule(skilltree: Skilltree, index) {
     let changes = JSON.parse(JSON.stringify(skilltree.messages));
     changes.splice(index, 1);
-    this.store.dispatch(updateSkilltreeInfo({ changes: { messages: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { messages: changes });
     this.selectedMessage = 0;
   }
 
@@ -48,7 +49,7 @@ export class LevelupNotificationsComponent {
     if (changes[id].content != model.value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes[id].content = model.value;
-      this.store.dispatch(updateSkilltreeInfo({ changes: { messages: changes }, id: skilltree.id }));
+      this.skilltreeService.update(skilltree.id, { messages: changes });
     }
   }
 

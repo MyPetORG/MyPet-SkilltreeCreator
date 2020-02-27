@@ -1,14 +1,14 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import * as Reducers from '../../store/reducers';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
+
 
 @AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-duplicate-dialog',
   templateUrl: './skilltree-duplicate-dialog.component.html',
-  styleUrls: ['./skilltree-duplicate-dialog.component.scss']
+  styleUrls: ['./skilltree-duplicate-dialog.component.scss'],
 })
 export class SkilltreeDuplicateDialogComponent implements OnDestroy {
 
@@ -16,11 +16,13 @@ export class SkilltreeDuplicateDialogComponent implements OnDestroy {
   skilltreeNames: string[] = [];
   skilltreeNamesSubscription = null;
 
-  constructor(public dialogRef: MatDialogRef<SkilltreeDuplicateDialogComponent>,
-              private store: Store<Reducers.State>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    public dialogRef: MatDialogRef<SkilltreeDuplicateDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private skilltreeQuery: SkilltreeQuery,
+  ) {
 
-    this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
+    this.skilltreeNamesSubscription = this.skilltreeQuery.skiltreeIds$
       .subscribe(skilltrees => {
         this.skilltreeNames = [];
         Object.keys(skilltrees).forEach(id => {

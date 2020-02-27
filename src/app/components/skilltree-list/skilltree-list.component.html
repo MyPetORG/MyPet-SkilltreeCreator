@@ -28,7 +28,7 @@
                 (cdkDropListDropped)="drag($event)"
                 class="dndList">
 
-    <mat-list-item *ngFor="let skilltree of skilltrees"
+    <mat-list-item *ngFor="let skilltree of skilltrees$ | async"
                    (click)="editSkills(skilltree)"
                    (contextmenu)="onContextMenu($event, skilltree, skilltreeMenu)"
                    [contextMenu]="skilltreeMenu"

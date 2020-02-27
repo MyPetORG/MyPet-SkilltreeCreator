@@ -5,5 +5,5 @@ export const environment = {
   sentry: true,
   providers: [],
   websocketUrl: location.host,
-  version: 'PLUGIN-' + APP_VERSION
+  version: 'PLUGIN-' + APP_VERSION,
 };

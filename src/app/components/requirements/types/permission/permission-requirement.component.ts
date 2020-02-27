@@ -7,7 +7,7 @@ import { Skilltree } from '../../../../models/skilltree';
 @Component({
   selector: 'stc-requirement-permission',
   templateUrl: './permission-requirement.component.html',
-  styleUrls: ['./permission-requirement.component.scss']
+  styleUrls: ['./permission-requirement.component.scss'],
 })
 export class PermissionRequirementComponent {
 
@@ -38,7 +38,7 @@ export class PermissionRequirementComponent {
   notifyCopy() {
     this.translate.get('COMPONENTS__SKILLTREE_REQUIREMENTS__PERMISSION__COPY_DONE')
       .subscribe((trans) => {
-        this.snackBar.open(trans, null, { duration: 2000, });
+        this.snackBar.open(trans, null, { duration: 2000 });
       });
   }
 }

@@ -11,7 +11,7 @@
   <mat-card fxLayout="column" fxFlex.gt-md="calc(50% - 0.5em)" fxFlex="100">
     <mat-form-field>
       <input matInput [placeholder]="'COMPONENTS__SKILLTREE_PROPERTIES__SKILLTREE_ID' | translate"
-             [formControl]="id" (blur)="rename(id)" [appSkilltreeDuplicate]="skilltreeNames" required
+             [formControl]="id" (blur)="rename(id)" [appSkilltreeDuplicate]="unavailableSkilltreeIds$ | async" required
              pattern="[a-zA-Z0-9.-_]*">
       <mat-error *ngIf="id.errors?.skilltreeDuplicate">
         {{ 'COMPONENTS__SKILLTREE_PROPERTIES__ERROR_DUPLICATE' | translate }}
@@ -34,8 +34,8 @@
         (selectionChange)="updateInheritance('skilltree',inheritedSkilltreeName)">
         <mat-option [value]="null">{{ 'COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_NONE' | translate }}</mat-option>
         <mat-optgroup [label]="'COMPONENTS__SKILLTREE_PROPERTIES__INHERITANCE_SKILLTREES' | translate">
-          <mat-option *ngFor="let skilltreeName of skilltreeNames"
-                      [value]="skilltreeName">{{ skilltreeName }}</mat-option>
+          <mat-option *ngFor="let skilltree of inheritableSkilltrees$ | async"
+                      [value]="skilltree.id">{{ skilltree.name }}</mat-option>
         </mat-optgroup>
       </mat-select>
     </mat-form-field>

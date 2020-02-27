@@ -4,10 +4,10 @@ export const transformPopover: AnimationTriggerMetadata = trigger('transformPopo
   transition(':enter', [
     style({ opacity: 0, transform: 'scale(0.3)' }),
     animate('{{openTransition}}',
-      style({ opacity: 1, transform: 'scale(1)' }))
+      style({ opacity: 1, transform: 'scale(1)' })),
   ]),
   transition(':leave', [
     animate('{{closeTransition}}',
-      style({ opacity: 0, transform: 'scale(0.5)' }))
-  ])
+      style({ opacity: 0, transform: 'scale(0.5)' })),
+  ]),
 ]);

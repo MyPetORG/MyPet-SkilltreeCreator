@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SatPopoverAnchor } from './popover-anchor.directive';
 import { PopoverAnchoringService } from './popover-anchoring.service';
-
 import { SatPopover } from './popover.component';
 
 @NgModule({
@@ -25,8 +24,8 @@ import { SatPopover } from './popover.component';
     BidiModule,
   ],
   providers: [
-    PopoverAnchoringService
-  ]
+    PopoverAnchoringService,
+  ],
 })
 export class SatPopoverModule {
 }

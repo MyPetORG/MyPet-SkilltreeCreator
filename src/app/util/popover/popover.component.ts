@@ -16,8 +16,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { NotificationAction, PopoverNotification, PopoverNotificationService, } from './notification.service';
-
+import { NotificationAction, PopoverNotification, PopoverNotificationService } from './notification.service';
 import { transformPopover } from './popover.animations';
 import {
   getInvalidHorizontalAlignError,
@@ -260,7 +259,7 @@ export class SatPopover implements OnInit, OnDestroy {
 
   constructor(
     private _focusTrapFactory: FocusTrapFactory,
-    @Optional() @Inject(DOCUMENT) private _document: any
+    @Optional() @Inject(DOCUMENT) private _document: any,
   ) {
   }
 
@@ -301,7 +300,7 @@ export class SatPopover implements OnInit, OnDestroy {
   _getAnimation(): { value: any, params: any } {
     return {
       value: 'visible',
-      params: { openTransition: this.openTransition, closeTransition: this.closeTransition }
+      params: { openTransition: this.openTransition, closeTransition: this.closeTransition },
     };
   }
 

@@ -3,19 +3,18 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { isArray } from 'util';
 import { LevelRule } from '../../models/level-rule';
 import { Upgrade } from '../../models/upgrade';
-import * as Reducers from '../../store/reducers';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'stc-upgrade-dialog',
   templateUrl: './upgrade-dialog.component.html',
-  styleUrls: ['./upgrade-dialog.component.scss']
+  styleUrls: ['./upgrade-dialog.component.scss'],
 })
 export class UpgradeDialogComponent implements OnDestroy {
 
@@ -33,16 +32,17 @@ export class UpgradeDialogComponent implements OnDestroy {
   levelRules: LevelRule[] = [];
   levelRulessSubscription = null;
 
-  constructor(private dialogRef: MatDialogRef<UpgradeDialogComponent>,
-              private store: Store<Reducers.State>,
-              private translate: TranslateService,
-              private snackBar: MatSnackBar,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    private dialogRef: MatDialogRef<UpgradeDialogComponent>,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private skilltreeQuery: SkilltreeQuery,
+  ) {
 
     if (data && data.edit && data.upgrade && data.upgrade.rule) {
       this.edit = true;
       const rule = data.upgrade.rule;
-      console.log(rule);
       if (rule.exact) {
         this.level = [...rule.exact].sort();
         this.type = 0;
@@ -54,7 +54,7 @@ export class UpgradeDialogComponent implements OnDestroy {
       }
     }
 
-    this.levelRulessSubscription = this.store.pipe(select(Reducers.getSelectedUpgrades))
+    this.levelRulessSubscription = this.skilltreeQuery.selectedUpgrades$
       .subscribe(upgrades => {
         this.levelRules = [];
         if (upgrades) {
@@ -88,7 +88,7 @@ export class UpgradeDialogComponent implements OnDestroy {
     } else {
       this.translate.get('COMPONENTS__UPGRADE_DIALOG__ERROR_RULE_DUPLICATED')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
     }
   }

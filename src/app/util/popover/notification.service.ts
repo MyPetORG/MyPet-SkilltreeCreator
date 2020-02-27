@@ -21,7 +21,7 @@ export class PopoverNotification {
     /** Action to perform. */
     public action: NotificationAction,
     /** Optional payload. */
-    public value?: any
+    public value?: any,
   ) {
   }
 }

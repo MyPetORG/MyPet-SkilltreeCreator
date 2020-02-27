@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'mcChat'
+  name: 'mcChat',
 })
 export class McChatPipe implements PipeTransform {
 
@@ -119,7 +119,7 @@ export class McChatPipe implements PipeTransform {
       'm': '§m',
       'n': '§n',
       'o': '§o',
-      'r': '§r'
+      'r': '§r',
     };
 
     Object.keys(styles).forEach(key => {
@@ -151,7 +151,7 @@ export class McChatPipe implements PipeTransform {
       'm': '§m',
       'n': '§n',
       'o': '§o',
-      'r': '§r'
+      'r': '§r',
     };
 
     Object.keys(styles).forEach(key => {

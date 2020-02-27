@@ -143,5 +143,5 @@ export const Skills: SkillInfo[] = [
     name: 'SKILL_NAME__WITHER',
     description: 'SKILL_DESCRIPTION__WITHER',
     icon: 'wither.png',
-  }
+  },
 ];

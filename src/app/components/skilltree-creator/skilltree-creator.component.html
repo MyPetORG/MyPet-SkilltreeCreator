@@ -56,14 +56,14 @@
     <button mat-button
             (click)="undo()"
             class="toolbar-button"
-            [disabled]="(pastStates$ | async).length <= 0"
+            [disabled]="!(hasPast$ | async)"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__UNDO' | translate">
       <fa-icon icon="undo"></fa-icon>
     </button>
     <button mat-button
             (click)="redo()"
             class="toolbar-button"
-            [disabled]="(futureStates$ | async).length <= 0"
+            [disabled]="!(hasFuture$ | async)"
             [matTooltip]="'COMPONENTS__SKILLTREE_CREATOR__REDO' | translate">
       <fa-icon icon="redo"></fa-icon>
     </button>

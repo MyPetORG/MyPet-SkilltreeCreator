@@ -3,7 +3,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 
 @Directive({
   selector: '[appSkilltreeDuplicate]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: SkilltreeDuplicateDirective, multi: true }]
+  providers: [{ provide: NG_VALIDATORS, useExisting: SkilltreeDuplicateDirective, multi: true }],
 })
 export class SkilltreeDuplicateDirective implements Validator {
 

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { selectSkilltree, switchTab } from '../../store/actions/layout';
-import * as Reducers from '../../store/reducers/index';
+import { Tab } from '../../enums/tab.enum';
+import { LayoutQuery } from '../../stores/layout/layout.query';
+import { LayoutService } from '../../stores/layout/layout.service';
+import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 
 @AutoUnsubscribe()
 @Component({
@@ -15,22 +16,32 @@ import * as Reducers from '../../store/reducers/index';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkilltreeEditorComponent implements OnDestroy {
+
+  Tab = Tab;
+
   actionsSubscription: Subscription;
   tab$: Observable<number>;
 
-  constructor(private store: Store<Reducers.State>,
-              private route: ActivatedRoute) {
+  constructor(
+    private layoutQuery: LayoutQuery,
+    private layoutService: LayoutService,
+    private route: ActivatedRoute,
+    private skilltreeService: SkilltreeService,
+  ) {
     this.actionsSubscription = route.params.pipe(
       map(params => params.id),
-      map(id => selectSkilltree({ skilltree: id })),)
-      .subscribe(store);
-    this.tab$ = this.store.pipe(select(Reducers.getTab));
+      map(id => this.skilltreeService.select(id)))
+      .subscribe();
+  }
+
+  ngOnInit() {
+    this.tab$ = this.layoutQuery.tab$;
   }
 
   ngOnDestroy() {
   }
 
-  switchTab(tab: number) {
-    this.store.dispatch(switchTab({ tab }));
+  switchTab(tab: Tab) {
+    this.layoutService.switchTab(tab);
   }
 }

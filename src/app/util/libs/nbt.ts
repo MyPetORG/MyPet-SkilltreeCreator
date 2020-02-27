@@ -14,7 +14,7 @@ export class NBT {
     'string': 8,
     'list': 9,
     'compound': 10,
-    'intArray': 11
+    'intArray': 11,
   };
 
   public static TAG_TYPE_NAMES = [
@@ -29,7 +29,7 @@ export class NBT {
     'string',
     'list',
     'compound',
-    'intArray'
+    'intArray',
   ];
 
   static hasGzipHeader(data) {
@@ -93,7 +93,7 @@ export class NBT {
 
     return {
       name: reader.string(),
-      value: reader.compound()
+      value: reader.compound(),
     };
   };
 

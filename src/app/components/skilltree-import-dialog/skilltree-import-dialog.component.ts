@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'stc-skilltree-import-dialog',
   templateUrl: './skilltree-import-dialog.component.html',
-  styleUrls: ['./skilltree-import-dialog.component.scss']
+  styleUrls: ['./skilltree-import-dialog.component.scss'],
 })
 export class SkilltreeImportDialogComponent {
 
@@ -31,7 +31,7 @@ export class SkilltreeImportDialogComponent {
         } catch (e) {
           this.translate.get('COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE')
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, { duration: 2000, });
+              this.snackBar.open(trans, null, { duration: 2000 });
             });
           return;
         }
@@ -43,7 +43,7 @@ export class SkilltreeImportDialogComponent {
         } catch (e) {
           this.translate.get('COMPONENTS__SKILLTREE_IMPORT_DIALOG__INVALID_FILE')
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, { duration: 2000, });
+              this.snackBar.open(trans, null, { duration: 2000 });
             });
         }
       };

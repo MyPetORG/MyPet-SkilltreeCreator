@@ -6,8 +6,8 @@
     required
     multiple>
     <mat-optgroup [label]="'COMPONENTS__SKILLTREE_REQUIREMENTS__SKILLTREE__SKILLTREE' | translate">
-      <mat-option *ngFor="let skilltreeName of skilltreeNames"
-                  [value]="skilltreeName">{{ skilltreeName }}</mat-option>
+      <mat-option *ngFor="let skilltree of requireableSkilltrees$ | async"
+                  [value]="skilltree.id">{{ skilltree.name }}</mat-option>
     </mat-optgroup>
   </mat-select>
 </mat-form-field>

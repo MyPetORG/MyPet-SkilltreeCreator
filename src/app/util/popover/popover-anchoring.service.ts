@@ -14,7 +14,6 @@ import { ElementRef, Injectable, NgZone, OnDestroy, Optional, ViewContainerRef }
 import { Subject, Subscription } from 'rxjs';
 import { filter, take, takeUntil, tap } from 'rxjs/operators';
 import { NotificationAction, PopoverNotificationService } from './notification.service';
-
 import {
   SatPopover,
   SatPopoverHorizontalAlign,
@@ -78,7 +77,7 @@ export class PopoverAnchoringService implements OnDestroy {
   constructor(
     private _overlay: Overlay,
     private _ngZone: NgZone,
-    @Optional() private _dir: Directionality
+    @Optional() private _dir: Directionality,
   ) {
   }
 
@@ -191,7 +190,7 @@ export class PopoverAnchoringService implements OnDestroy {
     if (this.isPopoverOpen() && this._overlayRef) {
       this._overlayRef.detachments().pipe(
         take(1),
-        takeUntil(this._onDestroy)
+        takeUntil(this._onDestroy),
       ).subscribe(() => this._destroyPopover());
     } else {
       this._destroyPopover();
@@ -370,7 +369,7 @@ export class PopoverAnchoringService implements OnDestroy {
   private _addFallbacks(
     strategy: ConnectedPositionStrategy,
     hTarget: SatPopoverHorizontalAlign,
-    vTarget: SatPopoverVerticalAlign
+    vTarget: SatPopoverVerticalAlign,
   ): void {
     // Determine if the target alignments overlap the anchor
     const horizontalOverlapAllowed = hTarget !== 'before' && hTarget !== 'after';

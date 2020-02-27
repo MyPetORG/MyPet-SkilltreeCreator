@@ -6,5 +6,5 @@ export const environment = {
   sentry: false,
   providers: [fakeBackendProvider],
   websocketUrl: 'localhost:64712',
-  version: 'DEV-' + APP_VERSION
+  version: 'DEV-' + APP_VERSION,
 };

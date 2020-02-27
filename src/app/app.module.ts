@@ -30,24 +30,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { EffectsModule } from '@ngrx/effects';
-import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { HotkeyService } from 'app/services/hotkey.service';
-import { LayoutEffects } from 'app/store/effects/layout';
-
 import 'hammerjs';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { environment } from '../environments/environment';
 import { routes } from './app.routing';
 import { AboutComponent } from './components/about/about.component';
-
 import { AppComponent } from './components/app/app.component';
 import { LevelupNotificationAddDialogComponent } from './components/levelup-notification-add-dialog/levelup-notification-add-dialog.component';
 import { LevelupNotificationsComponent } from './components/levelup-notifications/levelup-notifications.component';
@@ -102,10 +96,6 @@ import { SkilltreeLoaderService } from './services/skilltree-loader.service';
 import { SkilltreeSaverService } from './services/skilltree-saver.service';
 import { StateService } from './services/state.service';
 import { WebsocketService } from './services/websocket.service';
-import { RouterEffects } from './store/effects/router';
-import { SkilltreeEffects } from './store/effects/skilltree';
-import { FreezableRouterStateSerializer } from './store/freezable-router';
-import { reducerToken } from './store/reducers';
 import { SatPopoverModule } from './util/popover/popover.module';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -191,25 +181,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot(reducerToken, {
-      runtimeChecks: {
-        strictActionImmutability: !environment.production,
-        strictStateImmutability: !environment.production,
-      }
-    }),
     RouterModule.forRoot(routes),
-    StoreRouterConnectingModule.forRoot({
-      stateKey: 'router',
-    }),
-    StoreDevtoolsModule.instrument({
-      name: 'MyPet SkilltreeCreator',
-      logOnly: !environment.production,
-    }),
-    EffectsModule.forRoot([
-      SkilltreeEffects,
-      LayoutEffects,
-      RouterEffects,
-    ]),
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
   ],
   entryComponents: [
     SkilltreeAddDialogComponent,
@@ -251,12 +224,11 @@ export function createTranslateLoader(http: HttpClient) {
     HotkeyService,
     NbtImportService,
     WebsocketService,
-    { provide: RouterStateSerializer, useClass: FreezableRouterStateSerializer },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     { provide: ErrorHandler, useClass: ErrorReporterService },
     ...environment.providers,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

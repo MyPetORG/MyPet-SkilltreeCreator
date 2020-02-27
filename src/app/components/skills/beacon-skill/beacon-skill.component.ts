@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { select, Store } from '@ngrx/store';
-import { updateSkilltreeUpgrade } from 'app/store/actions/skilltree';
 import { Observable } from 'rxjs';
 import { SkillInfo } from '../../../data/skills';
 import { Skill } from '../../../models/skill';
@@ -10,7 +8,8 @@ import { Beacon, BeaconDefault } from '../../../models/skills/beacon';
 import { Skilltree } from '../../../models/skilltree';
 import { Upgrade } from '../../../models/upgrade';
 import { StateService } from '../../../services/state.service';
-import * as Reducers from '../../../store/reducers';
+import { SkilltreeQuery } from '../../../stores/skilltree/skilltree.query';
+import { SkilltreeService } from '../../../stores/skilltree/skilltree.service';
 import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.component';
 
 @Component({
@@ -18,8 +17,8 @@ import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.comp
   templateUrl: './beacon-skill.component.html',
   styleUrls: ['./beacon-skill.component.scss'],
   providers: [
-    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' }
-  ]
+    { provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop' },
+  ],
 })
 export class BeaconSkillComponent {
 
@@ -29,12 +28,14 @@ export class BeaconSkillComponent {
   upgrades$: Observable<{ [id: number]: Upgrade }>;
   selectedUpgrade = -1;
 
-  constructor(private state: StateService,
-              private dialog: MatDialog,
-              private store: Store<Reducers.State>) {
-    this.upgrades$ = this.store.pipe(select(Reducers.getSelectedUpgrades));
-    this.selectedSkill$ = this.store.pipe(select(Reducers.getSelectedSkill));
-    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
+  constructor(
+    private state: StateService,
+    private dialog: MatDialog,
+    private skilltreeQuery: SkilltreeQuery,
+    private skilltreeService: SkilltreeService,
+  ) {
+    this.upgrades$ = this.skilltreeQuery.selectedUpgrades$;
+    this.selectedSkilltree$ = this.skilltreeQuery.selectActive();
   }
 
   update(skilltree: Skilltree, upgrade: Upgrade, field, value, model) {
@@ -45,7 +46,7 @@ export class BeaconSkillComponent {
     if (changes.Beacon[changes.Beacon.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)][field] = value;
-      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+      this.skilltreeService.update(skilltree.id, { skills: changes });
     }
   }
 
@@ -66,7 +67,7 @@ export class BeaconSkillComponent {
     }
     changes = JSON.parse(JSON.stringify(changes));
     (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] = value;
-    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { skills: changes });
   }
 
   updateBuff(skilltree: Skilltree, upgrade: Upgrade, buff: string, value, model) {
@@ -77,7 +78,7 @@ export class BeaconSkillComponent {
     if ((changes.Beacon[changes.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       (changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)] as Beacon).buffs[buff] = value;
-      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+      this.skilltreeService.update(skilltree.id, { skills: changes });
     }
   }
 
@@ -94,7 +95,7 @@ export class BeaconSkillComponent {
 
           let beacon: Beacon = Object.assign({ rule: result }, new BeaconDefault);
           changes.skills.Beacon.push(beacon);
-          this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
+          this.skilltreeService.update(skilltree.id, changes);
         }
       });
     }
@@ -103,7 +104,7 @@ export class BeaconSkillComponent {
   deleteRule(skilltree: Skilltree, upgrade) {
     let changes = JSON.parse(JSON.stringify(skilltree.skills));
     changes.Beacon.splice(skilltree.skills.Beacon.indexOf(upgrade), 1);
-    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { skills: changes });
     this.selectedUpgrade = -1;
   }
 
@@ -112,13 +113,13 @@ export class BeaconSkillComponent {
       data: {
         edit: true,
         upgrade,
-      }
+      },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         let changes = JSON.parse(JSON.stringify(skilltree.skills));
         changes.Beacon[skilltree.skills.Beacon.indexOf(upgrade)].rule = result;
-        this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+        this.skilltreeService.update(skilltree.id, { skills: changes });
       }
     });
   }

@@ -2,17 +2,17 @@ import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { select, Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
-import { Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 import { Skilltree } from '../../models/skilltree';
-import { renameSkilltree, updateSkilltreeInfo } from '../../store/actions/skilltree';
-import * as Reducers from '../../store/reducers/index';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
+import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 import { MobTypeSelectDialogComponent } from '../mob-type-select-dialog/mob-type-select-dialog.component';
 import { SkilltreeChangeIconDialogComponent } from '../skilltree-change-icon-dialog/skilltree-change-icon-dialog.component';
 
-@AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-properties',
   templateUrl: './skilltree-properties.component.html',
@@ -20,11 +20,13 @@ import { SkilltreeChangeIconDialogComponent } from '../skilltree-change-icon-dia
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SkilltreePropertiesComponent implements OnDestroy {
+
+  subs = new SubSink();
+
   skilltree$: Observable<Skilltree>;
-  skilltreeSubscription: Subscription;
+  unavailableSkilltreeIds$: Observable<string[]>;
+  inheritableSkilltrees$: Observable<Skilltree[]>;
   skilltree: Skilltree;
-  skilltreeNames: string[] = [];
-  skilltreeNamesSubscription = null;
 
   id = new FormControl();
   name = new FormControl();
@@ -35,15 +37,35 @@ export class SkilltreePropertiesComponent implements OnDestroy {
   inheritedSkilltreeName = new FormControl();
   _description: string[] = [];
 
-  constructor(private dialog: MatDialog,
-              public snackBar: MatSnackBar,
-              private translate: TranslateService,
-              private store: Store<Reducers.State>) {
-    this.skilltree$ = store.pipe(select(Reducers.getSelectedSkilltree));
-    this.skilltreeSubscription = this.skilltree$.subscribe(skilltree => {
+  constructor(
+    private dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    private translate: TranslateService,
+    private skilltreeQuery: SkilltreeQuery,
+    private skilltreeService: SkilltreeService,
+    private router: Router,
+  ) {
+    this.skilltree$ = this.skilltreeQuery.selectActive();
+    this.unavailableSkilltreeIds$ = combineLatest([
+      this.skilltreeQuery.selectActiveId(),
+      this.skilltreeQuery.selectAll(),
+    ]).pipe(
+      map(([selectedId, skilltrees]) =>
+        skilltrees.map(s => s.id).filter(id => id !== selectedId),
+      ),
+    );
+    this.inheritableSkilltrees$ = combineLatest([
+      this.skilltreeQuery.selectActiveId(),
+      this.skilltreeQuery.selectAll(),
+    ]).pipe(
+      map(([selectedId, skilltrees]) =>
+        skilltrees.filter(s => s.id !== selectedId),
+      ),
+    );
+
+    this.subs.sink = this.skilltree$.subscribe(skilltree => {
       if (skilltree) {
         this.skilltree = skilltree;
-        this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id), 1);
         this.id.setValue(skilltree.id);
         this.name.setValue(skilltree.name);
         this.requiredLevel.setValue(skilltree.requiredLevel);
@@ -61,21 +83,12 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         } else {
           this.inheritedSkilltreeName.patchValue(null);
         }
-        this.skilltreeNames.splice(this.skilltreeNames.indexOf(skilltree.id));
       }
     });
-    this.skilltreeNamesSubscription = this.store.pipe(select(Reducers.getSkilltrees))
-      .subscribe(skilltrees => {
-        this.skilltreeNames = [];
-        Object.keys(skilltrees).forEach(id => {
-          if (this.id.value != id) {
-            this.skilltreeNames.push(id);
-          }
-        });
-      });
   }
 
   ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   parseTextArea() {
@@ -92,10 +105,9 @@ export class SkilltreePropertiesComponent implements OnDestroy {
         result.forEach(type => {
           mobtypes.push(type.name);
         });
-        this.store.dispatch(updateSkilltreeInfo({
-          changes: { mobtypes },
-          id: this.skilltree.id
-        }));
+        this.skilltreeService.update(this.skilltree.id, {
+          mobtypes,
+        });
       }
     });
   }
@@ -106,55 +118,61 @@ export class SkilltreePropertiesComponent implements OnDestroy {
     let dialogRef = this.dialog.open(SkilltreeChangeIconDialogComponent, conf);
     dialogRef.afterClosed().subscribe(icon => {
       if (icon) {
-        this.store.dispatch(updateSkilltreeInfo({
-          changes: { icon },
-          id: this.skilltree.id
-        }));
+        this.skilltreeService.update(this.skilltree.id, {
+          icon,
+        });
       }
     });
   }
 
   update(field, control: FormControl) {
     if (this.skilltree[field] != control.value && control.errors == null) {
-      this.store.dispatch(updateSkilltreeInfo({
-        changes: { [field]: control.value },
-        id: this.skilltree.id
-      }));
+      this.skilltreeService.update(this.skilltree.id, {
+        [field]: control.value,
+      });
     }
   }
 
   updateInheritance(field, control: FormControl) {
     if (control.errors == null) {
       if (!control.value) {
-        this.store.dispatch(updateSkilltreeInfo({
-          changes: { inheritance: null },
-          id: this.skilltree.id
-        }));
+        this.skilltreeService.update(this.skilltree.id, {
+          inheritance: null,
+        });
       } else {
         let inheritance = {};
         if (this.skilltree.inheritance) {
           inheritance = this.skilltree.inheritance;
         }
         if (inheritance[field] != control.value) {
-          this.store.dispatch(updateSkilltreeInfo({
-            changes: { inheritance: { [field]: control.value } },
-            id: this.skilltree.id
-          }));
+          this.skilltreeService.update(this.skilltree.id, {
+            inheritance: { [field]: control.value },
+          });
         }
       }
     }
   }
 
   updateDescription() {
-    this.store.dispatch(updateSkilltreeInfo({
-      changes: { description: this.description.value.split('\n') },
-      id: this.skilltree.id
-    }));
+    this.skilltreeService.update(this.skilltree.id, {
+      description: this.description.value.split('\n'),
+    });
   }
 
   rename(control: FormControl) {
-    if (this.skilltree.id != control.value && control.errors == null) {
-      this.store.dispatch(renameSkilltree({ newId: control.value, oldId: this.skilltree.id }));
+    const newId = control.value;
+    if (this.skilltree.id !== newId && control.errors == null) {
+      this.skilltreeService.update(this.skilltree.id, {
+        id: control.value,
+      });
+      this.router.navigate(['st', newId]).then(() => {
+        this.translate.get(
+          'EFFECT__RENAME_SKILLTREE__SUCCESS',
+          { old: this.skilltree.id, 'new': newId },
+        ).subscribe((trans) => {
+          this.snackBar.open(trans, null, { duration: 2000 });
+        });
+      });
     }
   }
 }

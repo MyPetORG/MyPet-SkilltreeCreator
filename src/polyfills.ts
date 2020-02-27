@@ -85,7 +85,7 @@ Object.defineProperty(Object.prototype, 'getProp', {
     }
   },
   //this keeps jquery happy
-  enumerable: false
+  enumerable: false,
 });
 
 Object.defineProperty(Object.prototype, 'getPropAs', {
@@ -112,7 +112,7 @@ Object.defineProperty(Object.prototype, 'getPropAs', {
     }
     return value;
   },
-  enumerable: false
+  enumerable: false,
 });
 
 window.addEventListener('touchmove', function () {

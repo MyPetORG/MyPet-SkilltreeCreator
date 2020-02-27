@@ -1,45 +1,33 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
-import * as Reducers from '../store/reducers/index';
+import { filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { SkilltreeQuery } from '../stores/skilltree/skilltree.query';
 
 @Injectable()
 export class SkilltreeExistsGuard implements CanActivate {
   constructor(
-    private store: Store<Reducers.State>,
     private router: Router,
+    private skilltreeQuery: SkilltreeQuery,
   ) {
   }
 
   hasSkilltree(id: string): Observable<boolean> {
-    return this.store.pipe(
-      select(state => {
-        return { loaded: Reducers.isLoaded(state), skilltrees: Reducers.getSkilltrees(state) };
-      }),
-      filter((combinedData) => {
-        return combinedData.loaded;
-      }),
-      map(combinedData => {
-        return combinedData.skilltrees;
-      }),
-      map(skilltrees => {
-        return !!skilltrees[id];
-      }),
-      take(1),
-      map(hasSkilltree => {
-        return hasSkilltree;
-      }),
+    return this.skilltreeQuery.selectLoading().pipe(
+      filter(loading => !loading),
+      switchMap(() => this.skilltreeQuery.skiltreeIds$),
+      map(ids => ids.indexOf(id) !== -1),
+      first(),
     );
   }
 
-  canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
-    return this.hasSkilltree(route.params['id']).pipe().toPromise().then(hasSkilltree => {
-      if (!hasSkilltree) {
-        return this.router.navigate(['/']).then(() => false);
-      }
-      return hasSkilltree;
-    });
+  canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
+    return this.hasSkilltree(route.params['id']).pipe(
+      tap(skilltreeExists => {
+        if (!skilltreeExists) {
+          this.router.navigate(['/']).then(() => false);
+        }
+      }),
+    );
   }
 }

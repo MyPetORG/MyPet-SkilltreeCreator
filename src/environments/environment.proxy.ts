@@ -5,5 +5,5 @@ export const environment = {
   sentry: false,
   providers: [],
   websocketUrl: 'localhost:64712',
-  version: 'DEV-PROXY-' + APP_VERSION
+  version: 'DEV-PROXY-' + APP_VERSION,
 };

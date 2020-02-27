@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'stc-requirement-custom',
   templateUrl: './custom-requirement.component.html',
-  styleUrls: ['./custom-requirement.component.scss']
+  styleUrls: ['./custom-requirement.component.scss'],
 })
 export class CustomRequirementComponent {
 

@@ -3,18 +3,17 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { isArray } from 'util';
 import { LevelRule } from '../../models/level-rule';
-import * as Reducers from '../../store/reducers';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'stc-levelup-notification-add-dialog',
   templateUrl: './levelup-notification-add-dialog.component.html',
-  styleUrls: ['./levelup-notification-add-dialog.component.scss']
+  styleUrls: ['./levelup-notification-add-dialog.component.scss'],
 })
 export class LevelupNotificationAddDialogComponent implements OnDestroy {
 
@@ -29,13 +28,15 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
   levelRules: LevelRule[] = [];
   levelRulessSubscription = null;
 
-  constructor(private dialogRef: MatDialogRef<LevelupNotificationAddDialogComponent>,
-              private store: Store<Reducers.State>,
-              private translate: TranslateService,
-              private snackBar: MatSnackBar,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    private dialogRef: MatDialogRef<LevelupNotificationAddDialogComponent>,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private skilltreeQuery: SkilltreeQuery,
+  ) {
 
-    this.levelRulessSubscription = this.store.pipe(select(Reducers.getSelectedSkilltree)).subscribe(skilltree => {
+    this.levelRulessSubscription = this.skilltreeQuery.selectActive().subscribe(skilltree => {
       this.levelRules = [];
       if (skilltree) {
         skilltree.messages.forEach((message) => {
@@ -67,7 +68,7 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
     } else {
       this.translate.get('COMPONENTS__LEVELUP_NOTIFICATION_ADD_DIALOG__ERROR_RULE_DUPLICATED')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
     }
   }

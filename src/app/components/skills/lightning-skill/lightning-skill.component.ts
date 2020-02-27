@@ -1,36 +1,35 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SkillInfo } from '../../../data/skills';
 import { Skill } from '../../../models/skill';
 import { Lightning, LightningDefault } from '../../../models/skills/lightning';
 import { Skilltree } from '../../../models/skilltree';
 import { Upgrade } from '../../../models/upgrade';
 import { StateService } from '../../../services/state.service';
-import { updateSkilltreeUpgrade } from '../../../store/actions/skilltree';
-import * as Reducers from '../../../store/reducers';
+import { SkilltreeQuery } from '../../../stores/skilltree/skilltree.query';
+import { SkilltreeService } from '../../../stores/skilltree/skilltree.service';
 import { UpgradeDialogComponent } from '../../upgrade-dialog/upgrade-dialog.component';
 
 @Component({
   selector: 'stc-lightning-skill',
   templateUrl: './lightning-skill.component.html',
-  styleUrls: ['./lightning-skill.component.scss']
+  styleUrls: ['./lightning-skill.component.scss'],
 })
 export class LightningSkillComponent {
 
   skill: Skill<Lightning> = null;
-  selectedSkill$: Observable<SkillInfo>;
   selectedSkilltree$: Observable<Skilltree>;
   upgrades$: Observable<{ [id: number]: Upgrade }>;
   selectedUpgrade = -1;
 
-  constructor(private state: StateService,
-              private dialog: MatDialog,
-              private store: Store<Reducers.State>) {
-    this.upgrades$ = this.store.pipe(select(Reducers.getSelectedUpgrades));
-    this.selectedSkill$ = this.store.pipe(select(Reducers.getSelectedSkill));
-    this.selectedSkilltree$ = this.store.pipe(select(Reducers.getSelectedSkilltree));
+  constructor(
+    private state: StateService,
+    private dialog: MatDialog,
+    private skilltreeQuery: SkilltreeQuery,
+    private skilltreeService: SkilltreeService,
+  ) {
+    this.upgrades$ = this.skilltreeQuery.selectedUpgrades$;
+    this.selectedSkilltree$ = this.skilltreeQuery.selectActive();
   }
 
   update(skilltree: Skilltree, upgrade: Upgrade, field, value, model) {
@@ -41,7 +40,7 @@ export class LightningSkillComponent {
     if (changes.Lightning[changes.Lightning.indexOf(upgrade)][field] != value) {
       changes = JSON.parse(JSON.stringify(changes));
       changes.Lightning[skilltree.skills.Lightning.indexOf(upgrade)][field] = value;
-      this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+      this.skilltreeService.update(skilltree.id, { skills: changes });
     }
   }
 
@@ -58,7 +57,7 @@ export class LightningSkillComponent {
 
           let lightning: Lightning = Object.assign({ rule: result }, new LightningDefault);
           changes.skills.Lightning.push(lightning);
-          this.store.dispatch(updateSkilltreeUpgrade({ changes, id: skilltree.id }));
+          this.skilltreeService.update(skilltree.id, changes);
         }
       });
     }
@@ -67,7 +66,7 @@ export class LightningSkillComponent {
   deleteRule(skilltree: Skilltree, upgrade) {
     let changes = JSON.parse(JSON.stringify(skilltree.skills));
     changes.Lightning.splice(skilltree.skills.Lightning.indexOf(upgrade), 1);
-    this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+    this.skilltreeService.update(skilltree.id, { skills: changes });
     this.selectedUpgrade = -1;
   }
 
@@ -76,13 +75,13 @@ export class LightningSkillComponent {
       data: {
         edit: true,
         upgrade,
-      }
+      },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         let changes = JSON.parse(JSON.stringify(skilltree.skills));
         changes.Lightning[skilltree.skills.Lightning.indexOf(upgrade)].rule = result;
-        this.store.dispatch(updateSkilltreeUpgrade({ changes: { skills: changes }, id: skilltree.id }));
+        this.skilltreeService.update(skilltree.id, { skills: changes });
       }
     });
   }

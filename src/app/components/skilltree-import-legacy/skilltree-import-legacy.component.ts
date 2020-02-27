@@ -3,7 +3,6 @@ import { MatSelectionList } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Subscription } from 'rxjs';
@@ -32,14 +31,14 @@ import { Wither } from '../../models/skills/wither';
 import { Skilltree } from '../../models/skilltree';
 import { Upgrade } from '../../models/upgrade';
 import { NbtImportService } from '../../services/nbt-import.service';
-import { importLegacySkilltree } from '../../store/actions/skilltree';
-import * as Reducers from '../../store/reducers';
+import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
+import { SkilltreeService } from '../../stores/skilltree/skilltree.service';
 
 @AutoUnsubscribe()
 @Component({
   selector: 'stc-skilltree-import-legacy',
   templateUrl: './skilltree-import-legacy.component.html',
-  styleUrls: ['./skilltree-import-legacy.component.scss']
+  styleUrls: ['./skilltree-import-legacy.component.scss'],
 })
 export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
 
@@ -52,26 +51,29 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
   skilltreesSubscription: Subscription;
 
   nbtData: any = null;
-  existingSkilltreeNames: string[];
+  existingSkilltreeIds: string[];
   newSkilltreeNames: string[];
   selectedNewSkilltreeNames: string[];
   renamedSkilltrees: any = {};
   legacyPrefix = 'legacy';
 
-  constructor(public snackBar: MatSnackBar,
-              private store: Store<Reducers.State>,
-              public importNbt: NbtImportService,
-              private translate: TranslateService,
-              private router: Router) {
-    this.skilltreesSubscription = this.store.pipe(select(Reducers.getSkilltreeNames))
+  constructor(
+    public snackBar: MatSnackBar,
+    public importNbt: NbtImportService,
+    private translate: TranslateService,
+    private router: Router,
+    private skilltreeQuery: SkilltreeQuery,
+    private skilltreeService: SkilltreeService,
+  ) {
+    this.skilltreesSubscription = this.skilltreeQuery.skiltreeIds$
       .subscribe((data: string[]) => {
-        this.existingSkilltreeNames = data.slice();
+        this.existingSkilltreeIds = data.slice();
       });
 
     MobTypes.forEach(name => {
       this.types.push({
         name,
-        selected: false
+        selected: false,
       });
     });
   }
@@ -103,10 +105,10 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         error => {
           this.translate.get('COMPONENTS__SKILLTREE_IMPORT_LEGACY__INVALID_FILE')
             .subscribe((trans) => {
-              this.snackBar.open(trans, null, { duration: 2000, });
+              this.snackBar.open(trans, null, { duration: 2000 });
             });
           console.error(error);
-        }
+        },
       );
     }
   }
@@ -120,11 +122,7 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
     } else {
       this.legacyPrefix = filename;
       this.types.forEach(type => {
-        if (type.name.toLowerCase() == filename) {
-          type.selected = true;
-        } else {
-          type.selected = false;
-        }
+        type.selected = type.name.toLowerCase() == filename;
       });
     }
     this.stepCompleted[2] = this.types.filter(t => t.selected).length > 0;
@@ -143,10 +141,10 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
       skilltrees.forEach(skilltree => {
         let oldName = skilltree.Name.value;
         let newName = oldName;
-        if (this.legacyPrefix != 'legacy' || this.existingSkilltreeNames.indexOf(newName) != -1) {
+        if (this.legacyPrefix != 'legacy' || this.existingSkilltreeIds.indexOf(newName) != -1) {
           newName = oldName + '-' + this.legacyPrefix;
         }
-        if (this.existingSkilltreeNames.indexOf(newName) != -1) {
+        if (this.existingSkilltreeIds.indexOf(newName) != -1) {
           newName = oldName + '-' + this.legacyPrefix + '-' + Date.now();
         }
 
@@ -254,13 +252,13 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
             });
           });
 
-          this.store.dispatch(importLegacySkilltree({ skilltree }));
+          this.skilltreeService.add(skilltree);
         }
       });
 
       this.translate.get('COMPONENTS__SKILLTREE_IMPORT_LEGACY__SKILLTREE_IMPORTED')
         .subscribe((trans) => {
-          this.snackBar.open(trans, null, { duration: 2000, });
+          this.snackBar.open(trans, null, { duration: 2000 });
         });
       this.router.navigate(['/']);
     }
@@ -416,7 +414,6 @@ export class SkilltreeImportLegacyComponent implements OnDestroy, OnInit {
         return { chance, duration } as Wither;
       }
     }
-    console.log('importSkillData', skillname, skill);
     return {};
   }
 }

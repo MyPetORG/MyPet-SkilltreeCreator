@@ -4,12 +4,10 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-
-
 import { CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree } from './example-skilltrees';
 
 @Injectable()
@@ -22,7 +20,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     if (request.url.startsWith('/api')) {
       if (request.url.startsWith('/api/skilltrees/save') && request.method === 'POST') {
-        console.log(request.body);
         let fail = false;
         if (fail) {
           return observableThrowError('ERROR');
@@ -34,7 +31,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.startsWith('/api/skilltrees') && request.method === 'GET') {
         return observableOf(new HttpResponse({
           status: 200,
-          body: [CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree]
+          body: [CombatSkilltree, FarmSkilltree, PvpSkilltree, RideSkilltree, UtilitySkilltree],
         }));
       }
     }
@@ -46,5 +43,5 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 export let fakeBackendProvider = {
   provide: HTTP_INTERCEPTORS,
   useClass: FakeBackendInterceptor,
-  multi: true
+  multi: true,
 };
