@@ -10,8 +10,8 @@ COPY . .
 
 RUN yarn install
 
-RUN npm run-script pre-build --BUILD=$build
-RUN npm run-script build-plugin
+RUN yarn run pre-build --BUILD=$build
+RUN yarn run build:plugin
 #RUN ls -al ./dist/
 
 ### STAGE 2: Upload sourcemaps ###
