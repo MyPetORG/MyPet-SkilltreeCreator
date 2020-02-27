@@ -36,7 +36,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { HotkeyService } from 'app/services/hotkey.service';
-import 'hammerjs';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ContextMenuModule } from 'ngx-contextmenu';
 import { environment } from '../environments/environment';
@@ -183,37 +182,6 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     RouterModule.forRoot(routes),
     environment.production ? [] : AkitaNgDevtools.forRoot(),
-  ],
-  entryComponents: [
-    SkilltreeAddDialogComponent,
-    SkilltreeDuplicateDialogComponent,
-    MobTypeSelectDialogComponent,
-    UpgradeDialogComponent,
-    SkilltreeImportDialogComponent,
-    SkilltreeChangeIconDialogComponent,
-    LevelupNotificationAddDialogComponent,
-
-    /** Skills **/
-    BackpackSkillComponent,
-    BeaconSkillComponent,
-    BehaviorSkillComponent,
-    ControlSkillComponent,
-    DamageSkillComponent,
-    FireSkillComponent,
-    HealSkillComponent,
-    LifeSkillComponent,
-    KnockbackSkillComponent,
-    LightningSkillComponent,
-    PickupSkillComponent,
-    PoisonSkillComponent,
-    RangedSkillComponent,
-    RideSkillComponent,
-    ShieldSkillComponent,
-    SlowSkillComponent,
-    SprintSkillComponent,
-    StompSkillComponent,
-    ThornsSkillComponent,
-    WitherSkillComponent,
   ],
   providers: [
     StateService,
