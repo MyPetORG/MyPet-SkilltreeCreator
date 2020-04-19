@@ -30,7 +30,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -181,7 +180,7 @@ export function createTranslateLoader(http: HttpClient) {
       },
     }),
     RouterModule.forRoot(routes),
-    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    ...environment.imports,
   ],
   providers: [
     StateService,
