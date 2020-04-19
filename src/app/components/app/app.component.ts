@@ -53,7 +53,17 @@ export class AppComponent implements OnInit {
       }
     });
 
-    await this.skilltreeService.load().toPromise();
+    try {
+      await this.skilltreeService.load().toPromise();
+    } catch (e) {
+      console.error(e);
+      this.translate.get('EFFECT__LOAD_SKILLTREE_FAILED')
+        .subscribe((trans) => {
+          if (trans != 'EFFECT__LOAD_SKILLTREE_FAILED') {
+            this.snackBar.open(trans, null, { duration: 100000 });
+          }
+        });
+    }
   }
 
   initLanguageSubscriber() {
