@@ -21,87 +21,70 @@
       justify-content: center;
     }
 
-    .loader,
-    .loader:before,
-    .loader:after {
-      border-radius: 50%;
+    .loader, .loader:before, .loader:after {
+      box-sizing: border-box;
+      flex-grow: 0;
+      flex-shrink: 0;
     }
 
-    .loader {
-      color: #008000;
-      font-size: 11px;
-      text-indent: -99999em;
-      margin: auto;
+    @keyframes momentum {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .loader.loader-spinner {
       position: relative;
-      width: 10em;
-      height: 10em;
-      box-shadow: inset 0 0 0 1em;
-      -webkit-transform: translateZ(0);
-      -ms-transform: translateZ(0);
-      transform: translateZ(0);
+      width: 120px;
+      height: 120px;
+      transform-origin: center center;
+      border-radius: 50%;
+      border: 4px solid rgba(0, 0, 0, 0);
+      border-top-color: #008000;
+      animation: momentum 2s linear infinite;
     }
 
-    .loader:before,
-    .loader:after {
+    .loader-spinner:before {
+      content: "";
       position: absolute;
-      content: '';
+      transform-origin: center center;
+      top: 8px;
+      left: 8px;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 4px solid rgba(0, 0, 0, 0);
+      border-top-color: #008000;
+      opacity: 0.7;
+      filter: hue-rotate(3 eg);
+      animation: momentum 4s linear infinite;
     }
 
-    .loader:before {
-      width: 5.2em;
-      height: 10.2em;
-      background: white;
-      border-radius: 10.2em 0 0 10.2em;
-      top: -0.1em;
-      left: -0.1em;
-      -webkit-transform-origin: 5.2em 5.1em;
-      transform-origin: 5.2em 5.1em;
-      -webkit-animation: load2 2s infinite ease 1.5s;
-      animation: load2 2s infinite ease 1.5s;
+    .loader-spinner:after {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      transform-origin: center center;
+      border: 4px solid rgba(0, 0, 0, 0);
+      border-top-color: #008000;
+      opacity: 0.3;
+      filter: hue-rotate(6 eg);
+      animation: momentum 2s linear infinite;
     }
-
-    .loader:after {
-      width: 5.2em;
-      height: 10.2em;
-      background: white;
-      border-radius: 0 10.2em 10.2em 0;
-      top: -0.1em;
-      left: 5.1em;
-      -webkit-transform-origin: 0px 5.1em;
-      transform-origin: 0px 5.1em;
-      -webkit-animation: load2 2s infinite ease;
-      animation: load2 2s infinite ease;
-    }
-
-    @-webkit-keyframes load2 {
-      0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes load2 {
-      0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }
-
   </style>
 </head>
 <body>
 
 <stc-root>
   <div class="loader-container">
-    <div class="loader">Loading...</div>
+    <div class="loader loader-spinner"></div>
   </div>
 </stc-root>
 
