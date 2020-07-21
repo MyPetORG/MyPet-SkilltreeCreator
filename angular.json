@@ -24,7 +24,13 @@
             "styles": [
               "src/resources/styles/style.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "pako",
+              "subsink",
+              "mousetrap"
+            ]
           },
           "configurations": {
             "production": {

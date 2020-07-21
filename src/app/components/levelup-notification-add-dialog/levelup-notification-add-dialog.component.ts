@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { SubSink } from 'subsink';
-import { isArray } from 'util';
 import { LevelRule } from '../../models/level-rule';
 import { SkilltreeQuery } from '../../stores/skilltree/skilltree.query';
 
@@ -100,7 +99,7 @@ export class LevelupNotificationAddDialogComponent implements OnDestroy {
 
   compareLevelRule(ruleA: LevelRule, ruleB: LevelRule): any {
     if (this.type == 0) {
-      if (isArray(ruleA.exact) && isArray(ruleB.exact)) {
+      if (Array.isArray(ruleA.exact) && Array.isArray(ruleB.exact)) {
         if (ruleA.exact.slice().sort().join(',') === ruleB.exact.sort().join(',')) {
           return true;
         }
