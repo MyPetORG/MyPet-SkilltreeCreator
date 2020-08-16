@@ -382,6 +382,7 @@
   "MOB_TYPE__PHANTOM": "Phantom",
   "MOB_TYPE__PIG": "Pig",
   "MOB_TYPE__PIGLIN": "Piglin",
+  "MOB_TYPE__PIGLINBRUTE": "Piglin Brute",
   "MOB_TYPE__PIGZOMBIE": "Zombie Pigman / Zombified Piglin",
   "MOB_TYPE__PILLAGER": "Pillager",
   "MOB_TYPE__POLARBEAR": "PolarBear",

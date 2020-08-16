@@ -382,6 +382,7 @@
   "MOB_TYPE__PHANTOM": "Phantom",
   "MOB_TYPE__PIG": "Schwein",
   "MOB_TYPE__PIGLIN": "Piglin",
+  "MOB_TYPE__PIGLINBRUTE": "Piglin-Barbar",
   "MOB_TYPE__PIGZOMBIE": "Zombie-Schweinemann / Zombifizierter Piglin",
   "MOB_TYPE__PILLAGER": "Plünderer",
   "MOB_TYPE__POLARBEAR": "Eisbär",

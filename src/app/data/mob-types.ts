@@ -35,6 +35,7 @@ export const MobTypes = [
   'Phantom',
   'Pig',
   'Piglin',
+  'PiglinBrute',
   'Pillager',
   'PolarBear',
   'Pufferfish',
