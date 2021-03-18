@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     env:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -37,7 +37,8 @@ jobs:
         run: yarn install
 
       - name: Set build number
-        run: echo ::set-env name=BUILD_NUMBER::$(($github.run_number+134))
+        run: |
+          echo "BUILD_NUMBER=$(($github.run_number+134))" >> $GITHUB_ENV
 
       - name: Apply build number
         run: yarn run pre-build --BUILD=${{ env.BUILD_NUMBER }}
@@ -45,7 +46,8 @@ jobs:
       - name: Build app
         run: yarn run build:plugin
 
-      - uses: getsentry/action-release@v1
+      - name: Create Sentry releasae
+        uses: getsentry/action-release@v1
         with:
           environment: 'production'
           sourcemaps: './dist'
