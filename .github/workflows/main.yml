@@ -48,7 +48,7 @@ jobs:
       - name: Build app
         run: yarn run build:plugin
 
-      - name: Create Sentry releasae
+      - name: Create Sentry release
         uses: getsentry/action-release@v1
         with:
           environment: 'production'

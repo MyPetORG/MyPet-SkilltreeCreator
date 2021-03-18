@@ -14,11 +14,11 @@
 
   <distributionManagement>
     <repository>
-      <name>GitHub Packages</name>
+      <id>Keyle-Release-Repo</id>
       <url>https://maven.pkg.github.com/xXKeyleXx/MyPet-SkilltreeCreator</url>
     </repository>
     <snapshotRepository>
-      <name>GitHub Packages</name>
+      <id>Keyle-Snapshot-Repo</id>
       <url>https://maven.pkg.github.com/xXKeyleXx/MyPet-SkilltreeCreator</url>
     </snapshotRepository>
   </distributionManagement>
