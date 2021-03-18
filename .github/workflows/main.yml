@@ -15,7 +15,7 @@ jobs:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
       SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-      BUILD_NUMBER: 1
+      BUILD_NUMBER: 0
 
     steps:
       - uses: actions/checkout@v2
@@ -37,8 +37,10 @@ jobs:
         run: yarn install
 
       - name: Set build number
+        env:
+          NUM: ${{ github.run_number }}
         run: |
-          echo "BUILD_NUMBER=$(($github.run_number+134))" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$(($NUM+130))" >> $GITHUB_ENV
 
       - name: Apply build number
         run: yarn run pre-build --BUILD=${{ env.BUILD_NUMBER }}
