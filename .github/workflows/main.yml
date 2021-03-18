@@ -64,3 +64,7 @@ jobs:
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build MyPet
+        run: |
+          curl -XPOST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/xXKeyleXx/MyPet/actions/workflows/main.yaml/dispatches --data \'{"ref": "master"}'
