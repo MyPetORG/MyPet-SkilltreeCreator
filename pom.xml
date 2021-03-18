@@ -14,12 +14,12 @@
 
   <distributionManagement>
     <repository>
-      <id>Keyle-Release-Repo</id>
-      <url>http://nexus.keyle.de/content/repositories/releases/</url>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/xXKeyleXx/MyPet-SkilltreeCreator</url>
     </repository>
     <snapshotRepository>
-      <id>Keyle-Snapshot-Repo</id>
-      <url>http://nexus.keyle.de/content/repositories/snapshots/</url>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/xXKeyleXx/MyPet-SkilltreeCreator</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -27,9 +27,9 @@
     <defaultGoal>clean package</defaultGoal>
     <resources>
       <resource>
-        <targetPath>./gui</targetPath>
+        <targetPath>./dist</targetPath>
         <filtering>true</filtering>
-        <directory>./gui</directory>
+        <directory>./dist</directory>
         <excludes>
           <exclude>*.map</exclude>
         </excludes>
