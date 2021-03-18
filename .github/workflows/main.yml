@@ -43,7 +43,7 @@ jobs:
           echo "BUILD_NUMBER=$(($NUM+130))" >> $GITHUB_ENV
 
       - name: Apply build number
-        run: yarn run pre-build --BUILD=${{ env.BUILD_NUMBER }}
+        run: npm run-script pre-build --BUILD=${{ env.BUILD_NUMBER }}
 
       - name: Build app
         run: yarn run build:plugin
