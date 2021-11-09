@@ -69,4 +69,4 @@ jobs:
 
       - name: Build MyPet
         run: |
-          curl -X POST -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/xXKeyleXx/MyPet/actions/workflows/maven.yml/dispatches --data '{"ref": "master"}'
+          curl -X POST -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MyPetORG/MyPet/actions/workflows/maven.yml/dispatches --data '{"ref": "master"}'
