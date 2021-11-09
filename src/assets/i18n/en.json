@@ -346,6 +346,7 @@
   "EFFECT__SAVE_SKILLTREE_FAILED": "An error occured while saving the skilltrees!",
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} was renamed to {{new}}",
 
+  "MOB_TYPE__AXOLOTL": "Axolotl",
   "MOB_TYPE__BAT": "Bat",
   "MOB_TYPE__BEE": "Bee",
   "MOB_TYPE__BLAZE": "Blaze",
@@ -364,6 +365,8 @@
   "MOB_TYPE__ENDERMITE": "Endermite",
   "MOB_TYPE__EVOKER": "Evoker",
   "MOB_TYPE__FOX": "Fox",
+  "MOB_TYPE__GLOWSQUID": "Glow Squid",
+  "MOB_TYPE__GOAT": "Goat",
   "MOB_TYPE__GHAST": "Ghast",
   "MOB_TYPE__GIANT": "Giant",
   "MOB_TYPE__GUARDIAN": "Guardian",

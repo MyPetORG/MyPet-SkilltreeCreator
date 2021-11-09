@@ -346,6 +346,8 @@
   "EFFECT__SAVE_SKILLTREE_FAILED": "Ein Fehler ist während des Speicherns aufgetreten!",
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} wurde zu {{new}} umbenannt.",
 
+
+  "MOB_TYPE__AXOLOTL": "Axolotl",
   "MOB_TYPE__BAT": "Fledermaus",
   "MOB_TYPE__BEE": "Biene",
   "MOB_TYPE__BLAZE": "Lohe",
@@ -364,6 +366,8 @@
   "MOB_TYPE__ENDERMITE": "Endermilbe",
   "MOB_TYPE__EVOKER": "Magier",
   "MOB_TYPE__FOX": "Fuchs",
+  "MOB_TYPE__GLOWSQUID": "Leucht Tintenfisch",
+  "MOB_TYPE__GOAT": "Ziege",
   "MOB_TYPE__GHAST": "Ghast",
   "MOB_TYPE__GIANT": "Riese",
   "MOB_TYPE__GUARDIAN": "Wächter",

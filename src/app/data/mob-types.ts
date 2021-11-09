@@ -1,4 +1,5 @@
 export const MobTypes = [
+  'Axolotl',
   'Bat',
   'Bee',
   'Blaze',
@@ -19,6 +20,8 @@ export const MobTypes = [
   'Fox',
   'Ghast',
   'Giant',
+  'GlowSquid',
+  'Goat',
   'Guardian',
   'Horse',
   'Hoglin',
