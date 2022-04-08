@@ -235,7 +235,7 @@
   "COMPONENTS__SKILLS__POISON__CHANCE_POPUP": "<p>Die Chance dass das Pet seinen Gegner bei einem Angriff vergiftet.<br>Format: [+-][Nummer]<br>Beispiele:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__POISON__DURATION": "Dauer",
   "COMPONENTS__SKILLS__POISON__DURATION_PREFIX": "",
-  "COMPONENTS__SKILLS__POISON__DURATION_SUFFIX": "%",
+  "COMPONENTS__SKILLS__POISON__DURATION_SUFFIX": "Sek.",
   "COMPONENTS__SKILLS__POISON__DURATION_POPUP": "<p>Die dauer die der Gerner vergiftet ist.<br>Format: [+-][Nummer]<br>Beispiele:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__THORNS__CHANCE": "Chance",
   "COMPONENTS__SKILLS__THORNS__CHANCE_PREFIX": "",

@@ -235,7 +235,7 @@
   "COMPONENTS__SKILLS__POISON__CHANCE_POPUP": "<p>The chance the pet will poison it's target on hit.<br>Format: [+-][number]<br>Examples:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__POISON__DURATION": "Duration",
   "COMPONENTS__SKILLS__POISON__DURATION_PREFIX": "",
-  "COMPONENTS__SKILLS__POISON__DURATION_SUFFIX": "%",
+  "COMPONENTS__SKILLS__POISON__DURATION_SUFFIX": "sec",
   "COMPONENTS__SKILLS__POISON__DURATION_POPUP": "<p>The duration the target will be poisioned.<br>Format: [+-][number]<br>Examples:<br>+2<br>-3</p>",
   "COMPONENTS__SKILLS__THORNS__CHANCE": "Chance",
   "COMPONENTS__SKILLS__THORNS__CHANCE_PREFIX": "",
