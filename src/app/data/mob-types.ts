@@ -1,9 +1,12 @@
 export const MobTypes = [
   'Allay',
+  'Armadillo',
   'Axolotl',
   'Bat',
   'Bee',
   'Blaze',
+  'Bogged',
+  'Breeze',
   'Camel',
   'Cat',
   'CaveSpider',

@@ -347,10 +347,13 @@
   "EFFECT__RENAME_SKILLTREE__SUCCESS": "{{old}} was renamed to {{new}}",
 
   "MOB_TYPE__ALLAY": "Allay",
+  "MOB_TYPE__ARMADILLO": "Armadillo",
   "MOB_TYPE__AXOLOTL": "Axolotl",
   "MOB_TYPE__BAT": "Bat",
   "MOB_TYPE__BEE": "Bee",
   "MOB_TYPE__BLAZE": "Blaze",
+  "MOB_TYPE__BOGGED": "Bogged",
+  "MOB_TYPE__BREEZE": "Breeze",
   "MOB_TYPE__CAT": "Cat",
   "MOB_TYPE__CAVESPIDER": "Cave Spider",
   "MOB_TYPE__CAMEL": "Camel",
