@@ -1,0 +1,456 @@
+/*
+ * SPDX-License-Identifier: AGPL-3.0-only
+ * Copyright (c) 2025 UserDerezzed
+ *
+ * This file is part of MyPet-SkilltreeCreator.
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License, version 3 only.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with this program. See the LICENSE.md file for details.
+ */
+
+/* ========================================================================
+   MyPet Skilltree Creator – Global Styles
+   - Cleaned & annotated
+   - Preserves current visuals
+   - Uses canonical dnd-kit pattern (no custom gap placeholder CSS)
+   ======================================================================== */
+
+/* ----------------------------------------
+   CSS Variables (Theme)
+   ---------------------------------------- */
+:root {
+  --bg: #ffffff;
+  --panel: #fafafa;
+  --line: #eaeaea;
+  --text: #111;
+  --muted: #666;
+  --primary: #2f6feb;
+  /* Height reference for list rows (used by some spacing rules) */
+  --sidebar-item-gap: 40px;
+}
+
+/* ----------------------------------------
+   Resets / Base
+   ---------------------------------------- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+  color: var(--text);
+  background: var(--bg);
+  overflow: hidden; /* lock body scroll so panes manage their own */
+}
+
+/* Disable image dragging globally */
+img {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: auto; /* keep clickable if needed */
+}
+
+/* ----------------------------------------
+   App Grid Layout
+   ---------------------------------------- */
+.app-grid {
+  display: grid;
+  grid-template-rows: 56px 1fr;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas:
+    "topbar topbar"
+    "sidebar main";
+  height: 100vh;
+  overflow: hidden; /* prevent the grid itself from scrolling */
+}
+
+/* ----------------------------------------
+   Topbar
+   ---------------------------------------- */
+.topbar {
+  grid-area: topbar;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px;
+  border-bottom: 2px solid var(--line);
+  background: var(--bg);
+}
+.topbar__brand { display: flex; align-items: center; gap: 10px; }
+.topbar__logo { font-size: 18px; }
+.topbar__actions { display: flex; align-items: center; gap: 8px; }
+.topbar__right { justify-self: end; }
+.divider { width: 1px; height: 24px; background: var(--line); }
+
+/* ----------------------------------------
+   Buttons
+   ---------------------------------------- */
+.btn {
+  padding: 6px 10px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  cursor: pointer;
+  white-space: nowrap; /* keep on one line (e.g., "+ Add Skill") */
+}
+.btn:hover { background: #f0f0f0; }
+.btn--primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn--primary:hover { filter: brightness(0.95); }
+.btn--icon { padding: 4px 8px; }
+.btn:disabled, .btn[disabled] {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.8 !important;
+}
+
+/* ----------------------------------------
+   Tabs (simple)
+   ---------------------------------------- */
+.tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 2px solid var(--line);
+}
+.tab {
+  padding: 6px 10px;
+  border: 2px solid var(--line);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: var(--panel);
+  cursor: pointer;
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+.tab:hover { background: #f0f0f0; }
+.tab--active {
+  background: #fff;
+  border-color: var(--line);
+  box-shadow: 0 -1px 0 #fff inset; /* visually connect to content */
+}
+
+/* ----------------------------------------
+   Sidebar (container)
+   ---------------------------------------- */
+.sidebar {
+  grid-area: sidebar;
+  display: grid;
+  grid-template-rows: 48px 1fr 36px;
+  border-right: 2px solid var(--line);
+  background: var(--panel);
+  height: 100%;
+  min-height: 0; /* allow middle row to scroll inside grid */
+}
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--line);
+}
+.sidebar__title { font-weight: 600; }
+/* Middle content area: holds validation summary and the scrollable list */
+.sidebar__content {
+  min-height: 0;            /* allow inner list to shrink */
+  display: flex;
+  flex-direction: column;
+  padding: 8px;             /* align ValidationSummary with list items */
+}
+/* Make the list consume remaining space and scroll inside the content */
+.sidebar__content .sidebar__list { flex: 1 1 auto; }
+
+/* ----------------------------------------
+   Sidebar List & Items
+   ---------------------------------------- */
+.sidebar__list {
+  padding: 0;                      /* padding now lives on .sidebar__content */
+  overflow: auto;                  /* scroll the list, not the header/footer */
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;                   /* required for grid children to shrink */
+  margin: 0;                       /* avoid extra vertical space */
+  list-style: none;                /* ensure no bullets */
+}
+.sidebar__item {
+  position: relative;               /* keep for overlay outlines & focus rings */
+  display: grid;
+  grid-template-columns: 20px 28px 1fr auto; /* handle, icon, text, delete */
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+.sidebar__item:hover { background: #f6f7f9; }
+.sidebar__item.is-selected {
+  background: #eef4ff;
+  outline: 1px solid #d6e4ff;
+}
+
+/* Icon tile */
+.sidebar__item-icon {
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  background: #f2f5f8;
+  border: 2px solid #e6eaef;
+  border-radius: 6px;
+  font-size: 16px; opacity: 0.9;
+}
+
+/* Text stack */
+.sidebar__item-texts { display: grid; gap: 2px; }
+.sidebar__item-name { font-weight: 600; line-height: 1.1; }
+.sidebar__item-sub { font-size: 12px; color: var(--muted); }
+
+/* Drag handle (vertical grip) */
+.drag-handle { cursor: grab; border: none; background: transparent; width: 20px; height: 28px; }
+.drag-handle:active { cursor: grabbing; }
+.drag-handle--v { position: relative; }
+.drag-handle--v::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(#9aa4b2 1px, transparent 1px),
+    radial-gradient(#9aa4b2 1px, transparent 1px),
+    radial-gradient(#9aa4b2 1px, transparent 1px);
+  background-size: 2px 6px, 2px 6px, 2px 6px; /* columns */
+  background-position: 7px 5px, 11px 5px, 15px 5px;
+  background-repeat: repeat-y;
+  opacity: 0.9;
+}
+
+/* Sidebar footer */
+.sidebar__footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  border-top: 2px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  height: 36px;                    /* matches grid template row */
+  background: var(--panel);        /* solid base under the scrolling list */
+}
+
+/* ----------------------------------------
+   Main Content
+   ---------------------------------------- */
+.main {
+  grid-area: main;
+  padding: 16px;
+  min-height: 0;                /* allow this pane to shrink within the grid */
+  overflow: auto;               /* editor scrolls independently */
+  -webkit-overflow-scrolling: touch;
+}
+.card {
+  margin-top: 8px;
+  padding: 12px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* ----------------------------------------
+   Forms
+   ---------------------------------------- */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.field { display: grid; gap: 6px; }
+.field.span-2 { grid-column: span 2; }
+.label { font-size: 12px; color: var(--muted); }
+.input, .textarea, select { width: 100%; padding: 8px 10px; border: 2px solid var(--line); border-radius: 8px; background: #fff; }
+.inline { display: flex; gap: 12px; align-items: center; }
+.checkbox { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }
+.card h3 { margin: 0 0 4px 0; }
+
+/* Validation banners */
+.validation-ok { background: #e8fff0; color: #165; border: 2px solid #8eb; border-radius: 8px; padding: 6px 10px; margin-top: 16px; margin-bottom: 8px; }
+.validation-error { background: #fff4f4; color: #b00; border: 2px solid #f99; border-radius: 8px; padding: 6px 10px; margin-top: 16px; margin-bottom: 8px; }
+
+/* ----------------------------------------
+   Modal
+   ---------------------------------------- */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(7,10,20,0.55); backdrop-filter: blur(2px); display: grid; place-items: center; z-index: 9999; }
+.modal { width: min(640px, calc(100vw - 32px)); background: #fff; border-radius: 12px; border: 2px solid var(--line); padding: 16px; box-shadow: 0 8px 40px rgba(0,0,0,0.25); }
+.modal h3 { margin: 0; }
+.modal .muted { color: var(--muted); font-size: 13px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+
+/* ----------------------------------------
+   Dropzone (Import modal)
+   ---------------------------------------- */
+.dropzone {
+  margin-top: 12px;
+  border: 2px dashed #b8c0cc;
+  border-radius: 10px;
+  min-height: 140px;
+  display: grid; place-items: center;
+  text-align: center;
+  padding: 16px;
+  transition: background .12s ease, border-color .12s ease;
+}
+.dropzone[data-dragover] { background: #f6fbff; border-color: #9ac8ff; }
+
+/* ----------------------------------------
+   dnd-kit Drag Overlay (ghost row)
+   ---------------------------------------- */
+/* The overlay is built from the same row markup; this class gives it a subtle card look. */
+.drag-overlay-row {
+  display: grid;
+  grid-template-columns: 20px 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: #f6f7f9;
+  outline: 1px solid #d6e4ff;
+}
+
+/* Hide real text when Minecraft canvas overlay is active */
+.mc-wysiwyg--overlay-on,
+.mc-wysiwyg--overlay-on * {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+}
+
+/* ========================================================================
+   Removed legacy (pre–dnd-kit) rules:
+   - .sidebar__item[data-over], .drop-gap, and custom drag-preview classes
+   If you ever re-enable the custom placeholder approach, reintroduce those rules.
+   ======================================================================== */
+
+/* Sidebar collapsed: hide list/footer and compact header */
+.sidebar--collapsed {
+  grid-template-rows: 48px 1fr 0; /* header / rail / (no footer) */
+}
+.sidebar--collapsed .sidebar__list,
+.sidebar--collapsed .sidebar__footer { display: none; }
+/* Keep the emoji rail visible in collapsed mode */
+.sidebar--collapsed .sidebar__rail { display: grid; }
+.sidebar__header-actions { display: flex; align-items: center; gap: 6px; }
+.sidebar__collapse { width: 28px; }
+
+/* When the sidebar is collapsed, let the main grid give it a tiny rail */
+body.app--sidebar-collapsed .app-grid {
+    grid-template-columns: 56px 1fr; /* wider rail so collapse button centers */
+}
+
+/* Collapsed sidebar visuals */
+.sidebar--collapsed { grid-template-rows: 48px 1fr 0; }
+.sidebar--collapsed .sidebar__title,
+.sidebar--collapsed .sidebar__list,
+.sidebar--collapsed .sidebar__footer,
+.sidebar--collapsed .btn:not(.sidebar__collapse) { display: none; }
+
+/* Keep the header tidy when collapsed */
+.sidebar__header--collapsed { justify-content: center; }
+.sidebar__collapse { width: 28px; }
+
+/* Tweak header spacing when collapsed so the button is truly centered */
+.sidebar--collapsed .sidebar__header { padding: 8px 0; }
+.sidebar__header--collapsed { justify-content: center; align-items: center; }
+.sidebar__collapse { margin: 0 auto; }
+
+/* Collapsed rail layout */
+.sidebar__rail {
+    display: grid;
+    grid-auto-rows: 40px;
+    align-content: start;
+    justify-items: center;
+    padding: 8px 0;
+    margin: 0;
+    list-style: none;
+    overflow: auto;                  /* rail can scroll if many items */
+    -webkit-overflow-scrolling: touch;
+}
+
+.sidebar__rail-item { width: 100%; display: grid; place-items: center; }
+
+.rail__btn {
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    border: 2px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    cursor: pointer;
+}
+
+.rail__btn:hover { background: #f0f2f5; }
+.rail__btn.is-selected {
+    background: #eef4ff;
+    outline: 1px solid #d6e4ff;
+}
+
+.rail__emoji { font-size: 16px; line-height: 1; }
+
+/* --- New skilltree CTA (expanded sidebar) ------------------------------ */
+
+/* Make the CTA occupy the same horizontal footprint as list rows */
+.sidebar__list > .sidebar__item--new {
+    margin-top: 8px;                /* spacing from last item */
+}
+
+/* Row container (let the button fill the row cleanly) */
+.sidebar__item--new {
+    display: grid;
+    grid-template-columns: 1fr;     /* button spans full width */
+    align-items: center;
+    padding: 0;                      /* button supplies its own padding */
+}
+
+/* The full-width button */
+.sidebar__new-btn {
+    width: 100%;
+    height: 44px;                    /* close to list row height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--line);
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+
+.sidebar__new-btn:hover {
+    background: #f6f7f9;
+    border-color: #c9d8ff;
+}
+
+.sidebar__new-btn:active {
+    transform: translateY(0.5px);
+}
+
+/* --- Collapsed rail: compact + button at the bottom -------------------- */
+
+.rail__btn--new {
+    border-style: dashed;
+    background: #f6f8ff;
+}
+
+.rail__btn--new:hover {
+    background: #eef4ff;
+}
+/* SkilltreeEditor scoped layout for tab + panel connection */
+.skilltree-editor { display: grid; gap: 0; }
+.skilltree-editor .tabs { margin-bottom: 0; position: relative; z-index: 2; border-bottom: none; }
+/* Draw a continuous bottom line behind the gaps so the border looks unbroken */
+.skilltree-editor .tabs::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--line); z-index: 0; }
+/* Ensure active tab appears above the panel and visually connects */
+.tab { position: relative; z-index: 1; }
+.tab--active { z-index: 3; }
+/* Make cards under the tabs look like a continuous surface with the active tab */
+.skilltree-editor .card { margin-top: 0; border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
+/* Generic editor panel for non-card editors so they match the card look */
+.editor-panel { margin-top: 0; padding: 12px; border: 2px solid var(--line); border-top: none; border-radius: 0 10px 10px 10px; background: #fff; }
+/* Inactive tabs show a bottom border to indicate they are not selected */
+.skilltree-editor .tab:not(.tab--active) { border-bottom: 2px solid var(--line); }
