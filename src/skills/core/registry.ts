@@ -23,7 +23,7 @@
   Consumers (e.g., SkillsPanel, SkillEditor) use SKILL_REGISTRY to render the
   proper schema and editor UI for each skill present in a tree.
 */
-import type {SkillDefinition} from './core/contracts'
+import type {SkillDefinition} from './contracts'
 
 // Grab all files that export `skillDef`
 const modules = import.meta.glob('../*.tsx', {eager: true}) as Record<
