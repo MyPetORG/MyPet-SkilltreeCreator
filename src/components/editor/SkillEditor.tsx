@@ -145,10 +145,10 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             {Object.entries(upgrades).map(([level, value]) => {
                 const parsed = skillDef.schema.safeParse(value)
                 let valid = parsed.success
-                let errors = !valid
-                    ? parsed.error.errors.map((e: { message: any }) => e.message).join(', ')
-                    : null
-
+                let errors: string | null = null
+                if (!parsed.success) {
+                    errors = parsed.error.errors.map((e: { message: any }) => e.message).join(', ')
+                }
                 // Special rule for cumulative skills: only the first upgrade must define at least one field
                 const CUMULATIVE_SKILLS = new Set([
                     'Thorns','Wither','Stomp','Slow','Shield','Ride','Arrow','Poison','Pickup','Lightning','Fire','Beacon','Damage','Heal','Knockback','Life','Backpack'
