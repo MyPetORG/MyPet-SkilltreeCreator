@@ -46,12 +46,14 @@ export function stripNs(path: string): string {
 }
 
 /**
- * Normalize a display label (e.g., "Jump Boost") or id (e.g., "jump_boost")
- * into a snake_case identifier ("jump_boost").
+ * Normalize a display label (e.g., "Jump Boost"), PascalCase (e.g., "JumpBoost"),
+ * or id (e.g., "jump_boost") into a snake_case identifier ("jump_boost").
  */
 export function toSnakeId(label: string): string {
   return label
     .trim()
+    // Insert underscore before uppercase letters (handles PascalCase like "WaterBreathing")
+    .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')

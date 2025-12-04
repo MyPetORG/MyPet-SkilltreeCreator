@@ -98,9 +98,11 @@ function BeaconEditor({value, onChange}: EditorProps) {
     const addBuff = () => {
         const key = buffKey.trim()
         if (!key) return
+        // Remove spaces for JSON output (e.g., "Water Breathing" -> "WaterBreathing")
+        const jsonKey = key.replace(/\s+/g, '')
         const val = buffVal.trim().toLowerCase() === 'true' ? true :
             (buffVal.startsWith('+') || buffVal.startsWith('-') ? buffVal : `+${buffVal}`)
-        onChange({...v, Buffs: {...buffs, [key]: val}})
+        onChange({...v, Buffs: {...buffs, [jsonKey]: val}})
         setBuffKey('')
         setBuffVal('true')
     }
@@ -163,7 +165,7 @@ function BeaconEditor({value, onChange}: EditorProps) {
 
                 <div style={{display: 'flex', gap: 8, marginTop: 8, alignItems:'center'}}>
                     <DropdownPicker
-                        options={effects.filter(e => !(e in buffs))}
+                        options={effects.filter(e => !(e.replace(/\s+/g, '') in buffs))}
                         value={buffKey}
                         onChange={setBuffKey}
                         placeholder="(All effects added)"
