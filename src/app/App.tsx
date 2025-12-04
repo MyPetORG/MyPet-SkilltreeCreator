@@ -137,7 +137,7 @@ export default function App() {
                 onCreate={onCreate}
                 onDelete={onDelete}
                 onReorder={onReorder}
-                footerSlot={<small style={{opacity: 0.7}}>v0.1</small>}
+                footerSlot={<small style={{opacity: 0.7}}>v{__APP_VERSION__}</small>}
             />
 
             <main className="main">

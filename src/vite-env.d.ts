@@ -14,3 +14,6 @@
  * You should have received a copy of the GNU Affero General Public License along with this program. See the LICENSE.md file for details.
  */
 
+/// <reference types="vite/client" />
+
+declare const __APP_VERSION__: string
