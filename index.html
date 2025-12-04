@@ -20,6 +20,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MyPet Skilltree Creator</title>
+    <!-- Prevent FOUC: inline critical CSS + script to apply theme before first paint -->
+    <style>
+        /* Critical dark mode colors - applied before main CSS loads */
+        :root { --bg: #ffffff; --text: #111; }
+        [data-theme="dark"] { --bg: #1a1d23; --text: #e8eaed; }
+        html, body { background: var(--bg); color: var(--text); }
+    </style>
+    <script>
+        (function() {
+            var stored = null;
+            try { stored = localStorage.getItem('mypet-skilltree-creator/v1/theme'); } catch(e) {}
+            var theme = stored === 'light' ? 'light'
+                      : stored === 'dark' ? 'dark'
+                      : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        })();
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">

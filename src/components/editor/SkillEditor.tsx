@@ -170,13 +170,6 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
                 return (
                     <div key={level}
                          className={`upgrade-card ${valid ? '' : 'invalid'}`}
-                         style={{
-                             border: '2px solid',
-                             borderColor: valid ? '#ddd' : '#f88',
-                             borderRadius: 8,
-                             marginBottom: 8,
-                             padding: 8,
-                         }}
                          title={errors ?? ''}
                     >
                         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>

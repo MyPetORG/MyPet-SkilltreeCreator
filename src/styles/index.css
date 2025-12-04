@@ -36,6 +36,149 @@
 }
 
 /* ----------------------------------------
+   Dark Theme Overrides
+   ---------------------------------------- */
+[data-theme="dark"] {
+  --bg: #1a1d23;
+  --panel: #22252b;
+  --line: #3a3d45;
+  --text: #e8eaed;
+  --muted: #9aa0a6;
+  --primary: #539bf5;
+  /* Dark mode semantic colors */
+  --hover-bg: #2d3139;
+  --subtle-bg: #2a2d35;
+  --selected-bg: #2d3a4d;
+  --selected-border: #3d4a5d;
+}
+
+/* Dark mode specific overrides for hardcoded colors */
+[data-theme="dark"] .btn:hover { background: var(--hover-bg); }
+[data-theme="dark"] .tab {
+  color: var(--text);
+}
+[data-theme="dark"] .tab:hover { background: var(--hover-bg); }
+[data-theme="dark"] .tab--active {
+  background: var(--bg);
+  box-shadow: 0 -1px 0 var(--bg) inset;
+}
+[data-theme="dark"] .sidebar__item:hover { background: var(--subtle-bg); }
+[data-theme="dark"] .sidebar__item.is-selected {
+  background: var(--selected-bg);
+  outline-color: var(--selected-border);
+}
+[data-theme="dark"] .sidebar__item-icon {
+  background: var(--subtle-bg);
+  border-color: var(--line);
+}
+[data-theme="dark"] .card,
+[data-theme="dark"] .editor-panel {
+  background: var(--bg);
+}
+[data-theme="dark"] .input,
+[data-theme="dark"] .textarea,
+[data-theme="dark"] select {
+  background: var(--bg);
+  color: var(--text);
+}
+[data-theme="dark"] .modal {
+  background: var(--panel);
+  color: var(--text);
+}
+/* Ensure buttons have proper text color */
+[data-theme="dark"] .btn {
+  color: var(--text);
+}
+[data-theme="dark"] .btn--primary {
+  color: #fff;
+}
+[data-theme="dark"] .sidebar__new-btn {
+  background: var(--bg);
+  color: var(--text);
+}
+[data-theme="dark"] .sidebar__new-btn:hover {
+  background: var(--panel);
+  border-color: var(--selected-border);
+}
+[data-theme="dark"] .rail__btn:hover { background: var(--hover-bg); }
+[data-theme="dark"] .rail__btn.is-selected {
+  background: var(--selected-bg);
+  outline-color: var(--selected-border);
+}
+[data-theme="dark"] .rail__btn--new {
+  background: var(--subtle-bg);
+}
+[data-theme="dark"] .rail__btn--new:hover {
+  background: var(--selected-bg);
+}
+[data-theme="dark"] .drag-overlay-row {
+  background: var(--subtle-bg);
+  outline-color: var(--selected-border);
+}
+[data-theme="dark"] .dropzone {
+  border-color: var(--line);
+}
+[data-theme="dark"] .dropzone[data-dragover] {
+  background: var(--subtle-bg);
+  border-color: var(--primary);
+}
+/* Dark mode validation banners */
+[data-theme="dark"] .validation-ok {
+  background: #1a2e1f;
+  color: #7dcea0;
+  border-color: #2d5a3d;
+}
+[data-theme="dark"] .validation-error {
+  background: #2e1a1a;
+  color: #f5a5a5;
+  border-color: #5a2d2d;
+}
+
+/* Skill cards and upgrade cards */
+.skill-card {
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  margin-bottom: 8px;
+}
+.skill-card.is-selected {
+  background: #eef4ff;
+}
+.skill-card.has-error {
+  background: #fff4f4;
+  border-color: #f99;
+}
+.upgrade-card {
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #fff;
+}
+.upgrade-card.invalid {
+  border-color: #f88;
+}
+
+[data-theme="dark"] .skill-card {
+  background: var(--bg);
+}
+[data-theme="dark"] .skill-card.is-selected {
+  background: var(--selected-bg);
+}
+[data-theme="dark"] .skill-card.has-error {
+  background: #2e1a1a;
+  border-color: #5a2d2d;
+}
+[data-theme="dark"] .upgrade-card {
+  background: var(--bg);
+  border-color: var(--line);
+}
+[data-theme="dark"] .upgrade-card.invalid {
+  border-color: #f55;
+}
+
+/* ----------------------------------------
    Resets / Base
    ---------------------------------------- */
 * { box-sizing: border-box; }

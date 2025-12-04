@@ -29,6 +29,7 @@ import {SKILL_REGISTRY} from '../../skills/core/registry'
 import {loadExampleTrees} from '../../lib/codec/json-io'
 import JSZip from 'jszip'
 import ImportModal from '../modals/ImportModal'
+import ThemeToggle from '../common/ThemeToggle'
 
 /** Props for the Topbar component */
  type Props = {
@@ -143,6 +144,7 @@ export default function Topbar({onSave, rightSlot}: Props) {
 
             <div className="topbar__right" style={{display: 'flex', alignItems: 'center', gap: 12}}>
                 <AutosavePill status={autosaveStatus} lastSavedAt={lastSavedAt}/>
+                <ThemeToggle />
                 {rightSlot}
             </div>
         </header>

@@ -149,18 +149,13 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
             {existing.map((id) => {
                 const hasError = errorSkills.has(id)
                 const isSelected = selectedSkill === id
-                const bg = hasError ? '#fff4f4' : (isSelected ? '#eef4ff' : '#fff')
-                const border = hasError ? '#f99' : 'var(--line)'
+                const classes = ['skill-card']
+                if (isSelected) classes.push('is-selected')
+                if (hasError) classes.push('has-error')
                 return (
                     <div
                         key={id}
-                        style={{
-                            border: `2px solid ${border}`,
-                            borderRadius: 10,
-                            padding: 10,
-                            background: bg,
-                            marginBottom: 8,
-                        }}
+                        className={classes.join(' ')}
                     >
                         <div className="section-header" style={{marginBottom: 6}}>
                             <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
