@@ -1,0 +1,99 @@
+/*
+ * minecraft-text.css — Minecraft font and MiniMessage preview styling
+ * Based on adventure-webui (MIT License)
+ */
+
+/* @font-face declarations for Minecraft font family */
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/minecraft/1_Minecraft-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/minecraft/2_Minecraft-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/minecraft/3_Minecraft-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/minecraft/4_Minecraft-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Base Minecraft font class */
+.mc-font {
+  font-family: "Minecraft", monospace;
+  text-shadow: 2px 2px hsl(0, 0%, 24%);
+  font-size: 16px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Preview container base */
+.mc-preview {
+  margin-top: 8px;
+  min-height: 24px;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Display mode: Chat */
+.mc-preview-chat {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px 10px;
+  color: #ffffff;
+}
+
+.mc-preview-chat .mc-font {
+  line-height: 1.3;
+}
+
+/* Display mode: Lore (item tooltip style) */
+.mc-preview-lore {
+  background-color: rgba(16, 0, 16, 0.94);
+  border: 2px solid #280045;
+  padding: 6px 10px;
+  color: #AA00AA;
+  font-style: italic;
+}
+
+.mc-preview-lore .mc-font {
+  line-height: 1.25;
+}
+
+/* Remove text shadow from spans in lore when they have explicit colors */
+.mc-preview-lore span[style*="color"] {
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Ensure proper inline styles from minimessage-js render correctly */
+.mc-font span {
+  font-family: inherit;
+}
+
+/* Obfuscated text animation (for <obfuscated> tag) */
+@keyframes mc-obfuscate {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.mc-font [data-obfuscated] {
+  animation: mc-obfuscate 0.1s infinite;
+}

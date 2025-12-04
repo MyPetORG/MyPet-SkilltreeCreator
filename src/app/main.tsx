@@ -27,6 +27,7 @@ import ReactDOM from 'react-dom/client'
 import {HashRouter} from 'react-router-dom'
 import App from './App'
 import '../styles/index.css'
+import '../styles/minecraft-text.css'
 import { McData } from '../lib/mcAssets'
 
 // Kick off preloading of minecraft-data (effects, mobs) on page load

@@ -163,6 +163,7 @@ export default function NotificationsEditor() {
             onChange={(v) => updateMessage(level, v)}
             rows={2}
             placeholder="e.g. {{owner}}'s pet {{pet}} has reached level {{level}}!"
+            displayMode="chat"
             transformPreview={(src) => {
               const sample = /^\d+$/.test(level)
                 ? Number(level)

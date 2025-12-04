@@ -1,6 +1,6 @@
 {
   "name": "mypet-skilltree-creator",
-  "version": "0.2",
+  "version": "0.3",
   "type": "module",
   "license": "AGPL-3.0-only",
   "scripts": {
@@ -28,6 +28,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "jszip": "^3.10.1",
+    "minimessage-js": "^1.2.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   }
