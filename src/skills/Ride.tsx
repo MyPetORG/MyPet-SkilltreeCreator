@@ -15,11 +15,12 @@
  */
 
 /*
-  Ride.tsx — Skill definition and editor for ride speed/jump modifiers.
+  Ride.tsx — Skill definition and editor for ride speed/jump/fly modifiers.
 
   Fields
   - Speed: movement speed modifier (string "+n" or "+n.n").
-  - Jump: jump strength modifier (string "+n" or "+n.n").
+  - JumpHeight: jump strength modifier (string "+n" or "+n.n").
+  - CanFly: boolean flag enabling flight capability.
 */
 import React from 'react'
 import {z} from 'zod'
@@ -28,24 +29,46 @@ import type {EditorProps} from './core/contracts'
 
 const schema = z.object({
     Speed: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
-    Jump: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
+    JumpHeight: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
+    CanFly: z.boolean().optional(),
 })
 
 function RideEditor({value, onChange}: EditorProps) {
     const v = value ?? {}
+
+    const handleChange = (field: string, val: string | boolean) => {
+        const updated = {...v, [field]: val}
+        // Remove empty string fields so they don't appear in JSON output
+        if (typeof val === 'string' && val === '') {
+            delete updated[field]
+        }
+        // Remove CanFly if unchecked
+        if (field === 'CanFly' && val === false) {
+            delete updated.CanFly
+        }
+        onChange(updated)
+    }
+
     return (
-        <div style={{display: 'flex', gap: 12}}>
+        <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
             <label>Speed
                 <input
-                    value={(v.Speed as string) ?? '+1'}
-                    onChange={(e) => onChange({...v, Speed: e.target.value})}
+                    value={(v.Speed as string) ?? ''}
+                    onChange={(e) => handleChange('Speed', e.target.value)}
                 />
             </label>
-            <label>Jump
+            <label>Jump Height
                 <input
-                    value={(v.Jump as string) ?? '+1'}
-                    onChange={(e) => onChange({...v, Jump: e.target.value})}
+                    value={(v.JumpHeight as string) ?? ''}
+                    onChange={(e) => handleChange('JumpHeight', e.target.value)}
                 />
+            </label>
+            <label>
+                <input
+                    type="checkbox"
+                    checked={!!(v.CanFly as boolean)}
+                    onChange={(e) => handleChange('CanFly', e.target.checked)}
+                /> Can Fly
             </label>
         </div>
     )
