@@ -57,7 +57,7 @@ export default function ViewJsonModal({ isOpen, onClose, tree }: ViewJsonModalPr
         <h3>Skilltree JSON</h3>
         <p className="muted" style={{ marginTop: 4 }}>Preview of the selected skilltree as JSON.</p>
 
-        <div style={{ marginTop: 12, maxHeight: '50vh', overflow: 'auto', border: '1px solid var(--border)', borderRadius: 8, padding: 12, background: '#f8f9fb' }}>
+        <div style={{ marginTop: 12, maxHeight: '50vh', overflow: 'auto', border: '1px solid var(--line)', borderRadius: 8, padding: 12, background: 'var(--panel)' }}>
           <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
             {json}
           </pre>
