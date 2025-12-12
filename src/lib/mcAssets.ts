@@ -97,7 +97,7 @@ export const MCDATA_BASE = 'https://raw.githubusercontent.com/PrismarineJS/minec
 // Types (lightweight projections)
 // ---------------------------
 export type McEffect = { id?: number; name?: string; displayName?: string }
-export type McEntityRaw = { name?: string; displayName?: string; category?: string }
+export type McEntityRaw = { name?: string; displayName?: string; type?: string }
 export type MobEntry = { id: string; label: string; egg: string }
 
 // ---------------------------
@@ -217,8 +217,11 @@ export class McData {
     return result
   }
 
+  /** Entity types that correspond to MyPet-supported mob types */
+  private static readonly MOB_TYPES = new Set(['animal', 'hostile', 'mob', 'passive', 'ambient'])
+
   /**
-   * Get mobs filtered to Hostile and Passive categories with id, label, and spawn egg id.
+   * Get mobs with id, label, and spawn egg id.
    */
   static async getMobs(): Promise<MobEntry[] | null> {
     if (this.mobsCache) return this.mobsCache
@@ -234,7 +237,7 @@ export class McData {
       if (!entities || !Array.isArray(entities)) return null
 
       const filtered: MobEntry[] = entities
-        .filter(e => e && (e.category === 'Hostile mobs' || e.category === 'Passive mobs'))
+        .filter(e => e && e.type && this.MOB_TYPES.has(e.type))
         .map(e => {
           const name = e.name || ''
           const label = (e.displayName?.trim() || (name ? titleFromName(name) : '')).trim()
