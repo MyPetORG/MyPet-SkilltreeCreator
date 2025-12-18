@@ -42,6 +42,27 @@ import { titleFromName, toCamelId, toSnakeId } from './mcUtil'
 export { toSnakeId }
 
 // ============================================================================
+// Plugin Compatibility — Entity blacklist and ID overrides
+// ============================================================================
+
+/**
+ * Entities that cannot be kept as MyPet companions.
+ * These are filtered out of the mob selection list entirely.
+ * Key: Minecraft entity name (snake_case as returned by PrismarineJS)
+ */
+export const BLACKLISTED_MOBS = new Set(['shulker'])
+
+/**
+ * MyPet uses different internal IDs than Minecraft for some mobs.
+ * This maps Minecraft entity names to the MyPet-expected ID.
+ * Key: Minecraft entity name (snake_case)
+ * Value: MyPet internal ID (used in .st.json exports)
+ */
+export const MOB_ID_OVERRIDES: Record<string, string> = {
+  'snow_golem': 'Snowman',
+}
+
+// ============================================================================
 // Section A — mcasset.cloud (textures/models/images)
 // ============================================================================
 
@@ -238,10 +259,11 @@ export class McData {
 
       const filtered: MobEntry[] = entities
         .filter(e => e && e.type && this.MOB_TYPES.has(e.type))
+        .filter(e => !BLACKLISTED_MOBS.has(e.name || ''))
         .map(e => {
           const name = e.name || ''
           const label = (e.displayName?.trim() || (name ? titleFromName(name) : '')).trim()
-          const id = toCamelId(name)
+          const id = MOB_ID_OVERRIDES[name] ?? toCamelId(name)
           const egg = `${name}_spawn_egg`
           return { id, label, egg }
         })
