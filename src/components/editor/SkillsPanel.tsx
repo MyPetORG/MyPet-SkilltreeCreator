@@ -58,7 +58,7 @@ function SkillIcon({id}: { id: string }) {
 export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
     const upsertTree = useStore(s => s.upsertTree)
     const [selectedSkill, setSelectedSkill] = useState<string | null>(null)
-    const existing = Object.keys(tree.Skills || {})
+    const existing = Object.keys(tree.Skills || {}).sort()
 
     const availableOptions = useMemo(() => {
         const all = Array.from(SKILL_REGISTRY.keys()).sort()
