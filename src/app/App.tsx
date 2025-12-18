@@ -127,8 +127,17 @@ export default function App() {
         <div className="app-grid">
             <Topbar
                 onSave={() => markSaved()}
-                rightSlot={<a href="https://wiki.mypet-plugin.de/systems/skilltrees" target="_blank" rel="noreferrer">Docs
-                    ↗</a>}
+                onHome={() => select(null)}
+                rightSlot={
+                    <button
+                        className="btn btn--icon"
+                        onClick={() => window.open('https://wiki.mypet-plugin.de/systems/skilltrees', '_blank')}
+                        title="Open MyPet documentation"
+                        aria-label="Open MyPet documentation"
+                    >
+                        📄
+                    </button>
+                }
             />
 
             <Sidebar
