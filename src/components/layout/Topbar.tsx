@@ -34,11 +34,12 @@ import ThemeToggle from '../common/ThemeToggle'
 /** Props for the Topbar component */
  type Props = {
     onSave?: () => void
+    onHome?: () => void // Navigate to home (deselect tree)
     rightSlot?: React.ReactNode // e.g., language switch, links
 }
 
 /** Topbar — app-level actions and autosave status. */
-export default function Topbar({onSave, rightSlot}: Props) {
+export default function Topbar({onSave, onHome, rightSlot}: Props) {
     const {trees, setTrees, autosaveStatus, lastSavedAt} = useStore()
     const saveDisabled = autosaveStatus === 'saved'
     const [importOpen, setImportOpen] = useState(false)
@@ -54,20 +55,16 @@ export default function Topbar({onSave, rightSlot}: Props) {
 
     /** Replace current workspace with bundled example trees after confirmation. */
     async function onLoadDefaults() {
-        const ok = confirm(
-            'This will replace your current skilltrees with the default examples and clear your local draft. Continue?'
-        )
-        if (!ok) return
+        if (trees.length > 0) {
+            const ok = confirm(
+                'This will replace your current skilltrees with the default examples and clear your local draft. Continue?'
+            )
+            if (!ok) return
+        }
 
         try {
             const examples = await loadExampleTrees()
-            localStorage.removeItem('mypet-skilltree-creator/v1/trees')
-            setTrees(examples, {hydrated: true})
-
-            // Wait for React to finish committing before showing the alert
-            requestAnimationFrame(() => {
-                alert('Defaults loaded.')
-            })
+            setTrees(examples)  // Mark as pending so autosave persists them
         } catch (e) {
             console.error(e)
             alert('Failed to load default examples')
@@ -121,7 +118,12 @@ export default function Topbar({onSave, rightSlot}: Props) {
                 onImported={handleImportedTrees}
                 validateTree={validateTree}
             />
-            <div className="topbar__brand">
+            <div
+                className="topbar__brand"
+                onClick={onHome}
+                style={{cursor: onHome ? 'pointer' : undefined}}
+                title="Go to home"
+            >
                 <img className="topbar__logo" src="img/logo_16.png" alt="MyPet Logo" style={{imageRendering: 'pixelated'}} draggable={false} />
                 <strong>MyPet Skilltree Creator</strong>
             </div>

@@ -18,14 +18,15 @@
   App.tsx — Root application layout and orchestration.
 
   Responsibilities
-  - Bootstraps state by restoring a local draft (if present) or loading bundled examples.
+  - Bootstraps state by restoring a local draft (if present) or starting with a blank slate.
   - Wires up autosave and beforeunload warning lifecycle.
   - Maps trees in the global store to Sidebar items with drag-and-drop reordering.
   - Hosts the Topbar, Sidebar, and the active SkilltreeEditor panel.
+  - Shows a home page when no skilltree is selected, with option to load defaults.
 
   Notes
   - All data edits flow through the Zustand store; autosave subscribes and persists to localStorage.
-  - We avoid overwriting an existing local draft with bundled examples on first load.
+  - Default examples are loaded on-demand via Load Defaults button, not automatically.
 */
 import React, {useEffect, useMemo} from 'react'
 import Topbar from '../components/layout/Topbar'
@@ -54,14 +55,23 @@ export default function App() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // Load example trees if none present (runs when trees empty)
-    useEffect(() => {
-        // If a draft exists in localStorage, do not overwrite it with examples
-        const hasDraft = !!localStorage.getItem('mypet-skilltree-creator/v1/trees')
-        if (!hasDraft && trees.length === 0) {
-            loadExampleTrees().then(arr => setTrees(arr, {hydrated: true})).catch(console.error)
+    // Load default example trees on demand (with confirmation if trees exist)
+    const onLoadDefaults = async () => {
+        if (trees.length > 0) {
+            const ok = confirm(
+                'This will replace your current skilltrees with the default examples and clear your local draft. Continue?'
+            )
+            if (!ok) return
         }
-    }, [trees.length, setTrees])
+
+        try {
+            const examples = await loadExampleTrees()
+            setTrees(examples)  // Mark as pending so autosave persists them
+        } catch (e) {
+            console.error(e)
+            alert('Failed to load default examples')
+        }
+    }
 
     // Start autosave and beforeunload warning
     useEffect(() => {
@@ -151,7 +161,14 @@ export default function App() {
 
             <main className="main">
                 {!selectedTree ? (
-                    <p>Select a skilltree on the left, or import .st.json files.</p>
+                    <div className="home-page">
+                        <img src="img/logo_16.png" alt="MyPet Logo" className="home-page__logo" draggable={false} />
+                        <h2>No skilltree selected</h2>
+                        <p>Select a skilltree from the sidebar, or import <code>.st.json</code> files to get started.</p>
+                        <button className="btn btn--primary home-page__cta" onClick={onLoadDefaults}>
+                            Load Defaults
+                        </button>
+                    </div>
                 ) : (
                     <SkilltreeEditor/>
                 )}

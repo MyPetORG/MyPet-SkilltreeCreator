@@ -597,3 +597,43 @@ body.app--sidebar-collapsed .app-grid {
 .editor-panel { margin-top: 0; padding: 12px; border: 2px solid var(--line); border-top: none; border-radius: 0 10px 10px 10px; background: #fff; }
 /* Inactive tabs show a bottom border to indicate they are not selected */
 .skilltree-editor .tab:not(.tab--active) { border-bottom: 2px solid var(--line); }
+
+/* ----------------------------------------
+   Home Page (no skilltree selected)
+   ---------------------------------------- */
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--muted);
+}
+.home-page__logo {
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+.home-page h2 {
+  margin: 0 0 8px 0;
+  color: var(--text);
+  font-weight: 600;
+}
+.home-page p {
+  margin: 0;
+  font-size: 14px;
+}
+.home-page code {
+  background: var(--panel);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+.home-page__cta {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+}

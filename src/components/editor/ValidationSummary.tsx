@@ -36,6 +36,10 @@ type Props = {
 /** ValidationSummary — cross-tree validator with full or icon display. */
 export default function ValidationSummary({ mode = 'full' }: Props) {
     const trees = useStore(s => s.trees)
+
+    // Don't show anything if there are no skilltrees
+    if (trees.length === 0) return null
+
     const allErrors: string[] = []
 
     for (const t of trees) {
