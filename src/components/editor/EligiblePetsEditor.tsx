@@ -166,22 +166,18 @@ export default function EligiblePetsEditor() {
                   <button
                     key={m.id}
                     type="button"
-                    className="btn"
+                    className={`btn${active ? ' btn--mob-active' : ''}`}
                     onClick={() => toggle(m.id)}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: 8,
                       justifyContent: 'flex-start',
-                      background: active ? '#e8fff0' : undefined,
-                      color: active ? '#165' : undefined,
-                      borderColor: active ? '#8eb' : undefined,
-                      boxShadow: active ? 'inset 0 0 0 1px rgba(0,0,0,0.06)' : undefined,
                     }}
                     title={m.label}
                   >
                     <ItemIcon id={m.egg} alt={`${m.label} Spawn Egg`} />
-                    <span style={active ? { fontWeight: 600, textShadow: '0 1px 1px rgba(0,0,0,0.35)' } : undefined}>{m.label}</span>
+                    <span>{m.label}</span>
                   </button>
                 )
               })}
