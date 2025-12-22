@@ -70,13 +70,13 @@ function arraysEqual(a: string[], b: string[]): boolean {
  * - apply: helper that clones, mutates, and upserts a new tree (triggers autosave)
  */
 function DescriptionEditor({ tree, apply }: { tree: SkilltreeFile; apply: (mutate: (t: SkilltreeFile) => void) => void }) {
-    const initial = useMemo(() => tree.Description.map(stripLeadingDash).join('\n'), [tree.Description])
+    const initial = useMemo(() => (tree.Description ?? []).map(stripLeadingDash).join('\n'), [tree.Description])
     const [descText, setDescText] = useState<string>(initial)
     const descTextRef = useRef<string>(initial)
 
     // Keep local text in sync when tree changes
     useEffect(() => {
-        const next = tree.Description.map(stripLeadingDash).join('\n')
+        const next = (tree.Description ?? []).map(stripLeadingDash).join('\n')
         setDescText(next)
         descTextRef.current = next
     }, [tree.ID, tree.Description])
@@ -123,7 +123,7 @@ export default function AppearanceEditor() {
         mutate(next)
         next.ID = next.ID.trim()
         next.Name = next.Name.trim()
-        next.Description = next.Description.map(l => l.trim())
+        next.Description = (next.Description ?? []).map(l => l.trim())
         if (!next.MobTypes.length) next.MobTypes = ['*']
         upsertTree(next)
     }
