@@ -1,6 +1,6 @@
 {
   "name": "mypet-skilltree-creator",
-  "version": "0.7",
+  "version": "0.8",
   "type": "module",
   "license": "AGPL-3.0-only",
   "scripts": {
