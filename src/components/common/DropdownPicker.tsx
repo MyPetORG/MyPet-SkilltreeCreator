@@ -75,12 +75,12 @@ export default function DropdownPicker({ options, value, onChange, placeholder, 
         )}
       </button>
       {open && (
-        <div role="listbox" style={{position: 'absolute', zIndex: 10, top: 'calc(100% + 4px)', left: 0, minWidth: 220, background: '#fff', border: '2px solid var(--line)', borderRadius: 8, boxShadow: '0 6px 24px rgba(0,0,0,0.08)'}}>
+        <div role="listbox" className="dropdown-picker__list" style={{position: 'absolute', zIndex: 10, top: 'calc(100% + 4px)', left: 0, minWidth: 220, background: 'var(--panel)', border: '2px solid var(--line)', borderRadius: 8, boxShadow: '0 6px 24px rgba(0,0,0,0.15)'}}>
           {options.length === 0 && (
-            <div style={{padding: 8, color: '#666'}}>(No options)</div>
+            <div style={{padding: 8, color: 'var(--muted)'}}>(No options)</div>
           )}
           {options.map(opt => (
-            <div key={opt} role="option" aria-selected={opt===current} onClick={() => { onChange(opt); setOpen(false) }} style={{display:'flex', alignItems:'center', gap:8, padding:'6px 8px', cursor:'pointer'}}>
+            <div key={opt} role="option" aria-selected={opt===current} onClick={() => { onChange(opt); setOpen(false) }} className="dropdown-picker__option" style={{display:'flex', alignItems:'center', gap:8, padding:'6px 8px', cursor:'pointer'}}>
               {renderOption ? renderOption(opt) : <span>{opt}</span>}
             </div>
           ))}

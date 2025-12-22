@@ -178,6 +178,17 @@
   border-color: #f55;
 }
 
+/* Dropdown Picker (listbox popover) */
+.dropdown-picker__list {
+  color: var(--text);
+}
+.dropdown-picker__option:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+[data-theme="dark"] .dropdown-picker__option:hover {
+  background: var(--hover-bg);
+}
+
 /* ----------------------------------------
    Resets / Base
    ---------------------------------------- */
