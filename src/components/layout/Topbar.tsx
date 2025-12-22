@@ -122,14 +122,17 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
                 onImported={handleImportedTrees}
                 validateTree={validateTreeForImport}
             />
-            <div
-                className="topbar__brand"
-                onClick={onHome}
-                style={{cursor: onHome ? 'pointer' : undefined}}
-                title="Go to home"
-            >
-                <img className="topbar__logo" src="img/logo_16.png" alt="MyPet Logo" style={{imageRendering: 'pixelated'}} draggable={false} />
-                <strong>MyPet Skilltree Creator</strong>
+            <div className="topbar__brand-area">
+                <div
+                    className="topbar__brand"
+                    onClick={onHome}
+                    style={{cursor: onHome ? 'pointer' : undefined}}
+                    title="Go to home"
+                >
+                    <img className="topbar__logo" src="img/logo_16.png" alt="MyPet Logo" style={{imageRendering: 'pixelated'}} draggable={false} />
+                    <strong>MyPet Skilltree Creator</strong>
+                </div>
+                <span className="version-badge">v{__APP_VERSION__}</span>
             </div>
 
             <div className="topbar__actions">

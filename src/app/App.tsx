@@ -158,7 +158,6 @@ export default function App() {
                 onReorder={onReorder}
                 footerSlot={
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4}}>
-                        <small style={{opacity: 0.7}}>v{__APP_VERSION__}</small>
                         <small style={{opacity: 0.7}}>built with ❤️ by <a href="https://github.com/UserDerezzed" target="_blank" rel="noopener noreferrer" style={{color: 'inherit'}}>UserDerezzed</a></small>
                         <a
                             href="https://ko-fi.com/UserDerezzed"
