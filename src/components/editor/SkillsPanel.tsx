@@ -23,6 +23,8 @@
 import React, {useMemo, useState} from 'react'
 import {useStore} from '../../state/store'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
+import { useTreeValidation } from '../../lib/validation'
+import ValidationIcon from '../common/ValidationIcon'
 import type {SkilltreeFile} from '../../lib/types'
 import SkillEditor from './SkillEditor'
 import DropdownPicker from '../common/DropdownPicker'
@@ -60,41 +62,13 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
     const [selectedSkill, setSelectedSkill] = useState<string | null>(null)
     const existing = Object.keys(tree.Skills || {}).sort()
 
+    // Get validation errors from centralized validation service
+    const { skillErrors } = useTreeValidation(tree.ID)
+
     const availableOptions = useMemo(() => {
         const all = Array.from(SKILL_REGISTRY.keys()).sort()
         return all.filter(name => !existing.includes(name))
     }, [existing])
-
-    // Determine which skills in this tree have validation issues
-    const errorSkills = useMemo(() => {
-        const set = new Set<string>()
-        for (const [sid, sdef] of Object.entries(tree.Skills ?? {})) {
-            const reg = SKILL_REGISTRY.get(sid)
-            if (!reg) continue
-            const upgradesObj = sdef?.Upgrades ?? {}
-            const entries = Object.entries(upgradesObj)
-            const firstKey = entries[0]?.[0]
-
-            const CUMULATIVE_SKILLS = new Set([
-                'Thorns','Wither','Stomp','Slow','Shield','Ride','Arrow','Poison','Pickup','Lightning','Fire','Beacon','Damage','Heal','Knockback','Life','Backpack'
-            ])
-
-            for (const [level, payload] of entries) {
-                const res = reg.schema.safeParse(payload)
-                let invalid = !res.success
-
-                // Mirror special rule used in SkillEditor: for cumulative skills, first upgrade must specify at least one field
-                if (!invalid && CUMULATIVE_SKILLS.has(reg.id) && level === firstKey) {
-                    const v = (payload ?? {}) as any
-                    const hasAny = Object.values(v).some(val => typeof val === 'string' ? val.trim() !== '' : Boolean(val))
-                    if (!hasAny) invalid = true
-                }
-
-                if (invalid) { set.add(sid); break }
-            }
-        }
-        return set
-    }, [tree])
 
     const [pending, setPending] = useState<string>(availableOptions[0] ?? '')
 
@@ -147,7 +121,7 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
             {existing.length === 0 && <p>No skills yet.</p>}
 
             {existing.map((id) => {
-                const hasError = errorSkills.has(id)
+                const hasError = skillErrors.has(id)
                 const isSelected = selectedSkill === id
                 const classes = ['skill-card']
                 if (isSelected) classes.push('is-selected')
@@ -161,15 +135,10 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
                             <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
                                 <SkillIcon id={id} />
                                 <strong style={{cursor: 'pointer'}} onClick={() => setSelectedSkill(prev => prev === id ? null : id)}>{id}</strong>
+                                {hasError && <ValidationIcon size={14} title="This skill has validation errors" />}
                             </div>
                             <button className="btn btn--icon" onClick={() => removeSkill(id)}>🗑️</button>
                         </div>
-
-                        {hasError && !isSelected && (
-                            <div className="validation-error" style={{marginTop: 6}}>
-                                ⚠ Validation issue in this skill. Expand to edit values.
-                            </div>
-                        )}
 
                         {isSelected && (
                             <SkillEditor tree={tree} skillId={id}/>

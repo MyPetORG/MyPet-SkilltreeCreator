@@ -24,9 +24,10 @@
   - For cumulative skills (e.g., Damage, Heal, etc.), enforces that the first
     upgrade defines at least one field.
 */
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
 import {useStore} from '../../state/store'
+import { validateSkill } from '../../lib/validation'
 import type {SkilltreeFile} from '../../lib/types'
 import LevelModal, { LevelSelection } from '../modals/LevelModal'
 
@@ -81,6 +82,9 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
     const [formOpen, setFormOpen] = useState(false)
     const [editOpen, setEditOpen] = useState(false)
     const [editTarget, setEditTarget] = useState<string | null>(null)
+
+    // Memoize validation results to avoid recomputing on each render
+    const skillValidation = useMemo(() => validateSkill(tree, skillId), [tree, skillId])
 
     if (!skillDef) return <p style={{color: 'crimson'}}>Unknown skill: {skillId}</p>
 
@@ -143,29 +147,14 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             {Object.entries(upgrades).length === 0 && <p>No upgrades yet.</p>}
 
             {Object.entries(upgrades).map(([level, value]) => {
-                const parsed = skillDef.schema.safeParse(value)
-                let valid = parsed.success
-                let errors: string | null = null
-                if (!parsed.success) {
-                    errors = parsed.error.errors.map((e: { message: any }) => e.message).join(', ')
-                }
-                // Special rule for cumulative skills: only the first upgrade must define at least one field
-                const CUMULATIVE_SKILLS = new Set([
-                    'Thorns','Wither','Stomp','Slow','Shield','Ride','Arrow','Poison','Pickup','Lightning','Fire','Beacon','Damage','Heal','Knockback','Life','Backpack'
-                ])
-                if (CUMULATIVE_SKILLS.has(skillDef.id)) {
-                    const firstKey = Object.keys(upgrades)[0]
-                    const isFirst = firstKey === level
-                    if (isFirst) {
-                        const v = (value ?? {}) as any
-                        // consider any string-typed, non-empty field as provided
-                        const hasAny = Object.values(v).some(val => typeof val === 'string' ? val.trim() !== '' : Boolean(val))
-                        if (!hasAny) {
-                            valid = false
-                            errors = 'At least one field must be provided for the first level'
-                        }
-                    }
-                }
+                // Look up validation errors for this specific upgrade from the centralized validator
+                const levelErrors = skillValidation.errors.filter(e =>
+                    e.path.endsWith(`/${level}`)
+                )
+                const valid = levelErrors.length === 0
+                const errors = levelErrors.length > 0
+                    ? levelErrors.map(e => e.message).join(', ')
+                    : null
 
                 return (
                     <div key={level}

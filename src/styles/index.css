@@ -588,6 +588,31 @@ body.app--sidebar-collapsed .app-grid {
 .skilltree-editor .tabs { margin-bottom: 0; position: relative; z-index: 2; border-bottom: none; }
 /* Draw a continuous bottom line behind the gaps so the border looks unbroken */
 .skilltree-editor .tabs::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--line); z-index: 0; }
+/* When active tab has error, line turns red */
+.skilltree-editor .tabs--has-error::before { background: #f99; }
+[data-theme="dark"] .skilltree-editor .tabs--has-error::before { background: #5a2d2d; }
+/* Cover grey triangle artifacts at bottom corners of inactive tabs with red overlay */
+.skilltree-editor .tabs--has-error .tab:not(.tab--active) {
+  border-bottom: none;
+  position: relative;
+}
+.skilltree-editor .tabs--has-error .tab:not(.tab--active)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+  height: 2px;
+  background: #f99;
+  z-index: 5;
+}
+[data-theme="dark"] .skilltree-editor .tabs--has-error .tab:not(.tab--active)::after {
+  background: #5a2d2d;
+}
+/* First tab: only extend to cover border (2px), not extra gap coverage (4px) */
+.skilltree-editor .tabs--has-error .tab:not(.tab--active):first-child::after {
+  left: -2px;
+}
 /* Ensure active tab appears above the panel and visually connects */
 .tab { position: relative; z-index: 1; }
 .tab--active { z-index: 3; }
@@ -636,4 +661,103 @@ body.app--sidebar-collapsed .app-grid {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 14px;
+}
+
+/* ----------------------------------------
+   Validation Indicators
+   ---------------------------------------- */
+
+/* Validation icon (red ! in circle) */
+.validation-icon {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+[data-theme="dark"] .validation-icon {
+  background: #4a1f1f;
+  color: #f87171;
+  border-color: #7f1d1d;
+}
+
+/* Sidebar validation icon positioning */
+.sidebar__item-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar__validation-icon {
+  margin-left: 2px;
+}
+
+/* Collapsed sidebar rail button error state */
+.rail__btn.has-error {
+  border-color: #f99 !important;
+  border-width: 2px;
+}
+
+[data-theme="dark"] .rail__btn.has-error {
+  border-color: #5a2d2d !important;
+}
+
+/* Tab content layout for icon alignment */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Tab error state - red borders on top, left, right, plus error background */
+.tab--error {
+  border-top-color: #f99 !important;
+  border-left-color: #f99 !important;
+  border-right-color: #f99 !important;
+  background: #fff4f4 !important;
+}
+
+/* Active tab with error: keep manila folder effect (no bottom border) */
+.tab--error.tab--active {
+  border-top-color: #f99 !important;
+  border-left-color: #f99 !important;
+  border-right-color: #f99 !important;
+  border-bottom: none !important; /* Explicitly ensure no bottom border */
+}
+
+/* Inactive tab with error needs red bottom border too */
+.skilltree-editor .tab--error:not(.tab--active) {
+  border-bottom-color: #f99 !important;
+}
+
+[data-theme="dark"] .tab--error {
+  border-top-color: #5a2d2d !important;
+  border-left-color: #5a2d2d !important;
+  border-right-color: #5a2d2d !important;
+  background: #2e1a1a !important;
+}
+
+[data-theme="dark"] .skilltree-editor .tab--error:not(.tab--active) {
+  border-bottom-color: #5a2d2d !important;
+}
+
+/* Tab panel wrapper and error state */
+.tab-panel {
+  /* Inherits from .card styling */
+}
+
+/* When active tab has error, panel gets red borders and error background */
+/* Top border stays none to maintain the manila folder tab connection */
+.tab-panel--error .card {
+  border-left-color: #f99 !important;
+  border-right-color: #f99 !important;
+  border-bottom-color: #f99 !important;
+  background: #fff4f4 !important;
+}
+
+[data-theme="dark"] .tab-panel--error .card {
+  border-left-color: #5a2d2d !important;
+  border-right-color: #5a2d2d !important;
+  border-bottom-color: #5a2d2d !important;
+  background: #2e1a1a !important;
 }

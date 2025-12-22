@@ -26,6 +26,7 @@
 import React, {useState} from 'react'
 import {useStore} from '../../state/store'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
+import { validateAllTrees, hasErrors } from '../../lib/validation'
 import {loadExampleTrees} from '../../lib/codec/json-io'
 import JSZip from 'jszip'
 import ImportModal from '../modals/ImportModal'
@@ -44,8 +45,8 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
     const saveDisabled = autosaveStatus === 'saved'
     const [importOpen, setImportOpen] = useState(false)
 
-    /** Validate a single tree against SKILL_REGISTRY */
-    function validateTree(tree: any): boolean {
+    /** Basic validation for import: checks if skill IDs exist in registry */
+    function validateTreeForImport(tree: any): boolean {
         if (!tree || !tree.Skills) return false
         for (const skillId of Object.keys(tree.Skills)) {
             if (!SKILL_REGISTRY.get(skillId)) return false
@@ -83,14 +84,17 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
     // Handler to export current trees as a ZIP with one file per skilltree
     /** Export current trees to a zip file of <ID>.st.json entries. */
     async function onExport() {
-        for (const tree of trees) {
-            if (!validateTree(tree)) {
-                alert('Export failed: one or more skill trees are invalid')
-                return
-            }
-        }
         if (!trees.length) {
             alert('No skilltrees to export.')
+            return
+        }
+
+        // Comprehensive validation: schema + business rules
+        const validations = validateAllTrees(trees)
+        const invalidTrees = validations.filter(v => hasErrors(v))
+        if (invalidTrees.length > 0) {
+            const names = invalidTrees.map(v => v.treeId).join(', ')
+            alert(`Export blocked: ${invalidTrees.length} skilltree(s) have validation errors.\n\nInvalid trees: ${names}\n\nPlease fix all validation errors before exporting.`)
             return
         }
 
@@ -116,7 +120,7 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
                 isOpen={importOpen}
                 onClose={() => setImportOpen(false)}
                 onImported={handleImportedTrees}
-                validateTree={validateTree}
+                validateTree={validateTreeForImport}
             />
             <div
                 className="topbar__brand"

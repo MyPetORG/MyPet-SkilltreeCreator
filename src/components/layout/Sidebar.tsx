@@ -20,11 +20,13 @@
   Features:
   - Reorder via drag-and-drop (dnd-kit)
   - Select, create, delete callbacks for parent
-  - Collapsible rail mode showing only icons and validation summary
+  - Collapsible rail mode showing only icons
+  - Per-tree validation indicators (red icon in expanded, red border in collapsed)
 */
 import React, { useEffect, useMemo, useState } from 'react'
 import { ItemIcon } from '../../lib/mcIcons'
-import ValidationSummary from '../editor/ValidationSummary'
+import { useAllTreesValidation } from '../../lib/validation'
+import ValidationIcon from '../common/ValidationIcon'
 
 import {
   DndContext,
@@ -67,6 +69,9 @@ export type SidebarItem = {
 
 /** Sidebar — vertical list with drag-and-drop reordering and collapse control. */
 export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder, footerSlot }: Props) {
+  // Get validation state for all trees
+  const { treeErrors } = useAllTreesValidation()
+
   // Canonical dnd-kit sensors
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } })
@@ -128,7 +133,6 @@ export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder
       <div className={`sidebar__header${collapsed ? ' sidebar__header--collapsed' : ''}`}>
         {!collapsed && <div className="sidebar__title">Skilltrees</div>}
         <div className="sidebar__header-actions">
-          {collapsed && <ValidationSummary mode="icon" />}
           <button
             className="btn btn--icon sidebar__collapse"
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
@@ -140,18 +144,21 @@ export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder
 
       {collapsed ? (
         <ul className="sidebar__rail" aria-label="Skilltree selectors (collapsed)">
-          {items.map((it) => (
-            <li key={it.id} className="sidebar__rail-item">
-              <button
-                className={`rail__btn${it.selected ? ' is-selected' : ''}`}
-                title={it.name}
-                aria-label={it.name}
-                onClick={() => onSelect?.(it.id)}
-              >
-                <ItemIcon id={it.icon} alt={it.icon || 'item'} className="rail__emoji" />
-              </button>
-            </li>
-          ))}
+          {items.map((it) => {
+            const hasError = treeErrors.get(it.id) ?? false
+            return (
+              <li key={it.id} className="sidebar__rail-item">
+                <button
+                  className={`rail__btn${it.selected ? ' is-selected' : ''}${hasError ? ' has-error' : ''}`}
+                  title={hasError ? `${it.name} (has validation errors)` : it.name}
+                  aria-label={hasError ? `${it.name} (has validation errors)` : it.name}
+                  onClick={() => onSelect?.(it.id)}
+                >
+                  <ItemIcon id={it.icon} alt={it.icon || 'item'} className="rail__emoji" />
+                </button>
+              </li>
+            )
+          })}
           <li className="sidebar__rail-item">
             <button
               className="rail__btn rail__btn--new"
@@ -165,8 +172,6 @@ export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder
         </ul>
       ) : (
         <div className="sidebar__content">
-          <ValidationSummary />
-
           <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragCancel={handleDragCancel}>
             <SortableContext items={ids} strategy={verticalListSortingStrategy}>
               <ul className="sidebar__list">
@@ -174,6 +179,7 @@ export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder
                   <SortableRow
                     key={it.id}
                     item={it}
+                    hasError={treeErrors.get(it.id) ?? false}
                     onSelect={onSelect}
                     onDelete={onDelete}
                   />
@@ -193,7 +199,7 @@ export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder
                         }
                     >
                         <button className="btn btn--icon drag-handle drag-handle--v" aria-hidden />
-                        <RowMarkup item={activeItem} />
+                        <RowMarkup item={activeItem} hasError={treeErrors.get(activeItem.id) ?? false} />
                     </li>
                 ) : null}
             </DragOverlay>
@@ -207,8 +213,9 @@ export default function Sidebar({ items, onSelect, onCreate, onDelete, onReorder
 }
 
 // ----- Sortable Row (canonical dnd-kit pattern) -----
-function SortableRow({ item, onSelect, onDelete }: {
+function SortableRow({ item, hasError, onSelect, onDelete }: {
   item: SidebarItem
+  hasError?: boolean
   onSelect?: (id: string) => void
   onDelete?: (id: string) => void
 }) {
@@ -246,14 +253,15 @@ function SortableRow({ item, onSelect, onDelete }: {
         {...listeners}
         onClick={(e) => { e.stopPropagation(); onSelect?.(item.id) }}
       />
-      <RowMarkup item={item} onSelect={onSelect} onDelete={onDelete} />
+      <RowMarkup item={item} hasError={hasError} onSelect={onSelect} onDelete={onDelete} />
     </li>
   )
 }
 
 // Pure markup for a row (used by both list items and DragOverlay)
-function RowMarkup({ item, onSelect, onDelete }: {
+function RowMarkup({ item, hasError, onSelect, onDelete }: {
   item: SidebarItem
+  hasError?: boolean
   onSelect?: (id: string) => void
   onDelete?: (id: string) => void
 }) {
@@ -263,7 +271,16 @@ function RowMarkup({ item, onSelect, onDelete }: {
         <ItemIcon id={item.icon} alt={item.icon || 'item'} className="sidebar__item-icon-img" />
       </div>
       <div className="sidebar__item-texts" onClick={() => onSelect?.(item.id)}>
-        <div className="sidebar__item-name">{item.name}</div>
+        <div className="sidebar__item-name">
+          {item.name}
+          {hasError && (
+            <ValidationIcon
+              size={14}
+              title="This skilltree has validation errors"
+              className="sidebar__validation-icon"
+            />
+          )}
+        </div>
         {item.subtitle && <div className="sidebar__item-sub">{item.subtitle}</div>}
       </div>
       <button

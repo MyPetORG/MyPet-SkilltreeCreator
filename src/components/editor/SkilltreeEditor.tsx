@@ -22,9 +22,12 @@
     Requirements, Notifications, and Skills.
   - Reads selection from global store; renders a helpful message if nothing is
     selected.
+  - Tabs with validation errors show red borders.
 */
 import React, { useState } from 'react'
 import {useStore} from '../../state/store'
+import { useTreeValidation } from '../../lib/validation'
+import ValidationIcon from '../common/ValidationIcon'
 import AppearanceEditor from './AppearanceEditor'
 import RequirementsEditor from './RequirementsEditor'
 import NotificationsEditor from './NotificationsEditor'
@@ -32,50 +35,79 @@ import SkillsPanel from './SkillsPanel'
 import EligiblePetsEditor from './EligiblePetsEditor'
 import PropertiesEditor from './PropertiesEditor'
 
+/** Map internal tab state values to TabName values used by validation */
+const TAB_TO_VALIDATION_KEY = {
+    properties: 'properties',
+    header: 'appearance',
+    eligible: 'eligible',
+    requirements: 'requirements',
+    notifications: 'notifications',
+    skills: 'skills'
+} as const
+
 /** SkilltreeEditor — tabbed container for sub-editors of the selected tree. */
 export default function SkilltreeEditor() {
     const selectedId = useStore(s => s.selectedId)
     const tree = useStore(s => s.trees.find(t => t.ID === selectedId))
+    const { tabErrors } = useTreeValidation(selectedId ?? undefined)
 
     const [tab, setTab] = useState<'header' | 'properties' | 'eligible' | 'requirements' | 'notifications' | 'skills'>('header')
 
     if (!tree) return <p>Select a skilltree on the left.</p>
 
+    // Helper to build tab class names
+    const tabClass = (tabKey: keyof typeof TAB_TO_VALIDATION_KEY) => {
+        const isActive = tab === tabKey
+        const validationKey = TAB_TO_VALIDATION_KEY[tabKey]
+        const hasError = tabErrors[validationKey]
+        return 'tab' + (isActive ? ' tab--active' : '') + (hasError ? ' tab--error' : '')
+    }
+
+    // Helper to check if a tab has errors
+    const hasTabError = (tabKey: keyof typeof TAB_TO_VALIDATION_KEY) => {
+        return tabErrors[TAB_TO_VALIDATION_KEY[tabKey]]
+    }
+
+    // Check if the currently active tab has errors (for panel border)
+    const activeTabHasError = tabErrors[TAB_TO_VALIDATION_KEY[tab]]
+
     return (
         <div className="skilltree-editor">
-            <div className="tabs">
-                <button
-                    className={"tab" + (tab === 'properties' ? ' tab--active' : '')}
-                    onClick={() => setTab('properties')}
-                >Properties</button>
-                <button
-                    className={"tab" + (tab === 'header' ? ' tab--active' : '')}
-                    onClick={() => setTab('header')}
-                >Appearance</button>
-                <button
-                    className={"tab" + (tab === 'eligible' ? ' tab--active' : '')}
-                    onClick={() => setTab('eligible')}
-                >Eligible Pets</button>
-                <button
-                    className={"tab" + (tab === 'requirements' ? ' tab--active' : '')}
-                    onClick={() => setTab('requirements')}
-                >Requirements</button>
-                <button
-                    className={"tab" + (tab === 'notifications' ? ' tab--active' : '')}
-                    onClick={() => setTab('notifications')}
-                >Notifications</button>
-                <button
-                    className={"tab" + (tab === 'skills' ? ' tab--active' : '')}
-                    onClick={() => setTab('skills')}
-                >Skills</button>
+            <div className={activeTabHasError ? 'tabs tabs--has-error' : 'tabs'}>
+                <button className={tabClass('properties')} onClick={() => setTab('properties')}>
+                    Properties
+                    {hasTabError('properties') && <ValidationIcon size={12} title="Validation errors in Properties" />}
+                </button>
+                <button className={tabClass('header')} onClick={() => setTab('header')}>
+                    Appearance
+                    {hasTabError('header') && <ValidationIcon size={12} title="Validation errors in Appearance" />}
+                </button>
+                <button className={tabClass('eligible')} onClick={() => setTab('eligible')}>
+                    Eligible Pets
+                    {hasTabError('eligible') && <ValidationIcon size={12} title="Validation errors in Eligible Pets" />}
+                </button>
+                <button className={tabClass('requirements')} onClick={() => setTab('requirements')}>
+                    Requirements
+                    {hasTabError('requirements') && <ValidationIcon size={12} title="Validation errors in Requirements" />}
+                </button>
+                <button className={tabClass('notifications')} onClick={() => setTab('notifications')}>
+                    Notifications
+                    {hasTabError('notifications') && <ValidationIcon size={12} title="Validation errors in Notifications" />}
+                </button>
+                <button className={tabClass('skills')} onClick={() => setTab('skills')}>
+                    Skills
+                    {hasTabError('skills') && <ValidationIcon size={12} title="Validation errors in Skills" />}
+                </button>
             </div>
 
-            {tab === 'header' && <AppearanceEditor/>}
-            {tab === 'properties' && <PropertiesEditor/>}
-            {tab === 'eligible' && <EligiblePetsEditor/>}
-            {tab === 'requirements' && <RequirementsEditor/>}
-            {tab === 'notifications' && <NotificationsEditor/>}
-            {tab === 'skills' && <SkillsPanel tree={tree}/>}            
+            <div className={activeTabHasError ? 'tab-panel tab-panel--error' : 'tab-panel'}>
+                {tab === 'header' && <AppearanceEditor/>}
+                {tab === 'properties' && <PropertiesEditor/>}
+                {tab === 'eligible' && <EligiblePetsEditor/>}
+                {tab === 'requirements' && <RequirementsEditor/>}
+                {tab === 'notifications' && <NotificationsEditor/>}
+                {tab === 'skills' && <SkillsPanel tree={tree}/>}
+            </div>
         </div>
     )
 }
