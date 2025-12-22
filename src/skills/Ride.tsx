@@ -26,6 +26,8 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown, parsePlusFloat} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Speed: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
@@ -33,13 +35,16 @@ const schema = z.object({
     CanFly: z.boolean().optional(),
 })
 
-function RideEditor({value, onChange}: EditorProps) {
-    const v = value ?? {}
+function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const v = (value ?? {}) as any
+
+    const speedData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Speed', v?.Speed, parsePlusFloat)
+    const jumpData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'JumpHeight', v?.JumpHeight, parsePlusFloat)
 
     const handleChange = (field: string, val: string | boolean) => {
-        const updated = {...v, [field]: val}
-        // Remove empty string fields so they don't appear in JSON output
-        if (typeof val === 'string' && val === '') {
+        const updated = {...v, [field]: field === 'CanFly' ? val : normalizeSignedInput(val as string)}
+        // Remove empty/undefined fields so they don't appear in JSON output
+        if (updated[field] === undefined || updated[field] === '') {
             delete updated[field]
         }
         // Remove CanFly if unchecked
@@ -52,21 +57,27 @@ function RideEditor({value, onChange}: EditorProps) {
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
             <label>Speed
-                <input
-                    value={(v.Speed as string) ?? ''}
-                    onChange={(e) => handleChange('Speed', e.target.value)}
-                />
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={v.Speed ?? ''}
+                        onChange={(e) => handleChange('Speed', e.target.value)}
+                    />
+                    <TotalWithBreakdown data={speedData} />
+                </div>
             </label>
             <label>Jump Height
-                <input
-                    value={(v.JumpHeight as string) ?? ''}
-                    onChange={(e) => handleChange('JumpHeight', e.target.value)}
-                />
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={v.JumpHeight ?? ''}
+                        onChange={(e) => handleChange('JumpHeight', e.target.value)}
+                    />
+                    <TotalWithBreakdown data={jumpData} />
+                </div>
             </label>
             <label>
                 <input
                     type="checkbox"
-                    checked={!!(v.CanFly as boolean)}
+                    checked={!!v.CanFly}
                     onChange={(e) => handleChange('CanFly', e.target.checked)}
                 /> Can Fly
             </label>

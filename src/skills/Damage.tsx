@@ -28,7 +28,8 @@ import React from 'react'
 import {z} from 'zod'
 import type {EditorProps} from './core/contracts'
 import {defineSkill} from './core/contracts'
-import {normalizeSignedInput, parsePlusFloat, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, parsePlusFloat, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const damageSchema = z.object({
     Damage: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(), // "+1.5", "+2", "-0.5" (if ever needed)
@@ -37,7 +38,7 @@ const damageSchema = z.object({
 function DamageEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const amount = (value?.Damage as string) ?? ''
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'Damage', (value as any)?.Damage as string | undefined, parsePlusFloat)
+    const damageData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Damage', (value as any)?.Damage as string | undefined, parsePlusFloat)
 
     return (
         <label>
@@ -49,7 +50,7 @@ function DamageEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
                         onChange({...(value ?? {}), Damage: normalizeSignedInput(e.target.value)})
                     }}
                 />
-                <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum})</span>
+                <TotalWithBreakdown data={damageData} />
             </div>
         </label>
     )

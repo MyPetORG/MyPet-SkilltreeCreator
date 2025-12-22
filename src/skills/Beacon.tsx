@@ -31,7 +31,9 @@ import React, {useEffect, useState} from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {sumUpgradesForFieldWithBreakdown} from './core/utils'
 import DropdownPicker from '../components/common/DropdownPicker'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 import { McData } from '../lib/mcAssets'
 import { effectIconUrl } from '../lib/mcAssets'
 
@@ -71,12 +73,16 @@ function BeaconEffectIcon({effect}: { effect: string }) {
 }
 
 
-function BeaconEditor({value, onChange}: EditorProps) {
+function BeaconEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const v = (value ?? {}) as any
     const buffs: Record<string, boolean | string> = v.Buffs ?? {}
     const [buffKey, setBuffKey] = useState('')
     const [buffVal, setBuffVal] = useState('true') // 'true' | '+1' | '+0'
     const [effects, setEffects] = useState<string[]>(DEFAULT_BEACON_EFFECTS)
+
+    const durationData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Duration', v?.Duration)
+    const rangeData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Range', v?.Range)
+    const countData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Count', v?.Count)
 
     useEffect(() => {
         let cancelled = false
@@ -123,32 +129,41 @@ function BeaconEditor({value, onChange}: EditorProps) {
         <div style={{display: 'grid', gap: 12}}>
             <div style={{display: 'flex', gap: 12}}>
                 <label>Duration (s)
-                    <input
-                        placeholder="+8"
-                        value={v.Duration ?? ''}
-                        onChange={e => setField('Duration', e.target.value)}
-                    />
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input
+                            placeholder="+8"
+                            value={v.Duration ?? ''}
+                            onChange={e => setField('Duration', e.target.value)}
+                        />
+                        <TotalWithBreakdown data={durationData} suffix="s" />
+                    </div>
                 </label>
                 <label>Range (blocks)
-                    <input
-                        placeholder="+5"
-                        value={v.Range ?? ''}
-                        onChange={e => setField('Range', e.target.value)}
-                    />
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input
+                            placeholder="+5"
+                            value={v.Range ?? ''}
+                            onChange={e => setField('Range', e.target.value)}
+                        />
+                        <TotalWithBreakdown data={rangeData} />
+                    </div>
                 </label>
                 <label>Count (simultaneous buffs)
-                    <input
-                        placeholder="+1"
-                        value={v.Count ?? ''}
-                        onChange={e => setField('Count', e.target.value)}
-                    />
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input
+                            placeholder="+1"
+                            value={v.Count ?? ''}
+                            onChange={e => setField('Count', e.target.value)}
+                        />
+                        <TotalWithBreakdown data={countData} />
+                    </div>
                 </label>
             </div>
 
             <div>
                 <b>Buffs</b>
                 <div style={{marginTop: 6}}>
-                    {Object.keys(buffs).length === 0 && <div style={{color: '#666'}}>No buffs yet.</div>}
+                    {Object.keys(buffs).length === 0 && <div style={{color: 'var(--muted)'}}>No buffs yet.</div>}
                     {Object.entries(buffs).map(([k, val]) => (
                         <div key={k} style={{display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6}}>
                             <BeaconEffectIcon effect={k} />

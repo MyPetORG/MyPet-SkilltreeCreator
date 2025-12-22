@@ -29,26 +29,33 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Chance: z.string().regex(/^\+?-?\d+$/).optional(),
     Redirect: z.string().regex(/^\+?-?\d+$/).optional(), // percent redirected
 })
 
-function ShieldEditor({value, onChange}: EditorProps) {
+function ShieldEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const v = (value ?? {}) as any
-    const set = (k: 'Chance' | 'Redirect', raw: string) => {
-        const s = raw.trim()
-        const withPlus = s === '' ? undefined : (s.startsWith('+') || s.startsWith('-') ? s : `+${s}`)
-        onChange({...v, [k]: withPlus})
-    }
+
+    const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
+    const redirectData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Redirect', v?.Redirect)
+
     return (
         <div style={{display: 'flex', gap: 12}}>
             <label>Chance %
-                <input value={v.Chance ?? ''} onChange={e => set('Chance', e.target.value)}/>
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={chanceData} suffix="%" />
+                </div>
             </label>
             <label>Redirect (Damage) %
-                <input value={v.Redirect ?? ''} onChange={e => set('Redirect', e.target.value)}/>
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Redirect ?? ''} onChange={e => onChange({...v, Redirect: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={redirectData} suffix="%" />
+                </div>
             </label>
         </div>
     )

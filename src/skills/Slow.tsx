@@ -25,26 +25,33 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Chance: z.string().regex(/^\+?-?\d+$/).optional(),
     Duration: z.string().regex(/^\+?-?\d+$/).optional(),
 })
 
-function SlowEditor({value, onChange}: EditorProps) {
-    const v = value ?? {}
-    const set = (k: 'Chance' | 'Duration', raw: string) => {
-        const s = raw.trim()
-        const withPlus = s === '' ? undefined : (s.startsWith('+') || s.startsWith('-') ? s : `+${s}`)
-        onChange({...v, [k]: withPlus})
-    }
+function SlowEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const v = (value ?? {}) as any
+
+    const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
+    const durationData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Duration', v?.Duration)
+
     return (
         <div style={{display: 'flex', gap: 12}}>
             <label>Chance %
-                <input value={(v as any).Chance ?? ''} onChange={e => set('Chance', e.target.value)}/>
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={chanceData} suffix="%" />
+                </div>
             </label>
             <label>Duration (s)
-                <input value={(v as any).Duration ?? ''} onChange={e => set('Duration', e.target.value)}/>
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Duration ?? ''} onChange={e => onChange({...v, Duration: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={durationData} suffix="s" />
+                </div>
             </label>
         </div>
     )

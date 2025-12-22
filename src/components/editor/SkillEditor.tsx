@@ -28,11 +28,22 @@ import React, {useMemo, useState} from 'react'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
 import {useStore} from '../../state/store'
 import { validateSkill } from '../../lib/validation'
+import { getFirstLevel } from '../../skills/core/utils'
 import type {SkilltreeFile} from '../../lib/types'
 import LevelModal, { LevelSelection } from '../modals/LevelModal'
 
+/**
+ * Sort an Upgrades object by the first applicable level of each key.
+ * Returns a new object with keys in sorted order.
+ */
+function sortUpgradesByLevel<T>(upgrades: Record<string, T>): Record<string, T> {
+    const entries = Object.entries(upgrades)
+    entries.sort(([a], [b]) => getFirstLevel(a) - getFirstLevel(b))
+    return Object.fromEntries(entries)
+}
+
 /** Convert a level key into a human-friendly description used in the UI. */
-function humanizeLevel(level: string): string {
+function humanizeLevel(level: string): React.ReactNode {
     // Fixed numeric level
     if (/^\d+$/.test(level)) return `Level ${level}`
     // Comma-separated fixed list
@@ -43,18 +54,25 @@ function humanizeLevel(level: string): string {
     if (!m) return `Level ${level}`
 
     const every = Number(m[1])
-    const start = m[2] != null ? Number(m[2]) : undefined
+    const start = m[2] != null ? Number(m[2]) : 1  // Default to 1 if no start
     const until = m[3] != null ? Number(m[3]) : undefined
 
-    let text = every === 1 ? 'Every level' : `Every ${every} levels`
-    if (start != null && until != null) {
-        text += ` between levels ${start} and ${until}`
-    } else if (start != null) {
-        text += ` from level ${start} onward`
-    } else if (until != null) {
-        text += ` up to level ${until}`
+    // Generate preview of first few levels this pattern matches
+    const previewLevels: number[] = []
+    for (let lvl = start; previewLevels.length < 3 && (until == null || lvl <= until); lvl += every) {
+        previewLevels.push(lvl)
     }
-    return text
+    const preview = previewLevels.join(', ') + (until == null || previewLevels[previewLevels.length - 1] + every <= until ? '...' : '')
+
+    let text = every === 1 ? 'Every level' : `Every ${every} levels`
+    if (until != null) {
+        text += ` between levels ${start} and ${until}`
+    } else if (m[2] != null) {
+        // Only show "from level X onward" if start was explicitly specified
+        text += ` from level ${start} onward`
+    }
+
+    return <>{text} <span style={{ opacity: 0.6, fontWeight: 400 }}>({preview})</span></>
 }
 
 function parseSelection(level: string): LevelSelection | undefined {
@@ -102,6 +120,8 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             const key = `%${sel.every}` + (sel.start != null ? `>${sel.start}` : '') + (sel.until != null ? `<${sel.until}` : '')
             next.Skills[skillId].Upgrades[key] = next.Skills[skillId].Upgrades[key] ?? {}
         }
+        // Keep upgrades sorted by first applicable level
+        next.Skills[skillId].Upgrades = sortUpgradesByLevel(next.Skills[skillId].Upgrades)
         upsertTree(next)
     }
 
@@ -138,6 +158,8 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
         // move payload. Overwrite any existing target key to keep behavior simple
         next.Skills[skillId].Upgrades[newKey] = payload
         delete next.Skills[skillId].Upgrades[origLevel]
+        // Re-sort after key change
+        next.Skills[skillId].Upgrades = sortUpgradesByLevel(next.Skills[skillId].Upgrades)
         upsertTree(next)
     }
 
@@ -146,7 +168,9 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             <p style={{fontWeight: 500}}>Upgrades:</p>
             {Object.entries(upgrades).length === 0 && <p>No upgrades yet.</p>}
 
-            {Object.entries(upgrades).map(([level, value]) => {
+            {Object.entries(upgrades)
+                .sort(([a], [b]) => getFirstLevel(a) - getFirstLevel(b))
+                .map(([level, value]) => {
                 // Look up validation errors for this specific upgrade from the centralized validator
                 const levelErrors = skillValidation.errors.filter(e =>
                     e.path.endsWith(`/${level}`)

@@ -27,7 +27,8 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, parsePlusFloat, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, parsePlusFloat, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Health: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional().describe('Health restored'),
@@ -36,7 +37,7 @@ const schema = z.object({
 function HealEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const amt = (value?.Health as string) ?? ''
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
+    const healthData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
 
     return (
         <label>Heal Amount
@@ -50,7 +51,7 @@ function HealEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
                         })
                     }
                 />
-                <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum})</span>
+                <TotalWithBreakdown data={healthData} />
             </div>
         </label>
     )

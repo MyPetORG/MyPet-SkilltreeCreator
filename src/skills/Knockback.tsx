@@ -24,7 +24,8 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Chance: z.string().regex(/^\+?-?\d+$/).optional().describe('% chance of knockback'),
@@ -33,7 +34,7 @@ const schema = z.object({
 function KnockbackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const chance = (value?.Chance as string) ?? ''
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'Chance', (value as any)?.Chance as string | undefined)
+    const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', (value as any)?.Chance as string | undefined)
 
     return (
         <label>Knockback Chance %
@@ -44,7 +45,7 @@ function KnockbackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorP
                         onChange({...(value ?? {}), Chance: normalizeSignedInput(e.target.value)})
                     }}
                 />
-                <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum}%)</span>
+                <TotalWithBreakdown data={chanceData} suffix="%" />
             </div>
         </label>
     )

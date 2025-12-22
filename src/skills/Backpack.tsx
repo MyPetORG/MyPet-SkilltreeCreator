@@ -29,7 +29,8 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     rows: z.string().regex(/^\+?-?\d+$/).optional().describe('Rows added'),
@@ -40,7 +41,7 @@ function BackpackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorPr
     const rows = (value?.rows as string) ?? ''
     const drop = (value?.drop as boolean) ?? false
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'rows', (value as any)?.rows as string | undefined)
+    const rowsData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'rows', (value as any)?.rows as string | undefined)
 
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
@@ -52,7 +53,7 @@ function BackpackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorPr
                             onChange({...(value ?? {}), rows: normalizeSignedInput(e.target.value)})
                         }
                     />
-                    <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum})</span>
+                    <TotalWithBreakdown data={rowsData} />
                 </div>
             </label>
             <label>

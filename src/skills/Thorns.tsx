@@ -25,7 +25,8 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Reflection: z.string().regex(/^\+?-?\d+$/).optional().describe('% of damage reflected'),
@@ -35,21 +36,21 @@ const schema = z.object({
 function ThornsEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const v = (value ?? {}) as any
 
-    const sumRefl = sumUpgradesForField(treeId, skillId, upgradeKey, 'Reflection', v?.Reflection)
-    const sumChance = sumUpgradesForField(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
+    const reflData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Reflection', v?.Reflection)
+    const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
 
     return (
         <div style={{display: 'flex', gap: 12}}>
             <label>Reflection %
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Reflection ?? ''} onChange={e => onChange({...v, Reflection: normalizeSignedInput(e.target.value)})} />
-                    <span style={{fontSize:12, color:'#666'}}>(Total: {sumRefl >= 0 ? '+' : ''}{sumRefl}%)</span>
+                    <TotalWithBreakdown data={reflData} suffix="%" />
                 </div>
             </label>
             <label>Chance %
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})} />
-                    <span style={{fontSize:12, color:'#666'}}>(Total: {sumChance >= 0 ? '+' : ''}{sumChance}%)</span>
+                    <TotalWithBreakdown data={chanceData} suffix="%" />
                 </div>
             </label>
         </div>

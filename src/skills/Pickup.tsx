@@ -25,7 +25,8 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Range: z.string().regex(/^\+?-?\d+$/).optional(),
@@ -38,14 +39,14 @@ function PickupEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
         onChange({...v, Range: normalizeSignedInput(raw)})
     }
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'Range', v?.Range)
+    const rangeData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Range', v?.Range)
 
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
             <label>Range (blocks)
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Range ?? ''} onChange={e => setRange(e.target.value)}/>
-                    <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum})</span>
+                    <TotalWithBreakdown data={rangeData} />
                 </div>
             </label>
             <label>

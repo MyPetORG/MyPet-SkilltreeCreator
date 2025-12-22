@@ -25,26 +25,33 @@ import React from 'react'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown, parsePlusFloat} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Chance: z.string().regex(/^\+?-?\d+$/).optional(),
     Damage: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
 })
 
-function LightningEditor({value, onChange}: EditorProps) {
-    const v = value ?? {}
-    const set = (k: 'Chance' | 'Damage', raw: string) => {
-        const s = raw.trim()
-        const withPlus = s === '' ? undefined : (s.startsWith('+') || s.startsWith('-') ? s : `+${s}`)
-        onChange({...v, [k]: withPlus})
-    }
+function LightningEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const v = (value ?? {}) as any
+
+    const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
+    const damageData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Damage', v?.Damage, parsePlusFloat)
+
     return (
         <div style={{display: 'flex', gap: 12}}>
             <label>Chance %
-                <input value={(v as any).Chance ?? ''} onChange={e => set('Chance', e.target.value)}/>
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={chanceData} suffix="%" />
+                </div>
             </label>
             <label>Extra Damage
-                <input value={(v as any).Damage ?? ''} onChange={e => set('Damage', e.target.value)}/>
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Damage ?? ''} onChange={e => onChange({...v, Damage: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={damageData} />
+                </div>
             </label>
         </div>
     )
