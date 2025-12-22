@@ -19,7 +19,7 @@
 
   Effect
   - Chance: chance in percent to redirect damage to the owner (string "+n").
-  - Damage: percent of incoming damage redirected to owner (string "+n").
+  - Redirect: percent of incoming damage redirected to owner (string "+n").
 
   Notes
   - Editor stores numeric inputs as MyPet-compatible "+n" strings; empty input
@@ -30,16 +30,14 @@ import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
 
-// "Damage" is used by MyPet as the percent of redirected damage.
-// If your JSONs use a different key (e.g., "Percent"), adjust here.
 const schema = z.object({
     Chance: z.string().regex(/^\+?-?\d+$/).optional(),
-    Damage: z.string().regex(/^\+?-?\d+$/).optional(), // percent redirected
+    Redirect: z.string().regex(/^\+?-?\d+$/).optional(), // percent redirected
 })
 
 function ShieldEditor({value, onChange}: EditorProps) {
     const v = (value ?? {}) as any
-    const set = (k: 'Chance' | 'Damage', raw: string) => {
+    const set = (k: 'Chance' | 'Redirect', raw: string) => {
         const s = raw.trim()
         const withPlus = s === '' ? undefined : (s.startsWith('+') || s.startsWith('-') ? s : `+${s}`)
         onChange({...v, [k]: withPlus})
@@ -49,8 +47,8 @@ function ShieldEditor({value, onChange}: EditorProps) {
             <label>Chance %
                 <input value={v.Chance ?? ''} onChange={e => set('Chance', e.target.value)}/>
             </label>
-            <label>Redirect % (Damage)
-                <input value={v.Damage ?? ''} onChange={e => set('Damage', e.target.value)}/>
+            <label>Redirect (Damage) %
+                <input value={v.Redirect ?? ''} onChange={e => set('Redirect', e.target.value)}/>
             </label>
         </div>
     )
