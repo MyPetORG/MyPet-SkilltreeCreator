@@ -761,3 +761,18 @@ body.app--sidebar-collapsed .app-grid {
   border-bottom-color: #5a2d2d !important;
   background: #2e1a1a !important;
 }
+
+/* ----------------------------------------
+   Permission Prefix Badge
+   ---------------------------------------- */
+.perm-prefix {
+  padding: 6px 8px;
+  background: #f3f3f5;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+[data-theme="dark"] .perm-prefix {
+  background: var(--subtle-bg);
+}

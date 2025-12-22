@@ -167,7 +167,7 @@ export default function RequirementsEditor() {
           const isOpen = open[idx] ?? true
           const title = it.type === 'permission' ? 'Permission' : 'Skilltree'
           return (
-            <div key={idx} className="field span-2" style={{ border: '2px solid var(--line)', borderRadius: 10, padding: 10, background: '#fff', marginBottom: 8 }}>
+            <div key={idx} className="field span-2" style={{ border: '2px solid var(--line)', borderRadius: 10, padding: 10, background: 'var(--bg)', marginBottom: 8 }}>
               <div className="section-header" style={{ marginBottom: 6 }}>
                 <strong style={{ cursor: 'pointer' }} onClick={() => toggle(idx)}>{title}</strong>
                 <div>
@@ -177,7 +177,7 @@ export default function RequirementsEditor() {
 
               {isOpen && (
                 <div>
-                  <div className="form-grid">
+                  <div className="form-grid" style={{ marginBottom: 8 }}>
                     <div className="field span-2">
                       <label className="label">Requirement Type</label>
                       <select
@@ -226,7 +226,7 @@ export default function RequirementsEditor() {
                         <div className="field span-2">
                           <label className="label">Permission</label>
                           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                            <span style={{ padding: '6px 8px', background: '#f3f3f5', border: '1px solid var(--border)', borderRadius: 6, fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \'Liberation Mono\', \'Courier New\', monospace' }}>MyPet.skilltree.</span>
+                            <span className="perm-prefix">MyPet.skilltree.</span>
                             <input
                               className="input"
                               type="text"
@@ -277,9 +277,6 @@ export default function RequirementsEditor() {
                       </>
                     )}
 
-                    <div className="field span-2" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <button className="btn" style={{ background: '#e7f7ec', color: '#165', borderColor: '#9dd5b1' }} onClick={() => removeAt(idx)}>Delete</button>
-                    </div>
                   </div>
                 </div>
               )}
