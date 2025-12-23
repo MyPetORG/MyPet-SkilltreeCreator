@@ -97,7 +97,7 @@ export function validateSkill(tree: SkilltreeFile, skillId: string): SkillValida
         // Zod schema validation
         const result = skillDef.schema.safeParse(payload)
         if (!result.success) {
-            const messages = result.error.errors.map(e => e.message).join(', ')
+            const messages = result.error.issues.map(e => e.message).join(', ')
             errors.push({
                 path: `${tree.ID}/${skillId}/${level}`,
                 message: messages

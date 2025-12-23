@@ -52,7 +52,7 @@ const beaconSchema = z.object({
     Duration: z.string().regex(/^\+?-?\d+$/).optional(),
     Range: z.string().regex(/^\+?-?\d+$/).optional(),
     Count: z.string().regex(/^\+?-?\d+$/).optional(),
-    Buffs: z.record(z.union([z.boolean(), z.string().regex(/^\+?-?\d+$/)])).optional(),
+    Buffs: z.record(z.string(), z.union([z.boolean(), z.string().regex(/^\+?-?\d+$/)])).optional(),
 })
 
 function BeaconEffectIcon({effect}: { effect: string }) {
