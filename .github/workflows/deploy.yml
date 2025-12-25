@@ -34,7 +34,7 @@ jobs:
         env:
           GITHUB_ACTIONS: 'true'
           GITHUB_REPOSITORY: ${{ github.repository }}
-          VITE_CROWDIN_DISTRIBUTION_HASH: ${{ secrets.VITE_CROWDIN_DISTRIBUTION_HASH }}
+          VITE_CROWDIN_DISTRIBUTION_HASH: ${{ vars.VITE_CROWDIN_DISTRIBUTION_HASH }}
         run: npm run build
 
       - name: Upload artifact
