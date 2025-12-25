@@ -31,7 +31,7 @@ import type { SkilltreeFile } from '../types'
 
 /** Cumulative skills require at least one field in the first upgrade */
 export const CUMULATIVE_SKILLS: ReadonlySet<string> = new Set([
-    'Thorns', 'Wither', 'Stomp', 'Slow', 'Shield', 'Ride', 'Arrow', 'Poison',
+    'Bleed', 'Thorns', 'Wither', 'Stomp', 'Slow', 'Shield', 'Ride', 'Arrow', 'Poison',
     'Pickup', 'Lightning', 'Fire', 'Beacon', 'Damage', 'Heal', 'Knockback',
     'Life', 'Backpack'
 ])
