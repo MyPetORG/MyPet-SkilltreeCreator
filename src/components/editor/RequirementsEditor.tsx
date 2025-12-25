@@ -28,6 +28,7 @@
   The UI presents a friendlier editor over that string storage format.
 */
 import React, { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStore } from '../../state/store'
 import type { SkilltreeFile } from '../../lib/types'
 import Notice from '../common/Notice'
@@ -79,8 +80,9 @@ function formatReq(item: ReqItem): string {
 }
 
 export default function RequirementsEditor() {
+  const { t } = useTranslation()
   const selectedId = useStore(s => s.selectedId)
-  const tree = useStore(s => s.trees.find(t => t.ID === selectedId))
+  const tree = useStore(s => s.trees.find(tr => tr.ID === selectedId))
   const trees = useStore(s => s.trees)
   const upsertTree = useStore(s => s.upsertTree)
 
@@ -88,31 +90,31 @@ export default function RequirementsEditor() {
 
   if (!tree) return null
 
-  const apply = (mutate: (t: SkilltreeFile) => void) => {
+  const apply = (mutate: (tr: SkilltreeFile) => void) => {
     const next: SkilltreeFile = JSON.parse(JSON.stringify(tree))
     mutate(next)
     upsertTree(next)
   }
 
   const entries: ReqItem[] = (tree.Requirements || []).map(parseReq)
-  const otherTrees = useMemo(() => trees.filter(t => t.ID !== tree.ID), [trees, tree.ID])
+  const otherTrees = useMemo(() => trees.filter(tr => tr.ID !== tree.ID), [trees, tree.ID])
 
   const addRequirement = () => {
     // default to Skilltree, pick first other tree id if available
     const defVal = otherTrees[0]?.ID || ''
-    apply(t => { t.Requirements = [...(t.Requirements || []), formatReq({ type: 'skilltree', value: defVal })] })
+    apply(tr => { tr.Requirements = [...(tr.Requirements || []), formatReq({ type: 'skilltree', value: defVal })] })
     setOpen(o => ({ ...o, [entries.length]: true }))
   }
 
   const removeAt = (idx: number) => {
-    apply(t => { t.Requirements = (t.Requirements || []).filter((_, i) => i !== idx) })
+    apply(tr => { tr.Requirements = (tr.Requirements || []).filter((_, i) => i !== idx) })
   }
 
   const updateAt = (idx: number, item: ReqItem) => {
-    apply(t => {
-      const list = [...(t.Requirements || [])]
+    apply(tr => {
+      const list = [...(tr.Requirements || [])]
       list[idx] = formatReq(item)
-      t.Requirements = list
+      tr.Requirements = list
     })
   }
 
@@ -121,13 +123,13 @@ export default function RequirementsEditor() {
   return (
     <section className="card">
       <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{ margin: 0 }}>Requirements</h3>
-        <button className="btn" onClick={addRequirement}>Add Requirement</button>
+        <h3 style={{ margin: 0 }}>{t('requirements.title')}</h3>
+        <button className="btn" onClick={addRequirement}>{t('requirements.addRequirement')}</button>
       </div>
 
       <div className="form-grid">
         <div className="field">
-          <label className="label">Minimum Pet Level</label>
+          <label className="label">{t('requirements.minLevel')}</label>
           <input
             className="input"
             type="number"
@@ -135,13 +137,13 @@ export default function RequirementsEditor() {
             value={tree.RequiredLevel ?? ''}
             onChange={e => {
               const v = e.currentTarget.value
-              apply(t => { t.RequiredLevel = v === '' ? undefined : Math.max(0, Number(v)) })
+              apply(tr => { tr.RequiredLevel = v === '' ? undefined : Math.max(0, Number(v)) })
             }}
-            placeholder="1"
+            placeholder={t('requirements.minLevelPlaceholder')}
           />
         </div>
         <div className="field">
-          <label className="label">Maximum Pet Level</label>
+          <label className="label">{t('requirements.maxLevel')}</label>
           <input
             className="input"
             type="number"
@@ -149,29 +151,29 @@ export default function RequirementsEditor() {
             value={tree.MaxLevel ?? ''}
             onChange={e => {
               const v = e.currentTarget.value
-              apply(t => { t.MaxLevel = v === '' ? undefined : Math.max(0, Number(v)) })
+              apply(tr => { tr.MaxLevel = v === '' ? undefined : Math.max(0, Number(v)) })
             }}
-            placeholder="10"
+            placeholder={t('requirements.maxLevelPlaceholder')}
           />
         </div>
 
         {(entries.length === 0) && (
           <div className="field span-2">
             <Notice variant="warning">
-              There are no permission, Skilltree, or custom requirements for this Skilltree.
+              {t('requirements.noRequirements')}
             </Notice>
           </div>
         )}
 
         {entries.map((it, idx) => {
           const isOpen = open[idx] ?? true
-          const title = it.type === 'permission' ? 'Permission' : 'Skilltree'
+          const title = it.type === 'permission' ? t('requirements.permission') : t('requirements.skilltree')
           return (
             <div key={idx} className="field span-2" style={{ border: '2px solid var(--line)', borderRadius: 10, padding: 10, background: 'var(--bg)', marginBottom: 8 }}>
               <div className="section-header" style={{ marginBottom: 6 }}>
                 <strong style={{ cursor: 'pointer' }} onClick={() => toggle(idx)}>{title}</strong>
                 <div>
-                  <button className="btn btn--icon" title="Delete requirement" onClick={() => removeAt(idx)}>🗑️</button>
+                  <button className="btn btn--icon" title={t('tooltip.delete')} onClick={() => removeAt(idx)}>🗑️</button>
                 </div>
               </div>
 
@@ -179,7 +181,7 @@ export default function RequirementsEditor() {
                 <div>
                   <div className="form-grid" style={{ marginBottom: 8 }}>
                     <div className="field span-2">
-                      <label className="label">Requirement Type</label>
+                      <label className="label">{t('requirements.requirementType')}</label>
                       <select
                         className="input"
                         value={it.type}
@@ -194,24 +196,24 @@ export default function RequirementsEditor() {
                           }
                         }}
                       >
-                        <option value="skilltree">Skilltree</option>
-                        <option value="no-skilltree">No Skilltree</option>
-                        <option value="permission">Permission</option>
-                        <option value="custom">Custom</option>
+                        <option value="skilltree">{t('requirements.skilltree')}</option>
+                        <option value="no-skilltree">{t('requirements.noSkilltree')}</option>
+                        <option value="permission">{t('requirements.permission')}</option>
+                        <option value="custom">{t('requirements.custom')}</option>
                       </select>
                     </div>
 
                     {it.type === 'skilltree' && (
                       <div className="field span-2">
-                        <label className="label">Skilltree</label>
+                        <label className="label">{t('requirements.skilltree')}</label>
                         <select
                           className="input"
                           value={it.value}
                           onChange={e => updateAt(idx, { ...it, value: e.currentTarget.value })}
                         >
                           <option value=""></option>
-                          {otherTrees.map(t => (
-                            <option key={t.ID} value={t.ID}>{t.Name || t.ID}</option>
+                          {otherTrees.map(tr => (
+                            <option key={tr.ID} value={tr.ID}>{tr.Name || tr.ID}</option>
                           ))}
                         </select>
                       </div>
@@ -224,9 +226,9 @@ export default function RequirementsEditor() {
                       const full = (suffix ? PERM_PREFIX + suffix.replace(/^MyPet\.skilltree\./i, '') : PERM_PREFIX)
                       return (
                         <div className="field span-2">
-                          <label className="label">Permission</label>
+                          <label className="label">{t('requirements.permission')}</label>
                           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                            <span className="perm-prefix">MyPet.skilltree.</span>
+                            <span className="perm-prefix">{t('requirements.permissionPrefix')}</span>
                             <input
                               className="input"
                               type="text"
@@ -242,7 +244,7 @@ export default function RequirementsEditor() {
                             <button
                               className="btn"
                               type="button"
-                              title="Copy permission"
+                              title={t('requirements.copyPermission')}
                               onClick={() => navigator.clipboard?.writeText(full)}
                             >
                               📋
@@ -255,7 +257,7 @@ export default function RequirementsEditor() {
                     {it.type === 'custom' && (
                       <>
                         <div className="field">
-                          <label className="label">Custom Key</label>
+                          <label className="label">{t('requirements.customKey')}</label>
                           <input
                             className="input"
                             type="text"
@@ -265,7 +267,7 @@ export default function RequirementsEditor() {
                           />
                         </div>
                         <div className="field">
-                          <label className="label">Custom Value</label>
+                          <label className="label">{t('requirements.customValue')}</label>
                           <input
                             className="input"
                             type="text"

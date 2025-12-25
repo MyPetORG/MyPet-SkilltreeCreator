@@ -22,6 +22,7 @@
   - Damage: damage dealt by stomp (string "+n" or "+n.n").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -34,6 +35,7 @@ const schema = z.object({
 })
 
 function StompEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
 
     const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
@@ -41,13 +43,13 @@ function StompEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps
 
     return (
         <div style={{display: 'flex', gap: 12}}>
-            <label>Chance %
+            <label>{t('Stomp.fields.chance')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
                     <TotalWithBreakdown data={chanceData} suffix="%" />
                 </div>
             </label>
-            <label>Damage
+            <label>{t('Stomp.fields.damage')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Damage ?? ''} onChange={e => onChange({...v, Damage: normalizeSignedInput(e.target.value)})}/>
                     <TotalWithBreakdown data={damageData} />

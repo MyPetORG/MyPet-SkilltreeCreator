@@ -22,6 +22,7 @@
   - Chance: percent chance to trigger reflection (string "+n").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -34,6 +35,7 @@ const schema = z.object({
 })
 
 function ThornsEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
 
     const reflData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Reflection', v?.Reflection)
@@ -41,13 +43,13 @@ function ThornsEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
 
     return (
         <div style={{display: 'flex', gap: 12}}>
-            <label>Reflection %
+            <label>{t('Thorns.fields.reflection')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Reflection ?? ''} onChange={e => onChange({...v, Reflection: normalizeSignedInput(e.target.value)})} />
                     <TotalWithBreakdown data={reflData} suffix="%" />
                 </div>
             </label>
-            <label>Chance %
+            <label>{t('Thorns.fields.chance')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})} />
                     <TotalWithBreakdown data={chanceData} suffix="%" />

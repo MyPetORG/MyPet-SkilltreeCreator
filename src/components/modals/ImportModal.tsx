@@ -15,6 +15,7 @@
  */
 
 import React, { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import JSZip from 'jszip'
 
 type ImportModalProps = {
@@ -27,6 +28,7 @@ type ImportModalProps = {
 }
 
 export default function ImportModal({ isOpen, onClose, onImported}: ImportModalProps) {
+    const { t } = useTranslation()
     const inputRef = useRef<HTMLInputElement>(null)
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -72,7 +74,7 @@ export default function ImportModal({ isOpen, onClose, onImported}: ImportModalP
             onClose()
         } catch (e: any) {
             console.error(e)
-            setError(e?.message || 'Failed to import file(s).')
+            setError(e?.message || t('modals.alert.importFailed'))
         } finally {
             setBusy(false)
         }
@@ -87,9 +89,9 @@ export default function ImportModal({ isOpen, onClose, onImported}: ImportModalP
     return (
         <div className="modal-backdrop" onClick={() => !busy && onClose()}>
             <div className="modal" onClick={e => e.stopPropagation()}>
-                <h3>Import skilltrees</h3>
+                <h3>{t('modals.import.title')}</h3>
                 <p className="muted" style={{marginTop: 4}}>
-                    Drop a <b>.zip</b> (multiple trees) or a single <b>.st.json</b> file.
+                    {t('modals.import.description')}
                 </p>
 
                 <div
@@ -100,15 +102,15 @@ export default function ImportModal({ isOpen, onClose, onImported}: ImportModalP
                     data-dragover={dragOver || undefined}
                 >
                     <div>
-                        {busy ? 'Reading files…' : 'Drag & drop files here'}
-                        <div className="muted" style={{marginTop: 4}}>or</div>
+                        {busy ? t('modals.import.reading') : t('modals.import.dragHere')}
+                        <div className="muted" style={{marginTop: 4}}>{t('modals.import.or')}</div>
                         <button
                             className="btn"
                             onClick={() => inputRef.current?.click()}
                             disabled={busy}
                             style={{marginTop: 8}}
                         >
-                            Choose files
+                            {t('actions.chooseFiles')}
                         </button>
                     </div>
                     <input
@@ -124,7 +126,7 @@ export default function ImportModal({ isOpen, onClose, onImported}: ImportModalP
                 {error && <div className="validation-error" style={{marginTop: 12}}>{error}</div>}
 
                 <div className="modal-actions">
-                    <button className="btn" onClick={onClose} disabled={busy}>Cancel</button>
+                    <button className="btn" onClick={onClose} disabled={busy}>{t('actions.cancel')}</button>
                 </div>
             </div>
         </div>

@@ -22,6 +22,7 @@
 */
 
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
     /** Tooltip text shown on hover */
@@ -36,15 +37,17 @@ type Props = {
  * ValidationIcon — Red exclamation mark in a circle indicating an error.
  */
 export default function ValidationIcon({
-    title = 'Validation error',
+    title,
     size = 16,
     className = ''
 }: Props) {
+    const { t } = useTranslation()
+    const displayTitle = title ?? t('validation.error')
     return (
         <span
             className={`validation-icon ${className}`.trim()}
-            title={title}
-            aria-label={title}
+            title={displayTitle}
+            aria-label={displayTitle}
             role="img"
             style={{
                 display: 'inline-flex',

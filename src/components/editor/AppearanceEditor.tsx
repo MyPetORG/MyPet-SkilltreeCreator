@@ -26,6 +26,7 @@
   autosave. Local component state is used to reduce churn while typing.
 */
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {useStore} from '../../state/store'
 import type {SkilltreeFile} from '../../lib/types'
 import ViewJsonModal from '../modals/ViewJsonModal'
@@ -70,6 +71,7 @@ function arraysEqual(a: string[], b: string[]): boolean {
  * - apply: helper that clones, mutates, and upserts a new tree (triggers autosave)
  */
 function DescriptionEditor({ tree, apply }: { tree: SkilltreeFile; apply: (mutate: (t: SkilltreeFile) => void) => void }) {
+    const { t } = useTranslation()
     const initial = useMemo(() => (tree.Description ?? []).map(stripLeadingDash).join('\n'), [tree.Description])
     const [descText, setDescText] = useState<string>(initial)
     const descTextRef = useRef<string>(initial)
@@ -85,18 +87,18 @@ function DescriptionEditor({ tree, apply }: { tree: SkilltreeFile; apply: (mutat
         const lines = descText.split('\n').map(l => addLeadingDash(l)).filter(l => l !== '').map(l => l.trim())
         const current = (tree.Description ?? []).map(l => l.trim())
         if (arraysEqual(lines, current)) return
-        apply(t => { t.Description = lines })
+        apply(tr => { tr.Description = lines })
     }
 
     return (
         <RichTextPreviewEditor
-            label="Description"
+            label={t('appearance.description')}
             value={descText}
             onChange={(v) => {
                 setDescText(v)
                 descTextRef.current = v
                 const lines = v.split('\n').map(l => addLeadingDash(l)).filter(l => l !== '')
-                apply(t => { t.Description = lines })
+                apply(tr => { tr.Description = lines })
             }}
             onBlur={handleSave}
             rows={Math.max(1, (descText.match(/\n/g)?.length ?? 0) + 1)}
@@ -110,12 +112,13 @@ function DescriptionEditor({ tree, apply }: { tree: SkilltreeFile; apply: (mutat
  * Reads and writes to global Zustand store, debounced by autosave.
  */
 export default function AppearanceEditor() {
+    const { t } = useTranslation()
     const trees = useStore(s => s.trees)
     const selectedId = useStore(s => s.selectedId)
     const upsertTree = useStore(s => s.upsertTree)
 
-    const tree = trees.find(t => t.ID === selectedId)
-    if (!tree) return <p>Select a skilltree to edit its appearance.</p>
+    const tree = trees.find(tr => tr.ID === selectedId)
+    if (!tree) return <p>{t('home.description')}</p>
 
     // helper to clone → mutate → upsert (triggers autosave)
     const apply = (mutate: (t: SkilltreeFile) => void) => {
@@ -142,27 +145,27 @@ export default function AppearanceEditor() {
     return (
         <section className="card">
             <div className="section-header">
-                <h3>Skilltree Appearance</h3>
-                <button className="btn" onClick={() => setJsonOpen(true)}>View JSON</button>
+                <h3>{t('tabs.appearance')}</h3>
+                <button className="btn" onClick={() => setJsonOpen(true)}>{t('appearance.viewJson')}</button>
             </div>
 
             <div className="form-grid">
                 <div className="field">
-                    <label className="label">Name</label>
+                    <label className="label">{t('appearance.name')}</label>
                     <input
                         className="input"
                         value={tree.Name}
-                        onChange={(e) => apply(t => {
-                            t.Name = e.target.value
+                        onChange={(e) => apply(tr => {
+                            tr.Name = e.target.value
                         })}
-                        placeholder="Combat"
+                        placeholder={t('appearance.namePlaceholder')}
                     />
                 </div>
 
 
 
                 <div className="field">
-                    <label className="label">Icon Material</label>
+                    <label className="label">{t('appearance.iconMaterial')}</label>
                     <div className="inline">
                         <input
                             className="input"
@@ -172,9 +175,9 @@ export default function AppearanceEditor() {
                                 const next = materialInput.trim()
                                 const curr = (tree.Icon?.Material ?? '').trim()
                                 if (next === curr) return
-                                apply(t => {
-                                    const base = t.Icon ?? { Material: '' }
-                                    t.Icon = { ...base, Material: next }
+                                apply(tr => {
+                                    const base = tr.Icon ?? { Material: '' }
+                                    tr.Icon = { ...base, Material: next }
                                 })
                             }}
                             onKeyDown={(e) => {
@@ -182,17 +185,17 @@ export default function AppearanceEditor() {
                                     e.currentTarget.blur();
                                 }
                             }}
-                            placeholder="stone_axe"
+                            placeholder={t('appearance.iconMaterialPlaceholder')}
                         />
                         <label className="checkbox">
                             <input
                                 type="checkbox"
                                 checked={!!tree.Icon?.Glowing}
-                                onChange={(e) => apply(t => {
-                                    t.Icon = {...(t.Icon ?? {Material: ''}), Glowing: e.target.checked || undefined}
+                                onChange={(e) => apply(tr => {
+                                    tr.Icon = {...(tr.Icon ?? {Material: ''}), Glowing: e.target.checked || undefined}
                                 })}
                             />
-                            Glowing
+                            {t('appearance.glowing')}
                         </label>
                     </div>
                 </div>

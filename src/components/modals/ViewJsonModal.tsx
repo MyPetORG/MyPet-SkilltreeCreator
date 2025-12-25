@@ -15,6 +15,8 @@
  */
 
 import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useAlert } from './AlertModal'
 import type { SkilltreeFile } from '../../lib/types'
 
 export type ViewJsonModalProps = {
@@ -24,6 +26,9 @@ export type ViewJsonModalProps = {
 }
 
 export default function ViewJsonModal({ isOpen, onClose, tree }: ViewJsonModalProps) {
+  const { t } = useTranslation()
+  const alert = useAlert()
+
   if (!isOpen) return null
 
   const json = JSON.stringify(tree, null, 2)
@@ -31,11 +36,10 @@ export default function ViewJsonModal({ isOpen, onClose, tree }: ViewJsonModalPr
   async function copyJson() {
     try {
       await navigator.clipboard.writeText(json)
-      // very lightweight feedback
-      alert('JSON copied to clipboard')
+      await alert(t('modals.alert.jsonCopied'))
     } catch (e) {
       console.error(e)
-      alert('Failed to copy JSON')
+      await alert(t('modals.alert.jsonCopyFailed'))
     }
   }
 
@@ -54,8 +58,8 @@ export default function ViewJsonModal({ isOpen, onClose, tree }: ViewJsonModalPr
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
-        <h3>Skilltree JSON</h3>
-        <p className="muted" style={{ marginTop: 4 }}>Preview of the selected skilltree as JSON.</p>
+        <h3>{t('appearance.viewJson')}</h3>
+        <p className="muted" style={{ marginTop: 4 }}>{t('appearance.jsonPreview')}</p>
 
         <div style={{ marginTop: 12, maxHeight: '50vh', overflow: 'auto', border: '1px solid var(--line)', borderRadius: 8, padding: 12, background: 'var(--panel)' }}>
           <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
@@ -64,9 +68,9 @@ export default function ViewJsonModal({ isOpen, onClose, tree }: ViewJsonModalPr
         </div>
 
         <div className="modal-actions">
-          <button className="btn" onClick={copyJson}>Copy JSON</button>
-          <button className="btn" onClick={downloadJson}>Download</button>
-          <button className="btn primary" onClick={onClose}>Close</button>
+          <button className="btn" onClick={copyJson}>{t('actions.copyJson')}</button>
+          <button className="btn" onClick={downloadJson}>{t('actions.download')}</button>
+          <button className="btn primary" onClick={onClose}>{t('actions.close')}</button>
         </div>
       </div>
     </div>

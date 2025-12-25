@@ -6,6 +6,7 @@
  */
 
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { SumWithBreakdown } from '../../skills/core/utils'
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
  * Displays a cumulative total with a hover tooltip showing the breakdown.
  */
 export default function TotalWithBreakdown({ data, suffix = '' }: Props) {
+    const { t } = useTranslation()
     const [showTooltip, setShowTooltip] = useState(false)
     const { total, breakdown } = data
 
@@ -35,7 +37,7 @@ export default function TotalWithBreakdown({ data, suffix = '' }: Props) {
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
         >
-            (Total: {formatNum(total)})
+            ({t('tooltip.total')}: {formatNum(total)})
             {showTooltip && hasUsefulBreakdown && (
                 <div
                     style={{
@@ -55,7 +57,7 @@ export default function TotalWithBreakdown({ data, suffix = '' }: Props) {
                     }}
                 >
                     <div style={{ fontWeight: 600, marginBottom: 4, borderBottom: '1px solid var(--border-tooltip, #444)', paddingBottom: 4 }}>
-                        Breakdown
+                        {t('tooltip.breakdown')}
                     </div>
                     {breakdown.map((item) => (
                         <div key={item.levelKey} style={{ display: 'flex', justifyContent: 'space-between', gap: 16, marginTop: 2 }}>
@@ -67,7 +69,7 @@ export default function TotalWithBreakdown({ data, suffix = '' }: Props) {
                         </div>
                     ))}
                     <div style={{ borderTop: '1px solid var(--border-tooltip, #444)', marginTop: 4, paddingTop: 4, fontWeight: 600, display: 'flex', justifyContent: 'space-between' }}>
-                        <span>Total</span>
+                        <span>{t('tooltip.total')}</span>
                         <span style={{ fontFamily: 'monospace' }}>{formatNum(total)}</span>
                     </div>
                 </div>

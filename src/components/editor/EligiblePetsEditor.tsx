@@ -22,6 +22,7 @@
   to the current tree. Supports selecting all (including future updates via '*').
 */
 import React, { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStore } from '../../state/store'
 import type { SkilltreeFile } from '../../lib/types'
 import { ItemIcon } from '../../lib/mcIcons'
@@ -33,8 +34,9 @@ import { McData, type MobEntry } from '../../lib/mcAssets'
  * Reads/writes MobTypes on the selected tree in the global store.
  */
 export default function EligiblePetsEditor() {
+  const { t } = useTranslation()
   const selectedId = useStore(s => s.selectedId)
-  const tree = useStore(s => s.trees.find(t => t.ID === selectedId))
+  const tree = useStore(s => s.trees.find(tr => tr.ID === selectedId))
   const upsertTree = useStore(s => s.upsertTree)
 
   const [mobs, setMobs] = useState<MobEntry[] | null>(null)
@@ -49,7 +51,7 @@ export default function EligiblePetsEditor() {
       const list = await McData.getMobs()
       if (cancelled) return
       if (!list) {
-        setError('Failed to load mob list from minecraft-data')
+        setError(t('eligiblePets.loadError'))
         setMobs([])
         return
       }
@@ -58,7 +60,7 @@ export default function EligiblePetsEditor() {
 
     load()
     return () => { cancelled = true }
-  }, [])
+  }, [t])
 
   if (!tree) return null
 
@@ -112,12 +114,12 @@ export default function EligiblePetsEditor() {
   return (
     <section className="card">
       <div className="section-header">
-        <h3>Eligible Pets: {(!isAll && selected.size === 0) ? 'None' : (isStarAll ? 'All (*)' : 'Selected')}</h3>
+        <h3>{t('eligiblePets.title')}: {(!isAll && selected.size === 0) ? t('eligiblePets.none') : (isStarAll ? t('eligiblePets.all') : t('eligiblePets.selected'))}</h3>
       </div>
 
       <div className="field span-2" style={{ marginBottom: 12, display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-        <button className="btn" onClick={toggleAll} title={isAll ? 'Deselect all mobs (none).' : 'Select all listed mobs.'}>
-          {isAll ? 'Deselect All' : 'Select All'}
+        <button className="btn" onClick={toggleAll}>
+          {isAll ? t('actions.deselectAll') : t('actions.selectAll')}
         </button>
         {mobs && isAll && (
           <label style={{ display: 'inline-flex', gap: 8, alignItems: 'center', marginLeft: 8 }}>
@@ -128,15 +130,15 @@ export default function EligiblePetsEditor() {
                 const checked = e.currentTarget.checked
                 if (checked) {
                   // Switch to star (include future updates)
-                  apply(t => { t.MobTypes = ['*'] })
+                  apply(tr => { tr.MobTypes = ['*'] })
                 } else {
                   // Switch to explicit list (listed mobs only)
                   const allIds = (mobs || []).map(m => m.id)
-                  apply(t => { t.MobTypes = allIds })
+                  apply(tr => { tr.MobTypes = allIds })
                 }
               }}
             />
-            Include mobs from future Minecraft updates
+            {t('eligiblePets.includeFutureMobs')}
           </label>
         )}
       </div>
@@ -147,7 +149,7 @@ export default function EligiblePetsEditor() {
           if (!show) return null
           return (
             <Notice variant={isStarAll ? 'warning' : 'error'}>
-              {isStarAll ? 'All Pets listed here, including Pets from future updates, will be eligible for this Skill.' : 'No Pets will be eligible for this Skill.'}
+              {isStarAll ? t('eligiblePets.allPetsNotice') : t('eligiblePets.noPetsNotice')}
             </Notice>
           )
         })()}
@@ -155,9 +157,8 @@ export default function EligiblePetsEditor() {
 
       <div className="form-grid">
         <div className="field span-2">
-          <label className="label">Click to toggle eligible mobs</label>
           {error && <Notice variant="error" compact style={{ marginBottom: 8 }}>{error}</Notice>}
-          {!mobs && <div>Loading latest Minecraft entities…</div>}
+          {!mobs && <div>{t('eligiblePets.loading')}</div>}
           {mobs && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 8 }}>
               {mobs.map(m => {

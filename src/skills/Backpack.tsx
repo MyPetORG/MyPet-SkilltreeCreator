@@ -26,6 +26,7 @@
   - A running Total is shown by summing previous upgrades for context.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -38,6 +39,7 @@ const schema = z.object({
 })
 
 function BackpackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const rows = (value?.rows as string) ?? ''
     const drop = (value?.drop as boolean) ?? false
 
@@ -45,7 +47,7 @@ function BackpackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorPr
 
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
-            <label>Extra Rows
+            <label>{t('Backpack.fields.rows')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input
                         value={rows}
@@ -63,7 +65,7 @@ function BackpackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorPr
                     onChange={(e) =>
                         onChange({...(value ?? {}), drop: e.target.checked})
                     }
-                /> Drop on death
+                /> {t('Backpack.fields.drop')}
             </label>
         </div>
     )

@@ -24,6 +24,7 @@
   - Presents a simple checklist; undefined fields are omitted from payload.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -37,18 +38,22 @@ const schema = z.object({
 })
 
 function BehaviorEditor({value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = value ?? {}
     const toggle = (k: string) => onChange({...v, [k]: !(v as any)[k]})
 
+    const fields = ['friend', 'farm', 'duel', 'aggro', 'raid'] as const
+    const fieldKeys = ['Friend', 'Farm', 'Duel', 'Aggro', 'Raid']
+
     return (
         <div style={{display: 'flex', flexWrap: 'wrap', gap: 12}}>
-            {['Friend', 'Farm', 'Duel', 'Aggro', 'Raid'].map(k => (
-                <label key={k}>
+            {fields.map((f, i) => (
+                <label key={f}>
                     <input
                         type="checkbox"
-                        checked={!!(v as any)[k]}
-                        onChange={() => toggle(k)}
-                    /> {k}
+                        checked={!!(v as any)[fieldKeys[i]]}
+                        onChange={() => toggle(fieldKeys[i])}
+                    /> {t(`Behavior.fields.${f}`)}
                 </label>
             ))}
         </div>

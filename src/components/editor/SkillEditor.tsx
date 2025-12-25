@@ -25,6 +25,7 @@
     upgrade defines at least one field.
 */
 import React, {useMemo, useState} from 'react'
+import { useTranslation } from 'react-i18next'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
 import {useStore} from '../../state/store'
 import { validateSkill } from '../../lib/validation'
@@ -43,15 +44,15 @@ function sortUpgradesByLevel<T>(upgrades: Record<string, T>): Record<string, T> 
 }
 
 /** Convert a level key into a human-friendly description used in the UI. */
-function humanizeLevel(level: string): React.ReactNode {
+function humanizeLevel(level: string, translate: ReturnType<typeof useTranslation>['t']): React.ReactNode {
     // Fixed numeric level
-    if (/^\d+$/.test(level)) return `Level ${level}`
+    if (/^\d+$/.test(level)) return translate('skills.level', { level })
     // Comma-separated fixed list
-    if (/^\d+(?:,\d+)+$/.test(level)) return `Level: ${level.split(',').join(', ')}`
+    if (/^\d+(?:,\d+)+$/.test(level)) return translate('skills.fixedLevels', { levels: level.split(',').join(', ') })
 
     // Pattern: %<every>[>start][<until]
     const m = /^%(\d+)(?:>(\d+))?(?:<(\d+))?$/.exec(level)
-    if (!m) return `Level ${level}`
+    if (!m) return translate('skills.level', { level })
 
     const every = Number(m[1])
     const start = m[2] != null ? Number(m[2]) : 1  // Default to 1 if no start
@@ -64,12 +65,14 @@ function humanizeLevel(level: string): React.ReactNode {
     }
     const preview = previewLevels.join(', ') + (until == null || previewLevels[previewLevels.length - 1] + every <= until ? '...' : '')
 
-    let text = every === 1 ? 'Every level' : `Every ${every} levels`
+    let text: string
     if (until != null) {
-        text += ` between levels ${start} and ${until}`
+        text = translate('skills.everyNLevelsBetween', { n: every, start, end: until })
     } else if (m[2] != null) {
         // Only show "from level X onward" if start was explicitly specified
-        text += ` from level ${start} onward`
+        text = translate('skills.everyNLevelsFrom', { n: every, start })
+    } else {
+        text = every === 1 ? translate('skills.everyLevel') : translate('skills.everyNLevels', { n: every })
     }
 
     return <>{text} <span style={{ opacity: 0.6, fontWeight: 400 }}>({preview})</span></>
@@ -95,6 +98,7 @@ function parseSelection(level: string): LevelSelection | undefined {
 }
 
 export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skillId: string }) {
+    const { t } = useTranslation()
     const upsertTree = useStore(s => s.upsertTree)
     const skillDef = SKILL_REGISTRY.get(skillId)
     const [formOpen, setFormOpen] = useState(false)
@@ -104,7 +108,7 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
     // Memoize validation results to avoid recomputing on each render
     const skillValidation = useMemo(() => validateSkill(tree, skillId), [tree, skillId])
 
-    if (!skillDef) return <p style={{color: 'crimson'}}>Unknown skill: {skillId}</p>
+    if (!skillDef) return <p style={{color: 'crimson'}}>{t('skills.unknownSkill')}: {skillId}</p>
 
     const upgrades = tree.Skills?.[skillId]?.Upgrades ?? {}
 
@@ -165,8 +169,8 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
 
     return (
         <div style={{marginTop: 12, paddingLeft: 8}}>
-            <p style={{fontWeight: 500}}>Upgrades:</p>
-            {Object.entries(upgrades).length === 0 && <p>No upgrades yet.</p>}
+            <p style={{fontWeight: 500}}>{t('skills.levels')}:</p>
+            {Object.entries(upgrades).length === 0 && <p>{t('skills.noUpgrades')}</p>}
 
             {Object.entries(upgrades)
                 .sort(([a], [b]) => getFirstLevel(a) - getFirstLevel(b))
@@ -186,10 +190,10 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
                          title={errors ?? ''}
                     >
                         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                            <strong>{humanizeLevel(level)}</strong>
+                            <strong>{humanizeLevel(level, t)}</strong>
                             <div style={{display:'flex', gap:6}}>
-                                <button className="btn btn--icon" title="Edit upgrade" onClick={() => { setEditTarget(level); setEditOpen(true) }}>✏️</button>
-                                <button className="btn btn--icon" title="Remove upgrade" onClick={() => removeUpgrade(level)}>🗑️</button>
+                                <button className="btn btn--icon" title={t('skills.editUpgrade')} onClick={() => { setEditTarget(level); setEditOpen(true) }}>✏️</button>
+                                <button className="btn btn--icon" title={t('tooltip.delete')} onClick={() => removeUpgrade(level)}>🗑️</button>
                             </div>
                         </div>
                         <skillDef.Editor
@@ -207,19 +211,19 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             })}
 
             <div style={{marginTop: 8}}>
-                <button className="btn" onClick={() => setFormOpen(true)}>＋ Add Upgrade</button>
+                <button className="btn" onClick={() => setFormOpen(true)}>＋ {t('skills.addUpgrade')}</button>
                 <LevelModal
                     open={formOpen}
                     onCancel={() => setFormOpen(false)}
                     onSubmit={(sel) => { addFromSelection(sel); setFormOpen(false) }}
-                    title="Add Upgrade"
+                    title={t('skills.addUpgrade')}
                 />
                 <LevelModal
                     open={editOpen}
                     onCancel={() => { setEditOpen(false); setEditTarget(null) }}
                     onSubmit={(sel) => { if (editTarget) editUpgradeKey(editTarget, sel); setEditOpen(false); setEditTarget(null) }}
                     initial={editTarget ? parseSelection(editTarget) : undefined}
-                    title="Edit Upgrade"
+                    title={t('skills.editUpgrade')}
                 />
             </div>
         </div>

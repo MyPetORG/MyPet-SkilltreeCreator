@@ -22,6 +22,7 @@
   a live preview with sample variable substitutions.
 */
 import React, { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStore } from '../../state/store'
 import LevelModal, { LevelSelection } from '../modals/LevelModal'
 import RichTextPreviewEditor from '../common/RichTextPreviewEditor'
@@ -29,19 +30,17 @@ import RichTextPreviewEditor from '../common/RichTextPreviewEditor'
 /**
  * Convert a level key ("1", "1,3", or dynamic like "%1>5<100") into a human-readable label.
  */
-function humanizeLevel(level: string): string {
-  if (/^\d+$/.test(level)) return `Level ${level}`
-  if (/^\d+(?:,\d+)+$/.test(level)) return `Level: ${level.split(',').join(', ')}`
+function humanizeLevel(level: string, translate: ReturnType<typeof useTranslation>['t']): string {
+  if (/^\d+$/.test(level)) return translate('skills.level', { level })
+  if (/^\d+(?:,\d+)+$/.test(level)) return translate('skills.fixedLevels', { levels: level.split(',').join(', ') })
   const m = /^%(\d+)(?:>(\d+))?(?:<(\d+))?$/.exec(level)
-  if (!m) return `Level ${level}`
+  if (!m) return translate('skills.level', { level })
   const every = Number(m[1])
   const start = m[2] != null ? Number(m[2]) : undefined
   const until = m[3] != null ? Number(m[3]) : undefined
-  let text = every === 1 ? 'Every level' : `Every ${every} levels`
-  if (start != null && until != null) text += ` between levels ${start} and ${until}`
-  else if (start != null) text += ` from level ${start} onward`
-  else if (until != null) text += ` up to level ${until}`
-  return text
+  if (start != null && until != null) return translate('skills.everyNLevelsBetween', { n: every, start, end: until })
+  if (start != null) return translate('skills.everyNLevelsFrom', { n: every, start })
+  return every === 1 ? translate('skills.everyLevel') : translate('skills.everyNLevels', { n: every })
 }
 
 /**
@@ -79,7 +78,8 @@ function renderPreview(tpl: string, levelNumber = 56) {
  * Uses LevelModal to add/edit level keys and RichTextPreviewEditor to edit messages.
  */
 export default function NotificationsEditor() {
-  const tree = useStore(s => s.trees.find(t => t.ID === s.selectedId))
+  const { t } = useTranslation()
+  const tree = useStore(s => s.trees.find(tr => tr.ID === s.selectedId))
   const upsertTree = useStore(s => s.upsertTree)
 
   const [addOpen, setAddOpen] = useState(false)
@@ -139,30 +139,30 @@ export default function NotificationsEditor() {
   return (
     <section className="editor-panel">
       <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-        <h3 style={{margin: 0}}>Notifications</h3>
-        <button className="btn" onClick={() => setAddOpen(true)}>＋ Add notification</button>
+        <h3 style={{margin: 0}}>{t('notifications.title')}</h3>
+        <button className="btn" onClick={() => setAddOpen(true)}>＋ {t('notifications.addNotification')}</button>
       </div>
 
       {Object.keys(notifications).length === 0 && (
-        <p style={{color:'var(--muted)'}}>No notifications yet.</p>
+        <p style={{color:'var(--muted)'}}>{t('skills.noUpgrades')}</p>
       )}
 
       {Object.entries(notifications).map(([level, msg]) => (
         <div key={level} style={{border:'1px solid #e3e3e3', borderRadius:8, padding:12, marginTop:10}}>
           <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
-            <strong>{humanizeLevel(level)}</strong>
+            <strong>{humanizeLevel(level, t)}</strong>
             <div style={{display:'flex', gap:6}}>
-              <button className="btn btn--icon" title="Edit level" onClick={() => { setEditTarget(level); setEditOpen(true) }}>✏️</button>
-              <button className="btn btn--icon" title="Delete" onClick={() => removeNotification(level)}>🗑️</button>
+              <button className="btn btn--icon" title={t('actions.edit')} onClick={() => { setEditTarget(level); setEditOpen(true) }}>✏️</button>
+              <button className="btn btn--icon" title={t('tooltip.delete')} onClick={() => removeNotification(level)}>🗑️</button>
             </div>
           </div>
 
           <RichTextPreviewEditor
-            label="Message"
+            label={t('notifications.message')}
             value={msg}
             onChange={(v) => updateMessage(level, v)}
             rows={2}
-            placeholder="e.g. {{owner}}'s pet {{pet}} has reached level {{level}}!"
+            placeholder={t('notifications.messagePlaceholder')}
             displayMode="chat"
             transformPreview={(src) => {
               const sample = /^\d+$/.test(level)
@@ -186,14 +186,14 @@ export default function NotificationsEditor() {
         open={addOpen}
         onCancel={() => setAddOpen(false)}
         onSubmit={(sel) => { addFromSelection(sel); setAddOpen(false) }}
-        title="Add Notification"
+        title={t('notifications.addNotification')}
       />
       <LevelModal
         open={editOpen}
         onCancel={() => { setEditOpen(false); setEditTarget(null) }}
         onSubmit={(sel) => { if (editTarget) editLevelKey(editTarget, sel); setEditOpen(false); setEditTarget(null) }}
         initial={editTarget ? parseSelection(editTarget) : undefined}
-        title="Edit Notification Level"
+        title={t('skills.editUpgrade')}
       />
     </section>
   )

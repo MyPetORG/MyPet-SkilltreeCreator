@@ -15,6 +15,7 @@
  */
 
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export type LevelSelection =
     | { type: 'fixed'; levels: number[] }
@@ -25,7 +26,7 @@ export default function LevelModal({
     onCancel,
     onSubmit,
     initial,
-    title = 'Select Levels',
+    title,
 }: {
     open: boolean
     onCancel: () => void
@@ -33,6 +34,7 @@ export default function LevelModal({
     initial?: LevelSelection
     title?: string
 }) {
+    const { t } = useTranslation()
     const [tab, setTab] = useState<'fixed' | 'dynamic'>('fixed')
 
     // Fixed
@@ -90,7 +92,7 @@ export default function LevelModal({
     return (
         <div className="modal-backdrop" onClick={onCancel}>
             <div className="modal" onClick={e => e.stopPropagation()}>
-                <h3>{title}</h3>
+                <h3>{title || t('levelModal.title')}</h3>
 
                 <div style={{ display: 'flex', gap: 8, marginTop: 8, marginBottom: 12 }}>
                     <button
@@ -99,7 +101,7 @@ export default function LevelModal({
                         aria-pressed={tab === 'fixed'}
                         style={{ fontWeight: tab === 'fixed' ? 700 : 500 }}
                     >
-                        Fixed
+                        {t('levelModal.fixed')}
                     </button>
                     <button
                         className="btn"
@@ -107,14 +109,14 @@ export default function LevelModal({
                         aria-pressed={tab === 'dynamic'}
                         style={{ fontWeight: tab === 'dynamic' ? 700 : 500 }}
                     >
-                        Dynamic
+                        {t('levelModal.dynamic')}
                     </button>
                 </div>
 
                 {tab === 'fixed' ? (
                     <div>
                         <label style={{ display: 'grid', gap: 6 }}>
-                            <span className="muted">Enter one or more levels (space/comma separated)</span>
+                            <span className="muted">{t('levelModal.fixedHelp')}</span>
                             <input
                                 autoFocus
                                 className="input"
@@ -128,7 +130,7 @@ export default function LevelModal({
                 ) : (
                     <div style={{ display: 'grid', gap: 12 }}>
                         <label style={{ display: 'grid', gap: 6 }}>
-                            <span>Every (required)</span>
+                            <span>{t('levelModal.every')}</span>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <input
                                     type="number"
@@ -138,11 +140,11 @@ export default function LevelModal({
                                     onChange={e => setEvery(Math.max(1, Number(e.target.value)))}
                                     style={{ width: 140 }}
                                 />
-                                <span className="muted">levels</span>
+                                <span className="muted">{t('skills.levels').toLowerCase()}</span>
                             </div>
                         </label>
                         <label style={{ display: 'grid', gap: 6 }}>
-                            <span>Start from level (optional)</span>
+                            <span>{t('levelModal.startFrom')}</span>
                             <input
                                 type="number"
                                 min={1}
@@ -153,7 +155,7 @@ export default function LevelModal({
                             />
                         </label>
                         <label style={{ display: 'grid', gap: 6 }}>
-                            <span>Until level (optional)</span>
+                            <span>{t('levelModal.until')}</span>
                             <input
                                 type="number"
                                 min={1}
@@ -167,8 +169,8 @@ export default function LevelModal({
                 )}
 
                 <div className="modal-actions">
-                    <button className="btn" onClick={onCancel}>Cancel</button>
-                    <button className="btn primary" onClick={submit}>Done</button>
+                    <button className="btn" onClick={onCancel}>{t('actions.cancel')}</button>
+                    <button className="btn primary" onClick={submit}>{t('actions.done')}</button>
                 </div>
             </div>
         </div>

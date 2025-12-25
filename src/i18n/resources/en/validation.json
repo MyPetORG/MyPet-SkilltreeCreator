@@ -1,0 +1,16 @@
+{
+  "errors": {
+    "unknownSkill": "Unknown skill: {{skillId}}",
+    "noUpgrades": "Skill must have at least one upgrade",
+    "firstLevelRequired": "At least one field must be provided for the first level",
+    "invalidLevelKey": "Invalid level key format",
+    "duplicateLevel": "Duplicate level key: {{level}}",
+    "invalidRange": "Invalid level range",
+    "emptyField": "{{field}} cannot be empty",
+    "invalidNumber": "{{field}} must be a valid number",
+    "invalidPlusNumber": "{{field}} must be a signed number (e.g., +1 or +0.5)",
+    "minValue": "{{field}} must be at least {{min}}",
+    "maxValue": "{{field}} must be at most {{max}}",
+    "requiredField": "{{field}} is required"
+  }
+}

@@ -26,6 +26,7 @@
     clears the field from the payload.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -38,6 +39,7 @@ const schema = z.object({
 })
 
 function ShieldEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
 
     const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
@@ -45,13 +47,13 @@ function ShieldEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
 
     return (
         <div style={{display: 'flex', gap: 12}}>
-            <label>Chance %
+            <label>{t('Shield.fields.chance')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
                     <TotalWithBreakdown data={chanceData} suffix="%" />
                 </div>
             </label>
-            <label>Redirect (Damage) %
+            <label>{t('Shield.fields.redirect')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Redirect ?? ''} onChange={e => onChange({...v, Redirect: normalizeSignedInput(e.target.value)})}/>
                     <TotalWithBreakdown data={redirectData} suffix="%" />

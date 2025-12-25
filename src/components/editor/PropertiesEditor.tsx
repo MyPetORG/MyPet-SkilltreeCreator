@@ -29,75 +29,79 @@
     with autosave and preserves immutability.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useStore } from '../../state/store'
 import type { SkilltreeFile } from '../../lib/types'
+import { useAlert } from '../modals/AlertModal'
 
 /** PropertiesEditor — main form for ID, inheritance, and weight. */
 export default function PropertiesEditor() {
+  const { t } = useTranslation()
+  const alert = useAlert()
   const selectedId = useStore(s => s.selectedId)
-  const tree = useStore(s => s.trees.find(t => t.ID === selectedId))
+  const tree = useStore(s => s.trees.find(tr => tr.ID === selectedId))
   const trees = useStore(s => s.trees)
   const upsertTree = useStore(s => s.upsertTree)
 
   if (!tree) return null
 
-  const apply = (mutate: (t: SkilltreeFile) => void) => {
+  const apply = (mutate: (tr: SkilltreeFile) => void) => {
     const next: SkilltreeFile = JSON.parse(JSON.stringify(tree))
     mutate(next)
     upsertTree(next)
   }
 
-  const otherTrees = trees.filter(t => t.ID !== tree.ID)
+  const otherTrees = trees.filter(tr => tr.ID !== tree.ID)
   const inheritedId = tree.Inheritance?.Skilltree ?? ''
 
   return (
     <section className="card">
       <div className="section-header">
-        <h3>Properties</h3>
+        <h3>{t('tabs.properties')}</h3>
       </div>
 
       <div className="form-grid">
         <div className="field">
-          <label className="label">ID</label>
+          <label className="label">{t('properties.id')}</label>
           <input
             className="input"
             value={tree.ID}
-            onChange={(e) => {
+            onChange={async (e) => {
               const newId = e.target.value
               const exists = trees.some(x => x.ID === newId && x.ID !== tree.ID)
               if (exists) {
-                alert('A skilltree with that ID already exists.');
+                await alert(t('modals.alert.duplicateId'))
                 return
               }
-              apply(t => {
-                t.ID = newId
+              apply(tr => {
+                tr.ID = newId
               })
             }}
-            placeholder="Combat"
+            placeholder={t('properties.idPlaceholder')}
           />
         </div>
 
         <div className="field">
-          <label className="label">Inheritance</label>
+          <label className="label">{t('properties.inheritance')}</label>
           <select
             className="input"
             value={inheritedId}
             onChange={e => {
               const v = e.currentTarget.value
-              apply(t => {
-                t.Inheritance = v ? { Skilltree: v } : undefined
+              apply(tr => {
+                tr.Inheritance = v ? { Skilltree: v } : undefined
               })
             }}
           >
-            <option value=""></option>
-            {otherTrees.map(t => (
-              <option key={t.ID} value={t.ID}>{t.Name || t.ID}</option>
+            <option value="">{t('properties.inheritancePlaceholder')}</option>
+            {otherTrees.map(tr => (
+              <option key={tr.ID} value={tr.ID}>{tr.Name || tr.ID}</option>
             ))}
           </select>
         </div>
 
         <div className="field">
-          <label className="label">Weight</label>
+          <label className="label">{t('properties.weight')}</label>
           <input
             className="input"
             type="number"
@@ -105,9 +109,9 @@ export default function PropertiesEditor() {
             value={tree.Weight ?? ''}
             onChange={e => {
               const v = e.currentTarget.value
-              apply(t => { t.Weight = v === '' ? undefined : Math.max(0, Number(v)) })
+              apply(tr => { tr.Weight = v === '' ? undefined : Math.max(0, Number(v)) })
             }}
-            placeholder="15"
+            placeholder={t('properties.weightPlaceholder')}
           />
         </div>
       </div>

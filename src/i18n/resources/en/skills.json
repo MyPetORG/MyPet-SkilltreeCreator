@@ -1,0 +1,156 @@
+{
+  "Backpack": {
+    "label": "Backpack",
+    "fields": {
+      "rows": "Extra Rows",
+      "drop": "Drop on death"
+    }
+  },
+  "Beacon": {
+    "label": "Beacon",
+    "fields": {
+      "duration": "Duration (s)",
+      "range": "Range (blocks)",
+      "count": "Count (simultaneous buffs)",
+      "buffs": "Buffs",
+      "noBuffs": "No buffs yet.",
+      "addBuff": "Add buff",
+      "buffPlaceholder": "true or +1",
+      "allEffectsAdded": "(All effects added)"
+    }
+  },
+  "Behavior": {
+    "label": "Behavior",
+    "fields": {
+      "friend": "Friend",
+      "farm": "Farm",
+      "duel": "Duel",
+      "aggro": "Aggro",
+      "raid": "Raid"
+    }
+  },
+  "Bleed": {
+    "label": "Bleed",
+    "fields": {
+      "damage": "Damage",
+      "interval": "Interval (s)",
+      "duration": "Duration (s)",
+      "chance": "Chance %"
+    }
+  },
+  "Control": {
+    "label": "Control",
+    "fields": {
+      "active": "Active"
+    }
+  },
+  "Damage": {
+    "label": "Damage",
+    "fields": {
+      "damage": "Damage (+X)"
+    }
+  },
+  "Fire": {
+    "label": "Fire",
+    "fields": {
+      "chance": "Chance %",
+      "duration": "Duration (s)"
+    }
+  },
+  "Heal": {
+    "label": "Heal",
+    "fields": {
+      "health": "Health (+X)"
+    }
+  },
+  "Knockback": {
+    "label": "Knockback",
+    "fields": {
+      "chance": "Chance %"
+    }
+  },
+  "Life": {
+    "label": "Life",
+    "fields": {
+      "health": "Health Bonus"
+    }
+  },
+  "Lightning": {
+    "label": "Lightning",
+    "fields": {
+      "chance": "Chance %",
+      "damage": "Damage"
+    }
+  },
+  "Pickup": {
+    "label": "Pickup",
+    "fields": {
+      "range": "Range",
+      "expPickup": "EXP Pickup"
+    }
+  },
+  "Poison": {
+    "label": "Poison",
+    "fields": {
+      "chance": "Chance %",
+      "duration": "Duration (ticks)"
+    }
+  },
+  "Ranged": {
+    "label": "Ranged",
+    "fields": {
+      "damage": "Damage",
+      "rate": "Rate (cooldown or speed)",
+      "projectile": "Projectile"
+    }
+  },
+  "Ride": {
+    "label": "Ride",
+    "fields": {
+      "speed": "Speed",
+      "jumpHeight": "Jump Height",
+      "canFly": "Can Fly"
+    }
+  },
+  "Shield": {
+    "label": "Shield",
+    "fields": {
+      "chance": "Chance %",
+      "redirect": "Redirect (Damage) %"
+    }
+  },
+  "Slow": {
+    "label": "Slow",
+    "fields": {
+      "chance": "Chance %",
+      "duration": "Duration (ticks)"
+    }
+  },
+  "Sprint": {
+    "label": "Sprint",
+    "fields": {
+      "active": "Active"
+    }
+  },
+  "Stomp": {
+    "label": "Stomp",
+    "fields": {
+      "chance": "Chance %",
+      "damage": "Damage"
+    }
+  },
+  "Thorns": {
+    "label": "Thorns",
+    "fields": {
+      "chance": "Chance %",
+      "reflection": "Reflection %"
+    }
+  },
+  "Wither": {
+    "label": "Wither",
+    "fields": {
+      "chance": "Chance %",
+      "duration": "Duration (ticks)"
+    }
+  }
+}

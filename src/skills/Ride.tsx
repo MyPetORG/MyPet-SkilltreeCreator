@@ -23,6 +23,7 @@
   - CanFly: boolean flag enabling flight capability.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -36,6 +37,7 @@ const schema = z.object({
 })
 
 function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
 
     const speedData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Speed', v?.Speed, parsePlusFloat)
@@ -56,7 +58,7 @@ function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
 
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
-            <label>Speed
+            <label>{t('Ride.fields.speed')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input
                         value={v.Speed ?? ''}
@@ -65,7 +67,7 @@ function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
                     <TotalWithBreakdown data={speedData} />
                 </div>
             </label>
-            <label>Jump Height
+            <label>{t('Ride.fields.jumpHeight')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input
                         value={v.JumpHeight ?? ''}
@@ -79,7 +81,7 @@ function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
                     type="checkbox"
                     checked={!!v.CanFly}
                     onChange={(e) => handleChange('CanFly', e.target.checked)}
-                /> Can Fly
+                /> {t('Ride.fields.canFly')}
             </label>
         </div>
     )

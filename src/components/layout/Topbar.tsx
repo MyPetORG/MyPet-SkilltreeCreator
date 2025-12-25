@@ -24,6 +24,7 @@
   - Autosave status pill shows current state and last saved time
 */
 import React, {useState} from 'react'
+import { useTranslation } from 'react-i18next'
 import {useStore} from '../../state/store'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
 import { validateAllTrees, hasErrors } from '../../lib/validation'
@@ -31,6 +32,8 @@ import {loadExampleTrees} from '../../lib/codec/json-io'
 import JSZip from 'jszip'
 import ImportModal from '../modals/ImportModal'
 import ThemeToggle from '../common/ThemeToggle'
+import { useConfirm } from '../modals/ConfirmModal'
+import { useAlert } from '../modals/AlertModal'
 
 /** Props for the Topbar component */
  type Props = {
@@ -41,6 +44,9 @@ import ThemeToggle from '../common/ThemeToggle'
 
 /** Topbar — app-level actions and autosave status. */
 export default function Topbar({onSave, onHome, rightSlot}: Props) {
+    const { t } = useTranslation()
+    const confirm = useConfirm()
+    const alert = useAlert()
     const {trees, setTrees, autosaveStatus, lastSavedAt} = useStore()
     const saveDisabled = autosaveStatus === 'saved'
     const [importOpen, setImportOpen] = useState(false)
@@ -57,9 +63,7 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
     /** Replace current workspace with bundled example trees after confirmation. */
     async function onLoadDefaults() {
         if (trees.length > 0) {
-            const ok = confirm(
-                'This will replace your current skilltrees with the default examples and clear your local draft. Continue?'
-            )
+            const ok = await confirm(t('modals.confirm.loadDefaults'))
             if (!ok) return
         }
 
@@ -68,7 +72,7 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
             setTrees(examples)  // Mark as pending so autosave persists them
         } catch (e) {
             console.error(e)
-            alert('Failed to load default examples')
+            await alert(t('modals.alert.loadDefaultsFailed'))
         }
     }
 
@@ -85,7 +89,7 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
     /** Export current trees to a zip file of <ID>.st.json entries. */
     async function onExport() {
         if (!trees.length) {
-            alert('No skilltrees to export.')
+            await alert(t('modals.alert.noTreesToExport'))
             return
         }
 
@@ -94,7 +98,7 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
         const invalidTrees = validations.filter(v => hasErrors(v))
         if (invalidTrees.length > 0) {
             const names = invalidTrees.map(v => v.treeId).join(', ')
-            alert(`Export blocked: ${invalidTrees.length} skilltree(s) have validation errors.\n\nInvalid trees: ${names}\n\nPlease fix all validation errors before exporting.`)
+            await alert(t('modals.alert.exportBlocked', { count: invalidTrees.length, names }))
             return
         }
 
@@ -127,27 +131,26 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
                     className="topbar__brand"
                     onClick={onHome}
                     style={{cursor: onHome ? 'pointer' : undefined}}
-                    title="Go to home"
+                    title={t('tooltip.goHome')}
                 >
                     <img className="topbar__logo" src="img/logo_16.png" alt="MyPet Logo" style={{imageRendering: 'pixelated'}} draggable={false} />
-                    <strong>MyPet Skilltree Creator</strong>
+                    <strong>{t('app.title')}</strong>
                 </div>
                 <span className="version-badge">v{__APP_VERSION__}</span>
             </div>
 
             <div className="topbar__actions">
-                <button onClick={onImport} title="Import .st.json" className="btn">Import</button>
-                <button onClick={onLoadDefaults} title="Load default example trees" className="btn">Load Defaults
-                </button>
-                <button onClick={onExport} title="Export all trees to a zip" className="btn">Export ZIP</button>
+                <button onClick={onImport} title={t('tooltip.importFile')} className="btn">{t('actions.import')}</button>
+                <button onClick={onLoadDefaults} title={t('tooltip.loadDefaults')} className="btn">{t('actions.loadDefaults')}</button>
+                <button onClick={onExport} title={t('tooltip.exportZip')} className="btn">{t('actions.export')}</button>
                 <div className="divider"/>
                 <button
                     onClick={onSave}
-                    title={saveDisabled ? 'All changes saved' : 'Save changes'}
+                    title={saveDisabled ? t('tooltip.allChangesSaved') : t('tooltip.saveChanges')}
                     className="btn btn--primary"
                     disabled={saveDisabled}
                 >
-                    Save
+                    {t('actions.save')}
                 </button>
             </div>
 
@@ -162,10 +165,12 @@ export default function Topbar({onSave, onHome, rightSlot}: Props) {
 
 /** Visual pill showing autosave status and relative time. */
 function AutosavePill({status, lastSavedAt}: { status: 'saved' | 'autosaving' | 'pending', lastSavedAt?: number }) {
+    const { t } = useTranslation()
+
     let text: string
-    if (status === 'autosaving') text = 'Autosaving…'
-    else if (status === 'pending') text = 'Unsaved changes'
-    else text = lastSavedAt ? `Saved ${timeAgo(lastSavedAt)}` : 'Saved'
+    if (status === 'autosaving') text = t('autosave.saving')
+    else if (status === 'pending') text = t('autosave.pending')
+    else text = lastSavedAt ? t('autosave.savedAt', { time: timeAgo(lastSavedAt, t) }) : t('autosave.saved')
 
     const bg = status === 'pending' ? '#fff2e8' : status === 'autosaving' ? '#eaf2ff' : '#e8fff0'
     const border = status === 'pending' ? '#ffc299' : status === 'autosaving' ? '#cfe0ff' : '#9ddbb1'
@@ -186,12 +191,12 @@ function AutosavePill({status, lastSavedAt}: { status: 'saved' | 'autosaving' | 
     )
 }
 
-function timeAgo(ts: number) {
+function timeAgo(ts: number, translate: ReturnType<typeof useTranslation>['t']) {
     const s = Math.max(0, Math.floor((Date.now() - ts) / 1000))
-    if (s < 5) return 'just now'
-    if (s < 60) return `${s}s ago`
+    if (s < 5) return translate('autosave.justNow')
+    if (s < 60) return translate('autosave.secondsAgo', { s })
     const m = Math.floor(s / 60)
-    if (m < 60) return `${m}m ago`
+    if (m < 60) return translate('autosave.minutesAgo', { m })
     const h = Math.floor(m / 60)
-    return `${h}h ago`
+    return translate('autosave.hoursAgo', { h })
 }

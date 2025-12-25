@@ -23,12 +23,14 @@
   - Maps trees in the global store to Sidebar items with drag-and-drop reordering.
   - Hosts the Topbar, Sidebar, and the active SkilltreeEditor panel.
   - Shows a home page when no skilltree is selected, with option to load defaults.
+  - Wraps app with i18n modal providers (ConfirmProvider, AlertProvider).
 
   Notes
   - All data edits flow through the Zustand store; autosave subscribes and persists to localStorage.
   - Default examples are loaded on-demand via Load Defaults button, not automatically.
 */
 import React, {useEffect, useMemo} from 'react'
+import { useTranslation } from 'react-i18next'
 import Topbar from '../components/layout/Topbar'
 import Sidebar, {SidebarItem} from '../components/layout/Sidebar'
 import {useStore} from '../state/store'
@@ -36,9 +38,27 @@ import {loadExampleTrees} from '../lib/codec/json-io'
 import type {SkilltreeFile} from '../lib/types'
 import SkilltreeEditor from '../components/editor/SkilltreeEditor'
 import {loadDraftFromStorage, setupAutosave, setupBeforeUnloadWarning} from '../state/autosave'
+import { ConfirmProvider, useConfirm } from '../components/modals/ConfirmModal'
+import { AlertProvider, useAlert } from '../components/modals/AlertModal'
+import LanguageSelector from '../components/i18n/LanguageSelector'
 
-/** Root application component rendering the chrome and current editor. */
+/** Root application component - wraps with providers */
 export default function App() {
+    return (
+        <AlertProvider>
+            <ConfirmProvider>
+                <AppContent />
+            </ConfirmProvider>
+        </AlertProvider>
+    )
+}
+
+/** Inner app content that can use hooks */
+function AppContent() {
+    const { t } = useTranslation()
+    const confirm = useConfirm()
+    const alert = useAlert()
+
     const trees = useStore(s => s.trees)
     const selectedId = useStore(s => s.selectedId)
     const setTrees = useStore(s => s.setTrees)
@@ -58,9 +78,7 @@ export default function App() {
     // Load default example trees on demand (with confirmation if trees exist)
     const onLoadDefaults = async () => {
         if (trees.length > 0) {
-            const ok = confirm(
-                'This will replace your current skilltrees with the default examples and clear your local draft. Continue?'
-            )
+            const ok = await confirm(t('modals.confirm.loadDefaults'))
             if (!ok) return
         }
 
@@ -69,7 +87,7 @@ export default function App() {
             setTrees(examples)  // Mark as pending so autosave persists them
         } catch (e) {
             console.error(e)
-            alert('Failed to load default examples')
+            await alert(t('modals.alert.loadDefaultsFailed'))
         }
     }
 
@@ -88,20 +106,24 @@ export default function App() {
         return trees
             .slice()
             .sort((a, b) => a.Order - b.Order)
-            .map(t => ({
-                id: t.ID,
-                name: t.Name,
-                subtitle: `Order ${t.Order}`,
-                icon: t.Icon?.Material,
-                selected: t.ID === selectedId,
+            .map(tr => ({
+                id: tr.ID,
+                name: tr.Name,
+                subtitle: t('sidebar.order', { order: tr.Order }),
+                icon: tr.Icon?.Material,
+                selected: tr.ID === selectedId,
             }))
-    }, [trees, selectedId])
+    }, [trees, selectedId, t])
 
     // onCreate – create a basic empty tree quickly
-    const onCreate = () => {
+    const onCreate = async () => {
+        // Use native prompt for now (can be replaced with custom modal later)
         const id = prompt('New skilltree ID (no spaces):', 'NewTree')?.trim()
         if (!id) return
-        if (trees.some(t => t.ID === id)) return alert('A skilltree with that ID already exists.')
+        if (trees.some(t => t.ID === id)) {
+            await alert(t('modals.alert.duplicateId'))
+            return
+        }
         const order = (trees.reduce((m, t) => Math.max(m, t.Order), -1) + 1) || 0
         const blank: SkilltreeFile = {
             ID: id,
@@ -116,8 +138,9 @@ export default function App() {
         select(id)
     }
 
-    const onDelete = (id: string) => {
-        if (!confirm(`Delete skilltree "${id}"?`)) return
+    const onDelete = async (id: string) => {
+        const ok = await confirm(t('modals.confirm.deleteTree', { id }))
+        if (!ok) return
         del(id)
     }
 
@@ -139,14 +162,17 @@ export default function App() {
                 onSave={() => markSaved()}
                 onHome={() => select(null)}
                 rightSlot={
-                    <button
-                        className="btn btn--icon"
-                        onClick={() => window.open('https://wiki.mypet-plugin.de/systems/skilltrees', '_blank')}
-                        title="Open MyPet documentation"
-                        aria-label="Open MyPet documentation"
-                    >
-                        📄
-                    </button>
+                    <>
+                        <LanguageSelector />
+                        <button
+                            className="btn btn--icon"
+                            onClick={() => window.open('https://wiki.mypet-plugin.de/systems/skilltrees', '_blank')}
+                            title={t('tooltip.openDocs')}
+                            aria-label={t('tooltip.openDocs')}
+                        >
+                            📄
+                        </button>
+                    </>
                 }
             />
 
@@ -176,10 +202,10 @@ export default function App() {
                 {!selectedTree ? (
                     <div className="home-page">
                         <img src="img/logo_16.png" alt="MyPet Logo" className="home-page__logo" draggable={false} />
-                        <h2>No skilltree selected</h2>
-                        <p>Select a skilltree from the sidebar, or import <code>.st.json</code> files to get started.</p>
+                        <h2>{t('home.title')}</h2>
+                        <p>{t('home.description')}</p>
                         <button className="btn btn--primary home-page__cta" onClick={onLoadDefaults}>
-                            Load Defaults
+                            {t('home.loadDefaultsCta')}
                         </button>
                     </div>
                 ) : (

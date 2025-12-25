@@ -19,6 +19,7 @@
 
   - Sets up HashRouter for client-side navigation (no server config needed).
   - Imports global CSS.
+  - Initializes i18n before rendering.
   - Preloads lightweight external minecraft-data (effects, mobs) in the background
     via McData.preloadAll(), without blocking initial render.
 */
@@ -29,20 +30,35 @@ import App from './App'
 import '../styles/index.css'
 import '../styles/minecraft-text.css'
 import { McData } from '../lib/mcAssets'
+import { initI18n, i18n, ResourceManager } from '../i18n'
 
-// Kick off preloading of minecraft-data (effects, mobs) on page load
-// Fire-and-forget; does not block UI rendering
-void McData.preloadAll()
+// Bootstrap function to initialize i18n before rendering
+async function bootstrap() {
+    // Initialize i18next (synchronous for English, which is bundled)
+    await initI18n()
 
-const rootElement = document.getElementById('root')
-if (!rootElement) {
-    throw new Error('No root element found!')
+    // Preload current language if not English (fire-and-forget)
+    const currentLang = i18n.language
+    if (currentLang && currentLang !== 'en') {
+        ResourceManager.preload(currentLang)
+    }
+
+    // Kick off preloading of minecraft-data (effects, mobs) on page load
+    // Fire-and-forget; does not block UI rendering
+    void McData.preloadAll()
+
+    const rootElement = document.getElementById('root')
+    if (!rootElement) {
+        throw new Error('No root element found!')
+    }
+
+    ReactDOM.createRoot(rootElement).render(
+        <React.StrictMode>
+            <HashRouter>
+                <App/>
+            </HashRouter>
+        </React.StrictMode>
+    )
 }
 
-ReactDOM.createRoot(rootElement).render(
-    <React.StrictMode>
-        <HashRouter>
-            <App/>
-        </HashRouter>
-    </React.StrictMode>
-)
+bootstrap().catch(console.error)

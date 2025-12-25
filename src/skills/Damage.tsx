@@ -25,6 +25,7 @@
   - Shows running Total by summing earlier upgrades using parsePlusFloat.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import type {EditorProps} from './core/contracts'
 import {defineSkill} from './core/contracts'
@@ -36,13 +37,14 @@ const damageSchema = z.object({
 })
 
 function DamageEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const amount = (value?.Damage as string) ?? ''
 
     const damageData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Damage', (value as any)?.Damage as string | undefined, parsePlusFloat)
 
     return (
         <label>
-            Damage (+X)
+            {t('Damage.fields.damage')}
             <div style={{display:'flex', alignItems:'center', gap:6}}>
                 <input
                     value={amount}

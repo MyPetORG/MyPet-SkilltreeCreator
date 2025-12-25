@@ -24,6 +24,7 @@
   - Uses MyPet "+n" string format and shows cumulative Total across upgrades.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -35,12 +36,13 @@ const schema = z.object({
 })
 
 function HealEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const amt = (value?.Health as string) ?? ''
 
     const healthData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
 
     return (
-        <label>Heal Amount
+        <label>{t('Heal.fields.health')}
             <div style={{display:'flex', alignItems:'center', gap:6}}>
                 <input
                     value={amt}

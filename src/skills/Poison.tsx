@@ -22,6 +22,7 @@
   - Duration: poison duration in seconds (string "+n").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -34,6 +35,7 @@ const schema = z.object({
 })
 
 function PoisonEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
 
     const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
@@ -41,13 +43,13 @@ function PoisonEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
 
     return (
         <div style={{display: 'flex', gap: 12}}>
-            <label>Chance %
+            <label>{t('Poison.fields.chance')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
                     <TotalWithBreakdown data={chanceData} suffix="%" />
                 </div>
             </label>
-            <label>Duration (s)
+            <label>{t('Poison.fields.duration')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Duration ?? ''} onChange={e => onChange({...v, Duration: normalizeSignedInput(e.target.value)})}/>
                     <TotalWithBreakdown data={durationData} suffix="s" />

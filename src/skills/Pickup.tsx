@@ -22,6 +22,7 @@
   - Exp: whether XP orbs are picked up (boolean).
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -34,6 +35,7 @@ const schema = z.object({
 })
 
 function PickupEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
     const setRange = (raw: string) => {
         onChange({...v, Range: normalizeSignedInput(raw)})
@@ -43,7 +45,7 @@ function PickupEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
 
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
-            <label>Range (blocks)
+            <label>{t('Pickup.fields.range')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input value={v.Range ?? ''} onChange={e => setRange(e.target.value)}/>
                     <TotalWithBreakdown data={rangeData} />
@@ -54,7 +56,7 @@ function PickupEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
                     type="checkbox"
                     checked={!!v.Exp}
                     onChange={e => onChange({...v, Exp: e.target.checked || undefined})}
-                /> Pick up XP orbs
+                /> {t('Pickup.fields.expPickup')}
             </label>
         </div>
     )

@@ -25,6 +25,7 @@
   - Tabs with validation errors show red borders.
 */
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {useStore} from '../../state/store'
 import { useTreeValidation } from '../../lib/validation'
 import ValidationIcon from '../common/ValidationIcon'
@@ -47,13 +48,14 @@ const TAB_TO_VALIDATION_KEY = {
 
 /** SkilltreeEditor — tabbed container for sub-editors of the selected tree. */
 export default function SkilltreeEditor() {
+    const { t } = useTranslation()
     const selectedId = useStore(s => s.selectedId)
     const tree = useStore(s => s.trees.find(t => t.ID === selectedId))
     const { tabErrors } = useTreeValidation(selectedId ?? undefined)
 
     const [tab, setTab] = useState<'header' | 'properties' | 'eligible' | 'requirements' | 'notifications' | 'skills'>('header')
 
-    if (!tree) return <p>Select a skilltree on the left.</p>
+    if (!tree) return <p>{t('home.description')}</p>
 
     // Helper to build tab class names
     const tabClass = (tabKey: keyof typeof TAB_TO_VALIDATION_KEY) => {
@@ -75,28 +77,28 @@ export default function SkilltreeEditor() {
         <div className="skilltree-editor">
             <div className={activeTabHasError ? 'tabs tabs--has-error' : 'tabs'}>
                 <button className={tabClass('properties')} onClick={() => setTab('properties')}>
-                    Properties
-                    {hasTabError('properties') && <ValidationIcon size={12} title="Validation errors in Properties" />}
+                    {t('tabs.properties')}
+                    {hasTabError('properties') && <ValidationIcon size={12} title={t('validation.hasErrors')} />}
                 </button>
                 <button className={tabClass('header')} onClick={() => setTab('header')}>
-                    Appearance
-                    {hasTabError('header') && <ValidationIcon size={12} title="Validation errors in Appearance" />}
+                    {t('tabs.appearance')}
+                    {hasTabError('header') && <ValidationIcon size={12} title={t('validation.hasErrors')} />}
                 </button>
                 <button className={tabClass('eligible')} onClick={() => setTab('eligible')}>
-                    Eligible Pets
-                    {hasTabError('eligible') && <ValidationIcon size={12} title="Validation errors in Eligible Pets" />}
+                    {t('tabs.eligiblePets')}
+                    {hasTabError('eligible') && <ValidationIcon size={12} title={t('validation.hasErrors')} />}
                 </button>
                 <button className={tabClass('requirements')} onClick={() => setTab('requirements')}>
-                    Requirements
-                    {hasTabError('requirements') && <ValidationIcon size={12} title="Validation errors in Requirements" />}
+                    {t('tabs.requirements')}
+                    {hasTabError('requirements') && <ValidationIcon size={12} title={t('validation.hasErrors')} />}
                 </button>
                 <button className={tabClass('notifications')} onClick={() => setTab('notifications')}>
-                    Notifications
-                    {hasTabError('notifications') && <ValidationIcon size={12} title="Validation errors in Notifications" />}
+                    {t('tabs.notifications')}
+                    {hasTabError('notifications') && <ValidationIcon size={12} title={t('validation.hasErrors')} />}
                 </button>
                 <button className={tabClass('skills')} onClick={() => setTab('skills')}>
-                    Skills
-                    {hasTabError('skills') && <ValidationIcon size={12} title="Validation errors in Skills" />}
+                    {t('tabs.skills')}
+                    {hasTabError('skills') && <ValidationIcon size={12} title={t('validation.hasErrors')} />}
                 </button>
             </div>
 

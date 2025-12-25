@@ -21,6 +21,7 @@
   issues, and expands a SkillEditor for the selected skill.
 */
 import React, {useMemo, useState} from 'react'
+import { useTranslation } from 'react-i18next'
 import {useStore} from '../../state/store'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
 import { useTreeValidation } from '../../lib/validation'
@@ -28,6 +29,8 @@ import ValidationIcon from '../common/ValidationIcon'
 import type {SkilltreeFile} from '../../lib/types'
 import SkillEditor from './SkillEditor'
 import DropdownPicker from '../common/DropdownPicker'
+import { useConfirm } from '../modals/ConfirmModal'
+import { useAlert } from '../modals/AlertModal'
 
 /**
  * SkillIcon — shows a tiny PNG icon for a skill id from public/img/skills.
@@ -58,6 +61,9 @@ function SkillIcon({id}: { id: string }) {
  * SkillsPanel — lists skills in the current tree, allows adding/removing, and flags validation errors.
  */
 export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
+    const { t } = useTranslation()
+    const confirm = useConfirm()
+    const alert = useAlert()
     const upsertTree = useStore(s => s.upsertTree)
     const [selectedSkill, setSelectedSkill] = useState<string | null>(null)
     const existing = Object.keys(tree.Skills || {}).sort()
@@ -81,19 +87,26 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
         }
     }, [availableOptions])
 
-    const addSkill = () => {
+    const addSkill = async () => {
         const choice = pending?.trim()
         if (!choice) return
-        if (!SKILL_REGISTRY.has(choice)) return alert('Unknown skill: ' + choice)
-        if (existing.includes(choice)) return alert('This skill already exists.')
+        if (!SKILL_REGISTRY.has(choice)) {
+            await alert(t('skills.unknownSkill') + ': ' + choice)
+            return
+        }
+        if (existing.includes(choice)) {
+            await alert(t('skills.skillExists'))
+            return
+        }
         const next = structuredClone(tree)
         next.Skills[choice] = {Upgrades: {}}
         upsertTree(next)
         setSelectedSkill(choice)
     }
 
-    const removeSkill = (id: string) => {
-        if (!confirm(`Remove skill "${id}"?`)) return
+    const removeSkill = async (id: string) => {
+        const ok = await confirm(t('modals.confirm.deleteSkill', { id }))
+        if (!ok) return
         const next = structuredClone(tree)
         delete next.Skills[id]
         upsertTree(next)
@@ -103,22 +116,22 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
     return (
         <section className="card" style={{display: 'grid', gap: 12}}>
             <div className="section-header">
-                <h3>Skills</h3>
+                <h3>{t('skills.title')}</h3>
                 <div className="inline" style={{position: 'relative'}}>
                     <DropdownPicker
                         options={availableOptions}
                         value={pending}
                         onChange={setPending}
-                        placeholder="(All skills added)"
-                        renderOption={(opt) => (<><SkillIcon id={opt as string} /><span>{opt}</span></>)}
+                        placeholder={t('skills.selectSkill')}
+                        renderOption={(opt) => (<><SkillIcon id={opt as string} /><span>{t(`skills:${opt}.label`, opt as string)}</span></>)}
                     />
                     <button className="btn" onClick={addSkill} disabled={!pending || availableOptions.length === 0}>
-                        ＋ Add Skill
+                        ＋ {t('skills.addSkill')}
                     </button>
                 </div>
             </div>
 
-            {existing.length === 0 && <p>No skills yet.</p>}
+            {existing.length === 0 && <p>{t('skills.noSkills')}</p>}
 
             {existing.map((id) => {
                 const hasError = skillErrors.has(id)
@@ -134,10 +147,10 @@ export default function SkillsPanel({tree}: { tree: SkilltreeFile }) {
                         <div className="section-header" style={{marginBottom: 6}}>
                             <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
                                 <SkillIcon id={id} />
-                                <strong style={{cursor: 'pointer'}} onClick={() => setSelectedSkill(prev => prev === id ? null : id)}>{id}</strong>
-                                {hasError && <ValidationIcon size={14} title="This skill has validation errors" />}
+                                <strong style={{cursor: 'pointer'}} onClick={() => setSelectedSkill(prev => prev === id ? null : id)}>{t(`skills:${id}.label`, id)}</strong>
+                                {hasError && <ValidationIcon size={14} title={t('validation.skillHasErrors')} />}
                             </div>
-                            <button className="btn btn--icon" onClick={() => removeSkill(id)}>🗑️</button>
+                            <button className="btn btn--icon" title={t('skills.removeSkill')} onClick={() => removeSkill(id)}>🗑️</button>
                         </div>
 
                         {isSelected && (

@@ -1,0 +1,190 @@
+{
+  "app": {
+    "title": "MyPet Skilltree Creator"
+  },
+  "actions": {
+    "import": "Import",
+    "export": "Export ZIP",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "add": "Add",
+    "remove": "Remove",
+    "edit": "Edit",
+    "close": "Close",
+    "ok": "OK",
+    "confirm": "Confirm",
+    "done": "Done",
+    "loadDefaults": "Load Defaults",
+    "chooseFiles": "Choose files",
+    "copyJson": "Copy JSON",
+    "download": "Download",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All"
+  },
+  "autosave": {
+    "saved": "Saved",
+    "savedAt": "Saved {{time}}",
+    "saving": "Autosaving…",
+    "pending": "Unsaved changes",
+    "justNow": "just now",
+    "secondsAgo": "{{s}}s ago",
+    "minutesAgo": "{{m}}m ago",
+    "hoursAgo": "{{h}}h ago"
+  },
+  "home": {
+    "title": "No skilltree selected",
+    "description": "Select a skilltree from the sidebar, or import .st.json files to get started.",
+    "loadDefaultsCta": "Load Defaults"
+  },
+  "sidebar": {
+    "title": "Skilltrees",
+    "newSkilltree": "New skilltree",
+    "order": "Order {{order}}",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "reorder": "Reorder",
+    "dragToReorder": "Drag to reorder"
+  },
+  "tabs": {
+    "properties": "Properties",
+    "appearance": "Appearance",
+    "eligiblePets": "Eligible Pets",
+    "requirements": "Requirements",
+    "notifications": "Notifications",
+    "skills": "Skills"
+  },
+  "properties": {
+    "id": "ID",
+    "idPlaceholder": "Combat",
+    "inheritance": "Inheritance",
+    "inheritancePlaceholder": "Select parent skilltree...",
+    "weight": "Weight",
+    "weightPlaceholder": "15",
+    "permission": "Permission",
+    "permissionPlaceholder": "mypet.skilltree.combat"
+  },
+  "appearance": {
+    "name": "Name",
+    "namePlaceholder": "Combat",
+    "iconMaterial": "Icon Material",
+    "iconMaterialPlaceholder": "stone_axe",
+    "glowing": "Glowing",
+    "description": "Description",
+    "descriptionPlaceholder": "A combat-focused skilltree...",
+    "viewJson": "View JSON",
+    "jsonPreview": "Preview of the selected skilltree as JSON."
+  },
+  "eligiblePets": {
+    "title": "Eligible Pets",
+    "none": "None",
+    "all": "All (*)",
+    "selected": "Selected",
+    "includeFutureMobs": "Include mobs from future Minecraft updates",
+    "allPetsNotice": "All Pets listed here, including Pets from future updates, will be eligible for this Skill.",
+    "noPetsNotice": "No Pets will be eligible for this Skill.",
+    "loading": "Loading latest Minecraft entities…",
+    "loadError": "Failed to load mob list from minecraft-data"
+  },
+  "requirements": {
+    "title": "Requirements",
+    "minLevel": "Minimum Pet Level",
+    "minLevelPlaceholder": "1",
+    "maxLevel": "Maximum Pet Level",
+    "maxLevelPlaceholder": "10",
+    "addRequirement": "Add Requirement",
+    "requirementType": "Requirement Type",
+    "permission": "Permission",
+    "skilltree": "Skilltree",
+    "noSkilltree": "No Skilltree",
+    "custom": "Custom",
+    "customKey": "Custom Key",
+    "customValue": "Custom Value",
+    "noRequirements": "There are no permission, Skilltree, or custom requirements for this Skilltree.",
+    "permissionPrefix": "MyPet.skilltree.",
+    "copyPermission": "Copy permission"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "addNotification": "Add Notification",
+    "message": "Message",
+    "messagePlaceholder": "{{owner}}'s pet {{pet}} has reached level {{level}}!"
+  },
+  "skills": {
+    "title": "Skills",
+    "addSkill": "Add Skill",
+    "selectSkill": "Select a skill...",
+    "noSkills": "No skills yet.",
+    "removeSkill": "Remove skill",
+    "addUpgrade": "Add Upgrade",
+    "editUpgrade": "Edit Upgrade",
+    "noUpgrades": "No upgrades yet.",
+    "level": "Level {{level}}",
+    "levels": "Levels",
+    "everyLevel": "Every level",
+    "everyNLevels": "Every {{n}} levels",
+    "everyNLevelsFrom": "Every {{n}} levels from level {{start}} onward",
+    "everyNLevelsBetween": "Every {{n}} levels between levels {{start}} and {{end}}",
+    "fixedLevels": "Level: {{levels}}",
+    "skillExists": "This skill already exists.",
+    "unknownSkill": "Unknown skill"
+  },
+  "levelModal": {
+    "title": "Select Levels",
+    "fixed": "Fixed",
+    "dynamic": "Dynamic",
+    "fixedHelp": "Enter one or more levels (space/comma separated)",
+    "every": "Every (required)",
+    "startFrom": "Start from level (optional)",
+    "until": "Until level (optional)"
+  },
+  "modals": {
+    "import": {
+      "title": "Import skilltrees",
+      "description": "Drop a .zip (multiple trees) or a single .st.json file.",
+      "dragHere": "Drag & drop files here",
+      "or": "or",
+      "reading": "Reading files…"
+    },
+    "confirm": {
+      "title": "Confirm",
+      "deleteTree": "Delete skilltree \"{{id}}\"?",
+      "deleteSkill": "Remove skill \"{{id}}\"?",
+      "loadDefaults": "This will replace your current skilltrees with the default examples and clear your local draft. Continue?"
+    },
+    "alert": {
+      "title": "Alert",
+      "importFailed": "Failed to import file(s).",
+      "exportBlocked": "Export blocked: {{count}} skilltree(s) have validation errors.\n\nInvalid trees: {{names}}\n\nPlease fix all validation errors before exporting.",
+      "noTreesToExport": "No skilltrees to export.",
+      "duplicateId": "A skilltree with that ID already exists.",
+      "loadDefaultsFailed": "Failed to load default examples",
+      "jsonCopied": "JSON copied to clipboard",
+      "jsonCopyFailed": "Failed to copy JSON"
+    }
+  },
+  "validation": {
+    "error": "Validation error",
+    "hasErrors": "This skilltree has validation errors",
+    "skillHasErrors": "This skill has validation errors",
+    "issueInSkill": "Validation issue in this skill. Expand to edit values."
+  },
+  "language": {
+    "select": "Select language",
+    "loading": "Loading translations..."
+  },
+  "tooltip": {
+    "breakdown": "Breakdown",
+    "total": "Total",
+    "goHome": "Go to home",
+    "allChangesSaved": "All changes saved",
+    "saveChanges": "Save changes",
+    "importFile": "Import .st.json",
+    "loadDefaults": "Load default example trees",
+    "exportZip": "Export all trees to a zip",
+    "delete": "Delete",
+    "openDocs": "Open MyPet documentation"
+  }
+}

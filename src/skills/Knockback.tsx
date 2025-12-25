@@ -21,6 +21,7 @@
   - Chance: percent chance to apply knockback (string "+n").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -32,12 +33,13 @@ const schema = z.object({
 })
 
 function KnockbackEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const chance = (value?.Chance as string) ?? ''
 
     const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', (value as any)?.Chance as string | undefined)
 
     return (
-        <label>Knockback Chance %
+        <label>{t('Knockback.fields.chance')}
             <div style={{display:'flex', alignItems:'center', gap:6}}>
                 <input
                     value={chance}

@@ -23,6 +23,7 @@
   - Projectile: projectile type (e.g., "Arrow", "Snowball").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -38,6 +39,7 @@ const schema = z.object({
 const commonProjectiles = ['Arrow', 'Snowball', 'SmallFireball', 'LlamaSpit']
 
 function RangedEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
 
     const damageData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Damage', v?.Damage, parsePlusFloat)
@@ -46,13 +48,13 @@ function RangedEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
     return (
         <div style={{display: 'grid', gap: 12}}>
             <div style={{display: 'flex', gap: 12}}>
-                <label>Damage
+                <label>{t('Ranged.fields.damage')}
                     <div style={{display:'flex', alignItems:'center', gap:6}}>
                         <input value={v.Damage ?? ''} onChange={e => onChange({...v, Damage: normalizeSignedInput(e.target.value)})}/>
                         <TotalWithBreakdown data={damageData} />
                     </div>
                 </label>
-                <label>Rate (cooldown or speed)
+                <label>{t('Ranged.fields.rate')}
                     <div style={{display:'flex', alignItems:'center', gap:6}}>
                         <input value={v.Rate ?? ''} onChange={e => onChange({...v, Rate: normalizeSignedInput(e.target.value)})}/>
                         <TotalWithBreakdown data={rateData} />
@@ -60,7 +62,7 @@ function RangedEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProp
                 </label>
             </div>
             <div>
-                <label>Projectile
+                <label>{t('Ranged.fields.projectile')}
                     <input
                         list="projectiles"
                         value={v.Projectile ?? ''}

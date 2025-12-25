@@ -25,6 +25,7 @@
   - Extensible for future tab validators
 */
 
+import { i18n } from '../../i18n/config'
 import { SKILL_REGISTRY } from '../../skills/core/registry'
 import type { SkilltreeFile } from '../types'
 
@@ -73,7 +74,7 @@ export function validateSkill(tree: SkilltreeFile, skillId: string): SkillValida
     if (!skillDef) {
         errors.push({
             path: `${tree.ID}/${skillId}`,
-            message: `Unknown skill: ${skillId}`
+            message: i18n.t('validation:errors.unknownSkill', { skillId })
         })
         return { skillId, errors }
     }
@@ -86,7 +87,7 @@ export function validateSkill(tree: SkilltreeFile, skillId: string): SkillValida
     if (upgradeEntries.length === 0) {
         errors.push({
             path: `${tree.ID}/${skillId}`,
-            message: 'Skill must have at least one upgrade'
+            message: i18n.t('validation:errors.noUpgrades')
         })
         return { skillId, errors }
     }
@@ -114,7 +115,7 @@ export function validateSkill(tree: SkilltreeFile, skillId: string): SkillValida
             if (!hasAnyField) {
                 errors.push({
                     path: `${tree.ID}/${skillId}/${level}`,
-                    message: 'At least one field must be provided for the first level'
+                    message: i18n.t('validation:errors.firstLevelRequired')
                 })
             }
         }
