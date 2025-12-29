@@ -119,7 +119,7 @@ export default function RichTextPreviewEditor({
   const styleButtons: { code: string; label: string }[] = [
     { code: '<bold>', label: 'Bold' },
     { code: '<italic>', label: 'Italic' },
-    { code: '<underlined>', label: 'Underline' },
+    { code: '<underline>', label: 'Underline' },
     { code: '<strikethrough>', label: 'Strike' },
     { code: '<reset>', label: 'Reset' },
   ]
