@@ -117,9 +117,9 @@ export default function RichTextPreviewEditor({
   const colorButtons = Object.entries(NAME_COLORS)
 
   const styleButtons: { code: string; label: string }[] = [
-    { code: '<bold>', label: 'Bold' },
-    { code: '<italic>', label: 'Italic' },
-    { code: '<underline>', label: 'Underline' },
+    { code: '<b>', label: 'Bold' },
+    { code: '<i>', label: 'Italic' },
+    { code: '<u>', label: 'Underline' },
     { code: '<strikethrough>', label: 'Strike' },
     { code: '<reset>', label: 'Reset' },
   ]
