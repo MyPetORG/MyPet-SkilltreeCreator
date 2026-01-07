@@ -112,7 +112,7 @@ export function effectIconUrl(effect: string): string {
  * Root base for all PrismarineJS minecraft-data JSON fetches.
  * We always use the refs/heads/master branch view and then select the latest "pc" subpath.
  */
-export const MCDATA_BASE = 'https://raw.githubusercontent.com/PrismarineJS/minecraft-data/refs/heads/master/data'
+export const MCDATA_BASE = 'https://raw.githubusercontent.com/atiweb/minecraft-data/refs/heads/support-1.21.11/data'
 
 // ---------------------------
 // Types (lightweight projections)
@@ -164,7 +164,7 @@ async function discoverLatestMinecraftDataVersion(): Promise<string | null> {
   // Object-shaped { "1.7": { ... }, "1.21.8": { proto: "pc/latest", version: "pc/1.21.8", ... } }
   if (pc && typeof pc === 'object' && !Array.isArray(pc)) {
     const entries = Object.entries(pc)
-    const found = entries.find(([, val]) => val && typeof val === 'object' && (val as any).proto === 'pc/latest')
+    const found = entries.findLast(([, val]) => val && typeof val === 'object' && (val as any).proto === 'pc/latest')
     if (found) {
       const val: any = found[1]
       const verPath: unknown = val.version ?? val.dir ?? val.id
