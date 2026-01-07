@@ -239,7 +239,7 @@ export class McData {
   }
 
   /** Entity types that correspond to MyPet-supported mob types */
-  private static readonly MOB_TYPES = new Set(['animal', 'hostile', 'mob', 'passive', 'ambient'])
+  private static readonly MOB_TYPES = new Set(['animal', 'hostile', 'mob', 'passive', 'ambient', 'water_creature'])
 
   /**
    * Get mobs with id, label, and spawn egg id.
