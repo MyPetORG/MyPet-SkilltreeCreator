@@ -19,7 +19,7 @@
 
   Fields
   - Damage: damage dealt per tick (string "+n" or "+n.n").
-  - Interval: seconds between damage applications (string "n", absolute value).
+  - Interval: seconds between damage applications (string "+n", cumulative).
   - Duration: total bleed duration in seconds (string "+n").
   - Chance: percent chance to apply bleed (string "+n").
 */
@@ -33,7 +33,7 @@ import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Damage: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
-    Interval: z.string().regex(/^\d+$/).optional(),
+    Interval: z.string().regex(/^\+?-?\d+$/).optional(),
     Duration: z.string().regex(/^\+?-?\d+$/).optional(),
     Chance: z.string().regex(/^\+?-?\d+$/).optional(),
 })
@@ -43,6 +43,7 @@ function BleedEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps
     const v = (value ?? {}) as any
 
     const damageData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Damage', v?.Damage, parsePlusFloat)
+    const intervalData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Interval', v?.Interval)
     const durationData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Duration', v?.Duration)
     const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
 
@@ -56,7 +57,8 @@ function BleedEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps
             </label>
             <label>{t('Bleed.fields.interval')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
-                    <input value={v.Interval ?? ''} onChange={e => onChange({...v, Interval: e.target.value.replace(/[^\d]/g, '')})}/>
+                    <input value={v.Interval ?? ''} onChange={e => onChange({...v, Interval: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={intervalData} suffix="s" />
                 </div>
             </label>
             <label>{t('Bleed.fields.duration')}
