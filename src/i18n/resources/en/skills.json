@@ -60,7 +60,8 @@
   "Heal": {
     "label": "Heal",
     "fields": {
-      "health": "Health (+X)"
+      "health": "Health (+X)",
+      "timer": "Timer (s)"
     }
   },
   "Knockback": {
