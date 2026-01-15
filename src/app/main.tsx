@@ -37,10 +37,10 @@ async function bootstrap() {
     // Initialize i18next (synchronous for English, which is bundled)
     await initI18n()
 
-    // Preload current language if not English (fire-and-forget)
+    // Load current language translations before rendering (blocks render)
     const currentLang = i18n.language
     if (currentLang && currentLang !== 'en') {
-        ResourceManager.preload(currentLang)
+        await ResourceManager.loadLanguageIntoI18n(currentLang)
     }
 
     // Kick off preloading of minecraft-data (effects, mobs) on page load
