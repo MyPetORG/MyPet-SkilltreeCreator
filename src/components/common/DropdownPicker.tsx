@@ -28,6 +28,7 @@
   - Consumers should provide surrounding labels as appropriate.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 /** Props for the DropdownPicker component */
 export type DropdownPickerProps = {
@@ -48,6 +49,7 @@ export type DropdownPickerProps = {
 
 /** Lightweight dropdown popover for picking from a list of strings. */
 export default function DropdownPicker({ options, value, onChange, placeholder, renderOption }: DropdownPickerProps) {
+  const { t } = useTranslation()
   const [open, setOpen] = React.useState(false)
   const ref = React.useRef<HTMLDivElement | null>(null)
 
@@ -71,13 +73,13 @@ export default function DropdownPicker({ options, value, onChange, placeholder, 
             {renderOption ? renderOption(label) : <span>{label}</span>}
           </>
         ) : (
-          <span>{placeholder ?? '(None)'}</span>
+          <span>{placeholder ?? t('common.none')}</span>
         )}
       </button>
       {open && (
         <div role="listbox" className="dropdown-picker__list" style={{position: 'absolute', zIndex: 10, top: 'calc(100% + 4px)', left: 0, minWidth: 220, background: 'var(--panel)', border: '2px solid var(--line)', borderRadius: 8, boxShadow: '0 6px 24px rgba(0,0,0,0.15)'}}>
           {options.length === 0 && (
-            <div style={{padding: 8, color: 'var(--muted)'}}>(No options)</div>
+            <div style={{padding: 8, color: 'var(--muted)'}}>{t('common.noOptions')}</div>
           )}
           {options.map(opt => (
             <div key={opt} role="option" aria-selected={opt===current} onClick={() => { onChange(opt); setOpen(false) }} className="dropdown-picker__option" style={{display:'flex', alignItems:'center', gap:8, padding:'6px 8px', cursor:'pointer'}}>

@@ -118,7 +118,7 @@ function AppContent() {
     // onCreate – create a basic empty tree quickly
     const onCreate = async () => {
         // Use native prompt for now (can be replaced with custom modal later)
-        const id = prompt('New skilltree ID (no spaces):', 'NewTree')?.trim()
+        const id = prompt(t('common.newSkilltreePrompt'), t('common.newSkilltreeDefault'))?.trim()
         if (!id) return
         if (trees.some(t => t.ID === id)) {
             await alert(t('modals.alert.duplicateId'))
@@ -184,15 +184,15 @@ function AppContent() {
                 onReorder={onReorder}
                 footerSlot={
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4}}>
-                        <small style={{opacity: 0.7}}>built with ❤️ by <a href="https://github.com/UserDerezzed" target="_blank" rel="noopener noreferrer" style={{color: 'inherit'}}>UserDerezzed</a></small>
+                        <small style={{opacity: 0.7}}>{t('footer.builtBy')} <a href="https://github.com/UserDerezzed" target="_blank" rel="noopener noreferrer" style={{color: 'inherit'}}>UserDerezzed</a></small>
                         <a
                             href="https://ko-fi.com/UserDerezzed"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn btn--tip"
-                            title="Support this project on Ko-fi"
+                            title={t('tooltip.tipOnKofi')}
                         >
-                            ☕ Tip
+                            {t('footer.tip')}
                         </a>
                     </div>
                 }

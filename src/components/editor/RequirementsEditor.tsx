@@ -188,7 +188,7 @@ export default function RequirementsEditor() {
                         onChange={e => {
                           const nextType = e.currentTarget.value as ReqKind
                           if (nextType === 'custom') {
-                            updateAt(idx, { type: 'custom', key: 'CustomName', value: '' })
+                            updateAt(idx, { type: 'custom', key: '', value: '' })
                           } else if (nextType === 'no-skilltree') {
                             updateAt(idx, { type: 'no-skilltree' })
                           } else {
@@ -233,7 +233,7 @@ export default function RequirementsEditor() {
                               className="input"
                               type="text"
                               value={suffix}
-                              placeholder="TestPermission"
+                              placeholder={t('requirements.permissionPlaceholder')}
                               onChange={e => {
                                 const nextSuffix = e.currentTarget.value
                                 const nextFull = PERM_PREFIX + nextSuffix.replace(/^MyPet\.skilltree\./i, '')
@@ -262,7 +262,7 @@ export default function RequirementsEditor() {
                             className="input"
                             type="text"
                             value={(it.key ?? '')}
-                            placeholder="CustomName"
+                            placeholder={t('requirements.customKeyPlaceholder')}
                             onChange={e => updateAt(idx, { ...it, key: e.currentTarget.value })}
                           />
                         </div>
@@ -272,7 +272,7 @@ export default function RequirementsEditor() {
                             className="input"
                             type="text"
                             value={(it.value ?? '')}
-                            placeholder="BoopBeep"
+                            placeholder={t('requirements.customValuePlaceholder')}
                             onChange={e => updateAt(idx, { ...it, value: e.currentTarget.value })}
                           />
                         </div>

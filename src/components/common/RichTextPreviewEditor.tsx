@@ -24,6 +24,7 @@
   - Optional transformPreview to substitute variables for previews
 */
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toHtmlLore, toHtmlChat, getPreviewModeClass, type DisplayMode } from '../../lib/minimessage'
 
 // Color map for named bracket tags
@@ -69,6 +70,7 @@ export default function RichTextPreviewEditor({
   transformPreview,
   displayMode = 'lore',
 }: RichTextPreviewEditorProps) {
+  const { t } = useTranslation()
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const [text, setText] = useState<string>(value)
   const isFocusedRef = useRef(false)
@@ -116,12 +118,12 @@ export default function RichTextPreviewEditor({
 
   const colorButtons = Object.entries(NAME_COLORS)
 
-  const styleButtons: { code: string; label: string }[] = [
-    { code: '<b>', label: 'Bold' },
-    { code: '<i>', label: 'Italic' },
-    { code: '<u>', label: 'Underline' },
-    { code: '<strikethrough>', label: 'Strike' },
-    { code: '<reset>', label: 'Reset' },
+  const styleButtons: { code: string; labelKey: keyof typeof import('../../i18n/resources/en/common.json')['richText'] }[] = [
+    { code: '<b>', labelKey: 'bold' },
+    { code: '<i>', labelKey: 'italic' },
+    { code: '<u>', labelKey: 'underline' },
+    { code: '<strikethrough>', labelKey: 'strikethrough' },
+    { code: '<reset>', labelKey: 'reset' },
   ]
 
   // TODO: Enable advanced MiniMessage buttons for MyPet v4
@@ -176,7 +178,7 @@ export default function RichTextPreviewEditor({
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' as const, width: '100%', marginTop: 6 }}>
             {styleButtons.map(b => (
               <button key={b.code} type="button" className="btn" onClick={() => insertAtCaret(b.code)}>
-                {b.label}
+                {t(`richText.${b.labelKey}`)}
               </button>
             ))}
           </div>
@@ -224,7 +226,7 @@ export default function RichTextPreviewEditor({
             setText(value)
             onBlur?.()
           }}
-          placeholder={placeholder ?? 'Enter MiniMessage text. Use toolbar to insert tags.'}
+          placeholder={placeholder ?? t('richText.placeholder')}
           dir="ltr"
           style={{ direction: 'ltr', unicodeBidi: 'plaintext', resize: 'none', width: '100%' }}
         />

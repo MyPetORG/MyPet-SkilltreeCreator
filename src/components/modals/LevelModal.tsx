@@ -120,7 +120,7 @@ export default function LevelModal({
                             <input
                                 autoFocus
                                 className="input"
-                                placeholder="e.g. 1 3 5 or 1,3,5"
+                                placeholder={t('levelModal.fixedPlaceholder')}
                                 value={levelsText}
                                 onChange={e => setLevelsText(e.target.value)}
                                 style={{ width: '100%' }}
