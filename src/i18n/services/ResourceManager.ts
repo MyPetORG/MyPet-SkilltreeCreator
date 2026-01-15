@@ -28,6 +28,19 @@ import { getBundledResources, getEnglishResources } from '../resources'
 import { CrowdinOTA } from './CrowdinOTA'
 import type { Resources } from '../types'
 
+/** Recursively count all leaf string values in a nested object (translation keys) */
+function countTranslationStrings(obj: Record<string, unknown>): number {
+  let count = 0
+  for (const value of Object.values(obj)) {
+    if (typeof value === 'string') {
+      count++
+    } else if (value && typeof value === 'object') {
+      count += countTranslationStrings(value as Record<string, unknown>)
+    }
+  }
+  return count
+}
+
 /**
  * ResourceManager orchestrates loading translations from various sources.
  * Follows the pattern: OTA → localStorage cache → bundled → English fallback
@@ -76,6 +89,14 @@ export class ResourceManager {
       i18n.addResourceBundle(lang, 'common', resources.common, true, true)
       i18n.addResourceBundle(lang, 'skills', resources.skills, true, true)
       i18n.addResourceBundle(lang, 'validation', resources.validation, true, true)
+
+      if (import.meta.env.DEV) {
+        const totalStrings =
+          countTranslationStrings(resources.common) +
+          countTranslationStrings(resources.skills) +
+          countTranslationStrings(resources.validation)
+        console.debug(`[i18n] Loaded language '${lang}' with ${totalStrings} translation strings`)
+      }
 
       return true
     } catch (error) {

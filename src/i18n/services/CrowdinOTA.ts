@@ -35,23 +35,6 @@ import type { Resources } from '../types'
 const CACHE_PREFIX = 'mypet-skilltree-creator/v1/i18n-cache/'
 const LANGUAGES_CACHE_KEY = 'mypet-skilltree-creator/v1/i18n-languages'
 const LANGUAGES_CACHE_TTL_MS = 60 * 60 * 1000 // 1 hour for language list
-
-/**
- * Set a nested value in an object using dot-notation key.
- * Example: setNestedValue(obj, 'foo.bar.baz', 'value') sets obj.foo.bar.baz = 'value'
- */
-function setNestedValue(obj: Record<string, unknown>, path: string, value: unknown): void {
-  const parts = path.split('.')
-  let current: Record<string, unknown> = obj
-  for (let i = 0; i < parts.length - 1; i++) {
-    const part = parts[i]
-    if (!(part in current) || typeof current[part] !== 'object') {
-      current[part] = {}
-    }
-    current = current[part] as Record<string, unknown>
-  }
-  current[parts[parts.length - 1]] = value
-}
 const CACHE_VERSION = 1
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 
@@ -230,35 +213,32 @@ export class CrowdinOTA {
     }
 
     try {
-      // Fetch all namespace files for this language
-      // Note: The OTA client returns all strings; we filter by file pattern
-      const strings = await client.getStringsByLocale(lang)
+      // Fetch all translations for the language (returns array of { file, content })
+      const translations = await client.getLanguageTranslations(lang)
 
-      // Parse strings into namespace buckets
-      const common: Record<string, unknown> = {}
-      const skills: Record<string, unknown> = {}
-      const validation: Record<string, unknown> = {}
+      if (import.meta.env.DEV) {
+        console.debug(`[i18n] Crowdin returned ${translations.length} files for '${lang}':`,
+          translations.map(t => ({ file: t.file, contentType: typeof t.content, keys: t.content ? Object.keys(t.content).slice(0, 5) : [] })))
+      }
 
-      // OTA returns flat key-value pairs; we reconstruct nested structure
-      // For now, use a simpler approach: just return the strings as-is
-      // and handle namespace separation at the file level
-      Object.entries(strings || {}).forEach(([key, value]) => {
-        if (key.startsWith('common.')) {
-          const nestedKey = key.slice('common.'.length)
-          setNestedValue(common, nestedKey, value)
-        } else if (key.startsWith('skills.')) {
-          const nestedKey = key.slice('skills.'.length)
-          setNestedValue(skills, nestedKey, value)
-        } else if (key.startsWith('validation.')) {
-          const nestedKey = key.slice('validation.'.length)
-          setNestedValue(validation, nestedKey, value)
-        }
-      })
-
+      // Parse file translations into namespace buckets
       const resources: Resources = {
-        common: common as Record<string, unknown>,
-        skills: skills as Record<string, unknown>,
-        validation: validation as Record<string, unknown>,
+        common: {},
+        skills: {},
+        validation: {},
+      }
+
+      for (const { file, content } of translations) {
+        if (!content || typeof content !== 'object') continue
+
+        // Match by filename (path format: /content/{lang}/{namespace}.json)
+        if (file.endsWith('/common.json')) {
+          resources.common = content
+        } else if (file.endsWith('/skills.json')) {
+          resources.skills = content
+        } else if (file.endsWith('/validation.json')) {
+          resources.validation = content
+        }
       }
 
       // Cache the results
