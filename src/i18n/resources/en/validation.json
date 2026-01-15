@@ -11,6 +11,10 @@
     "invalidPlusNumber": "{{field}} must be a signed number (e.g., +1 or +0.5)",
     "minValue": "{{field}} must be at least {{min}}",
     "maxValue": "{{field}} must be at most {{max}}",
-    "requiredField": "{{field}} is required"
+    "requiredField": "{{field}} is required",
+    "emptyRequirementKey": "Custom requirement key cannot be empty",
+    "emptyRequirementValue": "Custom requirement value cannot be empty",
+    "emptySkilltreeRequirement": "Skilltree requirement must have a skilltree selected",
+    "emptyPermissionRequirement": "Permission requirement cannot be empty"
   }
 }

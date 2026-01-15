@@ -49,14 +49,14 @@ function parseReq(raw: string): ReqItem {
   if (/^NoSkilltree$/i.test(trimmed)) {
     return { type: 'no-skilltree' }
   }
-  const m = /^\s*([A-Za-z]+)\s*:\s*(.*)$/.exec(trimmed)
+  const m = /^\s*([A-Za-z]*)\s*:\s*(.*)$/.exec(trimmed)
   if (m) {
     const keyRaw = m[1]
     const key = keyRaw.toLowerCase()
     const val = m[2]
     if (key === 'permission') return { type: 'permission', value: val }
     if (key === 'skilltree' || key === 'skilltrees') return { type: 'skilltree', value: val }
-    // unknown key → custom
+    // unknown key (including empty) → custom
     return { type: 'custom', key: keyRaw, value: val }
   }
   // Fallback: treat as skilltree id
