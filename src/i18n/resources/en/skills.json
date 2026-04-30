@@ -108,6 +108,7 @@
   "Ride": {
     "label": "Ride",
     "fields": {
+      "active": "Active",
       "speed": "Speed",
       "jumpHeight": "Jump Height",
       "canFly": "Can Fly"
