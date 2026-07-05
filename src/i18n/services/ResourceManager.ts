@@ -96,6 +96,9 @@ export class ResourceManager {
           countTranslationStrings(resources.skills) +
           countTranslationStrings(resources.validation)
         console.debug(`[i18n] Loaded language '${lang}' with ${totalStrings} translation strings`)
+        console.debug(`[i18n] i18next current language:`, i18n.language)
+        console.debug(`[i18n] i18next has ${lang} resources:`, i18n.hasResourceBundle(lang, 'common'))
+        console.debug(`[i18n] Sample translation test:`, i18n.t('app.title', { lng: lang }))
       }
 
       return true

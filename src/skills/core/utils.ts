@@ -229,6 +229,43 @@ function humanizeLevelKey(level: string): string {
     return text
 }
 
+/**
+ * Returns the value of a boolean field as inherited from upgrades that strictly
+ * precede the given upgrade (by first-level), excluding the upgrade itself.
+ *
+ * Mirrors the plugin's "last-set wins" modifier semantics for boolean fields like
+ * Ride's `Active`: once any earlier upgrade sets it, later upgrades inherit that
+ * value until something explicitly overrides it. Returns false when no preceding
+ * upgrade sets the field.
+ */
+export function inheritedBooleanField(
+    treeId: string,
+    skillId: string,
+    upgradeKey: string,
+    field: string,
+): boolean {
+    const state = useStore.getState()
+    const tree = state.trees.find(t => t.ID === treeId)
+    const upgrades = tree?.Skills?.[skillId]?.Upgrades ?? {}
+
+    const myFirstLevel = getFirstLevel(upgradeKey)
+
+    const sortedEntries = Object.entries(upgrades).sort(
+        ([a], [b]) => getFirstLevel(a) - getFirstLevel(b)
+    )
+
+    let inherited = false
+    for (const [k, val] of sortedEntries) {
+        if (k === upgradeKey) continue
+        if (getFirstLevel(k) >= myFirstLevel) continue
+        const fieldVal = (val as any)?.[field]
+        if (typeof fieldVal === 'boolean') {
+            inherited = fieldVal
+        }
+    }
+    return inherited
+}
+
 export function sumUpgradesForField(
     treeId: string,
     skillId: string,

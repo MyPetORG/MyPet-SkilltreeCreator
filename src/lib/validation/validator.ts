@@ -125,6 +125,62 @@ export function validateSkill(tree: SkilltreeFile, skillId: string): SkillValida
 }
 
 /**
+ * Validates requirements for a skilltree.
+ * Checks that all requirement types have valid values.
+ */
+export function validateRequirements(tree: SkilltreeFile): ValidationError[] {
+    const errors: ValidationError[] = []
+    const requirements = tree.Requirements ?? []
+
+    for (let i = 0; i < requirements.length; i++) {
+        const req = requirements[i]
+
+        // Skip NoSkilltree - no value needed
+        if (/^noskilltree$/i.test(req.trim())) continue
+
+        const match = /^([^:]*):(.*)$/.exec(req)
+        if (match) {
+            const key = match[1].trim().toLowerCase()
+            const value = match[2].trim()
+
+            if (key === 'skilltree' || key === 'skilltrees') {
+                // Skilltree requirement - must have a skilltree selected
+                if (value === '') {
+                    errors.push({
+                        path: `${tree.ID}/requirements/${i}`,
+                        message: i18n.t('validation:errors.emptySkilltreeRequirement')
+                    })
+                }
+            } else if (key === 'permission') {
+                // Permission requirement - must have a permission value
+                if (value === '' || value === 'MyPet.skilltree.') {
+                    errors.push({
+                        path: `${tree.ID}/requirements/${i}`,
+                        message: i18n.t('validation:errors.emptyPermissionRequirement')
+                    })
+                }
+            } else {
+                // Custom requirement - validate key and value are non-empty
+                if (match[1].trim() === '') {
+                    errors.push({
+                        path: `${tree.ID}/requirements/${i}`,
+                        message: i18n.t('validation:errors.emptyRequirementKey')
+                    })
+                }
+                if (value === '') {
+                    errors.push({
+                        path: `${tree.ID}/requirements/${i}`,
+                        message: i18n.t('validation:errors.emptyRequirementValue')
+                    })
+                }
+            }
+        }
+    }
+
+    return errors
+}
+
+/**
  * Validates an entire skilltree.
  * Returns structured validation result with per-skill and per-tab breakdown.
  */
@@ -139,15 +195,19 @@ export function validateTree(tree: SkilltreeFile): TreeValidation {
         allErrors.push(...skillValidation.errors)
     }
 
+    // Validate requirements
+    const requirementErrors = validateRequirements(tree)
+    allErrors.push(...requirementErrors)
+
     // Determine which tabs have errors
-    // Currently only 'skills' tab has validation, but infrastructure is ready for future tabs
     const hasSkillErrors = skills.some(s => s.errors.length > 0)
+    const hasRequirementErrors = requirementErrors.length > 0
 
     const tabs: Record<TabName, boolean> = {
         properties: false,      // Future: validate ID, weight, etc.
         appearance: false,      // Future: validate name, icon, etc.
         eligible: false,        // Future: validate mob types
-        requirements: false,    // Future: validate level bounds, permissions
+        requirements: hasRequirementErrors,
         notifications: false,   // Future: validate notification format
         skills: hasSkillErrors
     }

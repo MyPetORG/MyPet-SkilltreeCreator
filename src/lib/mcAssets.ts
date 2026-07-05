@@ -22,7 +22,7 @@
     1) mcasset.cloud (textures/models) — used for images like item textures and effect icons
        Base: https://assets.mcasset.cloud/latest/
     2) PrismarineJS minecraft-data (JSON) — used for game data such as effects and entities
-       Base: https://raw.githubusercontent.com/PrismarineJS/minecraft-data/refs/heads/master/data
+       Base: https://raw.githubusercontent.com/mneuhaus/minecraft-data/refs/heads/pc_26_1_2/data
 
   Organization
   - Section A: mcasset.cloud (assets) helpers and utilities are grouped together.
@@ -110,9 +110,10 @@ export function effectIconUrl(effect: string): string {
 
 /**
  * Root base for all PrismarineJS minecraft-data JSON fetches.
- * We always use the refs/heads/master branch view and then select the latest "pc" subpath.
+ * Points at the mneuhaus fork's pc_26_1_2 branch, which carries 1.21.x data not yet
+ * in upstream PrismarineJS. Latest "pc" subpath is discovered via dataPaths.json.
  */
-export const MCDATA_BASE = 'https://raw.githubusercontent.com/atiweb/minecraft-data/refs/heads/support-1.21.11/data'
+export const MCDATA_BASE = 'https://raw.githubusercontent.com/mneuhaus/minecraft-data/refs/heads/pc_26_1_2/data'
 
 // ---------------------------
 // Types (lightweight projections)
@@ -140,40 +141,43 @@ async function fetchJson<T>(url: string): Promise<T | null> {
 // ---------------------------
 // Latest version discovery (minecraft-data)
 // ---------------------------
+type PcLatestPaths = Record<string, string>
+
 /**
- * Discover the latest minecraft-data PC version base URL by reading dataPaths.json
- * and choosing the entry that reports proto === 'pc/latest'.
+ * Discover the latest minecraft-data PC paths by reading dataPaths.json and
+ * returning the paths object for the entry whose `proto === 'pc/latest'`.
  *
- * The structure of dataPaths.json can be object-shaped for `pc`:
- *   {
- *     pc: {
- *       "1.21.7": { version: "pc/1.21.7", proto: "pc/1.21" },
- *       "1.21.8": { version: "pc/1.21.8", proto: "pc/latest" }
- *     }
- *   }
+ * Per-file paths matter: a fork may set `version: "pc/26.1.2"` while still
+ * pointing `entities`/`effects` at an older directory like `"pc/1.21.11"`.
+ * Callers must look up the directory per feature, not assume a shared base.
  *
- * Returns a URL like:
- *   `${MCDATA_BASE}/pc/1.21.8/`
- * or null if it cannot be determined.
+ * Example pc/latest entry:
+ *   { version: "pc/26.1.2", entities: "pc/1.21.11", effects: "pc/1.21.11", proto: "pc/latest", ... }
  */
-async function discoverLatestMinecraftDataVersion(): Promise<string | null> {
+async function discoverLatestPcPaths(): Promise<PcLatestPaths | null> {
   const dp = await fetchJson<any>(`${MCDATA_BASE}/dataPaths.json`)
   if (!dp) return null
 
   const pc = dp.pc
-  // Object-shaped { "1.7": { ... }, "1.21.8": { proto: "pc/latest", version: "pc/1.21.8", ... } }
   if (pc && typeof pc === 'object' && !Array.isArray(pc)) {
     const entries = Object.entries(pc)
     const found = entries.findLast(([, val]) => val && typeof val === 'object' && (val as any).proto === 'pc/latest')
-    if (found) {
-      const val: any = found[1]
-      const verPath: unknown = val.version ?? val.dir ?? val.id
-      if (typeof verPath === 'string' && verPath) {
-        return verPath.startsWith('pc/') ? `${MCDATA_BASE}/${verPath}/` : `${MCDATA_BASE}/pc/${verPath}/`
-      }
+    if (found && typeof found[1] === 'object' && found[1] !== null) {
+      return found[1] as PcLatestPaths
     }
   }
   return null
+}
+
+/**
+ * Build the URL for a feature JSON (e.g., 'entities', 'effects') from a pc/latest paths object.
+ * Returns null if the feature is not listed.
+ */
+function pcFeatureUrl(paths: PcLatestPaths, feature: string): string | null {
+  const sub = paths[feature]
+  if (typeof sub !== 'string' || !sub) return null
+  const norm = sub.startsWith('pc/') ? sub : `pc/${sub}`
+  return `${MCDATA_BASE}/${norm}/${feature}.json`
 }
 
 // ---------------------------
@@ -218,9 +222,10 @@ export class McData {
     if (this.effectsLoading) return await this.effectsLoading
 
     this.effectsLoading = (async () => {
-      const base = await discoverLatestMinecraftDataVersion()
-      if (!base) return null
-      const url = `${base}effects.json`
+      const paths = await discoverLatestPcPaths()
+      if (!paths) return null
+      const url = pcFeatureUrl(paths, 'effects')
+      if (!url) return null
       const effects = await fetchJson<McEffect[]>(url)
       if (!effects || !Array.isArray(effects)) return null
 
@@ -250,10 +255,13 @@ export class McData {
     console.log('Loading mobs')
 
     this.mobsLoading = (async () => {
-      const base = await discoverLatestMinecraftDataVersion()
-      if (!base) console.warn('Failed to discover latest minecraft-data version')
-
-      const url = `${base}entities.json`
+      const paths = await discoverLatestPcPaths()
+      if (!paths) {
+        console.warn('Failed to discover latest minecraft-data version')
+        return null
+      }
+      const url = pcFeatureUrl(paths, 'entities')
+      if (!url) return null
       const entities = await fetchJson<McEntityRaw[]>(url)
       if (!entities || !Array.isArray(entities)) return null
 

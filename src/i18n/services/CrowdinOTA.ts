@@ -42,6 +42,8 @@ const CACHE_TTL_MS = 24 * 60 * 60 * 1000 // 24 hours
 interface CacheEntry {
   version: number
   timestamp: number
+  /** Crowdin manifest timestamp when this cache was created */
+  manifestTimestamp?: number
   resources: Resources
 }
 
@@ -60,6 +62,7 @@ export class CrowdinOTA {
   private static client: OtaClient | null = null
   private static memoryCache = new Map<string, Resources>()
   private static languagesCache: string[] | null = null
+  private static manifestTimestamp: number | null = null
 
   /**
    * Get or create Crowdin OTA client.
@@ -178,8 +181,28 @@ export class CrowdinOTA {
   }
 
   /**
+   * Get the current Crowdin manifest timestamp.
+   * Cached in memory for the session.
+   */
+  private static async getManifestTimestamp(): Promise<number | null> {
+    if (this.manifestTimestamp !== null) {
+      return this.manifestTimestamp
+    }
+
+    const client = this.getClient()
+    if (!client) return null
+
+    try {
+      this.manifestTimestamp = await client.getManifestTimestamp()
+      return this.manifestTimestamp
+    } catch {
+      return null
+    }
+  }
+
+  /**
    * Load translations for a language from Crowdin OTA.
-   * Uses in-memory cache → localStorage cache → network fetch.
+   * Uses in-memory cache → localStorage cache (with manifest check) → network fetch.
    * Returns null on failure (caller should fall back to English).
    */
   static async loadLanguage(lang: string): Promise<Resources | null> {
@@ -189,21 +212,24 @@ export class CrowdinOTA {
       return memoryCached
     }
 
-    // Check localStorage cache
-    const localCached = this.getFromCache(lang)
+    // Get current manifest timestamp to validate cache freshness
+    const currentManifest = await this.getManifestTimestamp()
+
+    // Check localStorage cache (validates against manifest timestamp)
+    const localCached = this.getFromCache(lang, false, currentManifest)
     if (localCached) {
       this.memoryCache.set(lang, localCached)
       return localCached
     }
 
     // Fetch from Crowdin OTA
-    return this.fetchFromCrowdin(lang)
+    return this.fetchFromCrowdin(lang, currentManifest)
   }
 
   /**
    * Fetch translations from Crowdin OTA CDN.
    */
-  private static async fetchFromCrowdin(lang: string): Promise<Resources | null> {
+  private static async fetchFromCrowdin(lang: string, manifestTimestamp?: number | null): Promise<Resources | null> {
     const client = this.getClient()
     if (!client) {
       if (import.meta.env.DEV) {
@@ -242,7 +268,7 @@ export class CrowdinOTA {
       }
 
       // Cache the results
-      this.saveToCache(lang, resources)
+      this.saveToCache(lang, resources, manifestTimestamp)
       this.memoryCache.set(lang, resources)
 
       if (import.meta.env.DEV) {
@@ -267,9 +293,9 @@ export class CrowdinOTA {
 
   /**
    * Get translations from localStorage cache.
-   * Returns null if cache is missing, expired, or invalid.
+   * Returns null if cache is missing, expired, stale, or invalid.
    */
-  private static getFromCache(lang: string, ignoreExpiry = false): Resources | null {
+  private static getFromCache(lang: string, ignoreExpiry = false, currentManifest?: number | null): Resources | null {
     try {
       const key = `${CACHE_PREFIX}${lang}`
       const stored = localStorage.getItem(key)
@@ -281,6 +307,18 @@ export class CrowdinOTA {
       if (entry.version !== CACHE_VERSION) {
         this.clearCacheForLanguage(lang)
         return null
+      }
+
+      // Check if Crowdin has newer translations (manifest timestamp is newer than cache)
+      // Also invalidate if cache has no manifest timestamp (old cache format)
+      if (currentManifest) {
+        if (!entry.manifestTimestamp || currentManifest > entry.manifestTimestamp) {
+          if (import.meta.env.DEV) {
+            console.debug(`[i18n] Cache for '${lang}' is stale (manifest: ${currentManifest}, cached: ${entry.manifestTimestamp ?? 'none'})`)
+          }
+          this.clearCacheForLanguage(lang)
+          return null
+        }
       }
 
       // Check expiry (unless ignoring for fallback)
@@ -300,12 +338,13 @@ export class CrowdinOTA {
   /**
    * Save translations to localStorage cache.
    */
-  private static saveToCache(lang: string, resources: Resources): void {
+  private static saveToCache(lang: string, resources: Resources, manifestTimestamp?: number | null): void {
     try {
       const key = `${CACHE_PREFIX}${lang}`
       const entry: CacheEntry = {
         version: CACHE_VERSION,
         timestamp: Date.now(),
+        manifestTimestamp: manifestTimestamp ?? undefined,
         resources,
       }
       localStorage.setItem(key, JSON.stringify(entry))
