@@ -18,6 +18,7 @@
   Ride.tsx — Skill definition and editor for ride speed/jump/fly modifiers.
 
   Fields
+  - Active: boolean flag enabling the ride skill; defaults to false in the plugin, so at least one upgrade must set it true.
   - Speed: movement speed modifier (string "+n" or "+n.n").
   - JumpHeight: jump strength modifier (string "+n" or "+n.n").
   - CanFly: boolean flag enabling flight capability.
@@ -27,10 +28,11 @@ import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown, parsePlusFloat} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown, parsePlusFloat, inheritedBooleanField} from './core/utils'
 import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
+    Active: z.boolean().optional(),
     Speed: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
     JumpHeight: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
     CanFly: z.boolean().optional(),
@@ -42,6 +44,9 @@ function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
 
     const speedData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Speed', v?.Speed, parsePlusFloat)
     const jumpData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'JumpHeight', v?.JumpHeight, parsePlusFloat)
+
+    const inheritedActive = inheritedBooleanField(treeId, skillId, upgradeKey, 'Active')
+    const effectiveActive = typeof v.Active === 'boolean' ? v.Active : inheritedActive
 
     const handleChange = (field: string, val: string | boolean) => {
         const updated = {...v, [field]: field === 'CanFly' ? val : normalizeSignedInput(val as string)}
@@ -56,8 +61,28 @@ function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
         onChange(updated)
     }
 
+    const handleActiveChange = (checked: boolean) => {
+        const updated = {...v}
+        // Only persist Active when it differs from what would be inherited from
+        // earlier upgrades; otherwise omit so the JSON stays minimal and tracks
+        // the inherited state automatically.
+        if (checked === inheritedActive) {
+            delete updated.Active
+        } else {
+            updated.Active = checked
+        }
+        onChange(updated)
+    }
+
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
+            <label>
+                <input
+                    type="checkbox"
+                    checked={effectiveActive}
+                    onChange={(e) => handleActiveChange(e.target.checked)}
+                /> {t('Ride.fields.active')}
+            </label>
             <label>{t('Ride.fields.speed')}
                 <div style={{display:'flex', alignItems:'center', gap:6}}>
                     <input

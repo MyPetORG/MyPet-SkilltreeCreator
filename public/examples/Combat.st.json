@@ -50,6 +50,7 @@
     "Heal": {
       "Upgrades": {
         "2": {
+          "Timer": "+1",
           "Health": "+1"
         }
       }

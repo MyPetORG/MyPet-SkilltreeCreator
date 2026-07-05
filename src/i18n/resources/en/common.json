@@ -97,11 +97,14 @@
     "addRequirement": "Add Requirement",
     "requirementType": "Requirement Type",
     "permission": "Permission",
+    "permissionPlaceholder": "TestPermission",
     "skilltree": "Skilltree",
     "noSkilltree": "No Skilltree",
     "custom": "Custom",
     "customKey": "Custom Key",
+    "customKeyPlaceholder": "CustomName",
     "customValue": "Custom Value",
+    "customValuePlaceholder": "BoopBeep",
     "noRequirements": "There are no permission, Skilltree, or custom requirements for this Skilltree.",
     "permissionPrefix": "MyPet.skilltree.",
     "copyPermission": "Copy permission"
@@ -136,6 +139,7 @@
     "fixed": "Fixed",
     "dynamic": "Dynamic",
     "fixedHelp": "Enter one or more levels (space/comma separated)",
+    "fixedPlaceholder": "e.g. 1 3 5 or 1,3,5",
     "every": "Every (required)",
     "startFrom": "Start from level (optional)",
     "until": "Until level (optional)"
@@ -185,6 +189,27 @@
     "loadDefaults": "Load default example trees",
     "exportZip": "Export all trees to a zip",
     "delete": "Delete",
-    "openDocs": "Open MyPet documentation"
+    "openDocs": "Open MyPet documentation",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "tipOnKofi": "Support this project on Ko-fi"
+  },
+  "footer": {
+    "builtBy": "built with ❤️ by",
+    "tip": "☕ Tip"
+  },
+  "richText": {
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strikethrough": "Strike",
+    "reset": "Reset",
+    "placeholder": "Enter MiniMessage text. Use toolbar to insert tags."
+  },
+  "common": {
+    "none": "(None)",
+    "noOptions": "(No options)",
+    "newSkilltreePrompt": "New skilltree ID (no spaces):",
+    "newSkilltreeDefault": "NewTree"
   }
 }
