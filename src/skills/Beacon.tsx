@@ -28,10 +28,13 @@
     back to a small default list when offline.
 */
 import React, {useEffect, useState} from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {sumUpgradesForFieldWithBreakdown} from './core/utils'
 import DropdownPicker from '../components/common/DropdownPicker'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 import { McData } from '../lib/mcAssets'
 import { effectIconUrl } from '../lib/mcAssets'
 
@@ -50,7 +53,7 @@ const beaconSchema = z.object({
     Duration: z.string().regex(/^\+?-?\d+$/).optional(),
     Range: z.string().regex(/^\+?-?\d+$/).optional(),
     Count: z.string().regex(/^\+?-?\d+$/).optional(),
-    Buffs: z.record(z.union([z.boolean(), z.string().regex(/^\+?-?\d+$/)])).optional(),
+    Buffs: z.record(z.string(), z.union([z.boolean(), z.string().regex(/^\+?-?\d+$/)])).optional(),
 })
 
 function BeaconEffectIcon({effect}: { effect: string }) {
@@ -71,12 +74,17 @@ function BeaconEffectIcon({effect}: { effect: string }) {
 }
 
 
-function BeaconEditor({value, onChange}: EditorProps) {
+function BeaconEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
     const buffs: Record<string, boolean | string> = v.Buffs ?? {}
     const [buffKey, setBuffKey] = useState('')
     const [buffVal, setBuffVal] = useState('true') // 'true' | '+1' | '+0'
     const [effects, setEffects] = useState<string[]>(DEFAULT_BEACON_EFFECTS)
+
+    const durationData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Duration', v?.Duration)
+    const rangeData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Range', v?.Range)
+    const countData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Count', v?.Count)
 
     useEffect(() => {
         let cancelled = false
@@ -122,33 +130,42 @@ function BeaconEditor({value, onChange}: EditorProps) {
     return (
         <div style={{display: 'grid', gap: 12}}>
             <div style={{display: 'flex', gap: 12}}>
-                <label>Duration (s)
-                    <input
-                        placeholder="+8"
-                        value={v.Duration ?? ''}
-                        onChange={e => setField('Duration', e.target.value)}
-                    />
+                <label>{t('Beacon.fields.duration')}
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input
+                            placeholder="+8"
+                            value={v.Duration ?? ''}
+                            onChange={e => setField('Duration', e.target.value)}
+                        />
+                        <TotalWithBreakdown data={durationData} suffix="s" />
+                    </div>
                 </label>
-                <label>Range (blocks)
-                    <input
-                        placeholder="+5"
-                        value={v.Range ?? ''}
-                        onChange={e => setField('Range', e.target.value)}
-                    />
+                <label>{t('Beacon.fields.range')}
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input
+                            placeholder="+5"
+                            value={v.Range ?? ''}
+                            onChange={e => setField('Range', e.target.value)}
+                        />
+                        <TotalWithBreakdown data={rangeData} />
+                    </div>
                 </label>
-                <label>Count (simultaneous buffs)
-                    <input
-                        placeholder="+1"
-                        value={v.Count ?? ''}
-                        onChange={e => setField('Count', e.target.value)}
-                    />
+                <label>{t('Beacon.fields.count')}
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input
+                            placeholder="+1"
+                            value={v.Count ?? ''}
+                            onChange={e => setField('Count', e.target.value)}
+                        />
+                        <TotalWithBreakdown data={countData} />
+                    </div>
                 </label>
             </div>
 
             <div>
-                <b>Buffs</b>
+                <b>{t('Beacon.fields.buffs')}</b>
                 <div style={{marginTop: 6}}>
-                    {Object.keys(buffs).length === 0 && <div style={{color: '#666'}}>No buffs yet.</div>}
+                    {Object.keys(buffs).length === 0 && <div style={{color: 'var(--muted)'}}>{t('Beacon.fields.noBuffs')}</div>}
                     {Object.entries(buffs).map(([k, val]) => (
                         <div key={k} style={{display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6}}>
                             <BeaconEffectIcon effect={k} />
@@ -168,17 +185,17 @@ function BeaconEditor({value, onChange}: EditorProps) {
                         options={effects.filter(e => !(e.replace(/\s+/g, '') in buffs))}
                         value={buffKey}
                         onChange={setBuffKey}
-                        placeholder="(All effects added)"
+                        placeholder={t('Beacon.fields.allEffectsAdded')}
                         renderOption={(opt) => (<><BeaconEffectIcon effect={opt as string} /><span>{opt}</span></>)}
                     />
                     <input
-                        placeholder="true or +1"
+                        placeholder={t('Beacon.fields.buffPlaceholder')}
                         value={buffVal}
                         onChange={e => setBuffVal(e.target.value)}
                         style={{width: 120}}
                         title={'true to enable base level; or +N to raise amplifier'}
                     />
-                    <button className="btn" onClick={addBuff} disabled={!buffKey}>Add buff</button>
+                    <button className="btn" onClick={addBuff} disabled={!buffKey}>{t('Beacon.fields.addBuff')}</button>
                 </div>
             </div>
         </div>

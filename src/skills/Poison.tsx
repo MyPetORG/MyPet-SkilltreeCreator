@@ -22,25 +22,38 @@
   - Duration: poison duration in seconds (string "+n").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Chance: z.string().regex(/^\+?-?\d+$/).optional(),
     Duration: z.string().regex(/^\+?-?\d+$/).optional(),
 })
 
-function PoisonEditor({value, onChange}: EditorProps) {
-    const v = value ?? {}
+function PoisonEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
+    const v = (value ?? {}) as any
+
+    const chanceData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Chance', v?.Chance)
+    const durationData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Duration', v?.Duration)
+
     return (
         <div style={{display: 'flex', gap: 12}}>
-            <label>Chance %
-                <input value={(v as any).Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
+            <label>{t('Poison.fields.chance')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Chance ?? ''} onChange={e => onChange({...v, Chance: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={chanceData} suffix="%" />
+                </div>
             </label>
-            <label>Duration (s)
-                <input value={(v as any).Duration ?? ''} onChange={e => onChange({...v, Duration: normalizeSignedInput(e.target.value)})}/>
+            <label>{t('Poison.fields.duration')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input value={v.Duration ?? ''} onChange={e => onChange({...v, Duration: normalizeSignedInput(e.target.value)})}/>
+                    <TotalWithBreakdown data={durationData} suffix="s" />
+                </div>
             </label>
         </div>
     )

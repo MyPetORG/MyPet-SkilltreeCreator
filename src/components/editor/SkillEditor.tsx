@@ -24,36 +24,58 @@
   - For cumulative skills (e.g., Damage, Heal, etc.), enforces that the first
     upgrade defines at least one field.
 */
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
+import { useTranslation } from 'react-i18next'
 import {SKILL_REGISTRY} from '../../skills/core/registry'
 import {useStore} from '../../state/store'
+import { validateSkill } from '../../lib/validation'
+import { getFirstLevel } from '../../skills/core/utils'
 import type {SkilltreeFile} from '../../lib/types'
 import LevelModal, { LevelSelection } from '../modals/LevelModal'
 
+/**
+ * Sort an Upgrades object by the first applicable level of each key.
+ * Returns a new object with keys in sorted order.
+ */
+function sortUpgradesByLevel<T>(upgrades: Record<string, T>): Record<string, T> {
+    const entries = Object.entries(upgrades)
+    entries.sort(([a], [b]) => getFirstLevel(a) - getFirstLevel(b))
+    return Object.fromEntries(entries)
+}
+
 /** Convert a level key into a human-friendly description used in the UI. */
-function humanizeLevel(level: string): string {
+function humanizeLevel(level: string, translate: ReturnType<typeof useTranslation>['t']): React.ReactNode {
     // Fixed numeric level
-    if (/^\d+$/.test(level)) return `Level ${level}`
+    if (/^\d+$/.test(level)) return translate('skills.level', { level })
     // Comma-separated fixed list
-    if (/^\d+(?:,\d+)+$/.test(level)) return `Level: ${level.split(',').join(', ')}`
+    if (/^\d+(?:,\d+)+$/.test(level)) return translate('skills.fixedLevels', { levels: level.split(',').join(', ') })
 
     // Pattern: %<every>[>start][<until]
     const m = /^%(\d+)(?:>(\d+))?(?:<(\d+))?$/.exec(level)
-    if (!m) return `Level ${level}`
+    if (!m) return translate('skills.level', { level })
 
     const every = Number(m[1])
-    const start = m[2] != null ? Number(m[2]) : undefined
+    const start = m[2] != null ? Number(m[2]) : 1  // Default to 1 if no start
     const until = m[3] != null ? Number(m[3]) : undefined
 
-    let text = every === 1 ? 'Every level' : `Every ${every} levels`
-    if (start != null && until != null) {
-        text += ` between levels ${start} and ${until}`
-    } else if (start != null) {
-        text += ` from level ${start} onward`
-    } else if (until != null) {
-        text += ` up to level ${until}`
+    // Generate preview of first few levels this pattern matches
+    const previewLevels: number[] = []
+    for (let lvl = start; previewLevels.length < 3 && (until == null || lvl <= until); lvl += every) {
+        previewLevels.push(lvl)
     }
-    return text
+    const preview = previewLevels.join(', ') + (until == null || previewLevels[previewLevels.length - 1] + every <= until ? '...' : '')
+
+    let text: string
+    if (until != null) {
+        text = translate('skills.everyNLevelsBetween', { n: every, start, end: until })
+    } else if (m[2] != null) {
+        // Only show "from level X onward" if start was explicitly specified
+        text = translate('skills.everyNLevelsFrom', { n: every, start })
+    } else {
+        text = every === 1 ? translate('skills.everyLevel') : translate('skills.everyNLevels', { n: every })
+    }
+
+    return <>{text} <span style={{ opacity: 0.6, fontWeight: 400 }}>({preview})</span></>
 }
 
 function parseSelection(level: string): LevelSelection | undefined {
@@ -76,13 +98,17 @@ function parseSelection(level: string): LevelSelection | undefined {
 }
 
 export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skillId: string }) {
+    const { t } = useTranslation()
     const upsertTree = useStore(s => s.upsertTree)
     const skillDef = SKILL_REGISTRY.get(skillId)
     const [formOpen, setFormOpen] = useState(false)
     const [editOpen, setEditOpen] = useState(false)
     const [editTarget, setEditTarget] = useState<string | null>(null)
 
-    if (!skillDef) return <p style={{color: 'crimson'}}>Unknown skill: {skillId}</p>
+    // Memoize validation results to avoid recomputing on each render
+    const skillValidation = useMemo(() => validateSkill(tree, skillId), [tree, skillId])
+
+    if (!skillDef) return <p style={{color: 'crimson'}}>{t('skills.unknownSkill')}: {skillId}</p>
 
     const upgrades = tree.Skills?.[skillId]?.Upgrades ?? {}
 
@@ -98,6 +124,8 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             const key = `%${sel.every}` + (sel.start != null ? `>${sel.start}` : '') + (sel.until != null ? `<${sel.until}` : '')
             next.Skills[skillId].Upgrades[key] = next.Skills[skillId].Upgrades[key] ?? {}
         }
+        // Keep upgrades sorted by first applicable level
+        next.Skills[skillId].Upgrades = sortUpgradesByLevel(next.Skills[skillId].Upgrades)
         upsertTree(next)
     }
 
@@ -134,38 +162,27 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
         // move payload. Overwrite any existing target key to keep behavior simple
         next.Skills[skillId].Upgrades[newKey] = payload
         delete next.Skills[skillId].Upgrades[origLevel]
+        // Re-sort after key change
+        next.Skills[skillId].Upgrades = sortUpgradesByLevel(next.Skills[skillId].Upgrades)
         upsertTree(next)
     }
 
     return (
         <div style={{marginTop: 12, paddingLeft: 8}}>
-            <p style={{fontWeight: 500}}>Upgrades:</p>
-            {Object.entries(upgrades).length === 0 && <p>No upgrades yet.</p>}
+            <p style={{fontWeight: 500}}>{t('skills.levels')}:</p>
+            {Object.entries(upgrades).length === 0 && <p>{t('skills.noUpgrades')}</p>}
 
-            {Object.entries(upgrades).map(([level, value]) => {
-                const parsed = skillDef.schema.safeParse(value)
-                let valid = parsed.success
-                let errors: string | null = null
-                if (!parsed.success) {
-                    errors = parsed.error.errors.map((e: { message: any }) => e.message).join(', ')
-                }
-                // Special rule for cumulative skills: only the first upgrade must define at least one field
-                const CUMULATIVE_SKILLS = new Set([
-                    'Thorns','Wither','Stomp','Slow','Shield','Ride','Arrow','Poison','Pickup','Lightning','Fire','Beacon','Damage','Heal','Knockback','Life','Backpack'
-                ])
-                if (CUMULATIVE_SKILLS.has(skillDef.id)) {
-                    const firstKey = Object.keys(upgrades)[0]
-                    const isFirst = firstKey === level
-                    if (isFirst) {
-                        const v = (value ?? {}) as any
-                        // consider any string-typed, non-empty field as provided
-                        const hasAny = Object.values(v).some(val => typeof val === 'string' ? val.trim() !== '' : Boolean(val))
-                        if (!hasAny) {
-                            valid = false
-                            errors = 'At least one field must be provided for the first level'
-                        }
-                    }
-                }
+            {Object.entries(upgrades)
+                .sort(([a], [b]) => getFirstLevel(a) - getFirstLevel(b))
+                .map(([level, value]) => {
+                // Look up validation errors for this specific upgrade from the centralized validator
+                const levelErrors = skillValidation.errors.filter(e =>
+                    e.path.endsWith(`/${level}`)
+                )
+                const valid = levelErrors.length === 0
+                const errors = levelErrors.length > 0
+                    ? levelErrors.map(e => e.message).join(', ')
+                    : null
 
                 return (
                     <div key={level}
@@ -173,10 +190,10 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
                          title={errors ?? ''}
                     >
                         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                            <strong>{humanizeLevel(level)}</strong>
+                            <strong>{humanizeLevel(level, t)}</strong>
                             <div style={{display:'flex', gap:6}}>
-                                <button className="btn btn--icon" title="Edit upgrade" onClick={() => { setEditTarget(level); setEditOpen(true) }}>✏️</button>
-                                <button className="btn btn--icon" title="Remove upgrade" onClick={() => removeUpgrade(level)}>🗑️</button>
+                                <button className="btn btn--icon" title={t('skills.editUpgrade')} onClick={() => { setEditTarget(level); setEditOpen(true) }}>✏️</button>
+                                <button className="btn btn--icon" title={t('tooltip.delete')} onClick={() => removeUpgrade(level)}>🗑️</button>
                             </div>
                         </div>
                         <skillDef.Editor
@@ -194,19 +211,19 @@ export default function SkillEditor({tree, skillId}: { tree: SkilltreeFile, skil
             })}
 
             <div style={{marginTop: 8}}>
-                <button className="btn" onClick={() => setFormOpen(true)}>＋ Add Upgrade</button>
+                <button className="btn" onClick={() => setFormOpen(true)}>＋ {t('skills.addUpgrade')}</button>
                 <LevelModal
                     open={formOpen}
                     onCancel={() => setFormOpen(false)}
                     onSubmit={(sel) => { addFromSelection(sel); setFormOpen(false) }}
-                    title="Add Upgrade"
+                    title={t('skills.addUpgrade')}
                 />
                 <LevelModal
                     open={editOpen}
                     onCancel={() => { setEditOpen(false); setEditTarget(null) }}
                     onSubmit={(sel) => { if (editTarget) editUpgradeKey(editTarget, sel); setEditOpen(false); setEditTarget(null) }}
                     initial={editTarget ? parseSelection(editTarget) : undefined}
-                    title="Edit Upgrade"
+                    title={t('skills.editUpgrade')}
                 />
             </div>
         </div>

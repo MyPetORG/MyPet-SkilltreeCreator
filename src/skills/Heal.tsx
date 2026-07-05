@@ -15,44 +15,68 @@
  */
 
 /*
-  Heal.tsx — Skill definition and editor for healing amount.
+  Heal.tsx — Skill definition and editor for healing amount and interval.
 
-  Field
+  Fields
   - Health: amount of health restored (signed string, e.g., "+1.5").
+  - Timer: interval in seconds between healing (signed string, e.g., "+55").
 
   UI Notes
   - Uses MyPet "+n" string format and shows cumulative Total across upgrades.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, parsePlusFloat, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, parsePlusFloat, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Health: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional().describe('Health restored'),
+    Timer: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional().describe('Interval between heals in seconds'),
 })
 
 function HealEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
-    const amt = (value?.Health as string) ?? ''
+    const { t } = useTranslation('skills')
+    const v = (value ?? {}) as Record<string, unknown>
+    const healthAmt = (v.Health as string) ?? ''
+    const timerAmt = (v.Timer as string) ?? ''
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
+    const healthData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Health', v.Health as string | undefined, parsePlusFloat)
+    const timerData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Timer', v.Timer as string | undefined, parsePlusFloat)
 
     return (
-        <label>Heal Amount
-            <div style={{display:'flex', alignItems:'center', gap:6}}>
-                <input
-                    value={amt}
-                    onChange={(e) =>
-                        onChange({
-                            ...(value ?? {}),
-                            Health: normalizeSignedInput(e.target.value)
-                        })
-                    }
-                />
-                <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum})</span>
-            </div>
-        </label>
+        <div style={{display: 'flex', gap: 12}}>
+            <label>{t('Heal.fields.health')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={healthAmt}
+                        onChange={(e) =>
+                            onChange({
+                                ...v,
+                                Health: normalizeSignedInput(e.target.value)
+                            })
+                        }
+                    />
+                    <TotalWithBreakdown data={healthData} />
+                </div>
+            </label>
+            <label>{t('Heal.fields.timer')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={timerAmt}
+                        onChange={(e) =>
+                            onChange({
+                                ...v,
+                                Timer: normalizeSignedInput(e.target.value)
+                            })
+                        }
+                    />
+                    <TotalWithBreakdown data={timerData} suffix="s" />
+                </div>
+            </label>
+        </div>
     )
 }
 

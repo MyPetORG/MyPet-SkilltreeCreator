@@ -21,6 +21,7 @@
   - Active: boolean toggle to enable sprinting effect.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -30,6 +31,7 @@ const schema = z.object({
 })
 
 function SprintEditor({value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const active = !!(value as any)?.Active
     return (
         <label>
@@ -37,7 +39,7 @@ function SprintEditor({value, onChange}: EditorProps) {
                 type="checkbox"
                 checked={active}
                 onChange={e => onChange({Active: e.target.checked})}
-            /> Sprint Active
+            /> {t('Sprint.fields.active')}
         </label>
     )
 }

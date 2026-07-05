@@ -21,6 +21,7 @@
   - Active: boolean flag toggling control behavior.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
@@ -30,6 +31,7 @@ const schema = z.object({
 })
 
 function ControlEditor({value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const active = (value?.Active as boolean) ?? false
     return (
         <label>
@@ -37,7 +39,7 @@ function ControlEditor({value, onChange}: EditorProps) {
                 type="checkbox"
                 checked={active}
                 onChange={(e) => onChange({Active: e.target.checked})}
-            /> Control Active
+            /> {t('Control.fields.active')}
         </label>
     )
 }

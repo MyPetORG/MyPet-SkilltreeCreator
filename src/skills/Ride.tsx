@@ -18,28 +18,40 @@
   Ride.tsx — Skill definition and editor for ride speed/jump/fly modifiers.
 
   Fields
+  - Active: boolean flag enabling the ride skill; defaults to false in the plugin, so at least one upgrade must set it true.
   - Speed: movement speed modifier (string "+n" or "+n.n").
   - JumpHeight: jump strength modifier (string "+n" or "+n.n").
   - CanFly: boolean flag enabling flight capability.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown, parsePlusFloat, inheritedBooleanField} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
+    Active: z.boolean().optional(),
     Speed: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
     JumpHeight: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
     CanFly: z.boolean().optional(),
 })
 
-function RideEditor({value, onChange}: EditorProps) {
-    const v = value ?? {}
+function RideEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
+    const v = (value ?? {}) as any
+
+    const speedData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Speed', v?.Speed, parsePlusFloat)
+    const jumpData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'JumpHeight', v?.JumpHeight, parsePlusFloat)
+
+    const inheritedActive = inheritedBooleanField(treeId, skillId, upgradeKey, 'Active')
+    const effectiveActive = typeof v.Active === 'boolean' ? v.Active : inheritedActive
 
     const handleChange = (field: string, val: string | boolean) => {
-        const updated = {...v, [field]: val}
-        // Remove empty string fields so they don't appear in JSON output
-        if (typeof val === 'string' && val === '') {
+        const updated = {...v, [field]: field === 'CanFly' ? val : normalizeSignedInput(val as string)}
+        // Remove empty/undefined fields so they don't appear in JSON output
+        if (updated[field] === undefined || updated[field] === '') {
             delete updated[field]
         }
         // Remove CanFly if unchecked
@@ -49,26 +61,52 @@ function RideEditor({value, onChange}: EditorProps) {
         onChange(updated)
     }
 
+    const handleActiveChange = (checked: boolean) => {
+        const updated = {...v}
+        // Only persist Active when it differs from what would be inherited from
+        // earlier upgrades; otherwise omit so the JSON stays minimal and tracks
+        // the inherited state automatically.
+        if (checked === inheritedActive) {
+            delete updated.Active
+        } else {
+            updated.Active = checked
+        }
+        onChange(updated)
+    }
+
     return (
         <div style={{display: 'flex', gap: 12, alignItems: 'center'}}>
-            <label>Speed
+            <label>
                 <input
-                    value={(v.Speed as string) ?? ''}
-                    onChange={(e) => handleChange('Speed', e.target.value)}
-                />
+                    type="checkbox"
+                    checked={effectiveActive}
+                    onChange={(e) => handleActiveChange(e.target.checked)}
+                /> {t('Ride.fields.active')}
             </label>
-            <label>Jump Height
-                <input
-                    value={(v.JumpHeight as string) ?? ''}
-                    onChange={(e) => handleChange('JumpHeight', e.target.value)}
-                />
+            <label>{t('Ride.fields.speed')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={v.Speed ?? ''}
+                        onChange={(e) => handleChange('Speed', e.target.value)}
+                    />
+                    <TotalWithBreakdown data={speedData} />
+                </div>
+            </label>
+            <label>{t('Ride.fields.jumpHeight')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={v.JumpHeight ?? ''}
+                        onChange={(e) => handleChange('JumpHeight', e.target.value)}
+                    />
+                    <TotalWithBreakdown data={jumpData} />
+                </div>
             </label>
             <label>
                 <input
                     type="checkbox"
-                    checked={!!(v.CanFly as boolean)}
+                    checked={!!v.CanFly}
                     onChange={(e) => handleChange('CanFly', e.target.checked)}
-                /> Can Fly
+                /> {t('Ride.fields.canFly')}
             </label>
         </div>
     )

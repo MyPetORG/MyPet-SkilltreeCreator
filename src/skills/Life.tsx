@@ -24,22 +24,25 @@
   - Input stored as signed string, with cumulative Total shown across upgrades.
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput, parsePlusFloat, sumUpgradesForField} from './core/utils'
+import {normalizeSignedInput, parsePlusFloat, sumUpgradesForFieldWithBreakdown} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Health: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional().describe('Health bonus per upgrade'),
 })
 
 function LifeEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const hp = (value?.Health as string) ?? ''
 
-    const sum = sumUpgradesForField(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
+    const healthData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
 
     return (
-        <label>Health Bonus
+        <label>{t('Life.fields.health')}
             <div style={{display:'flex', alignItems:'center', gap:6}}>
                 <input
                     value={hp}
@@ -47,7 +50,7 @@ function LifeEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps)
                         onChange({...(value ?? {}), Health: normalizeSignedInput(e.target.value)})
                     }
                 />
-                <span style={{fontSize:12, color:'#666'}}>(Total: {sum >= 0 ? '+' : ''}{sum})</span>
+                <TotalWithBreakdown data={healthData} />
             </div>
         </label>
     )

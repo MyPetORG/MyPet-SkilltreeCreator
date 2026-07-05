@@ -23,10 +23,12 @@
   - Projectile: projectile type (e.g., "Arrow", "Snowball").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import {z} from 'zod'
 import {defineSkill} from './core/contracts'
 import type {EditorProps} from './core/contracts'
-import {normalizeSignedInput} from './core/utils'
+import {normalizeSignedInput, sumUpgradesForFieldWithBreakdown, parsePlusFloat} from './core/utils'
+import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Damage: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional(),
@@ -36,20 +38,31 @@ const schema = z.object({
 
 const commonProjectiles = ['Arrow', 'Snowball', 'SmallFireball', 'LlamaSpit']
 
-function RangedEditor({value, onChange}: EditorProps) {
+function RangedEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
+    const { t } = useTranslation('skills')
     const v = (value ?? {}) as any
+
+    const damageData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Damage', v?.Damage, parsePlusFloat)
+    const rateData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Rate', v?.Rate)
+
     return (
         <div style={{display: 'grid', gap: 12}}>
             <div style={{display: 'flex', gap: 12}}>
-                <label>Damage
-                    <input value={v.Damage ?? ''} onChange={e => onChange({...v, Damage: normalizeSignedInput(e.target.value)})}/>
+                <label>{t('Ranged.fields.damage')}
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input value={v.Damage ?? ''} onChange={e => onChange({...v, Damage: normalizeSignedInput(e.target.value)})}/>
+                        <TotalWithBreakdown data={damageData} />
+                    </div>
                 </label>
-                <label>Rate (cooldown or speed)
-                    <input value={v.Rate ?? ''} onChange={e => onChange({...v, Rate: normalizeSignedInput(e.target.value)})}/>
+                <label>{t('Ranged.fields.rate')}
+                    <div style={{display:'flex', alignItems:'center', gap:6}}>
+                        <input value={v.Rate ?? ''} onChange={e => onChange({...v, Rate: normalizeSignedInput(e.target.value)})}/>
+                        <TotalWithBreakdown data={rateData} />
+                    </div>
                 </label>
             </div>
             <div>
-                <label>Projectile
+                <label>{t('Ranged.fields.projectile')}
                     <input
                         list="projectiles"
                         value={v.Projectile ?? ''}
