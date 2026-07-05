@@ -48,6 +48,37 @@ export function getFirstLevel(level: string): number {
 }
 
 /**
+ * Extract the last (highest) level number from a level key.
+ * Used to compute cumulative totals that include all triggers of an upgrade.
+ *
+ * Examples:
+ *   "10"        → 10
+ *   "1,5,10"    → 10
+ *   "%3>2<74"   → 74  (every 3 levels from 2 until 74)
+ *   "%2"        → Infinity  (every 2 levels, unbounded)
+ *   "%2>5"      → Infinity  (every 2 levels from 5, unbounded)
+ */
+export function getLastLevel(level: string): number {
+    // Single fixed level
+    if (/^\d+$/.test(level)) return Number(level)
+
+    // Comma-separated list — return the maximum
+    if (/^\d+(?:,\d+)+$/.test(level)) {
+        return Math.max(...level.split(',').map(Number))
+    }
+
+    // Dynamic pattern: %<every>[>start][<until]
+    const m = /^%(\d+)(?:>(\d+))?(?:<(\d+))?$/.exec(level)
+    if (m) {
+        // If until is specified, use it; otherwise unbounded
+        return m[3] != null ? Number(m[3]) : Infinity
+    }
+
+    // Fallback for unknown formats
+    return Infinity
+}
+
+/**
  * Calculate how many times an upgrade triggers by (and including) a given target level.
  *
  * Examples (targeting level 15):
@@ -143,8 +174,9 @@ export function sumUpgradesForFieldWithBreakdown(
     const tree = state.trees.find(t => t.ID === treeId)
     const upgrades = tree?.Skills?.[skillId]?.Upgrades ?? {}
 
-    // The target level is the first level where the current upgrade applies
-    const targetLevel = getFirstLevel(upgradeKey)
+    // The target level is the last level where the current upgrade applies,
+    // so the total includes all triggers of this upgrade
+    const targetLevel = getLastLevel(upgradeKey)
 
     const breakdown: UpgradeBreakdownItem[] = []
     let total = 0
@@ -195,6 +227,43 @@ function humanizeLevelKey(level: string): string {
         text += ` from ${start}`
     }
     return text
+}
+
+/**
+ * Returns the value of a boolean field as inherited from upgrades that strictly
+ * precede the given upgrade (by first-level), excluding the upgrade itself.
+ *
+ * Mirrors the plugin's "last-set wins" modifier semantics for boolean fields like
+ * Ride's `Active`: once any earlier upgrade sets it, later upgrades inherit that
+ * value until something explicitly overrides it. Returns false when no preceding
+ * upgrade sets the field.
+ */
+export function inheritedBooleanField(
+    treeId: string,
+    skillId: string,
+    upgradeKey: string,
+    field: string,
+): boolean {
+    const state = useStore.getState()
+    const tree = state.trees.find(t => t.ID === treeId)
+    const upgrades = tree?.Skills?.[skillId]?.Upgrades ?? {}
+
+    const myFirstLevel = getFirstLevel(upgradeKey)
+
+    const sortedEntries = Object.entries(upgrades).sort(
+        ([a], [b]) => getFirstLevel(a) - getFirstLevel(b)
+    )
+
+    let inherited = false
+    for (const [k, val] of sortedEntries) {
+        if (k === upgradeKey) continue
+        if (getFirstLevel(k) >= myFirstLevel) continue
+        const fieldVal = (val as any)?.[field]
+        if (typeof fieldVal === 'boolean') {
+            inherited = fieldVal
+        }
+    }
+    return inherited
 }
 
 export function sumUpgradesForField(

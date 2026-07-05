@@ -60,7 +60,8 @@
   "Heal": {
     "label": "Heal",
     "fields": {
-      "health": "Health (+X)"
+      "health": "Health (+X)",
+      "timer": "Timer (s)"
     }
   },
   "Knockback": {
@@ -107,6 +108,7 @@
   "Ride": {
     "label": "Ride",
     "fields": {
+      "active": "Active",
       "speed": "Speed",
       "jumpHeight": "Jump Height",
       "canFly": "Can Fly"

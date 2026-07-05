@@ -15,10 +15,11 @@
  */
 
 /*
-  Heal.tsx — Skill definition and editor for healing amount.
+  Heal.tsx — Skill definition and editor for healing amount and interval.
 
-  Field
+  Fields
   - Health: amount of health restored (signed string, e.g., "+1.5").
+  - Timer: interval in seconds between healing (signed string, e.g., "+55").
 
   UI Notes
   - Uses MyPet "+n" string format and shows cumulative Total across upgrades.
@@ -33,29 +34,49 @@ import TotalWithBreakdown from '../components/common/TotalWithBreakdown'
 
 const schema = z.object({
     Health: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional().describe('Health restored'),
+    Timer: z.string().regex(/^\+?-?\d+(\.\d+)?$/).optional().describe('Interval between heals in seconds'),
 })
 
 function HealEditor({treeId, skillId, upgradeKey, value, onChange}: EditorProps) {
     const { t } = useTranslation('skills')
-    const amt = (value?.Health as string) ?? ''
+    const v = (value ?? {}) as Record<string, unknown>
+    const healthAmt = (v.Health as string) ?? ''
+    const timerAmt = (v.Timer as string) ?? ''
 
-    const healthData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Health', (value as any)?.Health as string | undefined, parsePlusFloat)
+    const healthData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Health', v.Health as string | undefined, parsePlusFloat)
+    const timerData = sumUpgradesForFieldWithBreakdown(treeId, skillId, upgradeKey, 'Timer', v.Timer as string | undefined, parsePlusFloat)
 
     return (
-        <label>{t('Heal.fields.health')}
-            <div style={{display:'flex', alignItems:'center', gap:6}}>
-                <input
-                    value={amt}
-                    onChange={(e) =>
-                        onChange({
-                            ...(value ?? {}),
-                            Health: normalizeSignedInput(e.target.value)
-                        })
-                    }
-                />
-                <TotalWithBreakdown data={healthData} />
-            </div>
-        </label>
+        <div style={{display: 'flex', gap: 12}}>
+            <label>{t('Heal.fields.health')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={healthAmt}
+                        onChange={(e) =>
+                            onChange({
+                                ...v,
+                                Health: normalizeSignedInput(e.target.value)
+                            })
+                        }
+                    />
+                    <TotalWithBreakdown data={healthData} />
+                </div>
+            </label>
+            <label>{t('Heal.fields.timer')}
+                <div style={{display:'flex', alignItems:'center', gap:6}}>
+                    <input
+                        value={timerAmt}
+                        onChange={(e) =>
+                            onChange({
+                                ...v,
+                                Timer: normalizeSignedInput(e.target.value)
+                            })
+                        }
+                    />
+                    <TotalWithBreakdown data={timerData} suffix="s" />
+                </div>
+            </label>
+        </div>
     )
 }
 
