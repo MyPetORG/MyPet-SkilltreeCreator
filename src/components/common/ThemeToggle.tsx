@@ -21,10 +21,12 @@
   Icon reflects the current theme (sun in dark mode = "click for light").
 */
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { useTheme } from '../../lib/useTheme'
 
 /** Theme toggle button showing sun/moon icon. */
 export default function ThemeToggle() {
+    const { t } = useTranslation()
     const [currentTheme, , setPreference] = useTheme()
 
     const handleClick = () => {
@@ -34,7 +36,7 @@ export default function ThemeToggle() {
 
     // Sun shown in dark mode (click to go light), moon in light mode (click to go dark)
     const icon = currentTheme === 'dark' ? '☀️' : '🌙'
-    const title = currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+    const title = currentTheme === 'dark' ? t('tooltip.switchToLight') : t('tooltip.switchToDark')
 
     return (
         <button

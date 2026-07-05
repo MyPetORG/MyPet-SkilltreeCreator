@@ -40,16 +40,15 @@ export default function LanguageSelector() {
   const [isLoadingLanguages, setIsLoadingLanguages] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
-  // Fetch available languages on first open
+  // Fetch available languages on mount
   useEffect(() => {
-    if (!isOpen) return
     if (availableLanguages.length > 1) return // Already fetched
 
     setIsLoadingLanguages(true)
     CrowdinOTA.getAvailableLanguages()
       .then(setAvailableLanguages)
       .finally(() => setIsLoadingLanguages(false))
-  }, [isOpen, availableLanguages.length])
+  }, [availableLanguages.length])
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -86,7 +85,15 @@ export default function LanguageSelector() {
     }
   }
 
-  const currentLangInfo = getLanguageInfo(language)
+  // Normalize language code - use base language if exact variant isn't available
+  // e.g., en-US → en (if en-US not in list), but pt-BR stays pt-BR (if it's in list)
+  const baseLang = language.split('-')[0]
+  const normalizedLanguage = availableLanguages.includes(language)
+    ? language
+    : availableLanguages.includes(baseLang)
+      ? baseLang
+      : language
+  const currentLangInfo = getLanguageInfo(normalizedLanguage)
 
   return (
     <div ref={ref} className="language-selector-container">
@@ -103,7 +110,7 @@ export default function LanguageSelector() {
           <span className="language-selector-loading">...</span>
         ) : (
           <span className="language-selector-code">
-            {language.toUpperCase()}
+            {normalizedLanguage.toUpperCase()}
           </span>
         )}
       </button>
@@ -117,7 +124,7 @@ export default function LanguageSelector() {
           ) : (
             availableLanguages.map((lang) => {
               const info = getLanguageInfo(lang)
-              const isSelected = lang === language
+              const isSelected = lang === normalizedLanguage
               return (
                 <button
                   key={lang}
