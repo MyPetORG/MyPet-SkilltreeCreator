@@ -11,7 +11,7 @@
     "e2e": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47",
+    "@playwright/test": "^1.57",
     "@types/node": "^25.0.3",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
