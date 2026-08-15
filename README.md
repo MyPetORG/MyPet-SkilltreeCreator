@@ -1,5 +1,8 @@
 # MyPet Skilltree Creator
 
+> [!WARNING]
+> **MyPet Skilltree Creator (along with MyPet 3.x) has reached end of life** and no longer receives substantive updates. Please migrate to [MyPet v4](https://builtbybit.com/resources/mypet-4.115339/) and the new MyPet Configurator (`/mypet editor`)
+
 A modern, browser‑based editor for building and maintaining MyPet skilltrees.
 
 This app provides a visual UI for editing .st.json files used by the MyPet plugin, with live validation, autosave, and convenient import/export. It runs fully in your browser (no server required) and can be built and hosted as a static site.
